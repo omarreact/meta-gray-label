@@ -153,14 +153,13 @@ menuLinks.forEach(function (link) {
     link.addEventListener("click", function (e) {
         e.stopPropagation(); // prevent the event from bubbling up to parent elements
         var element = link.parentElement;
-        if (parseInt(window.innerWidth, 10) < 1200) {
-            if (element.classList.contains("open")) {
-                element.classList.remove("open");
-                element.querySelector("ul").style.display = "none";
-            } else {
-                element.classList.add("open");
-                element.querySelector("ul").style.display = "block";
-            }
+        var submenu = element.querySelector(":scope > .submenu");
+        if (parseInt(window.innerWidth, 10) < 1200 && submenu) {
+            e.preventDefault();
+            var expanded = !element.classList.contains("open");
+            element.classList.toggle("open", expanded);
+            submenu.style.display = expanded ? "block" : "none";
+            link.setAttribute("aria-expanded", String(expanded));
         }
     });
 });
