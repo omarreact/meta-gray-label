@@ -204,36 +204,7 @@ AOS.init();
 
 // =================== custom trk slider js here =================== //
 
-// component slider here
-const Partner = new Swiper('.partner__slider', {
-    spaceBetween: 24,
-    grabCursor: true,
-    loop: true,
-    slidesPerView: 2,
-    breakpoints: {
-        576: {
-            slidesPerView: 3,
-        },
-        768: {
-            slidesPerView: 4,
-        },
-        992: {
-            slidesPerView: 5,
-            spaceBetween: 15,
-        },
-        1200: {
-            slidesPerView: 6,
-            spaceBetween: 25,
-        },
-    },
-    autoplay: {
-        delay: 1,
-        disableOnInteraction: true,
-    },
-    speed: 2000,
-});
-
-
+// Meta Grey Label's capability links are ordinary accessible links.
 
 // blog  slider here
 const blog = new Swiper('.blog__slider', {
@@ -296,50 +267,6 @@ const testimonial = new Swiper('.testimonial__slider', {
     },
 });
 
-
-// testimonial slider 2
-const testimonial2 = new Swiper('.testimonial__slider2', {
-    spaceBetween: 24,
-    grabCursor: true,
-    loop: true,
-    slidesPerView: 1,
-    breakpoints: {
-        576: {
-            slidesPerView: 1,
-        },
-        768: {
-            slidesPerView: 2,
-        },
-        992: {
-            slidesPerView: 3,
-        },
-        1200: {
-            slidesPerView: 3,
-            spaceBetween: 25,
-        },
-    },
-
-    autoplay: true,
-    speed: 500,
-
-    navigation: {
-        nextEl: ".testimonial__slider-next",
-        prevEl: ".testimonial__slider-prev",
-    },
-});
-
-
-
-// testimonial slider
-
-const testimonial3 = new Swiper('.testimonial__slider3', {
-    spaceBetween: 24,
-    grabCursor: true,
-    loop: true,
-    slidesPerView: 1,
-    autoplay: true,
-    speed: 500,
-});
 
 // roadmap slider 
 const roadmapSlider = new Swiper('.roadmap__slider', {
