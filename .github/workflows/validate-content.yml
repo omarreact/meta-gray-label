@@ -61,8 +61,11 @@ jobs:
           php -l patterns/brokerage-hero.php
           php -l patterns/brokerage-cta.php
           php -l tests/wordpress-renderer-smoke.php
+          php -l tests/wordpress-assets-smoke.php
       - name: Smoke-test PHP rendering across 52 page designs
         run: php tests/wordpress-renderer-smoke.php
+      - name: Smoke-test native-only assets, WordPress metadata and SEO hooks
+        run: php tests/wordpress-assets-smoke.php
       - name: Test WordPress theme package generation
         run: |
           node scripts/package-wordpress.mjs --write
