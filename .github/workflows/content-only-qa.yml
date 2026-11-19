@@ -56,7 +56,7 @@ jobs:
           assert len(docs)==48 and all(p['status']=='available' for p in docs)
           sitemap=Path('sitemap.xml').read_text()
           for item in removed:assert ('meta-gray-label/'+item+'<') not in sitemap
-          print('PASS all 54 HTML files, source-only records, local routes and preserved CSS')
+          print('PASS all 54 HTML files, normalized links, source-only records and preserved CSS')
           PY
       - name: Browser smoke test homepage and nested pages
         shell: bash
