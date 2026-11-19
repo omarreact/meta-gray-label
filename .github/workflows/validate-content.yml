@@ -108,6 +108,19 @@ jobs:
         run: npx --yes @wordpress/env run cli wp eval-file wp-content/themes/meta-grey-label/qa-runtime.php
       - name: Assert actual HTTP pages and conditional frontend assets
         run: node tests/wp-http.mjs
+      - name: Browser validation and representative desktop/mobile screenshots
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install chromium
+          node tests/wp-browser.mjs
+      - name: Publish disposable staging visual QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordpress-desktop-mobile-screenshots
+          path: tmp/wp-browser-screens/
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Shut down disposable WordPress environment
         if: always()
         run: npx --yes @wordpress/env stop || true
