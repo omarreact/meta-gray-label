@@ -185,26 +185,111 @@ function homePageMarkup(entry, config, homepageTemplate, sequence) {
   let n = 0;
   let hasH1 = false;
   let blockCount = 0;
+  function groupStart(cls) {
+    parts.push('<!-- wp:group' + jsonAttr({ className:cls,layout:{type:"constrained"} }) +
+      ' -->\n<div class="wp-block-group ' + cls + '">');
+  }
+  function groupEnd() { parts.push('</div><!-- /wp:group -->'); }
+  function renderCoreButton(label,url) {
+    parts.push('<!-- wp:buttons --><div class="wp-block-buttons">');
+    parts.push('<!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' +
+      safeText(url) + '">' + safeText(label) + '</a></div><!-- /wp:button -->');
+    parts.push('</div><!-- /wp:buttons -->');
+    blockCount++;
+  }
+  function intro(sectionBody) {
+    const h=(sectionBody.match(/<h2\b[^>]*>([\s\S]*?)<\/h2\s*>/i)||[])[1];
+    const p=(sectionBody.match(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/i)||[])[1];
+    if(!h || !p)throw new Error("Missing native section heading or intro copy");
+    parts.push(heading(htmlText(h),2),paragraph(htmlText(p)));
+    blockCount+=2;
+  }
+  function faqSection(body) {
+    intro(body);
+    const questions=[...body.matchAll(/<span\b[^>]*class=["'][^"']*accordion__button-content[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi)]
+      .map(m=>htmlText(m[1])).filter(Boolean);
+    const paras=[...body.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)].map(m=>htmlText(m[1])).filter(Boolean);
+    const answers=paras.slice(1);
+    if(questions.length!==6 || answers.length!==6) {
+      throw new Error("Home FAQ must preserve 6 actual questions and answers");
+    }
+    groupStart("mgl-native-faq-stack");
+    for(let i=0;i<questions.length;i++){
+      const q=questions[i],a=answers[i];
+      parts.push('<!-- wp:details' + jsonAttr({summary:q}) + ' -->\n<details class="wp-block-details">' +
+        '<summary>' + safeText(q) + '</summary>' + paragraph(a) + '</details>\n<!-- /wp:details -->');
+      blockCount+=2;
+    }
+    groupEnd();
+  }
+  function servicesSection(body) {
+    intro(body);
+    const cards=[...body.matchAll(/<h5\b[^>]*>([\s\S]*?)<\/h5\s*>[\s\S]*?<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)];
+    if(cards.length!==6)throw new Error("Expected six source services");
+    groupStart("mgl-native-service-grid");
+    for(let i=0;i<cards.length;i++){
+      const content=cards[i][1], p=htmlText(cards[i][2]);
+      const label=htmlText(content);
+      const href=(content.match(/<a\b[^>]*href=["']([^"']+)["']/i)||[])[1];
+      if(!href || !label || !p)throw new Error("Missing service card data");
+      const dest=nativeUrl(href);
+      groupStart("mgl-native-service-card mgl-native-service-card--"+(i+1));
+      parts.push('<!-- wp:heading {"level":3} --><h3 class="wp-block-heading"><a href="' +
+        safeText(dest) + '">' + safeText(label) + '</a></h3><!-- /wp:heading -->');
+      parts.push(paragraph(p));
+      groupEnd();
+      blockCount+=2;
+    }
+    groupEnd();
+  }
+  function modelsSection(body) {
+    intro(body);
+    const names=[...body.matchAll(/<h6\b[^>]*>([\s\S]*?)<\/h6\s*>/gi)].map(m=>htmlText(m[1]));
+    const lists=[...body.matchAll(/<ul\b[^>]*class=["'][^"']*pricing__list[^"']*["'][^>]*>([\s\S]*?)<\/ul\s*>/gi)]
+      .map(m=>[...m[1].matchAll(/<li\b[^>]*>([\s\S]*?)<\/li\s*>/gi)].map(x=>htmlText(x[1])));
+    if(names.length!==3||lists.length!==3)throw new Error("Expected all three source pricing cards");
+    groupStart("mgl-native-pricing-grid");
+    for(let i=0;i<3;i++){
+      groupStart("mgl-native-pricing-card mgl-native-pricing-card--"+(i+1));
+      parts.push(heading(names[i],3),paragraph("Custom Scope","mgl-native-pricing-scope"));
+      parts.push('<!-- wp:list --><ul class="wp-block-list">');
+      for(const li of lists[i]){
+        parts.push('<!-- wp:list-item --><li>'+safeText(li)+'</li><!-- /wp:list-item -->');
+        blockCount++;
+      }
+      parts.push('</ul><!-- /wp:list -->');
+      renderCoreButton("Explore Model","#models");
+      groupEnd();
+      blockCount+=2;
+    }
+    groupEnd();
+  }
   for (const [index,section] of sections.entries()) {
     const id = (section[1].match(/\bid\s*=\s*["']([^"']+)["']/i)||[])[1];
     const cls = "mgl-native-section mgl-native-section--" + (index % 5) +
-      (index === 0 ? " mgl-native-section--hero" : " mgl-native-section--editorial");
+      (index === 0 ? " mgl-native-section--hero" : " mgl-native-section--editorial") +
+      " mgl-native-home-" + (id || "section-" + index);
     const options = { tagName: "section", className: cls, layout: { type: "constrained" } };
     if (id) options.anchor = id;
     parts.push("<!-- wp:group" + jsonAttr(options) + " -->\n<section" +
       (id ? ' id="' + safeText(id) + '"' : "") + ' class="wp-block-group ' + cls + '">');
-    const items = [...section[2].matchAll(/<(h[1-6]|p)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi)];
-    for (const item of items) {
-      const text = htmlText(item[2]);
-      if (!text || text.length < 2) continue;
-      if (item[1].startsWith("h")) {
-        const level = Number(item[1].slice(1));
-        if (level===1) hasH1 = true;
-        parts.push(heading(text, level));
-      } else {
-        parts.push(paragraph(text));
+    if(id==="faq") faqSection(section[2]);
+    else if(id==="models") modelsSection(section[2]);
+    else if(id==="services") servicesSection(section[2]);
+    else {
+      const items = [...section[2].matchAll(/<(h[1-6]|p)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi)];
+      for (const item of items) {
+        const text = htmlText(item[2]);
+        if (!text || text.length < 2) continue;
+        if (item[1].startsWith("h")) {
+          const level = Number(item[1].slice(1));
+          if (level===1) hasH1 = true;
+          parts.push(heading(text, level));
+        } else {
+          parts.push(paragraph(text));
+        }
+        blockCount++;
       }
-      blockCount++;
     }
     const buttons = [];
     for (const anchor of section[2].matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
@@ -216,7 +301,7 @@ function homePageMarkup(entry, config, homepageTemplate, sequence) {
       buttons.push([label, href.startsWith("#") || /^(?:mailto:|https?:)/i.test(href) ? href : nativeUrl(href)]);
       if (buttons.length>=4) break;
     }
-    if (buttons.length) {
+    if (buttons.length && !["models","services"].includes(id)) {
       parts.push('<!-- wp:buttons --><div class="wp-block-buttons">');
       for (const [label,url] of buttons) {
         parts.push('<!-- wp:button --><div class="wp-block-button">' +

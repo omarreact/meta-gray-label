@@ -82,7 +82,7 @@ jobs:
   wordpress-integration:
     name: Real WordPress staging (isolated Docker)
     needs: verify
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4

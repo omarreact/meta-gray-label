@@ -45,3 +45,87 @@
 .mgl-native-section--directory p a { display:block; width:fit-content; padding:12px 18px; border-radius:10px; border:1px solid #d7e9e6; font-weight:650; text-decoration:none; color:#09645d; }
 .mgl-native-section--directory p a:hover { border-color:#0eab86; background:#effaf7; }
 .mgl-native-page--missing .mgl-native-section--hero { min-height:50vh; }
+
+
+/* Home page sections have independent compositions, never generic Bootstrap classes. */
+.mgl-native-page--home .mgl-native-home-home {
+  background-image:linear-gradient(110deg,rgba(4,31,47,.96),rgba(5,82,90,.87)),url("../images/banner/home1/bg.png");
+  background-position:center;
+  background-size:cover;
+}
+.mgl-native-page--home .mgl-native-home-about {
+  background:#f3faf8 url("../images/about/1.png") no-repeat right 8% center;
+  background-size:min(34vw,430px) auto;
+  padding-right:max(24px,34vw);
+}
+.mgl-native-page--home .mgl-native-home-benefits {
+  background:linear-gradient(140deg,#0b2638,#114b56);
+  color:#edfafa;
+}
+.mgl-native-page--home .mgl-native-home-benefits h6 {
+  display:block; padding:14px 18px; border-left:3px solid #4be6c1;
+  background:rgba(255,255,255,.08); border-radius:0 8px 8px 0;
+}
+.mgl-native-page--home .mgl-native-home-services { background:#f4faf8; }
+.mgl-native-home-services .mgl-native-service-grid {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;
+  max-width:1200px;
+}
+.mgl-native-home-services .mgl-native-service-card {
+  min-width:0; padding:27px;
+  border:1px solid #d6ebe5;border-radius:18px;background:#fff;
+  box-shadow:0 8px 22px rgba(8,48,54,.05);
+}
+.mgl-native-home-services .mgl-native-service-card::before {
+  content:"";display:block;width:75px;height:75px;
+  background-size:contain;background-repeat:no-repeat;margin-bottom:12px;
+}
+.mgl-native-service-card--1::before{background-image:url("../images/service/1.png")}
+.mgl-native-service-card--2::before{background-image:url("../images/service/2.png")}
+.mgl-native-service-card--3::before{background-image:url("../images/service/3.png")}
+.mgl-native-service-card--4::before{background-image:url("../images/service/4.png")}
+.mgl-native-service-card--5::before{background-image:url("../images/service/5.png")}
+.mgl-native-service-card--6::before{background-image:url("../images/service/6.png")}
+.mgl-native-home-services .mgl-native-service-card h3{font-size:1.2rem}
+.mgl-native-home-services .mgl-native-service-card h3 a{color:#0b5260}
+.mgl-native-home-roadmap{background:#fff;border-inline-start:9px solid #00b38f}
+.mgl-native-home-roadmap h3{padding-left:20px;border-left:3px solid #00d094}
+.mgl-native-home-models{background:#ebf8f4}
+.mgl-native-home-models .mgl-native-pricing-grid{
+  display:grid;max-width:1200px;gap:22px;grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.mgl-native-home-models .mgl-native-pricing-card{
+  min-width:0;background:#fff;border-radius:16px;padding:32px 26px;
+  box-shadow:0 14px 30px rgba(7,66,64,.09);border:1px solid #cae4dc;
+}
+.mgl-native-home-models .mgl-native-pricing-card--2{background:#073a42;color:#f2fffc;transform:translateY(-10px)}
+.mgl-native-pricing-card--2 h3{color:#f2fffc}
+.mgl-native-home-models .mgl-native-pricing-card li{margin-block:13px}
+.mgl-native-home-models .mgl-native-pricing-card .wp-block-button__link{
+  background:#00a97d;color:#fff;text-decoration:none;
+}
+.mgl-native-home-capabilities{background:#0b2837;color:#fff}
+.mgl-native-home-capabilities h3{border-bottom:1px solid #347b7c;padding-bottom:14px}
+.mgl-native-home-resources{background:#fff;border-block:1px solid #cdebe4}
+.mgl-native-home-resources h3{padding:16px;border-inline-start:4px solid #00ae88;background:#f0faf7}
+.mgl-native-home-why{background:linear-gradient(115deg,#eaf8f4,#fff);border-top:1px solid #cbe4de}
+.mgl-native-home-faq{background:#f4faf8}
+.mgl-native-home-faq .mgl-native-faq-stack{display:grid;gap:12px;max-width:870px}
+.mgl-native-home-faq .wp-block-details{background:#fff;border:1px solid #d4e7e2;border-radius:12px;padding:19px 24px}
+.mgl-native-home-faq .wp-block-details summary{font-weight:700;color:#073c44;cursor:pointer;list-style:revert}
+.mgl-native-home-faq .wp-block-details summary:focus-visible{outline:3px solid #00bc91;outline-offset:4px}
+.mgl-native-home-contact{background:linear-gradient(130deg,#064b47,#078c73);color:#fff;text-align:center}
+.mgl-native-home-contact>*{margin-inline:auto}
+@media(max-width:990px){
+  .mgl-native-home-services .mgl-native-service-grid,
+  .mgl-native-home-models .mgl-native-pricing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mgl-native-page--home .mgl-native-home-about{background-image:none;padding-right:max(22px,calc((100vw - 720px)/2))}
+}
+@media(max-width:680px){
+  .mgl-native-home-services .mgl-native-service-grid,
+  .mgl-native-home-models .mgl-native-pricing-grid{grid-template-columns:minmax(0,1fr)}
+  .mgl-native-home-models .mgl-native-pricing-card--2{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .mgl-native-page--home .mgl-native-pricing-card{transition:none}
+}
