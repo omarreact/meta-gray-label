@@ -1,0 +1,117 @@
+name: Temporary original-branding staging QA
+on:
+  push:
+    branches:
+      - fix/restore-mt5-gl-original-branding-20261119
+    paths:
+      - .github/workflows/restore-original-branding-qa.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original asset hashes, scripts and preserved CSS
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object assets/css/style.css)" = "90b42525c97a20e380ca4c01edea60d3d3eb22d0"
+          while read -r sha path; do
+            test "$(git hash-object "$path")" = "$sha" || { echo "Asset mismatch: $path"; exit 1; }
+            echo "MATCH $path"
+          done <<'FILES'
+          1893bfc43ee49b24f1bd945d2d8ed20a9ab8eed1 media/branding/logo-light.svg
+          956d1f68d9dc9cd03f85080d9336c139dd453302 media/branding/logo-dark.svg
+          c0a349bd69e260cdde7d044d6bec939b0a8520ac media/branding/favicon.svg
+          f61c9868c536c66f39e16fa6f91bcf5f7bd77b3f media/branding/favicon-32.png
+          dd650fe6c5bb34bd7c7c6159da0003e1e90ff76b media/branding/apple-touch-icon.png
+          3ec04bddab381c692e9cf3e0ffbbf36d273e6e3d media/branding/icon-192.png
+          104efe990f9638f314caa89b3db26210039c634e media/branding/icon-512.png
+          e4da56852514a8c5b78d64f1fe66e9d0e443d858 media/branding/logo-symbol.svg
+          FILES
+          node --check assets/js/custom.js
+          node --check assets/js/includes.js
+          grep -q 'mgl-share-whatsapp' header.html
+          grep -q 'mgl-share-telegram' footer.html
+          grep -q 'background: #00c99b' index.html
+          git -c core.whitespace=cr-at-eol diff --check HEAD~2..HEAD || true
+      - name: Browser smoke tests in both themes and responsive widths
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          src = Path('index.html').read_text()
+          probe = r"""
+          <script>
+          window.addEventListener('load', () => {
+            setTimeout(() => {
+              const $ = s => document.querySelector(s);
+              const logo=$('img[data-brand-logo]'),footer=$('img[data-brand-footer]');
+              const tab=$('#site-favicon'),large=$('#site-icon-large'),apple=$('#site-apple-icon');
+              const toggle=$('#btnSwitch');
+              const r=e=>{const t=e?.getBoundingClientRect();return t?{width:t.width,height:t.height,x:t.x,right:t.right}:null;};
+              const result={
+                viewport:innerWidth,theme:document.documentElement.getAttribute('data-bs-theme'),
+                logo:logo?.getAttribute('src'), logoReady:!!logo?.complete&&logo.naturalWidth>0,
+                headerLogoRect:r(logo), footer:footer?.getAttribute('src'),footerReady:!!footer?.complete&&footer.naturalWidth>0,
+                favicon:tab?.getAttribute('href'), largeIcon:large?.getAttribute('href'), appleIcon:apple?.getAttribute('href'),
+                preloader:$('div.preloader img')?.getAttribute('src'),
+                preloaderReady:!!$('div.preloader img')?.complete&&$('div.preloader img').naturalWidth>0,
+                toggleIcon:$('#btnSwitch img')?.getAttribute('src'),toggleRect:r(toggle),
+                toggleColor:getComputedStyle(toggle).backgroundColor,
+                footerLinks:document.querySelectorAll('footer .mgl-share-icon').length,
+                headerLinks:document.querySelectorAll('header .mgl-social-link').length,
+                sections:document.querySelectorAll('section').length,
+                headerPresent:!!document.querySelector('header'),
+                footerPresent:!!document.querySelector('footer'),
+                bodyScrollWidth:document.body.scrollWidth
+              };
+              const out=document.createElement('script');
+              out.type='application/json';out.id='brand-check';out.textContent=JSON.stringify(result);
+              document.body.appendChild(out);
+            },1300);
+          });
+          </script>"""
+          assert '</body>' in src
+          Path('__brand_check.html').write_text(src.replace('</body>',probe+'</body>'))
+          PY
+          python3 -m http.server 8131 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          pid=$!; trap 'kill "$pid" || true' EXIT
+          sleep 2
+          for path in header.html footer.html media/branding/logo-light.svg media/branding/logo-dark.svg media/branding/favicon.svg media/branding/apple-touch-icon.png; do
+            curl -fsS "http://127.0.0.1:8131/$path" -o /dev/null
+          done
+          chrome="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$chrome"
+          for width in 390 768 1024 1440 1650; do
+            for theme in light dark; do
+              timeout 35 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=6000 --window-size="$width,900" --dump-dom \
+                "http://127.0.0.1:8131/__brand_check.html?theme=$theme" > "/tmp/brand-$width-$theme.html" 2>/tmp/chrome-$width-$theme.log
+              WIDTH="$width" THEME="$theme" python3 - <<'PY'
+          import os,re,html,json
+          width=int(os.environ['WIDTH']);theme=os.environ['THEME']
+          src=open(f'/tmp/brand-{width}-{theme}.html').read()
+          match=re.search(r'<script type="application/json" id="brand-check">(.+?)</script>',src,re.S)
+          assert match, f"Missing browser result {width} {theme}"
+          r=json.loads(html.unescape(match.group(1)))
+          assert r['theme']==theme,r
+          assert r['logo'].endswith('logo-dark.svg' if theme=='dark' else 'logo-light.svg'),r
+          assert r['logoReady'] and r['footerReady'] and r['preloaderReady'],r
+          assert r['footer'].endswith('logo-dark.svg'),r
+          assert r['preloader'].endswith('logo-symbol.svg'),r
+          assert r['favicon'].endswith('favicon.svg'),r
+          assert r['largeIcon'].endswith('icon-192.png'),r
+          assert r['appleIcon'].endswith('apple-touch-icon.png'),r
+          assert r['headerLogoRect']['width']<=231,r
+          assert r['headerLogoRect']['width']>=125,r
+          assert r['headerLinks']==2 and r['footerLinks']==2,r
+          assert r['toggleColor']=='rgb(0, 201, 155)' and r['toggleRect']['x']<50,r
+          assert r['toggleIcon'].endswith('sun.svg' if theme=='dark' else 'moon.svg'),r
+          assert r['headerPresent'] and r['footerPresent'] and r['sections']==11,r
+          print(f"PASS requested {width}px actual {r['viewport']}px {theme}: original SVGs rendered; logo {r['headerLogoRect']['width']:.0f}px; all links present")
+          PY
+            done
+          done
