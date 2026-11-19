@@ -54,7 +54,7 @@ for (const [file, record] of Object.entries(config.pages)) {
 if (pages !== 52 || shared !== 2) {
   throw new Error("Unexpected page / template-part inventory: " + pages + "/" + shared);
 }
-const native = buildNativePages(config);
+const native = buildNativePages(config, readFileSync(safe("templates/pages/index.html"),"utf8"));
 const nativeParts = buildNativeParts(config);
 if (native.pages.length !== 52 || native.special.length !== 4 || native.excluded.length !== 0) {
   throw new Error("Unexpected native page coverage");

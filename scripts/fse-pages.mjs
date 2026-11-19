@@ -153,7 +153,89 @@ function directoryPageMarkup(config, source, sequence) {
     documentId: null, family, sections: list.length ? 2 : 1,
     blocks: list.length + 3, sequence, markup: out.join("\n") + "\n" };
 }
-export function buildNativePages(config) {
+/**
+ * The historical source document for the homepage differs from its current
+ * approved 11-section homepage. The visible page fields are authoritative
+ * for its native projection: preserve current headings, body copy and CTA URLs.
+ */
+function htmlText(markup) {
+  return String(markup || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&(?:nbsp|#160);/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#(?:39|x27);/gi, "'")
+    .replace(/\s+/g, " ").trim();
+}
+function homePageMarkup(entry, config, homepageTemplate, sequence) {
+  if (typeof homepageTemplate !== "string" || !homepageTemplate.includes('id="home"')) {
+    throw new Error("Rendered homepage source is required to preserve approved homepage copy");
+  }
+  const fields = config.pages["index.html"].fields;
+  const html = homepageTemplate.replace(/__MGL_CONTENT_\d{5}__/g, (key) => {
+    if (!Object.hasOwn(fields, key)) throw new Error("Missing home field " + key);
+    return fields[key];
+  });
+  const sections = [...html.matchAll(/<section\b([^>]*)>([\s\S]*?)<\/section\s*>/gi)];
+  if (sections.length !== 11) throw new Error("Homepage section inventory changed: " + sections.length);
+  const pageClass = "mgl-native-page mgl-native-page--home mgl-native-route--home";
+  const parts = [openGroup(pageClass, "main")];
+  let n = 0;
+  let hasH1 = false;
+  let blockCount = 0;
+  for (const [index,section] of sections.entries()) {
+    const id = (section[1].match(/\bid\s*=\s*["']([^"']+)["']/i)||[])[1];
+    const cls = "mgl-native-section mgl-native-section--" + (index % 5) +
+      (index === 0 ? " mgl-native-section--hero" : " mgl-native-section--editorial");
+    const options = { tagName: "section", className: cls, layout: { type: "constrained" } };
+    if (id) options.anchor = id;
+    parts.push("<!-- wp:group" + jsonAttr(options) + " -->\n<section" +
+      (id ? ' id="' + safeText(id) + '"' : "") + ' class="wp-block-group ' + cls + '">');
+    const items = [...section[2].matchAll(/<(h[1-6]|p)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi)];
+    for (const item of items) {
+      const text = htmlText(item[2]);
+      if (!text || text.length < 2) continue;
+      if (item[1].startsWith("h")) {
+        const level = Number(item[1].slice(1));
+        if (level===1) hasH1 = true;
+        parts.push(heading(text, level));
+      } else {
+        parts.push(paragraph(text));
+      }
+      blockCount++;
+    }
+    const buttons = [];
+    for (const anchor of section[2].matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
+      const clsName = (anchor[1].match(/\bclass\s*=\s*["']([^"']*)["']/i)||[])[1] || "";
+      if (!/(^|[\s-])btn(?:\s|-|$)|button/i.test(clsName)) continue;
+      const href = (anchor[1].match(/\bhref\s*=\s*["']([^"']*)["']/i)||[])[1] || "";
+      const label = htmlText(anchor[2]);
+      if (!href || !label || /^(?:javascript|data):/i.test(href)) continue;
+      buttons.push([label, href.startsWith("#") || /^(?:mailto:|https?:)/i.test(href) ? href : nativeUrl(href)]);
+      if (buttons.length>=4) break;
+    }
+    if (buttons.length) {
+      parts.push('<!-- wp:buttons --><div class="wp-block-buttons">');
+      for (const [label,url] of buttons) {
+        parts.push('<!-- wp:button --><div class="wp-block-button">' +
+          '<a class="wp-block-button__link wp-element-button" href="' +
+          safeText(url) + '">' + safeText(label) + '</a></div><!-- /wp:button -->');
+        blockCount++;
+      }
+      parts.push('</div><!-- /wp:buttons -->');
+    }
+    parts.push(closeGroup("section"));
+    n++;
+  }
+  if (!hasH1) throw new Error("Visible homepage H1 missing from native projection");
+  parts.push(closeGroup("main"));
+  return { path: "index.html", slug: "home", route: "/", title: "Home",
+    documentId: null, source: "visible-page-fields", family: "home",
+    sections: n, blocks: blockCount, sequence, markup: parts.join("\n") + "\n" };
+}
+export function buildNativePages(config, homepageTemplate) {
   if (!config?.pages || !config?.content?.documents || !config?.pageMap?.pages) {
     throw new Error("Missing canonical content data");
   }
@@ -168,7 +250,9 @@ export function buildNativePages(config) {
     if (!document || document.status !== "available") {
       throw new Error("Missing document " + entry.id + " for " + entry.path);
     }
-    const page = nativePageMarkup(entry, document, index++);
+    const page = entry.path === "index.html" ?
+      homePageMarkup(entry, config, homepageTemplate, index++) :
+      nativePageMarkup(entry, document, index++);
     results.push(page);
     seen.add(entry.path);
   }

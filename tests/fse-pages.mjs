@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { buildNativePages, buildNativeParts, nativePreview } from "../scripts/fse-pages.mjs";
 const data = JSON.parse(readFileSync(new URL("../data/content.json", import.meta.url), "utf8"));
-const { pages, excluded, special } = buildNativePages(data);
+const { pages, excluded, special } = buildNativePages(data,
+  readFileSync(new URL("../templates/pages/index.html",import.meta.url),"utf8"));
 assert.equal(pages.length, 52);
 assert.deepEqual(excluded, []);
 assert.deepEqual(special, ["404.html", "insights/index.html", "services.html", "solutions/index.html"]);
@@ -15,7 +16,12 @@ for (const page of pages) {
   assert.equal((page.markup.match(/<!-- wp:group/g) || []).length,
     (page.markup.match(/<!-- \/wp:group -->/g) || []).length);
   const sourceTextCount = (page.markup.match(/<!-- wp:(paragraph|heading)(?:\s| -->)/g) || []).length;
-  if (doc) {
+  if (page.path === "index.html") {
+    assert.equal(page.sections,11,"all approved homepage sections must be preserved");
+    assert.ok(page.markup.includes("Launch your brokerage with confidence."));
+    assert.ok(page.markup.includes("Plan your brokerage"));
+    assert.ok(page.markup.includes("<!-- wp:buttons -->"));
+  } else if (doc) {
     assert.equal(sourceTextCount, doc.blocks.length + 1, "content loss: " + page.path);
   } else {
     assert.ok(sourceTextCount >= 3, "incomplete directory/404 content: " + page.path);

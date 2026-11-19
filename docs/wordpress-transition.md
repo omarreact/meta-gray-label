@@ -6,8 +6,8 @@
   documents, 52 page records, current visible labels and navigation.
 - **Production static output:** existing HTML pages, unchanged; regeneration
   via `scripts/generate.mjs`.
-- **Native content:** `scripts/fse-pages.mjs` projects the 48 mapped content
-  pages (2,735 document blocks) into Gutenberg core/group, core/heading,
+- **Native content:** `scripts/fse-pages.mjs` projects the 47 mapped inner pages from structured documents and the current 11-section
+  homepage from its actual rendered JSON fields into Gutenberg core/group, core/heading,
   and core/paragraph markup. No content strings are duplicated into the
   FSE generator.
 - **Four bespoke routes:** `404.html`, `insights/index.html`,

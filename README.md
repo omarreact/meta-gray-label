@@ -12,10 +12,10 @@ and the original 54 template sources are in `templates/pages/**` and
 
 ## Native Gutenberg content (opt-in)
 
-48 routes have complete, structured source documents: a deterministic
-generator now converts **2,735 actual headings and paragraphs** into
+47 inner pages have structured documents matching current live copy: a deterministic
+generator now converts **visible content for the eleven-section homepage and all mapped inner pages** into
 serialized native WordPress core/group, core/heading and core/paragraph
-blocks. The remaining four routes (404, insights index, services, solutions) have
+blocks. The remaining four directory/404 routes (404, insights index, services, solutions) have
 simplified editable Gutenberg directory/404 layouts generated from the
 same visible JSON fields and route map. Their original bespoke HTML designs
 remain the default until verified.
