@@ -27,6 +27,9 @@ for (const page of pages) {
 const parts = buildNativeParts(data);
 assert.ok(parts.header.includes("wp:site-logo"));
 assert.ok(parts.header.includes("wp:navigation"));
+assert.equal((parts.header.match(/<!-- wp:navigation-link/g) || []).length, 38);
+assert.equal((parts.header.match(/<!-- wp:navigation-submenu/g) || []).length, 9);
+assert.ok(!parts.header.includes("<nav "), "Use the native Navigation block serialization");
 assert.ok(parts.header.includes('url":"/services/"'));
 assert.ok(parts.header.includes('url":"/#faq"'));
 assert.ok(parts.footer.includes("wp:site-title"));

@@ -188,18 +188,43 @@ function nativeUrl(route) {
   if (route === "index.html") return "/";
   if (route.startsWith("index.html#")) return "/" + route.slice("index.html".length);
   if (route === "services.html") return "/services/";
+  if (route.startsWith("/")) return route === "/services.html" ? "/services/" : route;
   return "/" + route.replace(/(^\.\/|index\.html$)/g, "");
 }
 function navLink(label, route) {
   const url = nativeUrl(route);
-  return "<!-- wp:navigation-link" + jsonAttr({ label: label.replace(/&amp;/g, "&"), url, kind: "custom" }) + " /-->";
+  return "<!-- wp:navigation-link" + jsonAttr({ label: label.replace(/&amp;/g, "&"), url, kind: "custom" }) + " -->\n<!-- /wp:navigation-link -->";
+}
+function navSubmenu(label, route, children, topLevel = false) {
+  const attrs = { label: label.replace(/&amp;/g, "&"), url: nativeUrl(route), kind: "custom" };
+  if (topLevel) attrs.isTopLevelItem = true;
+  return "<!-- wp:navigation-submenu" + jsonAttr(attrs) + " -->\n" +
+    children.join("\n") + "\n<!-- /wp:navigation-submenu -->";
 }
 export function buildNativeParts(config) {
   const f = config.pages["header.html"].fields;
   const get = (n) => f["__MGL_CONTENT_" + String(n).padStart(5, "0") + "__"];
-  const nav = [[1,50],[2,51],[40,82],[41,83],[45,87],[46,88],[47,89]];
-  if (nav.some(([title,href]) => !get(title) || !get(href))) throw new Error("Missing canonical navigation");
-  const navMarkup = nav.map(([t,h])=>navLink(get(t),get(h))).join("\n");
+  const link = (t,h) => {
+    if (!get(t) || !get(h)) throw new Error("Missing menu label/link " + t);
+    return navLink(get(t),get(h));
+  };
+  const menuSection = (heading, start, end, firstHref) => {
+    const children = [];
+    for(let i=start;i<=end;i++) children.push(link(i,firstHref+i-start));
+    return navSubmenu(get(heading),get(firstHref),children);
+  };
+  const solutions = navSubmenu(get(2),get(51),[
+    menuSection(3,4,5,52),
+    menuSection(6,7,11,54),
+    menuSection(12,13,17,59),
+    menuSection(18,19,23,64),
+    menuSection(24,25,28,69),
+    menuSection(29,30,34,73),
+    menuSection(35,36,39,78)
+  ],true);
+  const company = navSubmenu(get(41),get(83),[link(42,84),link(43,85),link(44,86)],true);
+  const navMarkup = [link(1,50),solutions,link(40,82),company,
+    link(45,87),link(46,88),link(47,89)].join("\n");
   const header = [
     '<!-- wp:group {"align":"full","className":"mgl-native-site-header","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->',
     '<div class="wp-block-group alignfull mgl-native-site-header">',
@@ -209,9 +234,8 @@ export function buildNativeParts(config) {
     '<!-- wp:site-title {"level":0} /-->',
     '</div><!-- /wp:group -->',
     '<!-- wp:navigation {"overlayMenu":"mobile","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right"}} -->',
-    '<nav class="is-responsive items-justified-right wp-block-navigation mgl-native-navigation">',
     navMarkup,
-    '</nav><!-- /wp:navigation -->',
+    '<!-- /wp:navigation -->',
     '</div><!-- /wp:group -->'
   ].join("\n") + "\n";
   const ff = config.pages["footer.html"].fields;
