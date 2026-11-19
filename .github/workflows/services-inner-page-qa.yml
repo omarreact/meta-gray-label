@@ -1,0 +1,102 @@
+name: Temporary services inner page QA
+on:
+  push:
+    branches: [feat/services-inner-page-reference-20261119]
+    paths: [.github/workflows/services-inner-page-qa.yml]
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source structure and scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object assets/css/style.css)" = "90b42525c97a20e380ca4c01edea60d3d3eb22d0"
+          node --check assets/js/custom.js
+          node --check assets/js/includes.js
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class Page(HTMLParser):
+              def __init__(self): super().__init__();self.ids=[];self.links=[];self.img=[]
+              def handle_starttag(self,tag,attrs):
+                  p=dict(attrs)
+                  if 'id' in p:self.ids.append(p['id'])
+                  if 'href' in p:self.links.append(p['href'])
+                  if tag=='img':self.img.append(p.get('src'))
+          h=Path('services.html').read_text()
+          p=Page();p.feed(h)
+          assert len(p.ids)==len(set(p.ids)),'Duplicate IDs'
+          for k in ['services','main-content','inner-title','delivery-title','service-cta-title']:assert k in p.ids,k
+          assert 'data-shared-part="header"' in h and 'data-shared-part="footer"' in h
+          assert 'assets/js/includes.js' in h
+          assert h.count('class="service__item service__item--style1"')==6
+          assert 'Brokerage Services' in h
+          for href in p.links:
+              if href.startswith('./'):assert Path(href.split('#')[0]).is_file(),href
+              if href.startswith('index.html#'):assert Path('index.html').is_file()
+          for img in p.img:
+              if img and img.startswith('./'):assert Path(img).is_file(),img
+          assert 'services.html' in Path('header.html').read_text()
+          assert 'services.html' in Path('footer.html').read_text()
+          print('PASS static: 6 cards, identifiers, shared includes, links and images')
+          PY
+      - name: Browser render smoke checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path('services.html').read_text()
+          probe="""
+          <script>
+          window.addEventListener('load',()=>setTimeout(()=>{
+             const logo=document.querySelector('img[data-brand-logo]');
+             const footer=document.querySelector('footer');
+             const button=document.querySelector('#btnSwitch');
+             const header=document.querySelector('header');
+             const services=[...document.querySelectorAll('#services .service__item')];
+             const nav=document.querySelector('header a[href="services.html"]');
+             let data={width:innerWidth,theme:document.documentElement.getAttribute('data-bs-theme'),
+                logo:logo?.getAttribute('src'),logoReady:!!logo?.complete && logo.naturalWidth>0,
+                header:!!header,footer:!!footer,nav:!!nav,
+                cards:services.length, breadcrumb:!!document.querySelector('nav[aria-label="Breadcrumb"]'),
+                toggle:!!button, servicesVisible:!!document.querySelector('#services'), scrollWidth:document.documentElement.scrollWidth,
+                mainWidth:document.documentElement.clientWidth};
+             const x=document.createElement('script');x.type='application/json';x.id='services-qa-result';x.textContent=JSON.stringify(data);document.body.appendChild(x);
+          },1200));
+          </script>"""
+          Path('services-qa.html').write_text(s.replace('</body>',probe+'</body>'))
+          PY
+          python3 -m http.server 8191 --bind 127.0.0.1 >/tmp/http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 2
+          for f in services.html index.html header.html footer.html assets/css/style.css; do
+            curl -fsS "http://127.0.0.1:8191/$f" -o /dev/null
+          done
+          chrome="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$chrome"
+          for width in 390 768 1024 1440; do
+            for mode in light dark; do
+              timeout 35 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=5500 --window-size="$width,900" --dump-dom \
+              "http://127.0.0.1:8191/services-qa.html?theme=$mode" >/tmp/rendered.html 2>/tmp/chrome-errors.log
+              WIDTH="$width" MODE="$mode" python3 - <<'PY'
+          import json,html,re,os
+          body=open('/tmp/rendered.html').read()
+          m=re.search(r'<script type="application/json" id="services-qa-result">(.+?)</script>',body,re.S)
+          assert m,'QA script did not run'
+          r=json.loads(html.unescape(m.group(1)))
+          assert r['theme']==os.environ['MODE'],r
+          assert all(r[k] for k in ['header','footer','nav','breadcrumb','toggle','servicesVisible','logoReady']),r
+          assert r['cards']==6,r
+          assert r['logo'].endswith('logo-dark.svg' if r['theme']=='dark' else 'logo-light.svg'),r
+          assert r['scrollWidth']<=r['mainWidth']+3, r
+          print(f"PASS requested={os.environ['WIDTH']} actual={r['width']} theme={r['theme']} shared header/footer loaded; 6 cards; no overflow")
+          PY
+            done
+          done
