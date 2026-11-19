@@ -1,3 +1,4 @@
+const mglSiteRoot = new URL('../../', document.currentScript.src);
 // =================== preloader js  ================== //
 function hidePreloader() {
     var preloader = document.querySelector('.preloader');
@@ -56,7 +57,7 @@ function updateThemeColor(themeMode = 'light') {
     }
 
     changeImage(themeMode);
-    const assetRoot = './media/branding/';
+    const assetRoot = new URL('media/branding/', mglSiteRoot).href;
     const headerLogo = document.querySelector('img[data-brand-logo]');
     const footerLogo = document.querySelector('img[data-brand-footer]');
     if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'logo-dark.svg' : 'logo-light.svg');
@@ -95,7 +96,7 @@ function switchThemeByUrl() {
 function changeImage(themeMode = 'light') {
     const icon = document.querySelector('#btnSwitch img');
     if (icon) {
-        icon.src = themeMode === 'dark' ? './assets/images/icon/sun.svg' : './assets/images/icon/moon.svg';
+        icon.src = new URL(themeMode === 'dark' ? 'assets/images/icon/sun.svg' : 'assets/images/icon/moon.svg', mglSiteRoot).href;
     }
 
     // Do not fabricate -dark asset paths. Only swap when a verified alternate is configured.
