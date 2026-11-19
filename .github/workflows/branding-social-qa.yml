@@ -1,0 +1,114 @@
+name: Temporary branding and social header QA
+on:
+  push:
+    branches:
+      - fix/logo-size-dark-header-social-toggle-20261119
+    paths:
+      - .github/workflows/branding-social-qa.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate preserved styling and script
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object assets/css/style.css)" = "90b42525c97a20e380ca4c01edea60d3d3eb22d0"
+          node --check assets/js/custom.js
+          node --check assets/js/includes.js
+          grep -q "footer-light.webp' : 'header-light.webp" assets/js/custom.js
+          grep -q 'background: #00c99b' index.html
+          test -f media/branding/footer-light.webp
+          test -f assets/images/icon/moon.svg
+          test -f assets/images/icon/sun.svg
+          git -c core.whitespace=cr-at-eol diff --check HEAD~2..HEAD || true
+      - name: Render and measure at desktop tablet and mobile viewports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          page=Path('index.html').read_text()
+          code=r"""
+          <script>
+            window.addEventListener('load',()=>{
+              setTimeout(()=>{
+                const qs=s=>document.querySelector(s), rect=e=>{
+                  if (!e) return null;
+                  const r=e.getBoundingClientRect();
+                  return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height};
+                };
+                const vis=e=>!!e && getComputedStyle(e).display!=='none' && e.getBoundingClientRect().width>0;
+                const logo=qs('img[data-brand-logo]'), flogo=qs('img[data-brand-footer]');
+                const sw=qs('#btnSwitch'), swimg=qs('#btnSwitch img'),nav=qs('.header-wrapper > .menu-area');
+                const headerShares=[...document.querySelectorAll('header .mgl-social-link')];
+                const footerShares=[...document.querySelectorAll('footer .mgl-share-icon')];
+                const result={
+                  viewport:innerWidth, theme:document.documentElement.getAttribute('data-bs-theme'),
+                  headerLogo:logo?.getAttribute('src'), footerLogo:flogo?.getAttribute('src'),
+                  logo:rect(logo),nav:rect(nav),
+                  socialHeader:headerShares.length,socialFooter:footerShares.length,
+                  shareLabels:headerShares.concat(footerShares).map(x=>x.getAttribute('aria-label')),
+                  shareUrls:headerShares.concat(footerShares).map(x=>x.href),
+                  socialHeaderRect:rect(qs('header .mgl-social-links')),
+                  headerActionRect:rect(qs('header .header-action')),
+                  burgerVisible:vis(qs('.header-bar')),
+                  ctaVisible:vis(qs('header .header-btn a')),
+                  ctaRect:rect(qs('header .header-btn a')),
+                  toggleIcon:swimg?.getAttribute('src'),toggleRect:rect(sw),
+                  toggleBg:sw?getComputedStyle(sw).backgroundColor:'',
+                  height:document.body.scrollHeight
+                };
+                const out=document.createElement('script');
+                out.id='qa-branding-result';out.type='application/json';out.textContent=JSON.stringify(result);
+                document.body.appendChild(out);
+              },900);
+            });
+          </script>"""
+          Path('__brand_qa.html').write_text(page.replace('</body>',code+'</body>'))
+          PY
+          python3 -m http.server 8124 --bind 127.0.0.1 >/tmp/branding-http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 2
+          chrome="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$chrome"
+          for width in 390 768 1024 1440 1650; do
+            for mode in light dark; do
+              timeout 35 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=4500 --window-size="$width,900" --dump-dom \
+                "http://127.0.0.1:8124/__brand_qa.html?theme=$mode" > "/tmp/result-$width-$mode.html" 2>"/tmp/err-$width-$mode.log"
+              WIDTH="$width" MODE="$mode" python3 - <<'PY'
+          import os,json,re,html
+          width=int(os.environ['WIDTH']);mode=os.environ['MODE']
+          body=open(f'/tmp/result-{width}-{mode}.html').read()
+          found=re.search(r'<script id="qa-branding-result" type="application/json">(.+?)</script>',body,re.S)
+          assert found, f'No browser measurements at {width} {mode}'
+          r=json.loads(html.unescape(found.group(1)))
+          assert r['theme']==mode,r
+          assert r['headerLogo'].endswith('footer-light.webp' if mode=='dark' else 'header-light.webp'),r
+          assert r['footerLogo'].endswith('footer-dark.webp' if mode=='dark' else 'footer-light.webp'),r
+          assert r['toggleIcon'].endswith('sun.svg' if mode=='dark' else 'moon.svg'),r
+          assert r['toggleBg']=='rgb(0, 201, 155)',r
+          assert r['toggleRect']['x']<50,r
+          assert r['socialHeader']==2 and r['socialFooter']==2,r
+          assert all('Share Meta Grey Label via ' in s for s in r['shareLabels']),r
+          assert sum('api.whatsapp.com/send' in x for x in r['shareUrls'])==2,r
+          assert sum('t.me/share/url' in x for x in r['shareUrls'])==2,r
+          assert r['logo']['width']<=231,r
+          assert r['logo']['width']>=125,r
+          if width<=768:
+              assert r['burgerVisible'],r
+              assert r['socialHeaderRect']['right']<=width+3,r
+              assert r['socialHeaderRect']['x']>=r['logo']['right']-5,r
+          if width>=1440 and r['ctaVisible']:
+              assert r['ctaRect']['y']<=r['logo']['bottom']+10,r
+              assert r['ctaRect']['right']<=width+2,r
+              assert r['socialHeaderRect']['right']<=r['ctaRect']['x']+3 or r['socialHeaderRect']['x']>=r['ctaRect']['right']-3,r
+          print(f"PASS {width}px {mode}: logo={r['logo']['width']:.0f}px socials={r['socialHeader']}/{r['socialFooter']} old-style-toggle=green")
+          PY
+            done
+          done
