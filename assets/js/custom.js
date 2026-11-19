@@ -59,14 +59,14 @@ function updateThemeColor(themeMode = 'light') {
     const assetRoot = './media/branding/';
     const headerLogo = document.querySelector('img[data-brand-logo]');
     const footerLogo = document.querySelector('img[data-brand-footer]');
-    if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'footer-light.webp' : 'header-light.webp');
-    if (footerLogo) footerLogo.src = assetRoot + 'footer-' + themeMode + '.webp';
+    if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'logo-dark.svg' : 'logo-light.svg');
+    if (footerLogo) footerLogo.src = assetRoot + 'logo-dark.svg';
     const favicon = document.querySelector('#site-favicon');
     const largeIcon = document.querySelector('#site-icon-large');
     const appleIcon = document.querySelector('#site-apple-icon');
-    if (favicon) favicon.href = assetRoot + 'favicon-' + themeMode + '.png';
-    if (largeIcon) largeIcon.href = assetRoot + 'site-icon-' + themeMode + '.webp';
-    if (appleIcon) appleIcon.href = assetRoot + 'apple-icon-' + themeMode + '.png';
+    if (favicon) favicon.href = assetRoot + 'favicon.svg';
+    if (largeIcon) largeIcon.href = assetRoot + 'icon-192.png';
+    if (appleIcon) appleIcon.href = assetRoot + 'apple-touch-icon.png';
     colorSwitcher.setAttribute('aria-label', themeMode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
     colorSwitcher.setAttribute('aria-pressed', String(themeMode === 'dark'));
 
