@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 /*
  * Scoped Gutenberg-native preview and WordPress content styles.
  * Does not change the existing production HTML or original Bitrader CSS.
@@ -7,12 +9,18 @@
   --mgl-native-ink: var(--wp--preset--color--ink, #0c263a);
   --mgl-native-surface: var(--wp--preset--color--surface, #f7fbfa);
   color: var(--mgl-native-ink);
-  font-family: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   max-width: 100%;
   padding: 0 0 clamp(48px, 7vw, 110px);
 }
 .mgl-native-page .mgl-native-section { box-sizing:border-box; padding:clamp(32px,5.2vw,90px) max(22px,calc((100vw - 1180px)/2)); margin:0; }
 .mgl-native-page .mgl-native-section > * { max-width: 850px; }
+.mgl-native-page h1,
+.mgl-native-page h2,
+.mgl-native-page h3,
+.mgl-native-page h4,
+.mgl-native-page h5,
+.mgl-native-page h6 { font-family: "Poppins", ui-sans-serif, sans-serif; }
 .mgl-native-page h1 { font-size:clamp(2.35rem,4.5vw,4.8rem); line-height:1.12; max-width:920px; letter-spacing:-.035em; }
 .mgl-native-page h2 { font-size:clamp(1.65rem,2.7vw,2.9rem); line-height:1.22; max-width:890px; letter-spacing:-.025em; }
 .mgl-native-page h3 { font-size:clamp(1.13rem,1.7vw,1.4rem); line-height:1.35; }
