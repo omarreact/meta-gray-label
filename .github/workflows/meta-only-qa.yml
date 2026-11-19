@@ -125,7 +125,12 @@ jobs:
           import re,os,json,html
           data=open('/tmp/rendered.html').read()
           m=re.search(r'<script type="application/json" id="meta-qa-data">(.+?)</script>',data,re.S)
-          assert m,(os.environ['PATH_QA'],os.environ['MODE'],'missing probe')
+          if not m:
+              print('DEBUG rendered length:',len(data))
+              print('DEBUG rendered start:',data[:1300])
+              print('DEBUG rendered end:',data[-1800:])
+              print('DEBUG chromium log:',open('/tmp/chrome.log').read()[-1000:])
+              raise AssertionError((os.environ['PATH_QA'],os.environ['MODE'],'missing probe'))
           x=json.loads(html.unescape(m.group(1)))
           assert x['mode']==os.environ['MODE'],x
           assert x['header'] and x['footer'] and x['toggle'] and x['logoReady'],x
