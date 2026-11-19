@@ -59,17 +59,130 @@
     .lightdark-switch .switch-btn.dark-switcher { background-color: #00c99b !important; border-color: rgba(0,163,125,.45) !important; }
     .lightdark-switch .switch-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,80,70,.28); }
     .lightdark-switch .switch-btn:focus-visible { outline: 3px solid #1fbfd2; outline-offset: 4px; }
-    .lightdark-switch .switch-btn img { width: 20px; height: 20px; max-width: none; max-height: none !important; object-fit: contain; display: block; }
-    #capabilities .team__item-thumb img {
-      display:block; width:100%; aspect-ratio:1/1; height:auto; object-fit:contain;
-      padding:10px; border-radius:16px; background:linear-gradient(145deg,#081c32,#073c50);
-    }
-    #capabilities .team__item-thumb--style1 img { transform:none; }
-    #capabilities .team__item:hover .team__item-thumb--style1 img { transform: translateY(-2px); }
-    #why .testimonial__wrapper { opacity:1 !important; visibility:visible !important; transform:none !important; }
+    .lightdark-switch .switch-btn img { width: 20px; height: 20px; max-width: none; max-height: none !important; object-fit: contain; display: block; }    #why .testimonial__wrapper { opacity:1 !important; visibility:visible !important; transform:none !important; }
     #why .testimonial__slider { overscroll-behavior-x: contain; }
-    @media (prefers-reduced-motion:reduce) { .lightdark-switch .switch-btn,#capabilities .team__item-thumb img {transition:none !important;} }
-  </style>
+    @media (prefers-reduced-motion:reduce) { .lightdark-switch .switch-btn,.mgl-stack-link,.mgl-stack-row {transition:none !important;} }
+  
+    /* Content-led brokerage stack section */
+    #capabilities.mgl-stack-section {
+      position:relative;
+      overflow:hidden;
+      background:var(--bg-color);
+    }
+    #capabilities .mgl-stack-shell {
+      display:grid;
+      grid-template-columns:minmax(260px,.78fr) minmax(0,1.22fr);
+      gap:clamp(28px,5vw,72px);
+      align-items:start;
+    }
+    #capabilities .mgl-stack-intro {
+      position:sticky;
+      top:120px;
+      padding:clamp(26px,3.5vw,42px);
+      border:1px solid var(--service-item-border-color,rgba(20,90,94,.12));
+      border-radius:22px;
+      background:var(--wh-color);
+    }
+    #capabilities .mgl-stack-kicker {
+      display:block;
+      margin-bottom:12px;
+      color:var(--brand-color);
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    #capabilities .mgl-stack-intro h3 {
+      margin:0 0 16px;
+      color:var(--title-color);
+      font-size:clamp(1.65rem,2.7vw,2.5rem);
+      line-height:1.15;
+      letter-spacing:-.025em;
+    }
+    #capabilities .mgl-stack-intro p {
+      margin:0 0 24px;
+      color:var(--text-color);
+      font-size:1rem;
+      line-height:1.75;
+    }
+    #capabilities .mgl-stack-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    #capabilities .mgl-stack-link {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      font-weight:750;
+      color:var(--title-color);
+      text-decoration:none;
+      transition:color .2s ease,transform .2s ease;
+    }
+    #capabilities .mgl-stack-link:hover {
+      color:var(--brand-color);
+      transform:translateX(2px);
+    }
+    #capabilities .mgl-stack-list {
+      display:grid;
+      gap:12px;
+    }
+    #capabilities .mgl-stack-row {
+      display:grid;
+      grid-template-columns:58px minmax(0,1fr) auto;
+      gap:18px;
+      align-items:start;
+      padding:clamp(20px,2.6vw,30px);
+      border:1px solid var(--service-item-border-color,rgba(20,90,94,.12));
+      border-radius:18px;
+      background:var(--wh-color);
+      transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+    }
+    #capabilities .mgl-stack-row:hover {
+      transform:translateY(-3px);
+      border-color:rgba(0,208,148,.36);
+      box-shadow:0 14px 34px rgba(12,38,58,.07);
+    }
+    #capabilities .mgl-stack-index {
+      color:var(--brand-color);
+      font-size:.8rem;
+      font-weight:850;
+      letter-spacing:.08em;
+    }
+    #capabilities .mgl-stack-copy h4 {
+      margin:0 0 7px;
+      color:var(--title-color);
+      font-size:clamp(1.1rem,1.5vw,1.3rem);
+    }
+    #capabilities .mgl-stack-copy p {
+      margin:0;
+      color:var(--text-color);
+      line-height:1.65;
+      font-size:.95rem;
+    }
+    #capabilities .mgl-stack-row > a {
+      align-self:center;
+      color:var(--brand-color);
+      font-weight:750;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    #capabilities .mgl-stack-row > a:hover { text-decoration:underline; }
+    @media(max-width:991px) {
+      #capabilities .mgl-stack-shell { grid-template-columns:1fr; }
+      #capabilities .mgl-stack-intro { position:static; }
+    }
+    @media(max-width:575px) {
+      #capabilities .mgl-stack-row {
+        grid-template-columns:42px minmax(0,1fr);
+        gap:12px;
+      }
+      #capabilities .mgl-stack-row > a {
+        grid-column:2;
+        justify-self:start;
+      }
+    }
+</style>
 </head>
 
 <body>
@@ -791,168 +904,84 @@
 
 
 
-  <!-- ===============>> Team section start here <<================= -->
-  <section id="capabilities" class="team padding-top padding-bottom bg-color">
-    <div class="section-header section-header--max50">
-      <h2 class="mb-10 mt-minus-5">Brokerage <span>capabilities</span></h2>
-      <p>Platform, execution and operational decisions stay connected through one launch approach.</p>
-    </div>
+  <!-- ===============>> Brokerage stack section start here <<================= -->
+  <section id="capabilities" class="mgl-stack-section padding-top padding-bottom">
     <div class="container">
-      <div class="team__wrapper">
-        <div class="row g-4 align-items-center">
-          <div class="col-sm-6 col-lg-3">
-            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="800">
-              <div class="team__item-inner team__item-inner--shape">
-                <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/1.png" alt="Brokerage technology ecosystem illustration" loading="lazy" decoding="async">
-                </div>
-                <div class="team__item-content team__item-content--style1">
-                  <div class="team__item-author team__item-author--style1">
-                    <div class="team__item-authorinfo">
-                      <h6 class="mb-1"><a href="#capabilities" class="stretched-link">Platform Engineering</a> </h6>
-                      <p class="mb-0">MT4 &amp; MT5 Setup</p>
-                    </div>
-                  </div>
-                </div>
+      <div class="section-header section-header--max50">
+        <h2 class="mb-10 mt-minus-5">A connected <span>brokerage stack</span></h2>
+        <p>Bring trading infrastructure, client operations, execution and launch controls into one operating model instead of managing disconnected tools.</p>
+      </div>
 
-              </div>
-            </div>
+      <div class="mgl-stack-shell">
+        <div class="mgl-stack-intro" data-aos="fade-right" data-aos-duration="850">
+          <span class="mgl-stack-kicker">Brokerage infrastructure</span>
+          <h3>Build around the way your brokerage will actually operate.</h3>
+          <p>Start with the operating model that fits your level of control, then connect the platform, liquidity, CRM, compliance workflow and launch process around it.</p>
+          <div class="mgl-stack-actions">
+            <a class="mgl-stack-link" href="solutions/">Explore all solutions <span aria-hidden="true">→</span></a>
+            <a class="mgl-stack-link" href="forex-white-label/vs-grey-label/">Compare models <span aria-hidden="true">→</span></a>
           </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="900">
-              <div class="team__item-inner team__item-inner--shape">
-                <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/2.png" alt="Liquidity and bridge connectivity illustration" loading="lazy" decoding="async">
-                </div>
-                <div class="team__item-content team__item-content--style1">
-                  <div class="team__item-author team__item-author--style1">
-                    <div class="team__item-authorinfo">
-                      <h6 class="mb-1"><a href="#capabilities" class="stretched-link">Liquidity Operations</a> </h6>
-                      <p class="mb-0">Bridge &amp; Routing</p>
-                    </div>
-                  </div>
-                </div>
+        </div>
 
-              </div>
+        <div class="mgl-stack-list">
+          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="700">
+            <span class="mgl-stack-index">01</span>
+            <div class="mgl-stack-copy">
+              <h4>Trading platform layer</h4>
+              <p>Deploy MT4 or MT5 environments with branded terminals, web and mobile access, plus the administrator or manager controls required by your operating model.</p>
             </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1000">
-              <div class="team__item-inner team__item-inner--shape">
-                <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/3.png" alt="Client CRM and trader portal illustration" loading="lazy" decoding="async">
-                </div>
-                <div class="team__item-content team__item-content--style1">
-                  <div class="team__item-author team__item-author--style1">
-                    <div class="team__item-authorinfo">
-                      <h6 class="mb-1"><a href="#capabilities" class="stretched-link">Client Operations</a> </h6>
-                      <p class="mb-0">CRM &amp; Portal</p>
-                    </div>
-                  </div>
-                </div>
+            <a href="trading-platforms/">Platforms →</a>
+          </article>
 
-              </div>
+          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="760">
+            <span class="mgl-stack-index">02</span>
+            <div class="mgl-stack-copy">
+              <h4>Brokerage operating model</h4>
+              <p>Choose White Label for a lighter entry point, Grey Label for more trading control, or a Turnkey structure when the platform and operating systems need to be delivered together.</p>
             </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1100">
-              <div class="team__item-inner team__item-inner--shape">
-                <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/4.png" alt="Risk management and reporting illustration" loading="lazy" decoding="async">
-                </div>
-                <div class="team__item-content team__item-content--style1">
-                  <div class="team__item-author team__item-author--style1">
-                    <div class="team__item-authorinfo">
-                      <h6 class="mb-1"><a href="forex-liquidity/a-book-b-book/" class="stretched-link">Risk &amp; Reporting</a> </h6>
-                      <p class="mb-0">Operational Oversight</p>
-                    </div>
-                  </div>
-                </div>
+            <a href="forex-white-label/vs-grey-label/">Compare →</a>
+          </article>
 
-              </div>
+          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="820">
+            <span class="mgl-stack-index">03</span>
+            <div class="mgl-stack-copy">
+              <h4>Liquidity and execution</h4>
+              <p>Connect liquidity, bridge and routing decisions with Prime of Prime options and A-Book or B-Book operating choices instead of treating execution as a separate layer.</p>
             </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="800">
-              <div class="team__item-inner team__item-inner--shape">
-                <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/5.png" alt="White-label trading systems illustration" loading="lazy" decoding="async">
-                </div>
-                <div class="team__item-content team__item-content--style1">
-                  <div class="team__item-author team__item-author--style1">
-                    <div class="team__item-authorinfo">
-                      <h6 class="mb-1"><a href="#capabilities" class="stretched-link">White Label Setup</a> </h6>
-                      <p class="mb-0">Market Entry</p>
-                    </div>
-                  </div>
-                </div>
+            <a href="forex-liquidity/">Liquidity →</a>
+          </article>
 
-              </div>
+          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="880">
+            <span class="mgl-stack-index">04</span>
+            <div class="mgl-stack-copy">
+              <h4>Client operations</h4>
+              <p>Link CRM, back office, IB portal, KYC and payment automation so onboarding and account servicing remain connected to the trading environment.</p>
             </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="900">
-              <div class="team__item-inner team__item-inner--shape">
-                <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/6.png" alt="Grey-label trading controls illustration" loading="lazy" decoding="async">
-                </div>
-                <div class="team__item-content team__item-content--style1">
-                  <div class="team__item-author team__item-author--style1">
-                    <div class="team__item-authorinfo">
-                      <h6 class="mb-1"><a href="#capabilities" class="stretched-link">Grey Label Setup</a> </h6>
-                      <p class="mb-0">Trading Control</p>
-                    </div>
-                  </div>
-                </div>
+            <a href="forex-crm/">CRM →</a>
+          </article>
 
-              </div>
+          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="940">
+            <span class="mgl-stack-index">05</span>
+            <div class="mgl-stack-copy">
+              <h4>Admin, risk and trading control</h4>
+              <p>Use the appropriate administration layer for account settings, trading conditions and operational oversight, with a clear upgrade path when more direct platform control is required.</p>
             </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1000">
-              <div class="team__item-inner team__item-inner--shape">
-                <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/7.png" alt="Turnkey integrations illustration" loading="lazy" decoding="async">
-                </div>
-                <div class="team__item-content team__item-content--style1">
-                  <div class="team__item-author team__item-author--style1">
-                    <div class="team__item-authorinfo">
-                      <h6 class="mb-1"><a href="#capabilities" class="stretched-link">Turnkey Delivery</a> </h6>
-                      <p class="mb-0">Connected Systems</p>
-                    </div>
-                  </div>
-                </div>
+            <a href="mt-admin-license/">Admin access →</a>
+          </article>
 
-              </div>
+          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="1000">
+            <span class="mgl-stack-index">06</span>
+            <div class="mgl-stack-copy">
+              <h4>Launch, testing and handover</h4>
+              <p>Bring configuration, integration checks and operational handover into the launch process so the brokerage moves from setup to live operations with fewer gaps between systems.</p>
             </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1100">
-              <div class="team__item-inner team__item-inner--shape">
-                <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/8.png" alt="Brokerage launch readiness illustration" loading="lazy" decoding="async">
-                </div>
-                <div class="team__item-content team__item-content--style1">
-                  <div class="team__item-author team__item-author--style1">
-                    <div class="team__item-authorinfo">
-                      <h6 class="mb-1"><a href="#capabilities" class="stretched-link">Launch Support</a> </h6>
-                      <p class="mb-0">Testing &amp; Handover</p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="text-center">
-            <a href="services.html" class="trk-btn trk-btn--border trk-btn--primary mt-25">Explore Services </a>
-          </div>
+            <a href="forex-broker-turnkey/how-it-works/">Launch process →</a>
+          </article>
         </div>
       </div>
     </div>
   </section>
-  <!-- ===============>> Team section start here <<================= -->
-
+  <!-- ===============>> Brokerage stack section end here <<================= -->
 
 
 

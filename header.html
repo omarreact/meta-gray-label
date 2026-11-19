@@ -9,17 +9,61 @@
           </div>
           <div class="menu-area">
             <ul class="menu menu--style1">
-              <li>
+              <li><a href="index.html">Home</a></li>
+              <li class="mgl-solutions-item">
                 <a href="solutions/">Solutions</a>
-                <ul class="submenu">
-                  <li><a href="forex-white-label/">White Label</a></li>
-                  <li><a href="forex-grey-label/">Grey Label</a></li>
-                  <li><a href="forex-broker-turnkey/">Turnkey Brokerage</a></li>
-                  <li><a href="mt-admin-license/">MT4 / MT5 Admin License</a></li>
-                  <li><a href="forex-liquidity/">Forex Liquidity</a></li>
-                  <li><a href="forex-crm/">Forex CRM</a></li>
-                  <li><a href="trading-platforms/">Trading Platforms</a></li>
-                  <li><a href="solutions/">All Solutions</a></li>
+                <ul class="submenu mgl-solutions-mega">
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Overview</span>
+                    <a href="solutions/">All Solutions</a>
+                    <a href="forex-white-label/vs-grey-label/">Compare Models</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">White Label</span>
+                    <a href="forex-white-label/">White Label Overview</a>
+                    <a href="forex-white-label/mt4-white-label/">MT4 White Label</a>
+                    <a href="forex-white-label/mt5-white-label/">MT5 White Label</a>
+                    <a href="forex-white-label/pricing/">White Label Pricing</a>
+                    <a href="forex-white-label/vs-grey-label/">White vs Grey Label</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Grey Label</span>
+                    <a href="forex-grey-label/">Grey Label Overview</a>
+                    <a href="forex-grey-label/mt4-grey-label/">MT4 Grey Label</a>
+                    <a href="forex-grey-label/mt5-grey-label/">MT5 Grey Label</a>
+                    <a href="forex-grey-label/pricing/">Grey Label Pricing</a>
+                    <a href="forex-grey-label/upgrade-to-admin/">Upgrade to Admin</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Turnkey &amp; Admin</span>
+                    <a href="forex-broker-turnkey/">Turnkey Brokerage</a>
+                    <a href="forex-broker-turnkey/how-it-works/">How Turnkey Works</a>
+                    <a href="mt-admin-license/">Admin License Overview</a>
+                    <a href="mt-admin-license/mt4-admin/">MT4 Admin</a>
+                    <a href="mt-admin-license/mt5-admin/">MT5 Admin</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Liquidity</span>
+                    <a href="forex-liquidity/">Forex Liquidity</a>
+                    <a href="forex-liquidity/prime-of-prime/">Prime of Prime</a>
+                    <a href="forex-liquidity/liquidity-bridge/">Liquidity Bridge</a>
+                    <a href="forex-liquidity/a-book-b-book/">A-Book vs B-Book</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Forex CRM</span>
+                    <a href="forex-crm/">Forex CRM Overview</a>
+                    <a href="forex-crm/back-office/">Back Office</a>
+                    <a href="forex-crm/ib-portal/">IB Portal</a>
+                    <a href="forex-crm/kyc/">KYC</a>
+                    <a href="forex-crm/payments-automation/">Payments Automation</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Trading Platforms</span>
+                    <a href="trading-platforms/">Platforms Overview</a>
+                    <a href="trading-platforms/web-trader/">Web Trader</a>
+                    <a href="trading-platforms/desktop/">Desktop Platform</a>
+                    <a href="trading-platforms/mobile-app/">Mobile App</a>
+                  </li>
                 </ul>
               </li>
               <li><a href="services.html">Services</a></li>
@@ -122,7 +166,7 @@
 .header-section--style2 .header-wrapper {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(190px, 250px) minmax(430px, 1fr) auto;
+  grid-template-columns: 265px minmax(430px, 1fr) auto;
   align-items: center;
   gap: clamp(18px, 2.2vw, 38px);
   min-height: 78px;
@@ -131,8 +175,8 @@
 }
 
 .header-section--style2 .header-wrapper > .logo {
-  width: clamp(190px, 15vw, 230px) !important;
-  max-width: 230px !important;
+  width: 265px !important;
+  max-width: 265px !important;
   height: fit-content;
   flex-shrink: 0;
 }
@@ -150,7 +194,7 @@
 .header-section--style2 .header-wrapper > .menu-area {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   width: 100%;
   min-width: 0;
 }
@@ -158,11 +202,11 @@
 .header-section--style2 .header-wrapper > .menu-area > .menu {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
-  max-width: 700px;
-  gap: clamp(14px, 1.8vw, 34px);
-  margin: 0 auto;
+  max-width: 760px;
+  gap: 10px;
+  margin: 0 0 0 auto;
   padding: 0;
   flex-wrap: nowrap;
 }
@@ -328,6 +372,97 @@
   }
 }
 
+/* Full Solutions mega-menu */
+@media (min-width: 992px) {
+  .header-section--style2 .mgl-solutions-item { position: static; }
+  .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega {
+    left: 50%;
+    width: min(1180px, calc(100vw - 64px));
+    min-width: 0;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    transform: translate(-50%, 35px);
+  }
+  .header-section--style2 .mgl-solutions-item:hover > .mgl-solutions-mega {
+    transform: translate(-50%, 15px);
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    min-width: 0;
+    padding: 12px !important;
+    border: 1px solid rgba(12,38,58,.07);
+    border-radius: 12px;
+    background: rgba(255,255,255,.34);
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-heading {
+    display: block;
+    margin: 0 0 7px;
+    padding: 0 8px 8px;
+    border-bottom: 1px solid rgba(12,38,58,.08);
+    color: var(--brand-color);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a {
+    display: block;
+    padding: 8px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.3;
+    background: transparent;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a:hover,
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a.active {
+    padding-left: 11px;
+    color: var(--brand-color);
+    background: rgba(0,208,148,.08);
+    transform: none;
+  }
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    border-color: rgba(255,255,255,.07);
+    background: rgba(255,255,255,.035);
+  }
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-mega .mgl-solution-heading {
+    border-color: rgba(255,255,255,.08);
+  }
+}
+
+@media (max-width: 991px) {
+  .header-section--style2 .mgl-solutions-mega {
+    padding: 8px 0 8px 14px !important;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    padding: 10px 8px !important;
+    border-bottom: 1px solid rgba(12,38,58,.08);
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group:last-child {
+    border-bottom: 0;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-heading {
+    display: block;
+    padding: 6px 12px;
+    color: var(--brand-color);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a {
+    display: block;
+    padding: 9px 12px !important;
+    border-top: 0 !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+  }
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    border-color: rgba(255,255,255,.08);
+  }
+}
+
 [data-bs-theme="dark"] .header-section--style2 .header-bottom {
   background: rgba(8,28,39,.58);
   border-color: rgba(255,255,255,.10);
@@ -355,7 +490,7 @@
 
 @media (min-width: 992px) and (max-width: 1399px) {
   .header-section--style2 .header-wrapper {
-    grid-template-columns: minmax(170px,205px) 1fr auto;
+    grid-template-columns: minmax(205px,230px) 1fr auto;
     gap: 16px;
   }
 
@@ -493,23 +628,24 @@
 /* Meta Grey Label shared inner-page layout. */
 .mgl-inner-page{overflow-x:clip;color:var(--title-color);background:var(--bg-color)}
 .mgl-inner-page *{box-sizing:border-box}
-.mgl-inner-page .mgl-inner-hero{position:relative;overflow:hidden;isolation:isolate;padding:clamp(70px,8vw,115px) 0; background:linear-gradient(115deg,#062d30 0%,#062332 57%,#0a1930 100%);color:#fff}
-.mgl-inner-page .mgl-inner-hero::before{position:absolute;content:"";inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 83% 23%,rgba(0,202,155,.21),transparent 39%),linear-gradient(130deg,transparent 30%,rgba(3,139,211,.07) 100%)}
+.mgl-inner-page .mgl-inner-hero{position:relative;overflow:hidden;isolation:isolate;padding:clamp(72px,8vw,112px) 0;background-color:#f6fbfb;background-image:linear-gradient(90deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.84) 48%,rgba(245,252,251,.68) 100%),var(--mgl-inner-hero-image,none);background-size:cover;background-position:center;color:var(--title-color)}
+.mgl-inner-page .mgl-inner-hero::before{position:absolute;content:"";inset:0;pointer-events:none;z-index:-1;background:linear-gradient(120deg,rgba(0,208,148,.08),rgba(255,255,255,.04) 42%,rgba(28,126,166,.08));}
 .mgl-inner-page .mgl-inner-hero--compact{padding:clamp(62px,7vw,96px) 0}
-.mgl-hero-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.7fr);gap:clamp(28px,5vw,80px);align-items:center}
-.mgl-inner-page .mgl-crumb{margin-bottom:26px}
+.mgl-hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:center;max-width:980px}
+.mgl-inner-page .mgl-crumb{margin-bottom:18px}
 .mgl-crumb ol{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0}
-.mgl-crumb li{font-size:.92rem;color:#bed8d9}.mgl-crumb li+li::before{content:"/";margin-right:10px;color:#6a9e9d}
-.mgl-crumb a{color:#83e9cd;text-decoration:none}.mgl-crumb a:hover{text-decoration:underline}
-.mgl-inner-page .mgl-kicker,.mgl-inner-page .mgl-section-label{display:block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#57e6bf;margin-bottom:16px}
-.mgl-inner-page .mgl-inner-hero h1{color:#fff!important;font-size:clamp(2.2rem,4.5vw,4rem);line-height:1.1;letter-spacing:-.035em;max-width:980px;margin:0 0 23px;text-wrap:balance}
-.mgl-hero-summary{color:#d2e4e7!important;font-size:clamp(1rem,1.35vw,1.18rem);line-height:1.75;max-width:770px;margin:0}
-.mgl-hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:29px}
+.mgl-crumb li{font-size:.9rem;color:#587078}.mgl-crumb li+li::before{content:"/";margin-right:10px;color:#8fa2a7}
+.mgl-crumb a{color:#0b8f73;text-decoration:none}.mgl-crumb a:hover{text-decoration:underline}
+.mgl-inner-page .mgl-kicker{display:none!important}
+.mgl-inner-page .mgl-section-label{display:block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#0b9c7d;margin-bottom:16px}
+.mgl-inner-page .mgl-inner-hero h1{color:var(--title-color)!important;font-size:clamp(2.15rem,4.2vw,3.8rem);line-height:1.08;letter-spacing:-.035em;max-width:920px;margin:0 0 16px;text-wrap:balance}
+.mgl-hero-summary{color:#52656d!important;font-size:clamp(.98rem,1.22vw,1.1rem);line-height:1.7;max-width:760px;margin:0}
+.mgl-hero-actions{display:none!important}
 .mgl-inner-page .mgl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:12px;font-weight:750;text-decoration:none;transition:transform .2s,background-color .2s}
 .mgl-inner-page .mgl-btn:hover{transform:translateY(-2px)}
 .mgl-inner-page .mgl-btn-primary{background:#00d1a2;color:#052b2c}
 .mgl-inner-page .mgl-btn-outline{border:1px solid rgba(204,240,234,.7);color:#fff}
-.mgl-hero-art{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,rgba(39,168,169,.12),transparent 70%);min-height:180px}
+.mgl-hero-art{display:none!important}
 .mgl-hero-art img{max-width:100%;width:auto;height:auto;max-height:285px;object-fit:contain;filter:drop-shadow(0 13px 25px rgba(0,0,0,.15))}
 .mgl-article-wrap{padding:clamp(65px,8vw,115px) 0}
 .mgl-reading-layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:clamp(25px,5vw,68px);align-items:start}
@@ -554,6 +690,11 @@
 .mgl-footer-legal{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:12px 15px 30px}
 .mgl-footer-legal a{color:#a6c9c5;text-decoration:none;font-size:.85rem}
 .mgl-footer-legal a:hover{text-decoration:underline}
+[data-bs-theme="dark"] .mgl-inner-page .mgl-inner-hero{background-color:#eef7f6;background-image:linear-gradient(90deg,rgba(248,252,252,.94) 0%,rgba(245,250,249,.86) 48%,rgba(238,247,246,.72) 100%),var(--mgl-inner-hero-image,none);color:#0C263A}
+[data-bs-theme="dark"] .mgl-inner-page .mgl-inner-hero h1{color:#0C263A!important}
+[data-bs-theme="dark"] .mgl-inner-page .mgl-hero-summary{color:#52656d!important}
+[data-bs-theme="dark"] .mgl-inner-page .mgl-crumb li{color:#587078}
+[data-bs-theme="dark"] .mgl-inner-page .mgl-crumb a{color:#0b8f73}
 @media(max-width:991px){.mgl-reading-layout{grid-template-columns:minmax(0,1fr)}.mgl-toc{position:static;max-height:none;order:-1}.mgl-toc-inner ol{columns:2}.mgl-hero-grid{grid-template-columns:1fr}.mgl-hero-art{display:none}.mgl-directory-grid,.mgl-related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.mgl-inner-page .mgl-inner-hero{padding:65px 0}.mgl-copy-block{padding:24px 20px}.mgl-toc-inner ol{columns:1}.mgl-directory-grid,.mgl-related-grid{grid-template-columns:1fr}.mgl-copy-heading{gap:12px}.mgl-bottom-inner>.mgl-btn{width:100%}}
 @media(prefers-reduced-motion:reduce){.mgl-inner-page .mgl-btn,.mgl-related-card,.mgl-directory-card{transition:none!important}}
