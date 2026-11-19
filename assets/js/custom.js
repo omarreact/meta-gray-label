@@ -55,6 +55,11 @@ function updateThemeColor(themeMode = 'light') {
     }
 
     changeImage(themeMode);
+    const brandLogo = document.querySelector("img[data-brand-logo]");
+    if (brandLogo) {
+        const filename = themeMode === "dark" ? "logo-dark.svg" : "logo-light.svg";
+        brandLogo.src = brandLogo.src.replace(/logo-(?:light|dark)\.svg$/, filename);
+    }
 
 }
 
