@@ -170,7 +170,7 @@
     .header-section--style2 .mgl-social-link svg {width: 19px; height: 19px;}
   }
 
-/* Shared inner-page design, based on the existing Bitrader theme; homepage unchanged. */
+/* Meta Grey Label shared inner-page layout. */
 .mgl-inner-page{overflow-x:clip;color:var(--title-color);background:var(--bg-color)}
 .mgl-inner-page *{box-sizing:border-box}
 .mgl-inner-page .mgl-inner-hero{position:relative;overflow:hidden;isolation:isolate;padding:clamp(70px,8vw,115px) 0; background:linear-gradient(115deg,#062d30 0%,#062332 57%,#0a1930 100%);color:#fff}
@@ -237,5 +237,11 @@
 @media(max-width:991px){.mgl-reading-layout{grid-template-columns:minmax(0,1fr)}.mgl-toc{position:static;max-height:none;order:-1}.mgl-toc-inner ol{columns:2}.mgl-hero-grid{grid-template-columns:1fr}.mgl-hero-art{display:none}.mgl-directory-grid,.mgl-related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.mgl-inner-page .mgl-inner-hero{padding:65px 0}.mgl-copy-block{padding:24px 20px}.mgl-toc-inner ol{columns:1}.mgl-directory-grid,.mgl-related-grid{grid-template-columns:1fr}.mgl-copy-heading{gap:12px}.mgl-bottom-inner>.mgl-btn{width:100%}}
 @media(prefers-reduced-motion:reduce){.mgl-inner-page .mgl-btn,.mgl-related-card,.mgl-directory-card{transition:none!important}}
+
+.mgl-capability-strip{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:25px 0}
+.mgl-capability-strip span{font-weight:800;color:var(--title-color)}
+.mgl-capability-strip a{font-weight:650;color:var(--text-color);text-decoration:none;transition:color .2s}
+.mgl-capability-strip a:hover,.mgl-capability-strip a:focus-visible{color:var(--brand-color)}
+@media(max-width:767px){.mgl-capability-strip{justify-content:center;gap:12px 22px;text-align:center}}
 </style>
 
