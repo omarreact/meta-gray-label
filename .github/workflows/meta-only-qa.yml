@@ -91,7 +91,7 @@ jobs:
           from pathlib import Path
           pages=['index.html','services.html','solutions/index.html','insights/index.html','forex-grey-label/index.html','forex-crm/back-office/index.html','about-us/index.html']
           script=r"""<script>
-          window.addEventListener('load',()=>setTimeout(()=>{
+          setTimeout(()=>{
             const qs=s=>document.querySelector(s),logo=qs('img[data-brand-logo]');
             const images=[...document.querySelectorAll('main img, #home img')];
             const result={mode:document.documentElement.getAttribute('data-bs-theme'),width:innerWidth,
@@ -104,11 +104,11 @@ jobs:
                capabilityStrip:document.querySelectorAll('.mgl-capability-strip a').length};
             const holder=document.createElement('script');holder.id='meta-qa-data';holder.type='application/json';holder.textContent=JSON.stringify(result);
             document.body.appendChild(holder);
-          },1700));
+          },2600);
           </script>"""
           for p in pages:
               path=Path(p)
-              path.with_name('__meta_qa.html').write_text(path.read_text().replace('</body>',script+'</body>'))
+              path.with_name('__meta_qa_services.html' if p=='services.html' else '__meta_qa.html').write_text(path.read_text().replace('</body>',script+'</body>'))
           PY
           python3 -m http.server 8147 --bind 127.0.0.1 > /tmp/meta-http.log 2>&1 &
           pid=$!;trap 'kill "$pid" || true' EXIT
@@ -116,11 +116,11 @@ jobs:
           chrome="$(command -v google-chrome || command -v chromium || true)"
           test -n "$chrome"
           for path in /__meta_qa.html /__meta_qa_services.html /solutions/__meta_qa.html /insights/__meta_qa.html /forex-grey-label/__meta_qa.html /forex-crm/back-office/__meta_qa.html /about-us/__meta_qa.html; do
-            if [ "$path" = "/__meta_qa_services.html" ];then continue;fi
+            echo "Testing $path"
             if [ "$path" = "/__meta_qa.html" ];then actual="/__meta_qa.html";else actual="$path";fi
             for width in 390 1440;do
               for mode in light dark;do
-                timeout 30 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=5000 --window-size="$width,900" --dump-dom "http://127.0.0.1:8147$actual?theme=$mode" >/tmp/rendered.html 2>/tmp/chrome.log
+                timeout 30 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=9000 --window-size="$width,900" --dump-dom "http://127.0.0.1:8147$actual?theme=$mode" >/tmp/rendered.html 2>/tmp/chrome.log
                 MODE="$mode" PATH_QA="$actual" python3 - <<'PY'
           import re,os,json,html
           data=open('/tmp/rendered.html').read()
