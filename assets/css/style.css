@@ -11168,9 +11168,3 @@ main [id],
 section[id] {
   scroll-margin-top: 118px;
 }
-[data-aos],
-[data-aos].aos-animate {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-}
