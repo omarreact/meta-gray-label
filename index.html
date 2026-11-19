@@ -28,9 +28,9 @@
 
 
 
-  <link rel="icon" type="image/svg+xml" href="./media/branding/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="./media/branding/favicon-32.png">
-  <link rel="apple-touch-icon" href="./media/branding/apple-touch-icon.png">
+  <link id="site-favicon" rel="icon" type="image/png" sizes="64x64" href="./media/branding/favicon-light.png">
+  <link id="site-icon-large" rel="icon" type="image/webp" sizes="192x192" href="./media/branding/site-icon-light.webp">
+  <link id="site-apple-icon" rel="apple-touch-icon" sizes="180x180" href="./media/branding/apple-icon-light.png">
 
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="./assets/css/aos.css">
@@ -42,13 +42,39 @@
 
   <!-- main css for template -->
   <link rel="stylesheet" href="./assets/css/style.css">
+
+  <style id="mgl-targeted-fixes">
+    /* Original global style.css remains unchanged. */
+    .lightdark-switch .switch-btn {
+      position: fixed !important; top: auto !important; right: auto !important;
+      bottom: max(18px, env(safe-area-inset-bottom)) !important; left: 18px !important;
+      display: flex; align-items: center; justify-content: center;
+      width: 58px !important; height: 58px !important; padding: 7px !important;
+      border-radius: 17px; border: 1px solid rgba(67,220,192,.6);
+      background: linear-gradient(140deg,#06344a,#0877bf);
+      box-shadow: 0 8px 24px rgba(0,52,79,.26); z-index: 9999;
+      transition: transform .2s ease, box-shadow .2s ease; cursor: pointer;
+    }
+    .lightdark-switch .switch-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,52,79,.35); }
+    .lightdark-switch .switch-btn:focus-visible { outline: 3px solid #1fbfd2; outline-offset: 4px; }
+    .lightdark-switch .switch-btn img { width: 42px; height: 42px; max-width: none; max-height: none !important; object-fit: contain; display: block; }
+    #capabilities .team__item-thumb img {
+      display:block; width:100%; aspect-ratio:1/1; height:auto; object-fit:contain;
+      padding:10px; border-radius:16px; background:linear-gradient(145deg,#081c32,#073c50);
+    }
+    #capabilities .team__item-thumb--style1 img { transform:none; }
+    #capabilities .team__item:hover .team__item-thumb--style1 img { transform: translateY(-2px); }
+    #why .testimonial__wrapper { opacity:1 !important; visibility:visible !important; transform:none !important; }
+    #why .testimonial__slider { overscroll-behavior-x: contain; }
+    @media (prefers-reduced-motion:reduce) { .lightdark-switch .switch-btn,#capabilities .team__item-thumb img {transition:none !important;} }
+  </style>
 </head>
 
 <body>
 
   <!-- ===============>> Preloader start here <<================= -->
   <div class="preloader">
-    <img src="./media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="120" height="90">
+    <img src="./media/branding/site-icon-light.webp" alt="Meta Grey Label loading" width="120" height="90">
   </div>
   <!-- ===============>> Preloader end here <<================= -->
 
@@ -56,8 +82,9 @@
 
   <!-- ===============>> light&dark switch start here <<================= -->
   <div class="lightdark-switch">
-    <span class="switch-btn" id="btnSwitch"><img src="./assets/images/icon/moon.svg" alt="light-dark-switchbtn"
-        class="swtich-icon"></span>
+    <button class="switch-btn" id="btnSwitch" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle light and dark theme">
+      <img src="./media/branding/theme-moon.webp" alt="" class="switch-icon" width="40" height="40">
+    </button>
   </div>
   <!-- ===============>> light&dark switch start here <<================= -->
 
@@ -794,7 +821,7 @@
             <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="800">
               <div class="team__item-inner team__item-inner--shape">
                 <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/1.png" alt="Team Image" class="dark">
+                  <img src="./media/branding/brokerage-capabilities.webp" alt="Brokerage technology ecosystem illustration" loading="lazy" decoding="async">
                 </div>
                 <div class="team__item-content team__item-content--style1">
                   <div class="team__item-author team__item-author--style1">
@@ -812,7 +839,7 @@
             <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="900">
               <div class="team__item-inner team__item-inner--shape">
                 <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/2.png" alt="Team Image" class="dark">
+                  <img src="./media/branding/capability-liquidity.svg" alt="Liquidity and bridge connectivity illustration" loading="lazy" decoding="async">
                 </div>
                 <div class="team__item-content team__item-content--style1">
                   <div class="team__item-author team__item-author--style1">
@@ -830,7 +857,7 @@
             <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1000">
               <div class="team__item-inner team__item-inner--shape">
                 <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/3.png" alt="Team Image" class="dark">
+                  <img src="./media/branding/capability-crm.svg" alt="Client CRM and trader portal illustration" loading="lazy" decoding="async">
                 </div>
                 <div class="team__item-content team__item-content--style1">
                   <div class="team__item-author team__item-author--style1">
@@ -848,7 +875,7 @@
             <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1100">
               <div class="team__item-inner team__item-inner--shape">
                 <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/4.png" alt="Team Image" class="dark">
+                  <img src="./media/branding/capability-risk.svg" alt="Risk management and reporting illustration" loading="lazy" decoding="async">
                 </div>
                 <div class="team__item-content team__item-content--style1">
                   <div class="team__item-author team__item-author--style1">
@@ -866,7 +893,7 @@
             <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="800">
               <div class="team__item-inner team__item-inner--shape">
                 <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/5.png" alt="Team Image" class="dark">
+                  <img src="./media/branding/capability-white-label.svg" alt="White-label trading systems illustration" loading="lazy" decoding="async">
                 </div>
                 <div class="team__item-content team__item-content--style1">
                   <div class="team__item-author team__item-author--style1">
@@ -884,7 +911,7 @@
             <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="900">
               <div class="team__item-inner team__item-inner--shape">
                 <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/6.png" alt="Team Image" class="dark">
+                  <img src="./media/branding/capability-grey-label.svg" alt="Grey-label trading controls illustration" loading="lazy" decoding="async">
                 </div>
                 <div class="team__item-content team__item-content--style1">
                   <div class="team__item-author team__item-author--style1">
@@ -902,7 +929,7 @@
             <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1000">
               <div class="team__item-inner team__item-inner--shape">
                 <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/7.png" alt="Team Image" class="dark">
+                  <img src="./media/branding/capability-turnkey.svg" alt="Turnkey integrations illustration" loading="lazy" decoding="async">
                 </div>
                 <div class="team__item-content team__item-content--style1">
                   <div class="team__item-author team__item-author--style1">
@@ -920,7 +947,7 @@
             <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1100">
               <div class="team__item-inner team__item-inner--shape">
                 <div class="team__item-thumb team__item-thumb--style1">
-                  <img src="./assets/images/team/8.png" alt="Team Image" class="dark">
+                  <img src="./media/branding/capability-launch.svg" alt="Brokerage launch readiness illustration" loading="lazy" decoding="async">
                 </div>
                 <div class="team__item-content team__item-content--style1">
                   <div class="team__item-author team__item-author--style1">
@@ -1081,7 +1108,7 @@
           </div>
         </div>
       </div>
-      <div class="testimonial__wrapper" data-aos="fade-up" data-aos-duration="1000">
+      <div class="testimonial__wrapper">
         <div class="testimonial__slider swiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -1094,7 +1121,7 @@
                     <div class="testimonial__footer">
                       <div class="testimonial__author">
                         <div class="testimonial__author-thumb">
-                          <img src="./assets/images/testimonial/1.png" alt="Illustrative brokerage operations portrait">
+                          <img src="./media/branding/capability-white-label.svg" alt="Brokerage commercial scope illustration" loading="lazy" decoding="async">
                         </div>
                         <div class="testimonial__author-designation">
                           <h6>Clear commercial scope</h6>
@@ -1119,7 +1146,7 @@
                     <div class="testimonial__footer">
                       <div class="testimonial__author">
                         <div class="testimonial__author-thumb">
-                          <img src="./assets/images/testimonial/2.png" alt="Illustrative brokerage operations portrait">
+                          <img src="./media/branding/capability-grey-label.svg" alt="Scalable operating model illustration" loading="lazy" decoding="async">
                         </div>
                         <div class="testimonial__author-designation">
                           <h6>Room to grow</h6>
@@ -1144,7 +1171,7 @@
                     <div class="testimonial__footer">
                       <div class="testimonial__author">
                         <div class="testimonial__author-thumb">
-                          <img src="./assets/images/testimonial/6.png" alt="Illustrative brokerage operations portrait">
+                          <img src="./media/branding/capability-launch.svg" alt="Brokerage handover illustration" loading="lazy" decoding="async">
                         </div>
                         <div class="testimonial__author-designation">
                           <h6>Coordinated handover</h6>
