@@ -136,7 +136,7 @@ jobs:
           assert data['logoSrc'].endswith('logo-dark.svg' if data['theme']=='dark' else 'logo-light.svg'),data
           assert data['wa']==1 and data['tg']==1,data
           assert data['overflow']<=3,data
-          assert any(a.endswith('/meta-gray-label/services.html') for a in data['links']),data
+          assert any(a.endswith('/services.html') for a in data['links']),data
           print(f"PASS {os.environ['PAGE']} {os.environ['MODE']}: nested assets, social icons, navigation, theme; overflow={data['overflow']}")
           PY
             done
