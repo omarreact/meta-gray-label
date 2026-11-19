@@ -41,6 +41,10 @@
     const innerHeroImage = new URL('assets/images/banner/home1/bg.png', siteRoot).href;
     document.querySelectorAll('.mgl-inner-hero').forEach((hero) => {
       hero.style.setProperty('--mgl-inner-hero-image', 'url("' + innerHeroImage + '")');
+
+      // Inner heroes intentionally contain only route/breadcrumb, title and
+      // the short page summary. All supporting content begins after the hero.
+      hero.querySelectorAll('.mgl-kicker, .mgl-hero-actions, .mgl-hero-art').forEach((extra) => extra.remove());
     });
 
     const script = document.createElement('script');
