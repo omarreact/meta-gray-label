@@ -1,0 +1,537 @@
+{
+  "source": "omarreact/mt5-gl/content.xml",
+  "sourceCommit": "4f36e9c813b0cd4f6008634fc5bd05eb33a9716f",
+  "renderedAt": "2026-11-19",
+  "pages": [
+    {
+      "id": "doc-01",
+      "title": "Home",
+      "status": "available",
+      "route": "/",
+      "path": "index.html",
+      "sourceParagraphs": 30,
+      "renderedParagraphs": 30,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-02",
+      "title": "About Us",
+      "status": "available",
+      "route": "/about-us/",
+      "path": "about-us/index.html",
+      "sourceParagraphs": 25,
+      "renderedParagraphs": 25,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-03",
+      "title": "Why Choose Us",
+      "status": "available",
+      "route": "/about-us/why-choose-us/",
+      "path": "about-us/why-choose-us/index.html",
+      "sourceParagraphs": 25,
+      "renderedParagraphs": 25,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-04",
+      "title": "Client Testimonials",
+      "status": "available",
+      "route": "/about-us/testimonials/",
+      "path": "about-us/testimonials/index.html",
+      "sourceParagraphs": 10,
+      "renderedParagraphs": 0,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-05",
+      "title": "Forex White Label",
+      "status": "available",
+      "route": "/forex-white-label/",
+      "path": "forex-white-label/index.html",
+      "sourceParagraphs": 24,
+      "renderedParagraphs": 24,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-06",
+      "title": "MT4 White Label",
+      "status": "available",
+      "route": "/forex-white-label/mt4-white-label/",
+      "path": "forex-white-label/mt4-white-label/index.html",
+      "sourceParagraphs": 25,
+      "renderedParagraphs": 25,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-07",
+      "title": "MT5 White Label",
+      "status": "available",
+      "route": "/forex-white-label/mt5-white-label/",
+      "path": "forex-white-label/mt5-white-label/index.html",
+      "sourceParagraphs": 25,
+      "renderedParagraphs": 25,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-08",
+      "title": "White Label Pricing",
+      "status": "available",
+      "route": "/forex-white-label/pricing/",
+      "path": "forex-white-label/pricing/index.html",
+      "sourceParagraphs": 29,
+      "renderedParagraphs": 29,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-09",
+      "title": "White Label vs Grey Label",
+      "status": "available",
+      "route": "/forex-white-label/vs-grey-label/",
+      "path": "forex-white-label/vs-grey-label/index.html",
+      "sourceParagraphs": 33,
+      "renderedParagraphs": 33,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-10",
+      "title": "Forex Grey Label",
+      "status": "available",
+      "route": "/forex-grey-label/",
+      "path": "forex-grey-label/index.html",
+      "sourceParagraphs": 27,
+      "renderedParagraphs": 27,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-11",
+      "title": "MT4 Grey Label",
+      "status": "available",
+      "route": "/forex-grey-label/mt4-grey-label/",
+      "path": "forex-grey-label/mt4-grey-label/index.html",
+      "sourceParagraphs": 26,
+      "renderedParagraphs": 26,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-12",
+      "title": "MT5 Grey Label",
+      "status": "available",
+      "route": "/forex-grey-label/mt5-grey-label/",
+      "path": "forex-grey-label/mt5-grey-label/index.html",
+      "sourceParagraphs": 28,
+      "renderedParagraphs": 28,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-13",
+      "title": "Grey Label Pricing",
+      "status": "available",
+      "route": "/forex-grey-label/pricing/",
+      "path": "forex-grey-label/pricing/index.html",
+      "sourceParagraphs": 29,
+      "renderedParagraphs": 29,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-14",
+      "title": "Upgrade Grey Label to Admin License",
+      "status": "available",
+      "route": "/forex-grey-label/upgrade-to-admin/",
+      "path": "forex-grey-label/upgrade-to-admin/index.html",
+      "sourceParagraphs": 29,
+      "renderedParagraphs": 29,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-15",
+      "title": "MT4 / MT5 Admin License",
+      "status": "available",
+      "route": "/mt-admin-license/",
+      "path": "mt-admin-license/index.html",
+      "sourceParagraphs": 29,
+      "renderedParagraphs": 29,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-16",
+      "title": "MT4 Admin License",
+      "status": "available",
+      "route": "/mt-admin-license/mt4-admin/",
+      "path": "mt-admin-license/mt4-admin/index.html",
+      "sourceParagraphs": 29,
+      "renderedParagraphs": 29,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-17",
+      "title": "MT5 Admin License",
+      "status": "available",
+      "route": "/mt-admin-license/mt5-admin/",
+      "path": "mt-admin-license/mt5-admin/index.html",
+      "sourceParagraphs": 31,
+      "renderedParagraphs": 31,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-18",
+      "title": "Forex Broker Turnkey",
+      "status": "available",
+      "route": "/forex-broker-turnkey/",
+      "path": "forex-broker-turnkey/index.html",
+      "sourceParagraphs": 26,
+      "renderedParagraphs": 26,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-19",
+      "title": "Launch in 2 Days (Process)",
+      "status": "available",
+      "route": "/forex-broker-turnkey/how-it-works/",
+      "path": "forex-broker-turnkey/how-it-works/index.html",
+      "sourceParagraphs": 30,
+      "renderedParagraphs": 30,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-20",
+      "title": "Forex Liquidity",
+      "status": "available",
+      "route": "/forex-liquidity/",
+      "path": "forex-liquidity/index.html",
+      "sourceParagraphs": 28,
+      "renderedParagraphs": 28,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-21",
+      "title": "A-Book / B-Book / Hybrid",
+      "status": "available",
+      "route": "/forex-liquidity/a-book-b-book/",
+      "path": "forex-liquidity/a-book-b-book/index.html",
+      "sourceParagraphs": 27,
+      "renderedParagraphs": 27,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-22",
+      "title": "Liquidity Bridge",
+      "status": "available",
+      "route": "/forex-liquidity/liquidity-bridge/",
+      "path": "forex-liquidity/liquidity-bridge/index.html",
+      "sourceParagraphs": 31,
+      "renderedParagraphs": 31,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-23",
+      "title": "Prime of Prime (PoP)",
+      "status": "available",
+      "route": "/forex-liquidity/prime-of-prime/",
+      "path": "forex-liquidity/prime-of-prime/index.html",
+      "sourceParagraphs": 32,
+      "renderedParagraphs": 32,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-24",
+      "title": "Fx CRM | TradeRoom",
+      "status": "available",
+      "route": "/forex-crm/",
+      "path": "forex-crm/index.html",
+      "sourceParagraphs": 31,
+      "renderedParagraphs": 31,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-25",
+      "title": "Trader's Room (Client Portal)",
+      "status": "unavailable",
+      "route": "/forex-crm/traders-room/",
+      "path": "forex-crm/traders-room/index.html",
+      "sourceParagraphs": 0,
+      "renderedParagraphs": 5,
+      "sourceFallback": true
+    },
+    {
+      "id": "doc-26",
+      "title": "IB / Affiliate Portal",
+      "status": "available",
+      "route": "/forex-crm/ib-portal/",
+      "path": "forex-crm/ib-portal/index.html",
+      "sourceParagraphs": 35,
+      "renderedParagraphs": 35,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-27",
+      "title": "Back Office & Admin Panel",
+      "status": "available",
+      "route": "/forex-crm/back-office/",
+      "path": "forex-crm/back-office/index.html",
+      "sourceParagraphs": 34,
+      "renderedParagraphs": 34,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-28",
+      "title": "KYC & Compliance Module",
+      "status": "available",
+      "route": "/forex-crm/kyc/",
+      "path": "forex-crm/kyc/index.html",
+      "sourceParagraphs": 34,
+      "renderedParagraphs": 34,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-29",
+      "title": "Deposit / Withdrawal Automation",
+      "status": "available",
+      "route": "/forex-crm/payments-automation/",
+      "path": "forex-crm/payments-automation/index.html",
+      "sourceParagraphs": 40,
+      "renderedParagraphs": 40,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-30",
+      "title": "Trading Platforms (Main Room)",
+      "status": "available",
+      "route": "/trading-platforms/",
+      "path": "trading-platforms/index.html",
+      "sourceParagraphs": 33,
+      "renderedParagraphs": 33,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-31",
+      "title": "Web Trader",
+      "status": "available",
+      "route": "/trading-platforms/web-trader/",
+      "path": "trading-platforms/web-trader/index.html",
+      "sourceParagraphs": 33,
+      "renderedParagraphs": 33,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-32",
+      "title": "Mobile Trading App (iOS / Android)",
+      "status": "available",
+      "route": "/trading-platforms/mobile-app/",
+      "path": "trading-platforms/mobile-app/index.html",
+      "sourceParagraphs": 32,
+      "renderedParagraphs": 32,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-33",
+      "title": "Desktop Platform",
+      "status": "available",
+      "route": "/trading-platforms/desktop/",
+      "path": "trading-platforms/desktop/index.html",
+      "sourceParagraphs": 32,
+      "renderedParagraphs": 32,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-34",
+      "title": "Fx Company & License",
+      "status": "available",
+      "route": "/forex-company-license/",
+      "path": "forex-company-license/index.html",
+      "sourceParagraphs": 30,
+      "renderedParagraphs": 30,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-35",
+      "title": "Offshore Company Formation",
+      "status": "available",
+      "route": "/forex-company-license/company-formation/",
+      "path": "forex-company-license/company-formation/index.html",
+      "sourceParagraphs": 37,
+      "renderedParagraphs": 37,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-36",
+      "title": "MetaTrader Grey Label vs White Label: Which Is Best for Your Forex Brokerage?",
+      "status": "available",
+      "route": "/insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/",
+      "path": "insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/index.html",
+      "sourceParagraphs": 33,
+      "renderedParagraphs": 33,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-37",
+      "title": "Step-by-Step Guide to Setting Up a MetaTrader Grey Label Brokerage in Under a Week",
+      "status": "available",
+      "route": "/insights/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/",
+      "path": "insights/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/index.html",
+      "sourceParagraphs": 45,
+      "renderedParagraphs": 45,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-38",
+      "title": "Essential Tools and Plugins for a MetaTrader Grey Label Brokerage",
+      "status": "available",
+      "route": "/insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/",
+      "path": "insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/index.html",
+      "sourceParagraphs": 35,
+      "renderedParagraphs": 35,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-39",
+      "title": "MetaTrader Grey Label Licensing: What It Includes and Why It Matters",
+      "status": "available",
+      "route": "/insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/",
+      "path": "insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/index.html",
+      "sourceParagraphs": 44,
+      "renderedParagraphs": 44,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-40",
+      "title": "How MetaTrader Grey Label Can Help You Attract More Forex Traders",
+      "status": "available",
+      "route": "/insights/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/",
+      "path": "insights/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/index.html",
+      "sourceParagraphs": 38,
+      "renderedParagraphs": 38,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-41",
+      "title": "Comparing MetaTrader Grey Label Providers: Features, Support and Prices",
+      "status": "available",
+      "route": "/insights/comparing-metatrader-grey-label-providers-features-support-and-prices/",
+      "path": "insights/comparing-metatrader-grey-label-providers-features-support-and-prices/index.html",
+      "sourceParagraphs": 45,
+      "renderedParagraphs": 45,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-42",
+      "title": "MetaTrader Grey Label + CRM Integration: Boosting Client Onboarding and Retention",
+      "status": "available",
+      "route": "/insights/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/",
+      "path": "insights/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/index.html",
+      "sourceParagraphs": 43,
+      "renderedParagraphs": 43,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-43",
+      "title": "Common Mistakes to Avoid When Choosing a MetaTrader Grey Label Provider",
+      "status": "available",
+      "route": "/insights/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/",
+      "path": "insights/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/index.html",
+      "sourceParagraphs": 43,
+      "renderedParagraphs": 43,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-44",
+      "title": "How Much Capital Do You Need to Start With MetaTrader Grey Label?",
+      "status": "available",
+      "route": "/insights/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/",
+      "path": "insights/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/index.html",
+      "sourceParagraphs": 48,
+      "renderedParagraphs": 48,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-45",
+      "title": "Introducing Broker (IB) Programs for MetaTrader Grey Label Businesses",
+      "status": "available",
+      "route": "/insights/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/",
+      "path": "insights/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/index.html",
+      "sourceParagraphs": 49,
+      "renderedParagraphs": 49,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-46",
+      "title": "White Label, Grey Label or Turnkey? Choosing the Right Model",
+      "status": "available",
+      "route": "/insights/white-label-grey-label-or-turnkey-choosing-the-right-model/",
+      "path": "insights/white-label-grey-label-or-turnkey-choosing-the-right-model/index.html",
+      "sourceParagraphs": 42,
+      "renderedParagraphs": 42,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-47",
+      "title": "Trader's Room and Client Portal Features in a MetaTrader Grey Label Setup",
+      "status": "available",
+      "route": "/insights/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/",
+      "path": "insights/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/index.html",
+      "sourceParagraphs": 58,
+      "renderedParagraphs": 58,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-48",
+      "title": "Compliance and KYC Basics for MetaTrader Grey Label Brokerages",
+      "status": "available",
+      "route": "/insights/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/",
+      "path": "insights/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/index.html",
+      "sourceParagraphs": 48,
+      "renderedParagraphs": 48,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-49",
+      "title": "Copy Trading and Social Trading for MetaTrader Grey Label Brokers",
+      "status": "available",
+      "route": "/insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/",
+      "path": "insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/index.html",
+      "sourceParagraphs": 48,
+      "renderedParagraphs": 48,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-50",
+      "title": "Revenue Streams of a MetaTrader Grey Label Brokerage: Spreads, Commissions and More",
+      "status": "available",
+      "route": "/insights/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/",
+      "path": "insights/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/index.html",
+      "sourceParagraphs": 42,
+      "renderedParagraphs": 42,
+      "sourceFallback": false
+    },
+    {
+      "id": "doc-51",
+      "title": "Contact",
+      "status": "unavailable",
+      "route": "/contact/",
+      "path": "contact/index.html",
+      "sourceParagraphs": 0,
+      "renderedParagraphs": 3,
+      "sourceFallback": true
+    },
+    {
+      "id": "doc-52",
+      "title": "Privacy Policy",
+      "status": "unavailable",
+      "route": "/privacy-policy/",
+      "path": "privacy-policy/index.html",
+      "sourceParagraphs": 0,
+      "renderedParagraphs": 3,
+      "sourceFallback": true
+    },
+    {
+      "id": "doc-53",
+      "title": "Terms of Service",
+      "status": "unavailable",
+      "route": "/terms-of-service/",
+      "path": "terms-of-service/index.html",
+      "sourceParagraphs": 0,
+      "renderedParagraphs": 3,
+      "sourceFallback": true
+    }
+  ]
+}
