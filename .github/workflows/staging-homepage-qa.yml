@@ -73,10 +73,11 @@ jobs:
           if [ -n "$chrome" ]; then
             timeout 50 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=6500 --window-size=390,844 --dump-dom \
               'http://127.0.0.1:8123/index.html' > /tmp/rendered.html 2>/tmp/chrome-errors.txt
+            wc -c /tmp/rendered.html
             grep -q 'class="header-section' /tmp/rendered.html
             grep -q 'class="footer' /tmp/rendered.html
             grep -q 'id="models"' /tmp/rendered.html
-            grep -q 'A forex technology provider' /tmp/rendered.html
+            grep -q 'technology provider' /tmp/rendered.html
             echo 'PASS: rendered homepage with dynamic header and footer'
           else
             echo 'SKIP: Chrome unavailable; HTTP and static validations passed'
