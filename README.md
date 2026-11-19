@@ -12,12 +12,13 @@ and the original 54 template sources are in `templates/pages/**` and
 
 ## Native Gutenberg content (opt-in)
 
-48 of 52 routes have complete, structured source documents: a deterministic
+48 routes have complete, structured source documents: a deterministic
 generator now converts **2,735 actual headings and paragraphs** into
 serialized native WordPress core/group, core/heading and core/paragraph
-blocks. The other four routes (404, insights index, services, solutions) keep
-their approved static/legacy implementations until suitable bespoke native
-templates are ready.
+blocks. The remaining four routes (404, insights index, services, solutions) have
+simplified editable Gutenberg directory/404 layouts generated from the
+same visible JSON fields and route map. Their original bespoke HTML designs
+remain the default until verified.
 
     node tests/fse-pages.mjs
     node scripts/generate-fse.mjs --check
@@ -34,7 +35,7 @@ labels/URLs, and may be edited in the WordPress Site Editor.
     php tests/wordpress-renderer-smoke.php
     node scripts/package-wordpress.mjs --write
 
-The WordPress package contains the generated core-block post content under
+The WordPress package contains 52 generated core-block layout sources under
 `data/fse-pages/`, a native page template in `templates/page-native.html`,
 and native FSE template parts `parts/header-native.html` /
 `parts/footer-native.html`.

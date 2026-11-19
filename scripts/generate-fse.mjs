@@ -15,7 +15,7 @@ if (flags.size !== 1 || (!flags.has("--check") && !flags.has("--write"))) {
   process.exit(2);
 }
 const config = JSON.parse(readFileSync(join(root, "data/content.json"), "utf8"));
-const { pages, excluded } = buildNativePages(config);
+const { pages, excluded, special } = buildNativePages(config);
 const { header, footer } = buildNativeParts(config);
 function checkOrWrite(relative, output) {
   const file = resolve(root, relative);
@@ -28,7 +28,7 @@ function checkOrWrite(relative, output) {
 }
 checkOrWrite("parts/header-native.html", header);
 checkOrWrite("parts/footer-native.html", footer);
-if (pages.length !== 48 || excluded.length !== 4) {
+if (pages.length !== 52 || excluded.length !== 0 || special.length !== 4) {
   throw new Error("Expected 48 mapped document pages + 4 unmatched routes");
 }
 const manifest = {};
@@ -50,7 +50,7 @@ if (flags.has("--write")) {
   const location = resolve(root, "dist/fse/manifest.json");
   mkdirSync(dirname(location), { recursive: true });
   writeFileSync(location, JSON.stringify({ source: "data/content.json", generated: manifest,
-    excluded, pageCount: pages.length }, null, 2) + "\n");
+    excluded, special, pageCount: pages.length }, null, 2) + "\n");
 }
 console.log("FSE " + (flags.has("--check") ? "CHECK" : "GENERATE") + " PASS: " + pages.length +
-  " native editable page sources; " + excluded.length + " existing HTML fallbacks.");
+  " native editable page sources; " + special.length + " directory/404 layouts derived from canonical fields.");

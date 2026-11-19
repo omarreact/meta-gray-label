@@ -41,3 +41,7 @@
 [data-bs-theme="dark"] .mgl-native-page .mgl-native-section--4 { background:#122f3c; color:#f2fbfa; }
 [data-bs-theme="dark"] .mgl-native-page .mgl-native-section--3 { background:#173e47; color:#f2fbfa; }
 @media(max-width:767px){ .mgl-native-page .mgl-native-section { padding:clamp(28px,7vw,60px) 22px; } .mgl-native-page h1 { overflow-wrap:anywhere; } }
+
+.mgl-native-section--directory p a { display:block; width:fit-content; padding:12px 18px; border-radius:10px; border:1px solid #d7e9e6; font-weight:650; text-decoration:none; color:#09645d; }
+.mgl-native-section--directory p a:hover { border-color:#0eab86; background:#effaf7; }
+.mgl-native-page--missing .mgl-native-section--hero { min-height:50vh; }

@@ -56,7 +56,7 @@ if (pages !== 52 || shared !== 2) {
 }
 const native = buildNativePages(config);
 const nativeParts = buildNativeParts(config);
-if (native.pages.length !== 48 || native.excluded.length !== 4) {
+if (native.pages.length !== 52 || native.special.length !== 4 || native.excluded.length !== 0) {
   throw new Error("Unexpected native page coverage");
 }
 for (const name of ["index", "front-page", "page", "page-native", "404", "single", "archive", "search"]) {
@@ -99,7 +99,7 @@ for (const page of native.pages) {
   writeFileSync(file, page.markup);
   manifest[page.path] = { file: page.slug + ".html", route: page.route, documentId: page.documentId };
 }
-writeFileSync(join(output, "manifest.json"), JSON.stringify({ pages: manifest, excluded: native.excluded }, null, 2) + "\n");
+writeFileSync(join(output, "manifest.json"), JSON.stringify({ pages: manifest, excluded: native.excluded, special: native.special }, null, 2) + "\n");
 writeFileSync(join(wpDir, "parts/header-native.html"), nativeParts.header);
 writeFileSync(join(wpDir, "parts/footer-native.html"), nativeParts.footer);
 console.log("WORDPRESS PACKAGE BUILT: " + wpDir + " (" + native.pages.length + " native pages)");

@@ -98,6 +98,61 @@ function nativePageMarkup(entry, document, sequence) {
   return { path: entry.path, slug: slugOf(entry.path), route: entry.route, title: entry.title,
     documentId: entry.id, family, sections: sectionIndex, blocks: blocks.length, sequence, markup };
 }
+function directoryPageMarkup(config, source, sequence) {
+  const rec = config.pages[source];
+  const is404 = source === "404.html";
+  const f = rec.fields;
+  const get = (number) => f["__MGL_CONTENT_" + String(number).padStart(5, "0") + "__"] || "";
+  const options = {
+    "404.html": [19, 22, 22],
+    "insights/index.html": [14, 15, 17],
+    "services.html": [18, 19, 22],
+    "solutions/index.html": [14, 15, 17]
+  };
+  const [titleId, introId, sectionId] = options[source];
+  const title = get(titleId).replace(/&amp;/g, "&");
+  const lead = get(introId);
+  const family = is404 ? "missing" : source.startsWith("insights") ? "editorial" : "directory";
+  const cls = "mgl-native-page mgl-native-page--" + family +
+    " mgl-native-route--" + routeClass(rec.route);
+  const list = [];
+  if (source === "404.html") {
+    list.push({ route: "/", title: get(23) || "Return Home" });
+  } else {
+    const categories = config.pageMap.pages.filter((item) => {
+      if (source === "insights/index.html") return item.route.startsWith("/insights/");
+      if (source === "services.html") return item.route.split("/").filter(Boolean).length === 1 &&
+        /\/(forex|mt-admin|trading-platforms)/.test(item.route);
+      return !item.route.startsWith("/insights/") &&
+        /\/(forex|mt-admin|trading-platforms)/.test(item.route);
+    });
+    for (const item of categories) {
+      list.push({ route: item.route, title: item.title });
+    }
+  }
+  const out = [
+    openGroup(cls, "main"),
+    openGroup("mgl-native-section mgl-native-section--0 mgl-native-section--hero", "section"),
+    paragraph("Meta Grey Label / " + (is404 ? "Page not found" : "Solutions"), "mgl-native-eyebrow"),
+    heading(title, 1),
+    paragraph(lead),
+    closeGroup("section")
+  ];
+  if (list.length) {
+    out.push(openGroup("mgl-native-section mgl-native-section--1 mgl-native-section--directory", "section"));
+    out.push(heading(get(sectionId) || "Explore", 2));
+    for (const item of list) {
+      const url = item.route.startsWith("/") ? item.route : nativeUrl(item.route);
+      out.push('<!-- wp:paragraph --><p><a href="' + safeText(url) + '">' +
+        safeText(item.title) + '</a></p><!-- /wp:paragraph -->');
+    }
+    out.push(closeGroup("section"));
+  }
+  out.push(closeGroup("main"));
+  return { path: source, slug: slugOf(source), route: rec.route, title,
+    documentId: null, family, sections: list.length ? 2 : 1,
+    blocks: list.length + 3, sequence, markup: out.join("\n") + "\n" };
+}
 export function buildNativePages(config) {
   if (!config?.pages || !config?.content?.documents || !config?.pageMap?.pages) {
     throw new Error("Missing canonical content data");
@@ -117,10 +172,17 @@ export function buildNativePages(config) {
     results.push(page);
     seen.add(entry.path);
   }
-  const excluded = Object.entries(config.pages)
+  const special = Object.entries(config.pages)
     .filter(([path, value]) => value.role === "page" && !seen.has(path))
     .map(([path]) => path).sort();
-  return { pages: results, excluded };
+  for (const source of special) {
+    results.push(directoryPageMarkup(config, source, index++));
+    seen.add(source);
+  }
+  if (results.length !== 52 || seen.size !== 52) {
+    throw new Error("Native page inventory differs from canonical JSON");
+  }
+  return { pages: results, special, excluded: [] };
 }
 function nativeUrl(route) {
   if (route === "index.html") return "/";

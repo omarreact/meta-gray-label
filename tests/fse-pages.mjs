@@ -2,10 +2,11 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { buildNativePages, buildNativeParts, nativePreview } from "../scripts/fse-pages.mjs";
 const data = JSON.parse(readFileSync(new URL("../data/content.json", import.meta.url), "utf8"));
-const { pages, excluded } = buildNativePages(data);
-assert.equal(pages.length, 48);
-assert.deepEqual(excluded, ["404.html", "insights/index.html", "services.html", "solutions/index.html"]);
-assert.equal(new Set(pages.map(p => p.path)).size, 48);
+const { pages, excluded, special } = buildNativePages(data);
+assert.equal(pages.length, 52);
+assert.deepEqual(excluded, []);
+assert.deepEqual(special, ["404.html", "insights/index.html", "services.html", "solutions/index.html"]);
+assert.equal(new Set(pages.map(p => p.path)).size, 52);
 let blocks = 0;
 for (const page of pages) {
   const doc = data.content.documents[page.documentId];
@@ -14,10 +15,14 @@ for (const page of pages) {
   assert.equal((page.markup.match(/<!-- wp:group/g) || []).length,
     (page.markup.match(/<!-- \/wp:group -->/g) || []).length);
   const sourceTextCount = (page.markup.match(/<!-- wp:(paragraph|heading)(?:\s| -->)/g) || []).length;
-  assert.equal(sourceTextCount, doc.blocks.length + 1, "content loss: " + page.path);
+  if (doc) {
+    assert.equal(sourceTextCount, doc.blocks.length + 1, "content loss: " + page.path);
+  } else {
+    assert.ok(sourceTextCount >= 3, "incomplete directory/404 content: " + page.path);
+  }
   assert.ok(!page.markup.includes("__MGL_CONTENT_"));
   assert.ok(nativePreview(page).includes("<!doctype html>"));
-  blocks += doc.blocks.length;
+  blocks += doc?.blocks.length || 0;
 }
 const parts = buildNativeParts(data);
 assert.ok(parts.header.includes("wp:site-logo"));

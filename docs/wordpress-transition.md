@@ -11,8 +11,9 @@
   and core/paragraph markup. No content strings are duplicated into the
   FSE generator.
 - **Four bespoke routes:** `404.html`, `insights/index.html`,
-  `services.html`, `solutions/index.html` remain in the existing legacy
-  adapter. These need custom directory/404 designs to preserve parity.
+  `services.html`, `solutions/index.html` also receive simplified native
+  directory/404 layouts from the current JSON fields and page map. Their
+  approved HTML designs remain the default; visual parity is still needed.
 - **Native site structure:** generated `parts/header-native.html` uses
   core/site-logo, core/site-title and core/navigation; footer uses
   core/site-title, core/columns and core/paragraph.
@@ -50,10 +51,10 @@ reviewing the preview and approving the WordPress rendering:
     wp mgl import-pages --apply --native --set-homepage
 
 Without `--native`, the importer creates empty WordPress page records and
-uses the existing HTML renderer. With `--native`, 48 mapped pages receive
+uses the existing HTML renderer. With `--native`, up to 51 newly created pages receive
 Gutenberg page content and a native template (home uses the WordPress
-front-page fallback with an opt-in rendering guard); the four exceptional
-routes retain the legacy renderer. Existing pages are never overwritten.
+front-page fallback with an opt-in rendering guard); the 404 page has a
+native source preview but is not imported as a normal WordPress Page. Existing pages are never overwritten.
 
 ## Production migration is not finished
 
