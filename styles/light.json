@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "title": "Light",
+  "styles": {
+    "color": {
+      "background": "#f7fbfa",
+      "text": "#0c263a"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "#008f72"
+        }
+      }
+    }
+  }
+}

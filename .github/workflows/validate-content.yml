@@ -1,31 +1,128 @@
-name: Validate JSON-driven static site
-
+name: Validate JSON-driven static and WordPress-ready themes
 on:
   pull_request:
     paths:
-      - "data/content.json"
-      - "data/content.xml"
-      - "data/page-map.json"
+      - "data/**"
       - "templates/**"
+      - "parts/**"
+      - "patterns/**"
+      - "styles/**"
+      - "inc/**"
+      - "blocks/**"
+      - "assets/css/fse.css"
       - "scripts/**"
+      - "tests/**"
+      - "docs/**"
       - "**/*.html"
+      - "functions.php"
+      - "style.css"
+      - "theme.json"
       - "sitemap.xml"
       - ".github/workflows/validate-content.yml"
+      - ".wp-env.json"
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Check generator syntax
-        run: node --check scripts/generate.mjs
-      - name: Verify generated pages, shared layout, sitemap and page map
+      - name: Validate generator JavaScript
+        run: |
+          node --check scripts/generate.mjs
+          node --check scripts/audit-seo.mjs
+          node --check tests/architecture.mjs
+          node --check scripts/package-wordpress.mjs
+          node --check scripts/fse-pages.mjs
+          node --check scripts/generate-fse.mjs
+          node --check inc/editor.js
+      - name: Verify original static HTML unchanged
         run: node scripts/generate.mjs --check
+      - name: Audit 52 static pages for metadata and canonical SEO
+        run: node scripts/audit-seo.mjs --check
+      - name: Enforce block metadata and CSS namespace isolation
+        run: node tests/architecture.mjs
+      - name: Validate native Gutenberg page and template-part projection
+        run: |
+          node tests/fse-pages.mjs
+          node scripts/generate-fse.mjs --check
+      - name: Verify WordPress source package
+        run: node scripts/package-wordpress.mjs --check
+      - name: Lint WordPress PHP files
+        run: |
+          php -v
+          php -l functions.php
+          php -l inc/renderer.php
+          php -l inc/import-pages.php
+          php -l patterns/brokerage-hero.php
+          php -l patterns/brokerage-cta.php
+          php -l tests/wordpress-renderer-smoke.php
+          php -l tests/wordpress-assets-smoke.php
+      - name: Smoke-test PHP rendering across 52 page designs
+        run: php tests/wordpress-renderer-smoke.php
+      - name: Smoke-test native-only assets, WordPress metadata and SEO hooks
+        run: php tests/wordpress-assets-smoke.php
+      - name: Test WordPress theme package generation
+        run: |
+          node scripts/package-wordpress.mjs --write
+          test -f dist/wordpress/meta-grey-label/style.css
+          test -f dist/wordpress/meta-grey-label/functions.php
+          test -f dist/wordpress/meta-grey-label/templates/index.html
+          test -f dist/wordpress/meta-grey-label/data/content.json
+          test -f dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
+          test -f dist/wordpress/meta-grey-label/data/fse-pages/home.html
+          test -f dist/wordpress/meta-grey-label/parts/header-native.html
+          test -f dist/wordpress/meta-grey-label/blocks/legacy-page/block.json
+          test -f dist/wordpress/meta-grey-label/assets/css/fse.css
+  wordpress-integration:
+    name: Real WordPress staging (isolated Docker)
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build installable WordPress theme without touching production
+        run: |
+          node scripts/package-wordpress.mjs --write
+          cp tests/wp-runtime.php dist/wordpress/meta-grey-label/qa-runtime.php
+      - name: Start isolated WordPress and MariaDB via official wp-env
+        run: npx --yes @wordpress/env start
+      - name: Activate theme and enable pretty permalinks
+        run: |
+          npx --yes @wordpress/env run cli wp theme activate meta-grey-label
+          npx --yes @wordpress/env run cli wp option update blogname 'Meta Grey Label'
+          npx --yes @wordpress/env run cli wp option update permalink_structure '/%postname%/'
+          npx --yes @wordpress/env run cli wp rewrite flush
+      - name: Dry-run then import into disposable staging database
+        run: |
+          npx --yes @wordpress/env run cli wp mgl import-pages --native
+          npx --yes @wordpress/env run cli wp mgl import-pages --apply --native --set-homepage
+      - name: Assert WordPress parsing rendering and Gutenberg navigation
+        run: npx --yes @wordpress/env run cli wp eval-file wp-content/themes/meta-grey-label/qa-runtime.php
+      - name: Assert actual HTTP pages and conditional frontend assets
+        run: node tests/wp-http.mjs
+      - name: Browser validation and representative desktop/mobile screenshots
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install chromium
+          node tests/wp-browser.mjs
+          node tests/wp-editor.mjs
+      - name: Publish disposable staging visual QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordpress-desktop-mobile-screenshots
+          path: tmp/wp-browser-screens/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Shut down disposable WordPress environment
+        if: always()
+        run: npx --yes @wordpress/env stop || true
