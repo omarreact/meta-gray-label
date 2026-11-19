@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://omarreact.github.io/meta-gray-label/sitemap.xml

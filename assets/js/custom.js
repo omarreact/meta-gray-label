@@ -1,3 +1,4 @@
+const mglSiteRoot = new URL('../../', document.currentScript.src);
 // =================== preloader js  ================== //
 function hidePreloader() {
     var preloader = document.querySelector('.preloader');
@@ -56,7 +57,7 @@ function updateThemeColor(themeMode = 'light') {
     }
 
     changeImage(themeMode);
-    const assetRoot = './media/branding/';
+    const assetRoot = new URL('media/branding/', mglSiteRoot).href;
     const headerLogo = document.querySelector('img[data-brand-logo]');
     const footerLogo = document.querySelector('img[data-brand-footer]');
     if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'logo-dark.svg' : 'logo-light.svg');
@@ -95,7 +96,7 @@ function switchThemeByUrl() {
 function changeImage(themeMode = 'light') {
     const icon = document.querySelector('#btnSwitch img');
     if (icon) {
-        icon.src = themeMode === 'dark' ? './assets/images/icon/sun.svg' : './assets/images/icon/moon.svg';
+        icon.src = new URL(themeMode === 'dark' ? 'assets/images/icon/sun.svg' : 'assets/images/icon/moon.svg', mglSiteRoot).href;
     }
 
     // Do not fabricate -dark asset paths. Only swap when a verified alternate is configured.
@@ -152,14 +153,13 @@ menuLinks.forEach(function (link) {
     link.addEventListener("click", function (e) {
         e.stopPropagation(); // prevent the event from bubbling up to parent elements
         var element = link.parentElement;
-        if (parseInt(window.innerWidth, 10) < 1200) {
-            if (element.classList.contains("open")) {
-                element.classList.remove("open");
-                element.querySelector("ul").style.display = "none";
-            } else {
-                element.classList.add("open");
-                element.querySelector("ul").style.display = "block";
-            }
+        var submenu = element.querySelector(":scope > .submenu");
+        if (parseInt(window.innerWidth, 10) < 1200 && submenu) {
+            e.preventDefault();
+            var expanded = !element.classList.contains("open");
+            element.classList.toggle("open", expanded);
+            submenu.style.display = expanded ? "block" : "none";
+            link.setAttribute("aria-expanded", String(expanded));
         }
     });
 });
@@ -204,6 +204,8 @@ AOS.init();
 
 // =================== custom trk slider js here =================== //
 
+// Meta Grey Label's capability links are ordinary accessible links.
+
 // component slider here
 const Partner = new Swiper('.partner__slider', {
     spaceBetween: 24,
@@ -211,20 +213,10 @@ const Partner = new Swiper('.partner__slider', {
     loop: true,
     slidesPerView: 2,
     breakpoints: {
-        576: {
-            slidesPerView: 3,
-        },
-        768: {
-            slidesPerView: 4,
-        },
-        992: {
-            slidesPerView: 5,
-            spaceBetween: 15,
-        },
-        1200: {
-            slidesPerView: 6,
-            spaceBetween: 25,
-        },
+        576: { slidesPerView: 3 },
+        768: { slidesPerView: 4 },
+        992: { slidesPerView: 5, spaceBetween: 15 },
+        1200: { slidesPerView: 6, spaceBetween: 25 },
     },
     autoplay: {
         delay: 1,
@@ -232,7 +224,6 @@ const Partner = new Swiper('.partner__slider', {
     },
     speed: 2000,
 });
-
 
 
 // blog  slider here
@@ -269,7 +260,7 @@ const blog = new Swiper('.blog__slider', {
 const testimonial = new Swiper('.testimonial__slider', {
     spaceBetween: 24,
     grabCursor: true,
-    loop: false,
+    loop: true,
     slidesPerView: 1,
     breakpoints: {
         576: {
@@ -287,38 +278,6 @@ const testimonial = new Swiper('.testimonial__slider', {
         },
     },
 
-    autoplay: false,
-    speed: 500,
-
-    navigation: {
-        nextEl: ".testimonial__slider-next",
-        prevEl: ".testimonial__slider-prev",
-    },
-});
-
-
-// testimonial slider 2
-const testimonial2 = new Swiper('.testimonial__slider2', {
-    spaceBetween: 24,
-    grabCursor: true,
-    loop: true,
-    slidesPerView: 1,
-    breakpoints: {
-        576: {
-            slidesPerView: 1,
-        },
-        768: {
-            slidesPerView: 2,
-        },
-        992: {
-            slidesPerView: 3,
-        },
-        1200: {
-            slidesPerView: 3,
-            spaceBetween: 25,
-        },
-    },
-
     autoplay: true,
     speed: 500,
 
@@ -328,18 +287,6 @@ const testimonial2 = new Swiper('.testimonial__slider2', {
     },
 });
 
-
-
-// testimonial slider
-
-const testimonial3 = new Swiper('.testimonial__slider3', {
-    spaceBetween: 24,
-    grabCursor: true,
-    loop: true,
-    slidesPerView: 1,
-    autoplay: true,
-    speed: 500,
-});
 
 // roadmap slider 
 const roadmapSlider = new Swiper('.roadmap__slider', {
