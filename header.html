@@ -74,6 +74,11 @@
                 </ul>
               </li>
 
+              <li class="mgl-nav-promoted"><a href="mt-admin-license/">MT4 / MT5 Admin</a></li>
+              <li class="mgl-nav-promoted"><a href="forex-liquidity/">Liquidity</a></li>
+              <li class="mgl-nav-promoted"><a href="forex-crm/">Forex CRM</a></li>
+              <li class="mgl-nav-promoted"><a href="trading-platforms/">Trading Platforms</a></li>
+
               <li><a href="services.html">Services</a></li>
 
               <li>
@@ -255,8 +260,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 700px;
-  gap: clamp(14px, 1.8vw, 34px);
+  max-width: 980px;
+  gap: clamp(8px, 1vw, 18px);
   margin: 0 auto;
   padding: 0;
   flex-wrap: nowrap;
@@ -269,7 +274,7 @@
   min-height: 48px;
   padding: 10px 4px;
   font-family: inherit;
-  font-size: clamp(17px, 1.05vw, 19px);
+  font-size: clamp(16px, .92vw, 18px);
   font-weight: 550;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -446,6 +451,30 @@
 [data-bs-theme="dark"] .header-section--style2 .header-btn a {
   background: rgba(255,255,255,.055);
   border-color: rgba(255,255,255,.10);
+}
+
+.header-section--style2 .mgl-nav-promoted > a {
+  font-weight: 600;
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .header-section--style2 .header-wrapper {
+    grid-template-columns: minmax(180px, 215px) 1fr auto;
+    gap: 14px;
+  }
+
+  .header-section--style2 .header-wrapper > .menu-area > .menu {
+    gap: 8px;
+  }
+
+  .header-section--style2 .header-wrapper > .menu-area > .menu > li > a {
+    font-size: 15px;
+    padding-inline: 2px;
+  }
+
+  .header-section--style2 .header-action .header-btn {
+    display: none;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1399px) {
