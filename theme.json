@@ -68,9 +68,14 @@
       ],
       "fontFamilies": [
         {
-          "slug": "system",
-          "name": "System UI",
-          "fontFamily": "ui-sans-serif, system-ui, -apple-system, sans-serif"
+          "slug": "inter",
+          "name": "Inter",
+          "fontFamily": "\"Inter\", ui-sans-serif, sans-serif"
+        },
+        {
+          "slug": "poppins",
+          "name": "Poppins",
+          "fontFamily": "\"Poppins\", ui-sans-serif, sans-serif"
         }
       ]
     },
@@ -122,10 +127,15 @@
         "color": {
           "text": "#008f72"
         }
+      },
+      "heading": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--poppins)"
+        }
       }
     },
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--system)",
+      "fontFamily": "var(--wp--preset--font-family--inter)",
       "lineHeight": "1.6"
     }
   },
