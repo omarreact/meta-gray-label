@@ -198,17 +198,30 @@ window.addEventListener("scroll", function () {
 
 
 
-// Scroll-reveal effects previously left content transparent or translated while
-// scrolling. Content now remains immediately visible on every page.
-document.querySelectorAll('[data-aos]').forEach(function (element) {
-    element.removeAttribute('data-aos');
-    element.removeAttribute('data-aos-duration');
-    element.removeAttribute('data-aos-delay');
-    element.classList.remove('aos-init', 'aos-animate');
-    element.style.removeProperty('opacity');
-    element.style.removeProperty('transform');
-    element.style.removeProperty('transition');
-});
+// Keep reveal effects, but initialise after the shared layout is loaded and
+// refresh after image layout shifts. This prevents sections from remaining
+// invisible or offset during a fast scroll.
+function initialiseScrollEffects() {
+    if (!window.AOS) return;
+
+    AOS.init({
+        once: true,
+        mirror: false,
+        offset: 80,
+        duration: 650,
+        easing: 'ease-out-cubic',
+        anchorPlacement: 'top-bottom'
+    });
+
+    requestAnimationFrame(function () {
+        AOS.refreshHard();
+    });
+
+    window.addEventListener('load', function () {
+        AOS.refreshHard();
+    }, { once: true });
+}
+initialiseScrollEffects();
 
 
 
