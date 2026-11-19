@@ -35,6 +35,14 @@
 
   try {
     await Promise.all([insertPart('header'), insertPart('footer')]);
+
+    // Resolve the shared inner-page hero background from the site root so it
+    // works consistently on the homepage host, GitHub Pages and nested routes.
+    const innerHeroImage = new URL('assets/images/banner/home1/bg.png', siteRoot).href;
+    document.querySelectorAll('.mgl-inner-hero').forEach((hero) => {
+      hero.style.setProperty('--mgl-inner-hero-image', 'url("' + innerHeroImage + '")');
+    });
+
     const script = document.createElement('script');
     script.src = new URL('assets/js/custom.js', siteRoot).href;
     script.onerror = () => console.error('Failed to load the website initialization script.');
