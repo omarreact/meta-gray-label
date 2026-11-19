@@ -79,6 +79,13 @@ jobs:
             grep -q 'id="models"' /tmp/rendered.html
             grep -q 'technology provider' /tmp/rendered.html
             echo 'PASS: rendered homepage with dynamic header and footer'
+            timeout 50 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=6500 --window-size=1440,900 --dump-dom \
+              'http://127.0.0.1:8123/index.html?theme=dark' > /tmp/dark-desktop.html 2>/tmp/chrome-dark-errors.txt
+            grep -q 'data-bs-theme="dark"' /tmp/dark-desktop.html
+            grep -Eq '<img data-brand-logo[^>]*logo-dark[.]svg' /tmp/dark-desktop.html
+            grep -q 'id="models"' /tmp/dark-desktop.html
+            grep -q 'assets/images/about/1.png' /tmp/dark-desktop.html
+            echo 'PASS: desktop dark theme preserves content, logo and original illustrations'
           else
             echo 'SKIP: Chrome unavailable; HTTP and static validations passed'
           fi
