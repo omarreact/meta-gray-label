@@ -67,7 +67,10 @@
     #capabilities.mgl-stack-section {
       position:relative;
       overflow:hidden;
-      background:var(--bg-color);
+      background:
+        radial-gradient(circle at 12% 18%,rgba(0,208,148,.055),transparent 28%),
+        radial-gradient(circle at 88% 78%,rgba(35,117,255,.055),transparent 30%),
+        var(--bg-color);
     }
     #capabilities .mgl-stack-shell {
       display:grid;
@@ -78,10 +81,24 @@
     #capabilities .mgl-stack-intro {
       position:sticky;
       top:120px;
-      padding:clamp(26px,3.5vw,42px);
-      border:1px solid var(--service-item-border-color,rgba(20,90,94,.12));
-      border-radius:22px;
-      background:var(--wh-color);
+      padding:clamp(28px,3.6vw,44px);
+      border:1px solid rgba(12,38,58,.09);
+      border-radius:28px 28px 10px 28px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.98),rgba(246,251,251,.94));
+      box-shadow:0 24px 60px rgba(12,38,58,.08);
+      overflow:hidden;
+    }
+    #capabilities .mgl-stack-intro::after {
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      right:-48px;
+      bottom:-48px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(0,208,148,.14),rgba(0,208,148,0) 70%);
+      pointer-events:none;
     }
     #capabilities .mgl-stack-kicker {
       display:block;
@@ -125,61 +142,316 @@
     }
     #capabilities .mgl-stack-list {
       display:grid;
-      gap:12px;
+      gap:18px;
     }
     #capabilities .mgl-stack-row {
-      display:grid;
-      grid-template-columns:58px minmax(0,1fr) auto;
-      gap:18px;
-      align-items:start;
-      padding:clamp(20px,2.6vw,30px);
-      border:1px solid var(--service-item-border-color,rgba(20,90,94,.12));
-      border-radius:18px;
-      background:var(--wh-color);
-      transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+      min-height:164px;
+      padding:28px 26px;
+      border:1px solid rgba(12,38,58,.09);
+      color:var(--title-color);
+      transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease;
     }
     #capabilities .mgl-stack-row:hover {
-      transform:translateY(-3px);
-      border-color:rgba(0,208,148,.36);
-      box-shadow:0 14px 34px rgba(12,38,58,.07);
-    }
-    #capabilities .mgl-stack-index {
-      color:var(--brand-color);
-      font-size:.8rem;
-      font-weight:850;
-      letter-spacing:.08em;
+      transform:translateY(-4px);
+      box-shadow:0 20px 44px rgba(12,38,58,.09);
     }
     #capabilities .mgl-stack-copy h4 {
-      margin:0 0 7px;
+      margin:0 0 9px;
       color:var(--title-color);
-      font-size:clamp(1.1rem,1.5vw,1.3rem);
+      font-size:clamp(1.12rem,1.55vw,1.34rem);
+      line-height:1.3;
     }
     #capabilities .mgl-stack-copy p {
       margin:0;
       color:var(--text-color);
-      line-height:1.65;
-      font-size:.95rem;
+      line-height:1.68;
+      font-size:.96rem;
+    }
+    #capabilities .mgl-stack-index {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.78rem;
+      font-weight:900;
+      letter-spacing:.08em;
+      color:var(--brand-color);
+      z-index:2;
     }
     #capabilities .mgl-stack-row > a {
-      align-self:center;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
       color:var(--brand-color);
-      font-weight:750;
+      font-weight:800;
       text-decoration:none;
       white-space:nowrap;
+      transition:transform .2s ease,color .2s ease,background .2s ease;
     }
-    #capabilities .mgl-stack-row > a:hover { text-decoration:underline; }
+    #capabilities .mgl-stack-row > a:hover {
+      transform:translateX(2px);
+      text-decoration:none;
+    }
+
+    /* 01 — platform: top accent + circular number + bottom CTA */
+    #capabilities .mgl-stack-row--platform {
+      display:grid;
+      grid-template-columns:64px minmax(0,1fr);
+      gap:18px;
+      border-radius:26px 10px 26px 26px;
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.98),rgba(246,252,251,.96));
+      border-top:4px solid rgba(0,208,148,.82);
+    }
+    #capabilities .mgl-stack-row--platform .mgl-stack-index {
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      background:rgba(0,208,148,.11);
+      border:1px solid rgba(0,208,148,.22);
+    }
+    #capabilities .mgl-stack-row--platform > a {
+      grid-column:2;
+      justify-self:start;
+      margin-top:16px;
+      padding:8px 13px;
+      border-radius:999px;
+      background:rgba(0,208,148,.08);
+    }
+
+    /* 02 — model: offset split panel with side label */
+    #capabilities .mgl-stack-row--model {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 132px;
+      gap:22px;
+      border-radius:10px 28px 28px 28px;
+      background:
+        linear-gradient(135deg,rgba(238,247,255,.96),rgba(255,255,255,.98) 62%);
+      border-left:5px solid rgba(35,117,255,.75);
+    }
+    #capabilities .mgl-stack-row--model .mgl-stack-index {
+      position:absolute;
+      top:18px;
+      right:20px;
+      width:48px;
+      height:30px;
+      border-radius:8px;
+      background:rgba(35,117,255,.10);
+      color:#2375ff;
+    }
+    #capabilities .mgl-stack-row--model .mgl-stack-copy {
+      padding-top:8px;
+    }
+    #capabilities .mgl-stack-row--model > a {
+      align-self:end;
+      justify-self:end;
+      padding:10px 14px;
+      border:1px solid rgba(35,117,255,.18);
+      border-radius:12px;
+      color:#2375ff;
+      background:rgba(255,255,255,.72);
+    }
+
+    /* 03 — liquidity: diagonal corner + vertical sequence */
+    #capabilities .mgl-stack-row--liquidity {
+      display:grid;
+      grid-template-columns:1fr;
+      padding-left:88px;
+      border-radius:22px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.98),rgba(242,250,255,.95));
+    }
+    #capabilities .mgl-stack-row--liquidity::before {
+      content:"";
+      position:absolute;
+      inset:0 auto 0 0;
+      width:58px;
+      background:linear-gradient(180deg,#0dbf9b,#2375ff);
+      z-index:-1;
+    }
+    #capabilities .mgl-stack-row--liquidity .mgl-stack-index {
+      position:absolute;
+      left:15px;
+      top:22px;
+      width:28px;
+      height:52px;
+      color:#fff;
+      writing-mode:vertical-rl;
+      transform:rotate(180deg);
+    }
+    #capabilities .mgl-stack-row--liquidity > a {
+      margin-top:18px;
+      width:max-content;
+      border-bottom:2px solid currentColor;
+      padding-bottom:3px;
+    }
+
+    /* 04 — CRM: dashed operational dashboard card */
+    #capabilities .mgl-stack-row--crm {
+      display:grid;
+      grid-template-columns:58px minmax(0,1fr) auto;
+      gap:18px;
+      align-items:start;
+      border:1.5px dashed rgba(0,163,125,.34);
+      border-radius:18px 18px 32px 18px;
+      background:
+        linear-gradient(90deg,rgba(0,208,148,.035),rgba(255,255,255,.98));
+    }
+    #capabilities .mgl-stack-row--crm .mgl-stack-index {
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      background:#0dbf9b;
+      color:#fff;
+      box-shadow:0 8px 20px rgba(13,191,155,.20);
+    }
+    #capabilities .mgl-stack-row--crm > a {
+      align-self:center;
+      padding:9px 12px;
+      border-radius:10px;
+      background:rgba(0,208,148,.08);
+    }
+
+    /* 05 — admin: right-edge accent and squared badge */
+    #capabilities .mgl-stack-row--admin {
+      display:grid;
+      grid-template-columns:64px minmax(0,1fr);
+      gap:18px;
+      padding-right:72px;
+      border-radius:28px 28px 10px 28px;
+      background:
+        radial-gradient(circle at 92% 18%,rgba(35,117,255,.12),transparent 28%),
+        linear-gradient(180deg,#fff,#f8fbfd);
+      border-right:6px solid rgba(35,117,255,.72);
+    }
+    #capabilities .mgl-stack-row--admin .mgl-stack-index {
+      width:50px;
+      height:50px;
+      border-radius:5px 16px 5px 16px;
+      background:rgba(35,117,255,.10);
+      color:#2375ff;
+      border:1px solid rgba(35,117,255,.18);
+    }
+    #capabilities .mgl-stack-row--admin > a {
+      grid-column:2;
+      margin-top:16px;
+      width:max-content;
+      color:#2375ff;
+    }
+
+    /* 06 — launch: completion/timeline treatment */
+    #capabilities .mgl-stack-row--launch {
+      display:grid;
+      grid-template-columns:72px minmax(0,1fr) auto;
+      gap:18px;
+      align-items:center;
+      border-radius:12px 32px 12px 32px;
+      background:
+        linear-gradient(120deg,rgba(0,208,148,.075),rgba(255,255,255,.98) 42%,rgba(35,117,255,.055));
+    }
+    #capabilities .mgl-stack-row--launch::before {
+      content:"";
+      position:absolute;
+      left:38px;
+      top:0;
+      bottom:0;
+      width:1px;
+      background:linear-gradient(180deg,transparent,rgba(0,208,148,.38),transparent);
+      z-index:-1;
+    }
+    #capabilities .mgl-stack-row--launch .mgl-stack-index {
+      width:54px;
+      height:54px;
+      border-radius:50% 50% 50% 10px;
+      background:linear-gradient(135deg,#00d094,#2375ff);
+      color:#fff;
+      box-shadow:0 10px 24px rgba(12,130,160,.18);
+    }
+    #capabilities .mgl-stack-row--launch > a {
+      align-self:center;
+      padding:10px 15px;
+      border-radius:999px;
+      border:1px solid rgba(0,208,148,.20);
+      background:rgba(255,255,255,.72);
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-intro,
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row {
+      color:var(--title-color);
+    }
+
     @media(max-width:991px) {
       #capabilities .mgl-stack-shell { grid-template-columns:1fr; }
       #capabilities .mgl-stack-intro { position:static; }
     }
     @media(max-width:575px) {
+      #capabilities .mgl-stack-list { gap:16px; }
+
       #capabilities .mgl-stack-row {
-        grid-template-columns:42px minmax(0,1fr);
+        min-height:0;
+        padding:22px 18px;
+      }
+
+      #capabilities .mgl-stack-row--platform,
+      #capabilities .mgl-stack-row--model,
+      #capabilities .mgl-stack-row--crm,
+      #capabilities .mgl-stack-row--admin,
+      #capabilities .mgl-stack-row--launch {
+        grid-template-columns:1fr;
         gap:12px;
       }
-      #capabilities .mgl-stack-row > a {
-        grid-column:2;
+
+      #capabilities .mgl-stack-row--platform .mgl-stack-index,
+      #capabilities .mgl-stack-row--crm .mgl-stack-index,
+      #capabilities .mgl-stack-row--admin .mgl-stack-index,
+      #capabilities .mgl-stack-row--launch .mgl-stack-index {
+        width:44px;
+        height:44px;
+      }
+
+      #capabilities .mgl-stack-row--platform > a,
+      #capabilities .mgl-stack-row--admin > a {
+        grid-column:1;
+      }
+
+      #capabilities .mgl-stack-row--model {
+        padding-top:56px;
+      }
+
+      #capabilities .mgl-stack-row--model .mgl-stack-index {
+        top:16px;
+        right:auto;
+        left:18px;
+      }
+
+      #capabilities .mgl-stack-row--model > a,
+      #capabilities .mgl-stack-row--crm > a,
+      #capabilities .mgl-stack-row--launch > a {
         justify-self:start;
+        align-self:start;
+      }
+
+      #capabilities .mgl-stack-row--liquidity {
+        padding:22px 18px 22px 72px;
+      }
+
+      #capabilities .mgl-stack-row--liquidity::before {
+        width:52px;
+      }
+
+      #capabilities .mgl-stack-row--liquidity .mgl-stack-index {
+        left:12px;
+        top:20px;
+      }
+
+      #capabilities .mgl-stack-row--admin {
+        padding-right:18px;
+      }
+
+      #capabilities .mgl-stack-row--launch::before {
+        display:none;
       }
     }
 </style>
@@ -924,7 +1196,7 @@
         </div>
 
         <div class="mgl-stack-list">
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="700">
+          <article class="mgl-stack-row mgl-stack-row--platform" data-aos="fade-up" data-aos-duration="700">
             <span class="mgl-stack-index">01</span>
             <div class="mgl-stack-copy">
               <h4>Trading platform layer</h4>
@@ -933,7 +1205,7 @@
             <a href="trading-platforms/">Platforms →</a>
           </article>
 
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="760">
+          <article class="mgl-stack-row mgl-stack-row--model" data-aos="fade-up" data-aos-duration="760">
             <span class="mgl-stack-index">02</span>
             <div class="mgl-stack-copy">
               <h4>Brokerage operating model</h4>
@@ -942,7 +1214,7 @@
             <a href="forex-white-label/vs-grey-label/">Compare →</a>
           </article>
 
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="820">
+          <article class="mgl-stack-row mgl-stack-row--liquidity" data-aos="fade-up" data-aos-duration="820">
             <span class="mgl-stack-index">03</span>
             <div class="mgl-stack-copy">
               <h4>Liquidity and execution</h4>
@@ -951,7 +1223,7 @@
             <a href="forex-liquidity/">Liquidity →</a>
           </article>
 
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="880">
+          <article class="mgl-stack-row mgl-stack-row--crm" data-aos="fade-up" data-aos-duration="880">
             <span class="mgl-stack-index">04</span>
             <div class="mgl-stack-copy">
               <h4>Client operations</h4>
@@ -960,7 +1232,7 @@
             <a href="forex-crm/">CRM →</a>
           </article>
 
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="940">
+          <article class="mgl-stack-row mgl-stack-row--admin" data-aos="fade-up" data-aos-duration="940">
             <span class="mgl-stack-index">05</span>
             <div class="mgl-stack-copy">
               <h4>Admin, risk and trading control</h4>
@@ -969,7 +1241,7 @@
             <a href="mt-admin-license/">Admin access →</a>
           </article>
 
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="1000">
+          <article class="mgl-stack-row mgl-stack-row--launch" data-aos="fade-up" data-aos-duration="1000">
             <span class="mgl-stack-index">06</span>
             <div class="mgl-stack-copy">
               <h4>Launch, testing and handover</h4>
