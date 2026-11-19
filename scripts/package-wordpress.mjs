@@ -33,7 +33,7 @@ const safe = (s) => {
 const paths = [
   "style.css", "functions.php", "theme.json",
   "assets", "media", "data/content.json",
-  "templates", "parts", "patterns", "styles", "inc"
+  "templates", "parts", "patterns", "styles", "inc", "blocks"
 ];
 for (const p of paths) {
   if (!existsSync(safe(p))) throw new Error("Missing theme path: " + p);
@@ -69,8 +69,18 @@ const theme = JSON.parse(readFileSync(safe("theme.json"), "utf8"));
 if (theme.version !== 3 || !theme.templateParts?.length) {
   throw new Error("Invalid WordPress theme.json");
 }
-for (const p of ["assets/css/style.css", "assets/js/custom.js", "media/branding/logo-light.svg"]) {
+for (const p of ["assets/css/style.css", "assets/css/fse.css", "assets/js/custom.js", "media/branding/logo-light.svg"]) {
   if (!existsSync(safe(p))) throw new Error("Missing media: " + p);
+}
+for (const [folder, name] of [
+  ["legacy-page", "mgl/page"],
+  ["legacy-header", "mgl/header"],
+  ["legacy-footer", "mgl/footer"]
+]) {
+  const block = JSON.parse(readFileSync(safe("blocks/" + folder + "/block.json"), "utf8"));
+  if (block.apiVersion !== 3 || block.name !== name || block.supports?.inserter !== false) {
+    throw new Error("Invalid block.json metadata: " + folder);
+  }
 }
 if (flags.has("--check")) {
   console.log("WORDPRESS PACKAGE CHECK PASS: " + pages + " pages, " + shared +

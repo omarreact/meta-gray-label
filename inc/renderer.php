@@ -152,6 +152,22 @@ function mgl_rewrite_links( string $html, string $source ): string {
     return implode( '', $chunks );
 }
 
+/**
+ * Native mode must be explicitly enabled: never silently replace an approved
+ * page design with a simplified Gutenberg projection.
+ */
+function mgl_is_native_layout(): bool {
+    if ( ! is_page() && ! is_front_page() ) {
+        return false;
+    }
+    $id = (int) get_queried_object_id();
+    if ( ! $id ) {
+        return false;
+    }
+    return '1' === get_post_meta( $id, '_mgl_native_layout', true ) ||
+        is_page_template( 'page-native' );
+}
+
 /** WordPress supplies the html/head/body and wp_head/wp_footer hooks itself. */
 function mgl_render_page(): string {
     // Explicitly imported Gutenberg content takes precedence over legacy HTML.

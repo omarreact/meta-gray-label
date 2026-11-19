@@ -74,3 +74,34 @@ equivalence. Before switching production to WordPress, complete:
    content; two-way sync does not yet exist.
 
 No site has been deployed or switched by the repository changes.
+
+
+## Official guidance applied (2026)
+
+- WordPress Block Editor Handbook: register custom blocks from `block.json`
+  rather than maintaining ad-hoc PHP block registration.
+- WordPress Theme Handbook: `theme.json` for design tokens; optional scoped
+  stylesheets only when in use; enqueue legacy assets only on legacy routes.
+- WordPress JS recommendations: avoid unnecessary bundled libraries. Native
+  pages rely on core navigation and server-rendered content, not Bootstrap.
+- Google Search Central: align canonical URLs with sitemap and do not emit
+  duplicate/conflicting canonical annotations.
+- web.dev: do not lazy-load above-the-fold/LCP images without measurement.
+  Existing hero images have not been automatically altered.
+- Gutenberg CSS namespace guidance: use a consistent `mgl-native-` component
+  prefix. Do not add generic `.container`, `.row`, `.btn`, `.col-*`
+  or unscoped element selectors in the WordPress-native stylesheet.
+
+References:
+- https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/
+- https://developer.wordpress.org/themes/features/block-stylesheets/
+- https://developer.wordpress.org/themes/advanced-topics/javascript-best-practices/
+- https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+- https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- https://web.dev/articles/optimize-lcp
+
+A theme can be technically SEO-friendly without guaranteeing high rankings.
+Before WordPress production cutover, verify domain-specific canonical URLs,
+server response codes, WordPress SEO plugin integration, PageSpeed/Lighthouse,
+actual mobile interaction, licenses for bundled third-party assets, and CMS
+rendering in a real staging installation.

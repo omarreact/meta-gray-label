@@ -8,6 +8,8 @@ on:
       - "patterns/**"
       - "styles/**"
       - "inc/**"
+      - "blocks/**"
+      - "assets/css/fse.css"
       - "scripts/**"
       - "tests/**"
       - "docs/**"
@@ -32,12 +34,18 @@ jobs:
       - name: Validate generator JavaScript
         run: |
           node --check scripts/generate.mjs
+          node --check scripts/audit-seo.mjs
+          node --check tests/architecture.mjs
           node --check scripts/package-wordpress.mjs
           node --check scripts/fse-pages.mjs
           node --check scripts/generate-fse.mjs
           node --check inc/editor.js
       - name: Verify original static HTML unchanged
         run: node scripts/generate.mjs --check
+      - name: Audit 52 static pages for metadata and canonical SEO
+        run: node scripts/audit-seo.mjs --check
+      - name: Enforce block metadata and CSS namespace isolation
+        run: node tests/architecture.mjs
       - name: Validate native Gutenberg page and template-part projection
         run: |
           node tests/fse-pages.mjs
@@ -65,3 +73,5 @@ jobs:
           test -f dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
           test -f dist/wordpress/meta-grey-label/data/fse-pages/home.html
           test -f dist/wordpress/meta-grey-label/parts/header-native.html
+          test -f dist/wordpress/meta-grey-label/blocks/legacy-page/block.json
+          test -f dist/wordpress/meta-grey-label/assets/css/fse.css

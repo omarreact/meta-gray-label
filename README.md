@@ -61,3 +61,22 @@ WordPress Site Editor edits are stored in the WordPress database and are
 Read `docs/wordpress-transition.md` for the feature matrix, precautions
 and deployment boundaries. No hosting, DNS, production merge, or CMS
 database modification occurs through this branch.
+
+
+## Technical SEO, CSS safety and performance
+
+The static build keeps server-rendered titles, descriptions, Open Graph tags,
+a 51-URL sitemap and exactly one H1 per page. Home and Services canonical URLs
+are now derived from their existing JSON `og:url` value; 404 stays noindex.
+`node scripts/audit-seo.mjs --check` validates all 52 routes. The optional
+`--report` prints non-blocking accessibility/image warnings.
+
+WordPress native pages only load `assets/css/fse.css` and WordPress core
+blocks (no copied Bootstrap, AOS, Swiper, Font Awesome or legacy custom.js).
+Every new native CSS class is `mgl-native-*`, with selectors scoped to these
+components. The original static site and legacy WordPress fallback continue
+using existing assets until visual parity is confirmed.
+
+Custom fallback blocks use `blocks/*/block.json` metadata as recommended
+by the WordPress Block API. WordPress core owns canonical URL and page title;
+SEO plugins may supply additional metadata without hard-coded duplicates.

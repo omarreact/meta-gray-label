@@ -29,6 +29,7 @@ function get_post_meta( $id, $key, $single = true ) {
 }
 function has_blocks( $content ) { return str_contains( $content, '<!-- wp:' ); }
 function is_singular() { return false; }
+function is_page_template( $name ) { return false; }
 
 require $root . '/inc/renderer.php';
 $pages = mgl_content_data()['pages'];
