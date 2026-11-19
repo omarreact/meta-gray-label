@@ -42,8 +42,8 @@ jobs:
               def handle_data(self,data):self.content.append(data)
           audited=0
           files=[x['path'] for x in entries if x['path']!='index.html']
-          files+=['services.html','solutions/index.html','insights/index.html']
-          assert len(files)==55,len(files)
+          files+=['services.html','solutions/index.html','insights/index.html','404.html']
+          assert len(files)==56,len(files)
           assert len(set(files))==len(files)
           for name in files:
               path=root/name
@@ -77,7 +77,7 @@ jobs:
           footer=(root/'footer.html').read_text()
           assert footer.count('mgl-share-whatsapp')==1 and footer.count('mgl-share-telegram')==1
           assert 'fab fa-facebook' not in footer and 'fab fa-instagram' not in footer and 'fab fa-twitter' not in footer
-          print('PASS static: 55 new pages, 53 documents, all paragraphs, local paths, SEO, and preserved CSS')
+          print('PASS static: 56 new pages, 53 documents, all paragraphs, local paths, SEO, and preserved CSS')
           PY
       - name: Nested routes render in real browser light and dark
         shell: bash
