@@ -10,6 +10,7 @@ assert.equal(new Set(theme.settings.color.palette.map(c => c.slug)).size, theme.
 assert.doesNotMatch(css, /(?:^|[{},]\s*)\s*(?:\.container|\.row|\.btn|\.col-|body\b|h[1-6]\b|p\b)/m,
   "Native CSS must not override generic Bootstrap/core selectors");
 assert.match(css, /\.mgl-native-page/);
+assert.match(css, /\.mgl-native-page\.alignfull/, "Native pages should escape theme width constraint");
 assert.match(func, /if\s*\(\s*mgl_is_native_layout\(\)\s*\)/, "Native assets must be conditionally loaded");
 assert.match(func, /return;[\s\S]*bootstrap\.min\.css/, "Native path must skip legacy frameworks");
 assert.match(func, /get_theme_file_path\(\s*'blocks\//, "Blocks must use metadata registration");

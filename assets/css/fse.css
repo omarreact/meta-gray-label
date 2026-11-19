@@ -129,3 +129,13 @@
 @media(prefers-reduced-motion:reduce){
   .mgl-native-page--home .mgl-native-pricing-card{transition:none}
 }
+
+
+/* Full-bleed native page container escapes the WordPress constrained
+   post-content column without affecting any Bootstrap or legacy class. */
+.mgl-native-page.alignfull {
+  box-sizing: border-box;
+  max-width: none !important;
+  width: auto !important;
+  margin-inline: calc(50% - 50vw) !important;
+}
