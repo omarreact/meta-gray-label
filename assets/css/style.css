@@ -11158,3 +11158,19 @@ html[data-bs-theme=dark] .partner--gradient::after {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+/* Stable scrolling: fixed navigation never hides linked content or animated sections. */
+html {
+  scroll-padding-top: 118px;
+}
+main [id],
+section[id] {
+  scroll-margin-top: 118px;
+}
+[data-aos],
+[data-aos].aos-animate {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
