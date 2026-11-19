@@ -10,17 +10,60 @@
           <div class="menu-area">
             <ul class="menu menu--style1">
               <li><a href="index.html">Home</a></li>
-              <li>
+              <li class="mgl-solutions-item">
                 <a href="solutions/">Solutions</a>
-                <ul class="submenu">
-                  <li><a href="forex-white-label/">White Label</a></li>
-                  <li><a href="forex-grey-label/">Grey Label</a></li>
-                  <li><a href="forex-broker-turnkey/">Turnkey Brokerage</a></li>
-                  <li><a href="mt-admin-license/">MT4 / MT5 Admin License</a></li>
-                  <li><a href="forex-liquidity/">Forex Liquidity</a></li>
-                  <li><a href="forex-crm/">Forex CRM</a></li>
-                  <li><a href="trading-platforms/">Trading Platforms</a></li>
-                  <li><a href="solutions/">All Solutions</a></li>
+                <ul class="submenu mgl-solutions-mega">
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Overview</span>
+                    <a href="solutions/">All Solutions</a>
+                    <a href="forex-white-label/vs-grey-label/">Compare Models</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">White Label</span>
+                    <a href="forex-white-label/">White Label Overview</a>
+                    <a href="forex-white-label/mt4-white-label/">MT4 White Label</a>
+                    <a href="forex-white-label/mt5-white-label/">MT5 White Label</a>
+                    <a href="forex-white-label/pricing/">White Label Pricing</a>
+                    <a href="forex-white-label/vs-grey-label/">White vs Grey Label</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Grey Label</span>
+                    <a href="forex-grey-label/">Grey Label Overview</a>
+                    <a href="forex-grey-label/mt4-grey-label/">MT4 Grey Label</a>
+                    <a href="forex-grey-label/mt5-grey-label/">MT5 Grey Label</a>
+                    <a href="forex-grey-label/pricing/">Grey Label Pricing</a>
+                    <a href="forex-grey-label/upgrade-to-admin/">Upgrade to Admin</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Turnkey &amp; Admin</span>
+                    <a href="forex-broker-turnkey/">Turnkey Brokerage</a>
+                    <a href="forex-broker-turnkey/how-it-works/">How Turnkey Works</a>
+                    <a href="mt-admin-license/">Admin License Overview</a>
+                    <a href="mt-admin-license/mt4-admin/">MT4 Admin</a>
+                    <a href="mt-admin-license/mt5-admin/">MT5 Admin</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Liquidity</span>
+                    <a href="forex-liquidity/">Forex Liquidity</a>
+                    <a href="forex-liquidity/prime-of-prime/">Prime of Prime</a>
+                    <a href="forex-liquidity/liquidity-bridge/">Liquidity Bridge</a>
+                    <a href="forex-liquidity/a-book-b-book/">A-Book vs B-Book</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Forex CRM</span>
+                    <a href="forex-crm/">Forex CRM Overview</a>
+                    <a href="forex-crm/back-office/">Back Office</a>
+                    <a href="forex-crm/ib-portal/">IB Portal</a>
+                    <a href="forex-crm/kyc/">KYC</a>
+                    <a href="forex-crm/payments-automation/">Payments Automation</a>
+                  </li>
+                  <li class="mgl-solution-group">
+                    <span class="mgl-solution-heading">Trading Platforms</span>
+                    <a href="trading-platforms/">Platforms Overview</a>
+                    <a href="trading-platforms/web-trader/">Web Trader</a>
+                    <a href="trading-platforms/desktop/">Desktop Platform</a>
+                    <a href="trading-platforms/mobile-app/">Mobile App</a>
+                  </li>
                 </ul>
               </li>
               <li><a href="services.html">Services</a></li>
@@ -159,10 +202,10 @@
 .header-section--style2 .header-wrapper > .menu-area > .menu {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   max-width: 760px;
-  gap: clamp(10px, 1.25vw, 24px);
+  gap: 10px;
   margin: 0 0 0 auto;
   padding: 0;
   flex-wrap: nowrap;
@@ -326,6 +369,97 @@
     color: var(--brand-color);
     background: rgba(0,208,148,.08);
     transform: translateX(3px);
+  }
+}
+
+/* Full Solutions mega-menu */
+@media (min-width: 992px) {
+  .header-section--style2 .mgl-solutions-item { position: static; }
+  .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega {
+    left: 50%;
+    width: min(1180px, calc(100vw - 64px));
+    min-width: 0;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    transform: translate(-50%, 35px);
+  }
+  .header-section--style2 .mgl-solutions-item:hover > .mgl-solutions-mega {
+    transform: translate(-50%, 15px);
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    min-width: 0;
+    padding: 12px !important;
+    border: 1px solid rgba(12,38,58,.07);
+    border-radius: 12px;
+    background: rgba(255,255,255,.34);
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-heading {
+    display: block;
+    margin: 0 0 7px;
+    padding: 0 8px 8px;
+    border-bottom: 1px solid rgba(12,38,58,.08);
+    color: var(--brand-color);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a {
+    display: block;
+    padding: 8px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.3;
+    background: transparent;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a:hover,
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a.active {
+    padding-left: 11px;
+    color: var(--brand-color);
+    background: rgba(0,208,148,.08);
+    transform: none;
+  }
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    border-color: rgba(255,255,255,.07);
+    background: rgba(255,255,255,.035);
+  }
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-mega .mgl-solution-heading {
+    border-color: rgba(255,255,255,.08);
+  }
+}
+
+@media (max-width: 991px) {
+  .header-section--style2 .mgl-solutions-mega {
+    padding: 8px 0 8px 14px !important;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    padding: 10px 8px !important;
+    border-bottom: 1px solid rgba(12,38,58,.08);
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group:last-child {
+    border-bottom: 0;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-heading {
+    display: block;
+    padding: 6px 12px;
+    color: var(--brand-color);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a {
+    display: block;
+    padding: 9px 12px !important;
+    border-top: 0 !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+  }
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    border-color: rgba(255,255,255,.08);
   }
 }
 
