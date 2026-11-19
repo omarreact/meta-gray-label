@@ -131,3 +131,51 @@ jobs:
           PY
             done
           done
+
+      - name: Desktop navigation geometry and dropdown arrows
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text()
+          probe="""<script>
+          window.addEventListener('load',()=>setTimeout(()=>{
+            const h=document.querySelector('header .header-wrapper');
+            const logo=h?.querySelector(':scope > .logo'),area=h?.querySelector(':scope > .menu-area'),
+              action=h?.querySelector(':scope > .header-action'),
+              menu=area?.querySelector('.menu--style1'),
+              first=menu?.querySelector(':scope > li > a');
+            const box=e=>{const r=e?.getBoundingClientRect();return r?{x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,cx:r.x+r.width/2,cy:r.y+r.height/2}:null};
+            const arrow=first?getComputedStyle(first,'::after'):null;
+            const d={width:innerWidth,logo:box(logo),area:box(area),menu:box(menu),action:box(action),
+              overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,
+              menuDisplay:menu?getComputedStyle(menu).display:null,justify:menu?getComputedStyle(menu).justifyContent:null,
+              arrowWidth:arrow?.borderBottomWidth,footer:!!document.querySelector('footer')};
+            const x=document.createElement('script');x.type='application/json';x.id='qa-desktop';x.textContent=JSON.stringify(d);document.body.append(x);
+          },1350));</script>"""
+          Path('__qa_desktop.html').write_text(s.replace('</body>',probe+'</body>'))
+          PY
+          python3 -m http.server 8147 --bind 127.0.0.1 >/tmp/desktop.log 2>&1 &
+          pid=$!;trap 'kill "$pid" || true' EXIT
+          sleep 2
+          chrome="$(command -v google-chrome || command -v chromium || true)"
+          for width in 1280 1440 1650; do
+            timeout 35 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=5500 --window-size="$width,900" --dump-dom \
+              "http://127.0.0.1:8147/__qa_desktop.html" > /tmp/desktop-dom.html 2>/tmp/chrome-errors.log
+            REQUESTED_WIDTH="$width" python3 - <<'PY'
+          import re,json,html,os
+          m=re.search(r'<script type="application/json" id="qa-desktop">(.+?)</script>',open('/tmp/desktop-dom.html').read(),re.S)
+          assert m, 'Missing desktop measurements'
+          d=json.loads(html.unescape(m.group(1)))
+          assert d['footer'] and d['menuDisplay']!='none',d
+          assert d['menu'] and d['logo'] and d['action'] and d['area'],d
+          assert abs(d['menu']['cx']-d['area']['cx'])<12,d
+          assert abs(d['menu']['cy']-d['logo']['cy'])<35,d
+          assert d['menu']['x']>=d['logo']['right']-8,d
+          assert d['menu']['right']<=d['action']['x']+8,d
+          assert d['arrowWidth']=='2px',d
+          assert d['overflow']<=3,d
+          print(f"PASS desktop requested={os.environ['REQUESTED_WIDTH']} innerWidth={d['width']} nav centered, chevrons visible")
+          PY
+          done
