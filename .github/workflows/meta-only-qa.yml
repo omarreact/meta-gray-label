@@ -1,0 +1,140 @@
+name: Temporary Meta Grey Label brand-only release QA
+on:
+  push:
+    branches: [cleanup/meta-grey-label-only-20261119]
+    paths: [.github/workflows/meta-only-qa.yml]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source-backed routes, local assets and branding
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object assets/css/style.css)" = "90b42525c97a20e380ca4c01edea60d3d3eb22d0"
+          node --check assets/js/custom.js
+          node --check assets/js/includes.js
+          python3 - <<'PY'
+          import re,json
+          from pathlib import Path
+          from urllib.parse import unquote,urlsplit
+          from html.parser import HTMLParser
+          base=Path('.').resolve()
+          allPages=sorted(base.rglob('*.html'))
+          assert len(allPages)==54, f'Unexpected HTML count: {len(allPages)}'
+          content=json.loads((base/'data/page-map.json').read_text())
+          assert len(content['pages'])==48, len(content['pages'])
+          assert not (base/'assets/js/fslightbox.js').exists()
+          assert not (base/'assets/images/demo').exists()
+          assert not (base/'assets/images/partner').exists()
+          assert not (base/'media/branding/header-light.webp').exists()
+          assert not (base/'media/branding/footer-light.webp').exists()
+          for record in content['pages']:
+              assert record['status']=='available', record
+              assert (base/record['path']).is_file(),record
+              assert record['sourceParagraphs']==record['renderedParagraphs'],record
+          class Audit(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids=set();self.links=[];self.images=[];self.assets=[];self.duplicates=[]
+              def handle_starttag(self,tag,attrs):
+                  attrs=dict(attrs)
+                  if 'id' in attrs:
+                      if attrs['id'] in self.ids:self.duplicates.append(attrs['id'])
+                      self.ids.add(attrs['id'])
+                  if tag=='a' and 'href' in attrs:self.links.append(attrs['href'])
+                  if tag in ('img','script','source') and 'src' in attrs:self.assets.append(attrs['src'])
+                  if tag=='link' and 'href' in attrs:self.assets.append(attrs['href'])
+          audits={}
+          for p in allPages:
+              s=p.read_text()
+              assert not any(v in s.lower() for v in ('bitrader','thetork','themeforest','envato','home-showcase','assets/images/demo/','assets/images/partner/','fslightbox')),p
+              a=Audit();a.feed(s);audits[p]=a
+              assert not a.duplicates,(p,a.duplicates)
+          broken=[]
+          for p,a in audits.items():
+              for url in a.links+a.assets:
+                  if not url or url=='#' or url.startswith(('http:','https:','mailto:','tel:','data:','javascript:','//')):continue
+                  parts=urlsplit(url)
+                  rel=unquote(parts.path)
+                  if not rel:continue
+                  if rel.startswith('/'):
+                      broken.append((str(p),'absolute local path',url));continue
+                  target=(p.parent/rel).resolve()
+                  if not str(target).startswith(str(base)):
+                      broken.append((str(p),'escaped root',url));continue
+                  if target.is_dir():target=target/'index.html'
+                  if not target.exists():broken.append((str(p),'missing local file',url));continue
+                  if parts.fragment and target.suffix=='.html' and target in audits and parts.fragment not in audits[target].ids:
+                      broken.append((str(p),'broken fragment',url))
+          assert not broken,broken[:25]
+          h=(base/'header.html').read_text();f=(base/'footer.html').read_text();home=(base/'index.html').read_text()
+          assert 'mgl-capability-strip' in home
+          assert 'partner__slider' not in home
+          assert 'fab fa-facebook' not in home
+          assert 'home-showcase' not in h
+          assert h.count('class="mgl-social-link mgl-share-')==2
+          assert f.count('class="social__link social__link--style22 mgl-share-icon')==2
+          assert 'const Partner = new Swiper' not in (base/'assets/js/custom.js').read_text()
+          assert 'testimonial2 = new Swiper' not in (base/'assets/js/custom.js').read_text()
+          print('PASS: 54 HTML files, 48 source-backed documents, no demo pages/media, all local links/assets and branding')
+          PY
+      - name: Browser smoke tests on desktop and narrow viewport in both themes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          pages=['index.html','services.html','solutions/index.html','insights/index.html','forex-grey-label/index.html','forex-crm/back-office/index.html','about-us/index.html']
+          script=r"""<script>
+          window.addEventListener('load',()=>setTimeout(()=>{
+            const qs=s=>document.querySelector(s),logo=qs('img[data-brand-logo]');
+            const images=[...document.querySelectorAll('main img, #home img')];
+            const result={mode:document.documentElement.getAttribute('data-bs-theme'),width:innerWidth,
+               header:!!qs('header'),footer:!!qs('footer'),logoReady:!!logo?.complete&&logo.naturalWidth>0,
+               logoSrc:logo?.getAttribute('src'),toggle:!!qs('#btnSwitch'),
+               share:document.querySelectorAll('header .mgl-share-whatsapp,header .mgl-share-telegram,footer .mgl-share-whatsapp,footer .mgl-share-telegram').length,
+               brokenImages:images.filter(i=>!i.complete||i.naturalWidth===0).map(i=>i.getAttribute('src')),
+               overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,
+               partnerLogos:document.querySelectorAll('.partner__slider').length,
+               capabilityStrip:document.querySelectorAll('.mgl-capability-strip a').length};
+            const holder=document.createElement('script');holder.id='meta-qa-data';holder.type='application/json';holder.textContent=JSON.stringify(result);
+            document.body.appendChild(holder);
+          },1700));
+          </script>"""
+          for p in pages:
+              path=Path(p)
+              path.with_name('__meta_qa.html').write_text(path.read_text().replace('</body>',script+'</body>'))
+          PY
+          python3 -m http.server 8147 --bind 127.0.0.1 > /tmp/meta-http.log 2>&1 &
+          pid=$!;trap 'kill "$pid" || true' EXIT
+          sleep 2
+          chrome="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$chrome"
+          for path in /__meta_qa.html /__meta_qa_services.html /solutions/__meta_qa.html /insights/__meta_qa.html /forex-grey-label/__meta_qa.html /forex-crm/back-office/__meta_qa.html /about-us/__meta_qa.html; do
+            if [ "$path" = "/__meta_qa_services.html" ];then continue;fi
+            if [ "$path" = "/__meta_qa.html" ];then actual="/__meta_qa.html";else actual="$path";fi
+            for width in 390 1440;do
+              for mode in light dark;do
+                timeout 30 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=5000 --window-size="$width,900" --dump-dom "http://127.0.0.1:8147$actual?theme=$mode" >/tmp/rendered.html 2>/tmp/chrome.log
+                MODE="$mode" PATH_QA="$actual" python3 - <<'PY'
+          import re,os,json,html
+          data=open('/tmp/rendered.html').read()
+          m=re.search(r'<script type="application/json" id="meta-qa-data">(.+?)</script>',data,re.S)
+          assert m,(os.environ['PATH_QA'],os.environ['MODE'],'missing probe')
+          x=json.loads(html.unescape(m.group(1)))
+          assert x['mode']==os.environ['MODE'],x
+          assert x['header'] and x['footer'] and x['toggle'] and x['logoReady'],x
+          assert x['logoSrc'].endswith('logo-dark.svg' if x['mode']=='dark' else 'logo-light.svg'),x
+          assert x['share']==4 and x['overflow']<=3,x
+          assert x['partnerLogos']==0 and not x['brokenImages'],x
+          if os.environ['PATH_QA']=='/__meta_qa.html':assert x['capabilityStrip']==5,x
+          print('PASS',os.environ['PATH_QA'],os.environ['MODE'],'actual viewport',x['width'])
+          PY
+              done
+            done
+          done
