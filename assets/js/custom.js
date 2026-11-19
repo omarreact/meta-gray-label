@@ -2,6 +2,7 @@ const mglSiteRoot = new URL('../../', document.currentScript.src);
 // =================== preloader js  ================== //
 function hidePreloader() {
     var preloader = document.querySelector('.preloader');
+    if (!preloader) return;
     preloader.style.transition = 'opacity 0.5s ease';
     // Hide the preloader 1 second (1000 milliseconds) after DOM content is loaded
     setTimeout(function () {
@@ -28,7 +29,7 @@ switchThemeByUrl();
 updateThemeColor(localStorage.getItem('theme'))
 
 
-colorSwitcher.addEventListener('click', () => {
+colorSwitcher?.addEventListener('click', () => {
 
     const theme = localStorage.getItem('theme');
 
@@ -68,8 +69,8 @@ function updateThemeColor(themeMode = 'light') {
     if (favicon) favicon.href = assetRoot + 'favicon.svg';
     if (largeIcon) largeIcon.href = assetRoot + 'icon-192.png';
     if (appleIcon) appleIcon.href = assetRoot + 'apple-touch-icon.png';
-    colorSwitcher.setAttribute('aria-label', themeMode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-    colorSwitcher.setAttribute('aria-pressed', String(themeMode === 'dark'));
+    colorSwitcher?.setAttribute('aria-label', themeMode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    colorSwitcher?.setAttribute('aria-pressed', String(themeMode === 'dark'));
 
 }
 
@@ -169,7 +170,7 @@ menuLinks.forEach(function (link) {
 
 // Toggle header bar on click
 var headerBar = document.querySelector(".header-bar");
-headerBar.addEventListener("click", function () {
+headerBar?.addEventListener("click", function () {
     headerBar.classList.toggle("active");
     var menu = document.querySelector(".menu");
     if (menu) {
@@ -183,12 +184,13 @@ headerBar.addEventListener("click", function () {
 //Header
 var fixedTop = document.querySelector("header");
 window.addEventListener("scroll", function () {
+    if (!fixedTop) return;
     if (window.scrollY > 300) {
         fixedTop.classList.add("header-fixed", "fadeInUp");
     } else {
         fixedTop.classList.remove("header-fixed", "fadeInUp");
     }
-});
+}, { passive: true });
 
 
 // =================== header js end here =================== //
@@ -196,8 +198,17 @@ window.addEventListener("scroll", function () {
 
 
 
-//Animation on Scroll initializing
-AOS.init();
+// Scroll-reveal effects previously left content transparent or translated while
+// scrolling. Content now remains immediately visible on every page.
+document.querySelectorAll('[data-aos]').forEach(function (element) {
+    element.removeAttribute('data-aos');
+    element.removeAttribute('data-aos-duration');
+    element.removeAttribute('data-aos-delay');
+    element.classList.remove('aos-init', 'aos-animate');
+    element.style.removeProperty('opacity');
+    element.style.removeProperty('transform');
+    element.style.removeProperty('transition');
+});
 
 
 
