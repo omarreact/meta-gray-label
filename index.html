@@ -377,10 +377,126 @@
       background:rgba(255,255,255,.72);
     }
 
-    [data-bs-theme="dark"] #capabilities .mgl-stack-intro,
-    [data-bs-theme="dark"] #capabilities .mgl-stack-row {
-      color:var(--title-color);
+    /* Dark-theme surfaces: keep each card distinct while matching dark typography */
+    [data-bs-theme="dark"] #capabilities.mgl-stack-section {
+      background:
+        radial-gradient(circle at 12% 18%,rgba(0,208,148,.08),transparent 28%),
+        radial-gradient(circle at 88% 78%,rgba(35,117,255,.08),transparent 30%),
+        #0b2522;
     }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-intro {
+      color:#f4fbfa;
+      border-color:rgba(139,210,199,.15);
+      background:
+        linear-gradient(145deg,rgba(12,42,39,.98),rgba(15,52,48,.96));
+      box-shadow:0 24px 60px rgba(0,0,0,.22);
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-intro h3,
+    [data-bs-theme="dark"] #capabilities .mgl-stack-link,
+    [data-bs-theme="dark"] #capabilities .mgl-stack-copy h4 {
+      color:#f4fbfa !important;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-intro p,
+    [data-bs-theme="dark"] #capabilities .mgl-stack-copy p {
+      color:#b9cfcb !important;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row {
+      color:#f4fbfa;
+      border-color:rgba(139,210,199,.14);
+      box-shadow:none;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row:hover {
+      border-color:rgba(0,208,148,.34);
+      box-shadow:0 20px 44px rgba(0,0,0,.20);
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--platform {
+      background:
+        linear-gradient(180deg,rgba(14,47,43,.98),rgba(11,39,36,.98));
+      border-top-color:#00d094;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--platform .mgl-stack-index {
+      background:rgba(0,208,148,.14);
+      border-color:rgba(0,208,148,.30);
+      color:#3be0b2;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--platform > a {
+      color:#55e6bc;
+      background:rgba(0,208,148,.12);
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--model {
+      background:
+        linear-gradient(135deg,rgba(14,38,55,.98),rgba(12,43,42,.98) 68%);
+      border-left-color:#4f8cff;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--model .mgl-stack-index {
+      background:rgba(79,140,255,.16);
+      color:#8eb4ff;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--model > a {
+      color:#9abaff;
+      border-color:rgba(79,140,255,.28);
+      background:rgba(79,140,255,.10);
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--liquidity {
+      background:
+        linear-gradient(145deg,rgba(12,45,42,.98),rgba(11,39,52,.98));
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--liquidity > a {
+      color:#55e6bc;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--crm {
+      border-color:rgba(0,208,148,.30);
+      background:
+        linear-gradient(90deg,rgba(0,208,148,.075),rgba(12,43,40,.98));
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--crm > a {
+      color:#55e6bc;
+      background:rgba(0,208,148,.12);
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--admin {
+      background:
+        radial-gradient(circle at 92% 18%,rgba(79,140,255,.15),transparent 30%),
+        linear-gradient(180deg,rgba(13,43,50,.98),rgba(10,36,42,.98));
+      border-right-color:#4f8cff;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--admin .mgl-stack-index {
+      background:rgba(79,140,255,.16);
+      color:#8eb4ff;
+      border-color:rgba(79,140,255,.28);
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--admin > a {
+      color:#9abaff;
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--launch {
+      background:
+        linear-gradient(120deg,rgba(0,208,148,.11),rgba(12,43,40,.98) 44%,rgba(79,140,255,.10));
+    }
+
+    [data-bs-theme="dark"] #capabilities .mgl-stack-row--launch > a {
+      color:#f4fbfa;
+      border-color:rgba(0,208,148,.28);
+      background:rgba(255,255,255,.055);
+    }
+
 
     @media(max-width:991px) {
       #capabilities .mgl-stack-shell { grid-template-columns:1fr; }
