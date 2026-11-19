@@ -42,6 +42,7 @@ colorSwitcher?.addEventListener('click', () => {
 
     }
 
+    refreshScrollEffectsAfterLayout();
 });
 
 function updateThemeColor(themeMode = 'light') {
@@ -435,3 +436,41 @@ document.querySelector('.cta-form.form-subscribe')?.addEventListener('submit', f
   }
   document.querySelector('#models')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
+
+
+// Keep reveal animations enabled while recalculating their positions after any layout change.
+var mglAosRefreshFrame;
+function refreshScrollEffectsAfterLayout() {
+    if (!window.AOS) return;
+    window.cancelAnimationFrame(mglAosRefreshFrame);
+    mglAosRefreshFrame = window.requestAnimationFrame(function () {
+        AOS.refreshHard();
+    });
+}
+
+document.querySelectorAll('img').forEach(function (image) {
+    if (!image.complete) image.addEventListener('load', refreshScrollEffectsAfterLayout, { once: true });
+});
+window.addEventListener('resize', refreshScrollEffectsAfterLayout, { passive: true });
+window.addEventListener('orientationchange', refreshScrollEffectsAfterLayout, { passive: true });
+document.addEventListener('shown.bs.collapse', refreshScrollEffectsAfterLayout);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshScrollEffectsAfterLayout);
+
+// All in-page navigation accounts for the floating header rather than placing
+// the target title beneath it.
+document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+    var target = document.querySelector(hash);
+    if (!target) return;
+
+    link.addEventListener('click', function (event) {
+        event.preventDefault();
+        var header = document.querySelector('.header-section--style2 .header-bottom');
+        var offset = (header ? header.getBoundingClientRect().height : 78) + 40;
+        var targetTop = window.scrollY + target.getBoundingClientRect().top - offset;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+        window.history.replaceState(null, '', hash);
+    });
+});
+

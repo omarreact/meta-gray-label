@@ -886,6 +886,39 @@
     @media(prefers-reduced-motion:reduce) {
       #capabilities .mgl-stack-float { animation:none; }
     }
+
+    /* Scroll-safe section entry: content clears the fixed glass navigation. */
+    :root {
+      --mgl-fixed-header-offset: 118px;
+      scroll-padding-top: var(--mgl-fixed-header-offset);
+    }
+    html { scroll-padding-top: var(--mgl-fixed-header-offset); }
+    section[id], [id="models"], [id="roadmap"], [id="capabilities"], [id="why"], [id="faq"], [id="contact"] {
+      scroll-margin-top: var(--mgl-fixed-header-offset);
+    }
+
+    /* Remove the empty-looking hand-offs visible while scrolling between the long homepage sections. */
+    #roadmap, #models, #capabilities, #why, #faq, #contact {
+      padding-top: clamp(72px, 7vw, 110px) !important;
+      padding-bottom: clamp(64px, 6vw, 96px) !important;
+    }
+    #faq { padding-bottom: clamp(54px, 5vw, 80px) !important; }
+    #faq .section-header { margin-bottom: clamp(24px, 3vw, 42px); }
+    #faq .faq__wrapper { margin-top: 0; }
+    #contact { padding-top: clamp(64px, 6vw, 94px) !important; }
+
+    /* Keep the two persistent controls clear of text and the footer on compact screens. */
+    .lightdark-switch .switch-btn { z-index: 9998; }
+    .scrollToTop { right: max(18px, env(safe-area-inset-right)) !important; bottom: max(18px, env(safe-area-inset-bottom)) !important; z-index: 9998; }
+
+    @media (max-width: 991px) {
+      :root { --mgl-fixed-header-offset: 96px; }
+      #roadmap, #models, #capabilities, #why, #faq, #contact {
+        padding-top: 64px !important;
+        padding-bottom: 58px !important;
+      }
+    }
+
 </style>
 </head>
 

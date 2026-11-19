@@ -704,5 +704,20 @@
 .mgl-capability-strip a{font-weight:650;color:var(--text-color);text-decoration:none;transition:color .2s}
 .mgl-capability-strip a:hover,.mgl-capability-strip a:focus-visible{color:var(--brand-color)}
 @media(max-width:767px){.mgl-capability-strip{justify-content:center;gap:12px 22px;text-align:center}}
+
+/* Keep every desktop submenu on the exact same glass surface as the floating header. */
+@media (min-width: 992px) {
+  .header-section--style2 .menu li > .submenu,
+  .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega {
+    background: var(--mgl-glass-background) !important;
+    -webkit-backdrop-filter: var(--mgl-glass-filter);
+    backdrop-filter: var(--mgl-glass-filter);
+    border: 1px solid var(--mgl-glass-border);
+    border-radius: 20px;
+    box-shadow: var(--mgl-glass-shadow);
+    transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+}
+
 </style>
 
