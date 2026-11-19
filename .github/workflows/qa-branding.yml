@@ -1,0 +1,109 @@
+name: Temporary branding and scrolling QA
+on:
+  push:
+    branches: [feat/optimized-branding-theme-capabilities]
+    paths: [.github/workflows/qa-branding.yml]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check JavaScript, assets and protected CSS
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object assets/css/style.css)" = "90b42525c97a20e380ca4c01edea60d3d3eb22d0"
+          node --check assets/js/custom.js
+          node --check assets/js/includes.js
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class Audit(HTMLParser):
+              def __init__(self): super().__init__(); self.img=[];self.refs=[];self.ids=[];self.secs=[]
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='img':self.img.append(a.get('src',''))
+                  if tag=='link':self.refs.append(a.get('href',''))
+                  if 'id' in a:self.ids.append(a['id'])
+                  if tag=='section':self.secs.append(a.get('id'))
+          root=Path('.')
+          for name in ['index.html','header.html','footer.html']:
+              parser=Audit();parser.feed((root/name).read_text())
+              for p in parser.img+parser.refs:
+                  if p.startswith('./'):
+                      assert (root/p).is_file(),f'Missing asset in {name}: {p}'
+              assert len(parser.ids)==len(set(parser.ids)),f'Duplicate IDs in {name}'
+              if name=='index.html':
+                  assert len(parser.secs)==11
+                  assert parser.img and any('brokerage-capabilities.webp' in x for x in parser.img)
+                  text=(root/name).read_text()
+                  assert 'assets/images/team/' not in text
+                  assert 'data-aos="fade-up" data-aos-duration="1000"' not in text.split('<section id="why"')[1].split('</section>')[0]
+          assert len(list((root/'media/branding').glob('capability-*.svg')))==7
+          print('PASS: all assets, 11 sections, no person photos, original CSS verified')
+          PY
+      - name: Validate rendered responsive layout and theme switching
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          page=Path('index.html').read_text()
+          script=r"""
+          <script>
+          window.addEventListener('load', () => setTimeout(() => {
+            const theme=document.documentElement.getAttribute('data-bs-theme');
+            const header=document.querySelector('[data-brand-logo]');
+            const footer=document.querySelector('[data-brand-footer]');
+            const toggle=document.querySelector('#btnSwitch');
+            const why=document.querySelector('#why .testimonial__wrapper');
+            const caps=[...document.querySelectorAll('#capabilities .team__item-thumb img')];
+            const br=toggle?.getBoundingClientRect();
+            const old={theme,header:header?.getAttribute('src'),footer:footer?.getAttribute('src'),favicon:document.querySelector('#site-favicon')?.getAttribute('href'),toggleSrc:toggle?.querySelector('img')?.getAttribute('src'),btnLabel:toggle?.getAttribute('aria-label')};
+            window.scrollTo(0,Math.max(0,document.querySelector('#why').offsetTop-150));
+            const opacityDown=getComputedStyle(why).opacity;
+            const visibleDown=getComputedStyle(why).visibility;
+            window.scrollTo(0,0);
+            const opacityUp=getComputedStyle(why).opacity;
+            toggle?.click();
+            const updated={theme:document.documentElement.getAttribute('data-bs-theme'),header:header?.getAttribute('src'),footer:footer?.getAttribute('src'),favicon:document.querySelector('#site-favicon')?.getAttribute('href'),toggleSrc:toggle?.querySelector('img')?.getAttribute('src'),btnLabel:toggle?.getAttribute('aria-label')};
+            const value={width:innerWidth,height:innerHeight,headerFound:!!header,footerFound:!!footer,toggleFound:!!toggle,capImages:caps.length,personPhotos:caps.filter(x=>x.src.includes('/team/')).length,why:{opacityDown,opacityUp,visibleDown,swiper:!!document.querySelector('#why .swiper-initialized')},toggleRect:br?{x:br.x,bottom:br.bottom,width:br.width}:null,old,updated};
+            const output=document.createElement('script');output.type='application/json';output.id='qa-results';output.textContent=JSON.stringify(value);document.body.appendChild(output);
+          },1800));
+          </script>"""
+          Path('__branding_qa.html').write_text(page.replace('</body>',script+'</body>'))
+          PY
+          python3 -m http.server 8123 --bind 127.0.0.1 > /tmp/server.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 2
+          chrome="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$chrome"
+          for width in 390 768 1024 1440; do
+            timeout 55 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=5500 --window-size="$width,900" --dump-dom \
+              'http://127.0.0.1:8123/__branding_qa.html' > "/tmp/test-$width.html" 2>"/tmp/chrome-$width.log"
+            WIDTH="$width" python3 - <<'PY'
+          import json,os,re,html
+          w=int(os.environ['WIDTH'])
+          page=open(f'/tmp/test-{w}.html').read()
+          found=re.search(r'<script type="application/json" id="qa-results">(.+?)</script>',page,re.S)
+          assert found,f'No browser probe at {w}'
+          x=json.loads(html.unescape(found.group(1)))
+          assert x['headerFound'] and x['footerFound'] and x['toggleFound'],x
+          assert x['capImages']==8 and x['personPhotos']==0,x
+          assert x['toggleRect']['x']<75 and x['toggleRect']['width']>=50,x
+          assert x['height']-x['toggleRect']['bottom']<90,x
+          assert x['why']['opacityDown']=='1' and x['why']['opacityUp']=='1',x
+          assert x['why']['visibleDown']=='visible' and x['why']['swiper'],x
+          assert x['old']['theme']=='light',x
+          assert x['updated']['theme']=='dark',x
+          for part in ['header','footer','favicon','toggleSrc']:
+              assert 'light' in x['old'][part] or part=='toggleSrc',x
+              assert 'dark' in x['updated'][part] or part=='toggleSrc',x
+          assert x['old']['toggleSrc'].endswith('theme-moon.webp') and x['updated']['toggleSrc'].endswith('theme-sun.webp'),x
+          print(f'PASS {w}px: theme and logo switching, bottom-left button, 8 people-free cards, visible Why carousel')
+          PY
+          done
