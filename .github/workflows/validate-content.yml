@@ -1,0 +1,31 @@
+name: Validate JSON-driven static site
+
+on:
+  pull_request:
+    paths:
+      - "data/content.json"
+      - "data/content.xml"
+      - "data/page-map.json"
+      - "templates/**"
+      - "scripts/**"
+      - "**/*.html"
+      - "sitemap.xml"
+      - ".github/workflows/validate-content.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Check generator syntax
+        run: node --check scripts/generate.mjs
+      - name: Verify generated pages, shared layout, sitemap and page map
+        run: node scripts/generate.mjs --check
