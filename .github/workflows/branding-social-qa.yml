@@ -102,11 +102,11 @@ jobs:
           assert r['logo']['width']>=125,r
           if width<=768:
               assert r['burgerVisible'],r
-              assert r['socialHeaderRect']['right']<=width+3,r
+              assert r['socialHeaderRect']['right']<=r['viewport']+3,r
               assert r['socialHeaderRect']['x']>=r['logo']['right']-5,r
-          if width>=1440 and r['ctaVisible']:
+          if r['viewport']>=1440 and r['ctaVisible']:
               assert r['ctaRect']['y']<=r['logo']['bottom']+10,r
-              assert r['ctaRect']['right']<=width+2,r
+              assert r['ctaRect']['right']<=r['viewport']+2,r
               assert r['socialHeaderRect']['right']<=r['ctaRect']['x']+3 or r['socialHeaderRect']['x']>=r['ctaRect']['right']-3,r
           print(f"PASS {width}px {mode}: logo={r['logo']['width']:.0f}px socials={r['socialHeader']}/{r['socialFooter']} old-style-toggle=green")
           PY
