@@ -66,6 +66,12 @@ jobs:
                   assert a.paragraphs>=original_doc['sourceParagraphs'],(name,a.paragraphs,original_doc['sourceParagraphs'])
               if original_doc and original_doc['title'] in ['Contact','Privacy Policy','Terms of Service','Client Testimonials']:
                   assert 'content="noindex,follow"' in html,(name,'draft needs noindex')
+          homepage=(root/'index.html').read_text()
+          assert 'fab fa-facebook' not in homepage and 'fab fa-twitter' not in homepage, 'Demo social icons remain'
+          assert 'href="solutions/" class="trk-btn trk-btn--primary trk-btn--arrow"' in homepage
+          assert 'href="insights/" class="trk-btn trk-btn--border trk-btn--primary mt-15"' in homepage
+          js=(root/'assets/js/custom.js').read_text()
+          assert 'var submenu = element.querySelector(":scope > .submenu")' in js, 'Mobile submenus not guarded'
           assert not errors,errors[:25]
           assert (root/'robots.txt').is_file() and (root/'sitemap.xml').is_file()
           footer=(root/'footer.html').read_text()
