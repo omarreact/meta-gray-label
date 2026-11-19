@@ -19,6 +19,7 @@ on:
       - "theme.json"
       - "sitemap.xml"
       - ".github/workflows/validate-content.yml"
+      - ".wp-env.json"
   workflow_dispatch:
 permissions:
   contents: read
@@ -78,3 +79,35 @@ jobs:
           test -f dist/wordpress/meta-grey-label/parts/header-native.html
           test -f dist/wordpress/meta-grey-label/blocks/legacy-page/block.json
           test -f dist/wordpress/meta-grey-label/assets/css/fse.css
+  wordpress-integration:
+    name: Real WordPress staging (isolated Docker)
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build installable WordPress theme without touching production
+        run: |
+          node scripts/package-wordpress.mjs --write
+          cp tests/wp-runtime.php dist/wordpress/meta-grey-label/qa-runtime.php
+      - name: Start isolated WordPress and MariaDB via official wp-env
+        run: npx --yes @wordpress/env start
+      - name: Activate theme and enable pretty permalinks
+        run: |
+          npx --yes @wordpress/env run cli wp theme activate meta-grey-label
+          npx --yes @wordpress/env run cli wp option update permalink_structure '/%postname%/'
+          npx --yes @wordpress/env run cli wp rewrite flush
+      - name: Dry-run then import into disposable staging database
+        run: |
+          npx --yes @wordpress/env run cli wp mgl import-pages --native
+          npx --yes @wordpress/env run cli wp mgl import-pages --apply --native --set-homepage
+      - name: Assert WordPress parsing rendering and Gutenberg navigation
+        run: npx --yes @wordpress/env run cli wp eval-file wp-content/themes/meta-grey-label/qa-runtime.php
+      - name: Assert actual HTTP pages and conditional frontend assets
+        run: node tests/wp-http.mjs
+      - name: Shut down disposable WordPress environment
+        if: always()
+        run: npx --yes @wordpress/env stop || true
