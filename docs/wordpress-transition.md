@@ -105,3 +105,25 @@ Before WordPress production cutover, verify domain-specific canonical URLs,
 server response codes, WordPress SEO plugin integration, PageSpeed/Lighthouse,
 actual mobile interaction, licenses for bundled third-party assets, and CMS
 rendering in a real staging installation.
+
+
+## Release validation evidence
+
+- Official WordPress runtime: `wp-env` isolated installation, activation,
+  dry-run import followed by 51-page native import in a disposable database.
+- Runtime PHP parser: all 51 native Gutenberg pages, a 52-source route
+  manifest, 38 navigation links and nine nested menus.
+- HTTP tests: 51 WordPress URLs return 200, missing URL returns genuine 404.
+- Desktop/mobile browser tests: eight representative routes at 1440 and
+  390px, no horizontal overflow, no JS exceptions, responsive menu
+  opens and closes.
+- Gutenberg editor tests: Home, About, Grey Label have zero invalid serialized
+  blocks; Site Editor initializes without critical errors.
+- Static metadata tests: 52 titles, descriptions and H1s, self-canonicals,
+  sitemap alignment and 404 noindex. No duplicated canonical.
+
+Native homepage design patterns now include service cards, pricing columns,
+and FAQ disclosure blocks. This reduces Bootstrap reliance while keeping
+the editor fully usable. The legacy frontend remains the approved
+visual reference. Exact screenshot parity of every distinct legacy
+section is not asserted by these tests.

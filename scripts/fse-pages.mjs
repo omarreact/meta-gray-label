@@ -41,8 +41,11 @@ function paragraph(text, className) {
 function openGroup(cls, tag = "div") {
   const opts = { className: cls, layout: { type: "constrained" } };
   if (tag !== "div") opts.tagName = tag;
+  // Native full-site layouts must escape core/post-content's content-width
+  // constraint; each section still constrains its inner copy independently.
+  if (tag === "main") opts.align = "full";
   return "<!-- wp:group" + jsonAttr(opts) + " -->\n<" + tag +
-    ' class="wp-block-group ' + cls + '">';
+    ' class="wp-block-group ' + (tag === "main" ? "alignfull " : "") + cls + '">';
 }
 function closeGroup(tag = "div") {
   return "</" + tag + ">\n<!-- /wp:group -->";

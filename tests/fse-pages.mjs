@@ -12,6 +12,8 @@ let blocks = 0;
 for (const page of pages) {
   const doc = data.content.documents[page.documentId];
   assert.ok(page.markup.includes("<!-- wp:group"), "missing Gutenberg group: " + page.path);
+  assert.ok(page.markup.includes('class="wp-block-group alignfull mgl-native-page'),
+    "Pages must be full-bleed while preserving section-specific inner widths");
   assert.ok(page.markup.includes('class="wp-block-heading"'), "missing native heading: " + page.path);
   assert.equal((page.markup.match(/<!-- wp:group/g) || []).length,
     (page.markup.match(/<!-- \/wp:group -->/g) || []).length);

@@ -80,3 +80,39 @@ using existing assets until visual parity is confirmed.
 Custom fallback blocks use `blocks/*/block.json` metadata as recommended
 by the WordPress Block API. WordPress core owns canonical URL and page title;
 SEO plugins may supply additional metadata without hard-coded duplicates.
+
+
+## Verification before releasing the WordPress theme
+
+GitHub Actions runs two independent checks: exact static HTML parity/SEO checks
+and an **isolated real WordPress staging installation** using official
+`@wordpress/env`, Docker and MariaDB. The staging job activates the built
+theme, dry-runs and then imports 51 new Pages, verifies all 51 HTTP routes
+and 404 status, runs desktop/mobile Playwright checks, and opens the actual
+Gutenberg Post Editor and Full Site Editor.
+
+The editor check asserts that the imported home, about and grey-label pages
+contain **zero invalid Gutenberg blocks**. Representative staging screenshots
+are attached to the Actions run, not committed to this repository.
+
+The native home now has distinct, editable sections for its 11 source
+sections, including six linked service cards, three pricing columns and
+six native HTML Details / Gutenberg FAQ blocks. WordPress's core details
+interaction needs no Bootstrap or extra theme JavaScript.
+
+**Important release boundary:** the native page designs use the existing
+approved content, but they are not yet guaranteed pixel-identical to the
+original vendor-based static HTML. The original static templates and assets
+remain untouched. A real production WordPress migration still requires
+reviewing real images, media, third-party licensing, domain/canonical
+redirection and a rollback plan. Do not import native layouts into an
+existing production WordPress database without a backup and approval.
+
+## Code/asset budget notes
+
+The native Gutenberg frontend loads approximately 8 KB of scoped MGL
+theme CSS (uncompressed source) and no custom theme JavaScript, in addition
+to whatever WordPress core requires. Legacy HTML intentionally keeps its
+original CSS/JS because ripping out interdependent icon, slider and theme
+libraries before full browser QA would compromise the approved design.
+These two render targets are deliberately independent.
