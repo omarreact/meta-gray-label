@@ -25,7 +25,7 @@ jobs:
           test -f media/branding/footer-light.webp
           test -f assets/images/icon/moon.svg
           test -f assets/images/icon/sun.svg
-          git -c core.whitespace=cr-at-eol diff --check HEAD~2..HEAD || true
+          git -c core.whitespace=cr-at-eol diff --check HEAD~3..HEAD || true
       - name: Render and measure at desktop tablet and mobile viewports
         shell: bash
         run: |
