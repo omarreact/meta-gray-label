@@ -1,0 +1,188 @@
+/**
+ * Block-first projection of the canonical JSON content.
+ *
+ * The 48 routes with authoritative structured documents have native,
+ * independently editable core/heading and core/paragraph block content.
+ * Unmapped directory/index routes retain their existing HTML renderer.
+ * This module never mutates data/content.json or production HTML.
+ */
+const safeText = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+function familyOf(route) {
+  if (route === "/") return "home";
+  if (route.startsWith("/insights/")) return "editorial";
+  if (route.includes("grey-label")) return "grey-label";
+  if (route.includes("white-label")) return "white-label";
+  if (route.includes("liquidity")) return "liquidity";
+  if (route.includes("crm")) return "crm";
+  if (route.includes("trading-platforms")) return "platforms";
+  if (route.includes("admin-license")) return "admin";
+  return "brokerage";
+}
+function slugOf(path) {
+  const slug = path === "index.html" ? "home" : path.replace(/\/index\.html$/, "").replace(/\.html$/, "");
+  if (!/^[a-z0-9/-]+$/.test(slug) || !slug) throw new Error("Unsafe source path: " + path);
+  return slug;
+}
+function jsonAttr(attrs) {
+  return Object.keys(attrs).length ? " " + JSON.stringify(attrs) : "";
+}
+function heading(text, level = 2) {
+  const n = Math.max(1, Math.min(6, Number(level) || 2));
+  const attrs = n === 2 ? {} : { level: n };
+  return "<!-- wp:heading" + jsonAttr(attrs) + " -->\n<h" + n + ' class="wp-block-heading">' +
+    safeText(text) + "</h" + n + ">\n<!-- /wp:heading -->";
+}
+function paragraph(text, className) {
+  const attr = className ? { className } : {};
+  return "<!-- wp:paragraph" + jsonAttr(attr) + " -->\n<p" +
+    (className ? ' class="' + className + '"' : "") + ">" + safeText(text) + "</p>\n<!-- /wp:paragraph -->";
+}
+function openGroup(cls, tag = "div") {
+  const opts = { className: cls, layout: { type: "constrained" } };
+  if (tag !== "div") opts.tagName = tag;
+  return "<!-- wp:group" + jsonAttr(opts) + " -->\n<" + tag +
+    ' class="wp-block-group ' + cls + '">';
+}
+function closeGroup(tag = "div") {
+  return "</" + tag + ">\n<!-- /wp:group -->";
+}
+function routeClass(route) {
+  return route === "/" ? "home" : route.replace(/^\/|\/$/g, "").replace(/\.html$/, "").replace(/[^a-z0-9-]+/g, "-");
+}
+function nativePageMarkup(entry, document, sequence) {
+  const family = familyOf(entry.route);
+  const name = "mgl-native-page mgl-native-page--" + family + " mgl-native-route--" + routeClass(entry.route);
+  const blocks = document.blocks;
+  if (!Array.isArray(blocks) || !blocks.length) throw new Error("No structured content for " + entry.path);
+  const chunks = [openGroup(name, "main")];
+  let open = false;
+  let sectionIndex = 0;
+  let sawH1 = false;
+  function beginSection(variant) {
+    if (open) chunks.push(closeGroup("section"));
+    const cls = "mgl-native-section mgl-native-section--" + (sectionIndex % 5) +
+      " mgl-native-section--" + variant;
+    chunks.push(openGroup(cls, "section"));
+    open = true;
+    sectionIndex++;
+  }
+  beginSection("hero");
+  chunks.push(paragraph("Meta Grey Label / " + family.replaceAll("-", " "), "mgl-native-eyebrow"));
+  for (const block of blocks) {
+    if (block.type === "heading") {
+      const level = Math.max(1, Math.min(6, Number(block.level) || 2));
+      if (level === 1) {
+        sawH1 = true;
+      } else if (level === 2) {
+        beginSection(sectionIndex % 2 ? "split" : "editorial");
+      }
+      chunks.push(heading(block.text, level));
+    } else if (block.type === "paragraph") {
+      chunks.push(paragraph(block.text));
+    } else {
+      throw new Error("Unexpected block type in " + entry.path + ": " + block.type);
+    }
+  }
+  if (!sawH1) chunks.splice(2, 0, heading(document.title || entry.title || "Meta Grey Label", 1));
+  if (open) chunks.push(closeGroup("section"));
+  chunks.push(closeGroup("main"));
+  const markup = chunks.join("\n") + "\n";
+  if ((markup.match(/<!-- wp:group/g) || []).length !==
+      (markup.match(/<!-- \/wp:group -->/g) || []).length) {
+    throw new Error("Unbalanced Gutenberg groups: " + entry.path);
+  }
+  if (markup.includes("__MGL_CONTENT_") || markup.includes("<script")) {
+    throw new Error("Invalid generated blocks: " + entry.path);
+  }
+  return { path: entry.path, slug: slugOf(entry.path), route: entry.route, title: entry.title,
+    documentId: entry.id, family, sections: sectionIndex, blocks: blocks.length, sequence, markup };
+}
+export function buildNativePages(config) {
+  if (!config?.pages || !config?.content?.documents || !config?.pageMap?.pages) {
+    throw new Error("Missing canonical content data");
+  }
+  const results = [];
+  const seen = new Set();
+  let index = 0;
+  for (const entry of config.pageMap.pages) {
+    if (!config.pages[entry.path] || seen.has(entry.path)) {
+      throw new Error("Duplicate or unknown page in page map: " + entry.path);
+    }
+    const document = config.content.documents[entry.id];
+    if (!document || document.status !== "available") {
+      throw new Error("Missing document " + entry.id + " for " + entry.path);
+    }
+    const page = nativePageMarkup(entry, document, index++);
+    results.push(page);
+    seen.add(entry.path);
+  }
+  const excluded = Object.entries(config.pages)
+    .filter(([path, value]) => value.role === "page" && !seen.has(path))
+    .map(([path]) => path).sort();
+  return { pages: results, excluded };
+}
+function nativeUrl(route) {
+  if (route === "index.html") return "/";
+  if (route.startsWith("index.html#")) return "/" + route.slice("index.html".length);
+  if (route === "services.html") return "/services/";
+  return "/" + route.replace(/(^\.\/|index\.html$)/g, "");
+}
+function navLink(label, route) {
+  const url = nativeUrl(route);
+  return "<!-- wp:navigation-link" + jsonAttr({ label: label.replace(/&amp;/g, "&"), url, kind: "custom" }) + " /-->";
+}
+export function buildNativeParts(config) {
+  const f = config.pages["header.html"].fields;
+  const get = (n) => f["__MGL_CONTENT_" + String(n).padStart(5, "0") + "__"];
+  const nav = [[1,50],[2,51],[40,82],[41,83],[45,87],[46,88],[47,89]];
+  if (nav.some(([title,href]) => !get(title) || !get(href))) throw new Error("Missing canonical navigation");
+  const navMarkup = nav.map(([t,h])=>navLink(get(t),get(h))).join("\n");
+  const header = [
+    '<!-- wp:group {"align":"full","className":"mgl-native-site-header","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->',
+    '<div class="wp-block-group alignfull mgl-native-site-header">',
+    '<!-- wp:group {"className":"mgl-native-brand","layout":{"type":"flex","flexWrap":"nowrap"}} -->',
+    '<div class="wp-block-group mgl-native-brand">',
+    '<!-- wp:site-logo {"width":60,"shouldSyncIcon":false} /-->',
+    '<!-- wp:site-title {"level":0} /-->',
+    '</div><!-- /wp:group -->',
+    '<!-- wp:navigation {"overlayMenu":"mobile","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right"}} -->',
+    '<nav class="is-responsive items-justified-right wp-block-navigation mgl-native-navigation">',
+    navMarkup,
+    '</nav><!-- /wp:navigation -->',
+    '</div><!-- /wp:group -->'
+  ].join("\n") + "\n";
+  const ff = config.pages["footer.html"].fields;
+  const getFooter = (n) => ff["__MGL_CONTENT_" + String(n).padStart(5, "0") + "__"];
+  const links = [[3,21],[4,22],[5,23],[8,25],[9,26],[10,27],[13,29]].map(([t,h]) => {
+    const name = getFooter(t)?.replace(/&amp;/g, "&");
+    const path = getFooter(h);
+    if (!name || !path) throw new Error("Missing footer link " + t);
+    const url = nativeUrl(path);
+    return '<!-- wp:paragraph --><p><a href="' + safeText(url) + '">' + safeText(name) +
+      '</a></p><!-- /wp:paragraph -->';
+  }).join("\n");
+  const footer = [
+    '<!-- wp:group {"align":"full","className":"mgl-native-site-footer","layout":{"type":"constrained"}} -->',
+    '<div class="wp-block-group alignfull mgl-native-site-footer">',
+    '<!-- wp:site-title {"level":0} /-->',
+    '<!-- wp:paragraph --><p>' + safeText(getFooter(1)) + '</p><!-- /wp:paragraph -->',
+    '<!-- wp:columns --><div class="wp-block-columns">',
+    '<!-- wp:column --><div class="wp-block-column">',
+    '<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Explore</h3><!-- /wp:heading -->',
+    links,
+    '</div><!-- /wp:column -->',
+    '</div><!-- /wp:columns -->',
+    '</div><!-- /wp:group -->'
+  ].join("\n") + "\n";
+  return { header, footer };
+}
+export function nativePreview(page, styleLink = "../../../assets/css/fse.css") {
+  const body = page.markup.replace(/<!--\s*\/?wp:[\s\S]*?-->/g, "");
+  return '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<meta name="robots" content="noindex,nofollow">' +
+    '<title>' + safeText(page.title) + ' – FSE Preview</title>' +
+    '<link rel="stylesheet" href="' + styleLink + '"></head><body>' +
+    body + '</body></html>\n';
+}

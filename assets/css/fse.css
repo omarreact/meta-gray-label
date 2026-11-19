@@ -1,0 +1,43 @@
+/*
+ * Scoped Gutenberg-native preview and WordPress content styles.
+ * Does not change the existing production HTML or original Bitrader CSS.
+ */
+.mgl-native-page {
+  --mgl-native-accent: var(--wp--preset--color--brand, #00d094);
+  --mgl-native-ink: var(--wp--preset--color--ink, #0c263a);
+  --mgl-native-surface: var(--wp--preset--color--surface, #f7fbfa);
+  color: var(--mgl-native-ink);
+  font-family: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  max-width: 100%;
+  padding: 0 0 clamp(48px, 7vw, 110px);
+}
+.mgl-native-page .mgl-native-section { box-sizing:border-box; padding:clamp(32px,5.2vw,90px) max(22px,calc((100vw - 1180px)/2)); margin:0; }
+.mgl-native-page .mgl-native-section > * { max-width: 850px; }
+.mgl-native-page h1 { font-size:clamp(2.35rem,4.5vw,4.8rem); line-height:1.12; max-width:920px; letter-spacing:-.035em; }
+.mgl-native-page h2 { font-size:clamp(1.65rem,2.7vw,2.9rem); line-height:1.22; max-width:890px; letter-spacing:-.025em; }
+.mgl-native-page h3 { font-size:clamp(1.13rem,1.7vw,1.4rem); line-height:1.35; }
+.mgl-native-page p { font-size:clamp(1rem,1.14vw,1.14rem); line-height:1.8; max-width:78ch; }
+.mgl-native-page .mgl-native-eyebrow { font-weight:800; text-transform:uppercase; letter-spacing:.16em; font-size:.8rem; }
+.mgl-native-page .mgl-native-section--hero {
+  padding-top:clamp(70px,8vw,136px); padding-bottom:clamp(70px,8vw,136px);
+  color:#fff; background:linear-gradient(125deg,#062b38,#085f60 70%,#0b8168);
+}
+.mgl-native-page .mgl-native-section--0:not(.mgl-native-section--hero) { background:#f3faf8; }
+.mgl-native-page .mgl-native-section--1 { border-inline-start:6px solid var(--mgl-native-accent); background:#fff; }
+.mgl-native-page .mgl-native-section--2 { background:#082938; color:#edfafa; }
+.mgl-native-page .mgl-native-section--3 { background:linear-gradient(140deg,#e5f5f0,#f8fbfb); }
+.mgl-native-page .mgl-native-section--4 { background:#fff; border-block:1px solid #dbeee8; }
+.mgl-native-page--editorial .mgl-native-section > * { max-width:740px; }
+.mgl-native-page--liquidity { --mgl-native-accent:#22abd1; }
+.mgl-native-page--crm { --mgl-native-accent:#6ec3ff; }
+.mgl-native-page--grey-label { --mgl-native-accent:#00d094; }
+.mgl-native-page--white-label { --mgl-native-accent:#30a18b; }
+.mgl-native-page--home .mgl-native-section--hero { background:linear-gradient(145deg,#0c263a,#0d6163); }
+.mgl-native-site-header { padding:18px clamp(20px,4vw,70px); border-bottom:1px solid #dbeae7; background:#fff; gap:20px; }
+.mgl-native-site-header .wp-block-site-title { font-size:1.2rem; font-weight:800; }
+.mgl-native-site-footer { padding:clamp(45px,5vw,90px) clamp(20px,4vw,70px); background:#092935; color:#e4f5f2; }
+.mgl-native-site-footer a { color:inherit; }
+[data-bs-theme="dark"] .mgl-native-page .mgl-native-section--1,
+[data-bs-theme="dark"] .mgl-native-page .mgl-native-section--4 { background:#122f3c; color:#f2fbfa; }
+[data-bs-theme="dark"] .mgl-native-page .mgl-native-section--3 { background:#173e47; color:#f2fbfa; }
+@media(max-width:767px){ .mgl-native-page .mgl-native-section { padding:clamp(28px,7vw,60px) 22px; } .mgl-native-page h1 { overflow-wrap:anywhere; } }

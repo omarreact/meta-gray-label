@@ -1,71 +1,75 @@
-# WordPress migration reference
+# Meta Grey Label — incremental Full Site Editing implementation
 
-## Static + WordPress-ready, one GitHub repository
+## Canonical architecture and current boundaries
 
-The website's authoritative content is `data/content.json`. Existing
-`templates/pages/**` and `templates/shared/**` keep their independent
-approved designs. `node scripts/generate.mjs --check` verifies static output.
+- **Source of authoring truth:** `data/content.json`, including 53 historical
+  documents, 52 page records, current visible labels and navigation.
+- **Production static output:** existing HTML pages, unchanged; regeneration
+  via `scripts/generate.mjs`.
+- **Native content:** `scripts/fse-pages.mjs` projects the 48 mapped content
+  pages (2,735 document blocks) into Gutenberg core/group, core/heading,
+  and core/paragraph markup. No content strings are duplicated into the
+  FSE generator.
+- **Four bespoke routes:** `404.html`, `insights/index.html`,
+  `services.html`, `solutions/index.html` remain in the existing legacy
+  adapter. These need custom directory/404 designs to preserve parity.
+- **Native site structure:** generated `parts/header-native.html` uses
+  core/site-logo, core/site-title and core/navigation; footer uses
+  core/site-title, core/columns and core/paragraph.
+- **Opt-in WordPress template:** `templates/page-native.html` uses native
+  editable parts + core/post-content. Default templates retain original
+  HTML rendering for backward compatibility.
+- **Design system:** `theme.json`, `styles/light.json`,
+  `styles/dark.json`, and scoped `assets/css/fse.css`.
+- **Actual interactive sections:** these remain HTML+JS, not yet complete
+  custom Gutenberg blocks. To achieve full section-by-section design parity,
+  each interactive section needs block registration, editor UI, and
+  WordPress browser QA.
 
-Native WordPress files added alongside the static site:
-- Root `style.css`, `theme.json`, `functions.php`
-- `templates/index.html`, `front-page.html`, `page.html`, `404.html`,
-  `single.html`, `archive.html`, `search.html`
-- `parts/header.html`, `parts/footer.html`
-- `styles/light.json` and `styles/dark.json`
-- `patterns/*.php` as editable native Gutenberg patterns
-- `inc/renderer.php` bridge for existing complex layouts
-- `inc/import-pages.php` optional, explicit WP-CLI page importer
+## Commands (safe locally; no deployment)
 
-WordPress block templates call server-rendered `mgl/page`, `mgl/header`,
-and `mgl/footer` blocks. These read the same JSON and HTML templates as
-the static renderer. No duplicate copy source needs to be maintained.
-The WordPress runtime enqueues existing local CSS/JS and rewrites local
-asset and navigation URLs to the active WordPress site.
+    node scripts/generate.mjs --check
+    node tests/fse-pages.mjs
+    node scripts/generate-fse.mjs --check
+    node scripts/generate-fse.mjs --write
+    php tests/wordpress-renderer-smoke.php
+    node scripts/package-wordpress.mjs --check
+    node scripts/package-wordpress.mjs --write
 
-## Test and package
+After theme package creation, zip the directory in
+`dist/wordpress/meta-grey-label/` and install the archive in a fresh
+WordPress staging instance.
 
-```sh
-node scripts/generate.mjs --check
-node scripts/package-wordpress.mjs --check
-php -l functions.php
-php -l inc/renderer.php
-php -l inc/import-pages.php
-php tests/wordpress-renderer-smoke.php
-node scripts/package-wordpress.mjs --write
-cd dist/wordpress && zip -qr meta-grey-label.zip meta-grey-label
-```
+Dry-run WordPress page import (no database writes):
 
-Upload the generated zip through WordPress Appearance > Themes, or copy
-the `meta-grey-label` directory into `wp-content/themes` and activate.
+    wp mgl import-pages --native
 
-After installation, install hierarchical WP Pages from the existing JSON
-using WP-CLI. This command is DRY RUN by default:
+Create **only missing pages** using native core blocks, only after
+reviewing the preview and approving the WordPress rendering:
 
-```sh
-wp mgl import-pages
-wp mgl import-pages --apply --set-homepage
-```
+    wp mgl import-pages --apply --native --set-homepage
 
-Existing WordPress pages are never overwritten; the importer adds only
-missing pages. With WordPress pretty permalinks, `services.html` becomes
-`/services/`. Confirm redirects and SEO/canonical migration when changing
-domains or switching production.
+Without `--native`, the importer creates empty WordPress page records and
+uses the existing HTML renderer. With `--native`, 48 mapped pages receive
+Gutenberg page content and a native template (home uses the WordPress
+front-page fallback with an opt-in rendering guard); the four exceptional
+routes retain the legacy renderer. Existing pages are never overwritten.
 
-## Important technical boundaries
+## Production migration is not finished
 
-This is a functional **block-theme bridge**, not a pixel-perfect WordPress
-approval. The 52 existing bespoke page designs render through server-side
-blocks. Complex sections are not yet independently editable with Gutenberg
-native blocks; the JSON and HTML templates remain the editing source.
-Native patterns are available to author *new* editable content.
+A successful PHP smoke test or package creation does not prove visual
+equivalence. Before switching production to WordPress, complete:
+1. WordPress staging install with actual Gutenberg block parsing and editor
+   validation, including native header navigation, nested menus and theme
+   styles.
+2. Per-page visual comparison of 52 desktop/mobile layouts, CTA actions,
+   dark/light switch, image URLs, responsive navigation and animations.
+3. Convert complex custom Hero, comparison, pricing, FAQ and card designs
+   into editable native patterns or registered custom blocks.
+4. Migrate all navigation/submenu structure, directory pages and media.
+5. Verify canonical/redirect mapping, assets, WP database state,
+   security/capabilities and rollback.
+6. Decide whether GitHub JSON or WordPress database wins for editor-written
+   content; two-way sync does not yet exist.
 
-The static theme switch and WordPress global style variations are independent
-controls; visual parity and asset/JS behavior must be verified in an actual
-WordPress installation, especially nested navigation and mobile behavior.
-
-Before distributing a WordPress theme, review licensing of all bundled fonts,
-images, template libraries, and source assets. Do not assume third-party
-template licenses permit redistribution or WordPress conversion.
-
-No WordPress DB, plugin, DNS, main branch, or hosting changes are triggered
-by this repository-only work.
+No site has been deployed or switched by the repository changes.

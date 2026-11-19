@@ -43,7 +43,36 @@
       ]
     },
     "typography": {
-      "fluid": true
+      "fluid": true,
+      "fontSizes": [
+        {
+          "slug": "small",
+          "name": "Small",
+          "size": "0.875rem"
+        },
+        {
+          "slug": "medium",
+          "name": "Body",
+          "size": "1.125rem"
+        },
+        {
+          "slug": "large",
+          "name": "Large",
+          "size": "1.65rem"
+        },
+        {
+          "slug": "x-large",
+          "name": "Display",
+          "size": "clamp(2.35rem, 4.5vw, 4.8rem)"
+        }
+      ],
+      "fontFamilies": [
+        {
+          "slug": "system",
+          "name": "System UI",
+          "fontFamily": "ui-sans-serif, system-ui, -apple-system, sans-serif"
+        }
+      ]
     },
     "spacing": {
       "units": [
@@ -53,6 +82,33 @@
         "%",
         "vw",
         "vh"
+      ],
+      "spacingSizes": [
+        {
+          "slug": "xs",
+          "name": "Extra Small",
+          "size": "0.5rem"
+        },
+        {
+          "slug": "sm",
+          "name": "Small",
+          "size": "1rem"
+        },
+        {
+          "slug": "md",
+          "name": "Medium",
+          "size": "2rem"
+        },
+        {
+          "slug": "lg",
+          "name": "Large",
+          "size": "3.5rem"
+        },
+        {
+          "slug": "xl",
+          "name": "Extra Large",
+          "size": "6rem"
+        }
       ]
     }
   },
@@ -67,6 +123,10 @@
           "text": "#008f72"
         }
       }
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--system)",
+      "lineHeight": "1.6"
     }
   },
   "templateParts": [
@@ -79,6 +139,25 @@
       "name": "footer",
       "title": "Site footer",
       "area": "footer"
+    },
+    {
+      "name": "header-native",
+      "title": "Editable native header",
+      "area": "header"
+    },
+    {
+      "name": "footer-native",
+      "title": "Editable native footer",
+      "area": "footer"
+    }
+  ],
+  "customTemplates": [
+    {
+      "name": "page-native",
+      "title": "Meta Grey Label — Editable Native Blocks",
+      "postTypes": [
+        "page"
+      ]
     }
   ]
 }

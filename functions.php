@@ -23,6 +23,9 @@ add_action( 'init', static function (): void {
 
 add_action( 'wp_enqueue_scripts', static function (): void {
     $root = get_theme_file_uri();
+    $native_layout = ( is_page() || is_front_page() ) &&
+        ( '1' === get_post_meta( get_queried_object_id(), '_mgl_native_layout', true ) ||
+          is_page_template( 'page-native' ) );
     $style_names = array(
         'bootstrap.min.css',
         'aos.css',
@@ -37,6 +40,7 @@ add_action( 'wp_enqueue_scripts', static function (): void {
         $previous = array( $handle );
     }
     wp_enqueue_style( 'mgl-wp-compat', get_stylesheet_uri(), $previous, '0.1.0' );
+    wp_enqueue_style( 'mgl-fse-blocks', $root . '/assets/css/fse.css', array( 'mgl-wp-compat' ), '0.1.0' );
 
     $scripts = array(
         'bootstrap.bundle.min.js',
@@ -48,6 +52,9 @@ add_action( 'wp_enqueue_scripts', static function (): void {
     );
     $deps = array();
     foreach ( $scripts as $name ) {
+        if ( $native_layout && 'custom.js' === $name ) {
+            continue; // Legacy preloader and theme-toggle nodes are absent in native templates.
+        }
         $handle = 'mgl-script-' . sanitize_key( $name );
         wp_enqueue_script( $handle, $root . '/assets/js/' . $name, $deps, '0.1.0', true );
         $deps = array( $handle );

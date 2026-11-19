@@ -9,9 +9,10 @@
  * --write creates dist/wordpress/meta-grey-label/ (ZIP the theme folder to
  * install it via Appearance > Themes > Add New > Upload Theme).
  */
-import { readFileSync, existsSync, mkdirSync, cpSync, copyFileSync, rmSync } from "node:fs";
+import { readFileSync, existsSync, mkdirSync, cpSync, rmSync, writeFileSync } from "node:fs";
 import { resolve, dirname, join, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildNativePages, buildNativeParts } from "./fse-pages.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const flags = new Set(process.argv.slice(2));
@@ -53,7 +54,12 @@ for (const [file, record] of Object.entries(config.pages)) {
 if (pages !== 52 || shared !== 2) {
   throw new Error("Unexpected page / template-part inventory: " + pages + "/" + shared);
 }
-for (const name of ["index", "front-page", "page", "404", "single", "archive", "search"]) {
+const native = buildNativePages(config);
+const nativeParts = buildNativeParts(config);
+if (native.pages.length !== 48 || native.excluded.length !== 4) {
+  throw new Error("Unexpected native page coverage");
+}
+for (const name of ["index", "front-page", "page", "page-native", "404", "single", "archive", "search"]) {
   const contents = readFileSync(safe("templates/" + name + ".html"), "utf8");
   if (!contents.includes("<!-- wp:template-part")) {
     throw new Error("Non-native WordPress block template: " + name);
@@ -68,6 +74,7 @@ for (const p of ["assets/css/style.css", "assets/js/custom.js", "media/branding/
 }
 if (flags.has("--check")) {
   console.log("WORDPRESS PACKAGE CHECK PASS: " + pages + " pages, " + shared +
+    " legacy parts, " + native.pages.length + " native core-block pages; " +
     " layout parts; native WordPress templates/theme.json present.");
   process.exit(0);
 }
@@ -83,4 +90,16 @@ for (const p of paths) {
   mkdirSync(dirname(to), { recursive: true });
   cpSync(from, to, { recursive: true });
 }
-console.log("WORDPRESS PACKAGE BUILT: " + wpDir);
+const output = join(wpDir, "data/fse-pages");
+mkdirSync(output, { recursive: true });
+const manifest = {};
+for (const page of native.pages) {
+  const file = join(output, page.slug + ".html");
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, page.markup);
+  manifest[page.path] = { file: page.slug + ".html", route: page.route, documentId: page.documentId };
+}
+writeFileSync(join(output, "manifest.json"), JSON.stringify({ pages: manifest, excluded: native.excluded }, null, 2) + "\n");
+writeFileSync(join(wpDir, "parts/header-native.html"), nativeParts.header);
+writeFileSync(join(wpDir, "parts/footer-native.html"), nativeParts.footer);
+console.log("WORDPRESS PACKAGE BUILT: " + wpDir + " (" + native.pages.length + " native pages)");

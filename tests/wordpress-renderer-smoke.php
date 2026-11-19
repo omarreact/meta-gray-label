@@ -16,7 +16,18 @@ function is_page() { global $test_route; return '/' !== $test_route && '/404.htm
 function get_queried_object_id() { return 1; }
 function get_page_uri( $id ) { global $test_route; return trim( $test_route, '/' ); }
 function apply_filters( $key, $content ) { return $content; }
-function get_queried_object() { return null; }
+class WP_Post {
+    public int $ID = 1;
+    public string $post_content = '';
+}
+$active_post = null;
+$native_meta = false;
+function get_queried_object() { global $active_post; return $active_post; }
+function get_post_meta( $id, $key, $single = true ) {
+    global $native_meta;
+    return $native_meta && '_mgl_native_layout' === $key ? '1' : '';
+}
+function has_blocks( $content ) { return str_contains( $content, '<!-- wp:' ); }
 function is_singular() { return false; }
 
 require $root . '/inc/renderer.php';
@@ -51,4 +62,16 @@ if ( ! str_contains( $h, '<header' ) || ! str_contains( $f, '<footer' ) ) {
 if ( ! str_contains( $h, 'https://example.test/wp-content/themes/meta-grey-label/media/branding/' ) ) {
     throw new RuntimeException( 'Header branding asset URL not rewritten.' );
 }
-echo 'WORDPRESS PHP RENDERER SMOKE PASS: ' . $verified . " pages and shared parts.\n";
+// Opt-in native content must win over legacy markup without changing other pages.
+$test_route = '/about-us/';
+$active_post = new WP_Post();
+$active_post->post_content = '<!-- wp:heading --><h2 class="wp-block-heading">Native editor test</h2><!-- /wp:heading -->';
+$native_meta = true;
+if ( ! str_contains( mgl_render_page(), 'Native editor test' ) ) {
+    throw new RuntimeException( 'Native opt-in is not rendered.' );
+}
+$native_meta = false;
+if ( str_contains( mgl_render_page(), 'Native editor test' ) ) {
+    throw new RuntimeException( 'Legacy fallback was not restored.' );
+}
+echo 'WORDPRESS PHP RENDERER SMOKE PASS: ' . $verified . " legacy pages, opt-in native page and shared parts.\n";

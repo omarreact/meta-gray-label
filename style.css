@@ -14,9 +14,5 @@ Tags: full-site-editing, block-styles, custom-colors, custom-logo, wide-blocks
 .wp-site-blocks { min-height: 100vh; }
 .wp-site-blocks > * { margin-block-start: 0; }
 .wp-site-blocks .mgl-inner-page { max-width: none; }
-.wp-site-blocks .mgl-inner-page .mgl-kicker,
-.wp-site-blocks .mgl-inner-page .mgl-hero-actions,
-.wp-site-blocks .mgl-inner-page .mgl-hero-art { display: none !important; }
 .wp-site-blocks img { height: auto; }
-.wp-site-blocks .mgl-inner-hero { --mgl-inner-hero-image: url("./assets/images/banner/home1/bg.png"); }
 .wp-site-blocks .wp-block-post-content { overflow-wrap: anywhere; }

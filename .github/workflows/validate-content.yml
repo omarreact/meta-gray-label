@@ -33,9 +33,15 @@ jobs:
         run: |
           node --check scripts/generate.mjs
           node --check scripts/package-wordpress.mjs
+          node --check scripts/fse-pages.mjs
+          node --check scripts/generate-fse.mjs
           node --check inc/editor.js
       - name: Verify original static HTML unchanged
         run: node scripts/generate.mjs --check
+      - name: Validate native Gutenberg page and template-part projection
+        run: |
+          node tests/fse-pages.mjs
+          node scripts/generate-fse.mjs --check
       - name: Verify WordPress source package
         run: node scripts/package-wordpress.mjs --check
       - name: Lint WordPress PHP files
@@ -56,3 +62,6 @@ jobs:
           test -f dist/wordpress/meta-grey-label/functions.php
           test -f dist/wordpress/meta-grey-label/templates/index.html
           test -f dist/wordpress/meta-grey-label/data/content.json
+          test -f dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
+          test -f dist/wordpress/meta-grey-label/data/fse-pages/home.html
+          test -f dist/wordpress/meta-grey-label/parts/header-native.html

@@ -154,6 +154,16 @@ function mgl_rewrite_links( string $html, string $source ): string {
 
 /** WordPress supplies the html/head/body and wp_head/wp_footer hooks itself. */
 function mgl_render_page(): string {
+    // Explicitly imported Gutenberg content takes precedence over legacy HTML.
+    // Never enable automatically for existing pages: approved designs remain safe.
+    if ( is_page() || is_front_page() ) {
+        $current = get_queried_object();
+        if ( $current instanceof WP_Post &&
+            '1' === get_post_meta( $current->ID, '_mgl_native_layout', true ) &&
+            ! empty( $current->post_content ) && has_blocks( $current->post_content ) ) {
+            return apply_filters( 'the_content', $current->post_content );
+        }
+    }
     $source = mgl_page_source_path();
     if ( '' === $source ) {
         if ( is_singular() ) {
