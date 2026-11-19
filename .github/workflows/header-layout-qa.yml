@@ -1,0 +1,88 @@
+name: Temporary header layout QA
+on:
+  push:
+    branches: [fix/header-nav-cta-chevron-20261119]
+    paths: [.github/workflows/header-layout-qa.yml]
+permissions:
+  contents: read
+jobs:
+  header-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert CSS and branding remain intact
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object assets/css/style.css)" = "90b42525c97a20e380ca4c01edea60d3d3eb22d0"
+          grep -q 'width: min(300px, calc(100vw - 84px))' header.html
+          grep -q 'border-width: 0 2px 2px 0' header.html
+          node --check assets/js/custom.js
+          node --check assets/js/includes.js
+      - name: Browser-measure header alignment at six breakpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          page=Path('index.html').read_text()
+          probe=r"""
+          <script>
+          window.addEventListener('load', function(){
+            setTimeout(function(){
+              const header=document.querySelector('.header-wrapper');
+              const logo=header?.querySelector(':scope > .logo');
+              const nav=header?.querySelector(':scope > .menu-area');
+              const action=header?.querySelector(':scope > .header-action');
+              const cta=action?.querySelector('.header-btn a');
+              const burger=action?.querySelector('.header-bar');
+              const menuLi=nav?.querySelector('.menu-item-has-children');
+              const arrow=menuLi ? getComputedStyle(menuLi.querySelector(':scope > a'),'::after') : null;
+              const rect=e=>e ? {x:e.getBoundingClientRect().x,y:e.getBoundingClientRect().y,w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height,right:e.getBoundingClientRect().right} : null;
+              const visible=e=>!!e && getComputedStyle(e).display !== 'none' && getComputedStyle(e).visibility !== 'hidden' && e.getBoundingClientRect().width>0;
+              const result={viewport:innerWidth,logo:rect(logo),nav:rect(nav),cta:rect(cta),ctaVisible:visible(cta),burgerVisible:visible(burger),arrow:arrow?{content:arrow.content,width:arrow.width,borderBottom:arrow.borderBottomWidth}:null,hasHeader:!!header,hasFooter:!!document.querySelector('footer')};
+              const output=document.createElement('script');
+              output.type='application/json';output.id='header-qa-results';output.textContent=JSON.stringify(result);
+              document.body.appendChild(output);
+            },1600);
+          });
+          </script>"""
+          assert '</body>' in page
+          Path('__header_qa.html').write_text(page.replace('</body>',probe+'</body>'))
+          PY
+          python3 -m http.server 8123 --bind 127.0.0.1 >/tmp/site-qa.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 2
+          chrome="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$chrome"
+          for width in 390 768 1024 1280 1440 1650; do
+            timeout 35 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=5000 --window-size="$width,950" --dump-dom \
+              http://127.0.0.1:8123/__header_qa.html > "/tmp/header-$width.html" 2>/tmp/chrome-header-$width.log
+            WIDTH="$width" python3 - <<'PY'
+          import os,json,re,html
+          width=int(os.environ["WIDTH"])
+          page=open(f"/tmp/header-{width}.html").read()
+          match=re.search(r'<script type="application/json" id="header-qa-results">(.+?)</script>',page,re.S)
+          assert match, f"probe absent at {width}"
+          data=json.loads(html.unescape(match.group(1)))
+          assert data["hasHeader"] and data["hasFooter"],data
+          assert data["arrow"] and data["arrow"]["content"] in ('""',"''"),data
+          assert data["arrow"]["borderBottom"]=="2px",data
+          logo=data["logo"]
+          assert logo and logo["w"]>100,data
+          if width>=1400:
+              assert data["ctaVisible"],f"Desktop CTA hidden at {width}: {data}"
+              cta=data["cta"];nav=data["nav"]
+              center=lambda r:r["y"]+r["h"]/2
+              assert abs(center(cta)-center(logo))<30,f"CTA wrapped at {width}: {data}"
+              assert cta["x"]>=nav["right"]-5,f"CTA overlaps navigation at {width}: {data}"
+              assert cta["right"]<=width+2,f"CTA extends viewport at {width}: {data}"
+          elif width>=768:
+              assert not data["ctaVisible"],f"Responsive CTA should be hidden at {width}: {data}"
+          else:
+              assert data["burgerVisible"],f"Mobile hamburger missing at {width}: {data}"
+          print(f"PASS {width}px: logo={logo['w']:.1f}px arrow={data['arrow']['width']} CTA-visible={data['ctaVisible']}")
+          PY
+          done
