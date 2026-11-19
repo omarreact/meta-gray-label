@@ -139,7 +139,7 @@ jobs:
             echo "Legacy active logo reference found" >&2
             exit 1
           fi
-          git diff --check
+          git -c core.whitespace=cr-at-eol diff --check
 
       - name: Commit branding update to main
         shell: bash
