@@ -30,6 +30,7 @@ function get_post_meta( $id, $key, $single = true ) {
 function has_blocks( $content ) { return str_contains( $content, '<!-- wp:' ); }
 function is_singular() { return false; }
 function is_page_template( $name ) { return false; }
+function do_blocks( $content ) { return $content; }
 
 require $root . '/inc/renderer.php';
 $pages = mgl_content_data()['pages'];
@@ -74,5 +75,18 @@ if ( ! str_contains( mgl_render_page(), 'Native editor test' ) ) {
 $native_meta = false;
 if ( str_contains( mgl_render_page(), 'Native editor test' ) ) {
     throw new RuntimeException( 'Legacy fallback was not restored.' );
+}
+// Native homepage uses the editable WordPress template parts, not the legacy
+// Bootstrap-based header/footer when the native CSS-only path is active.
+$test_route = '/';
+$native_meta = true;
+if ( ! str_contains( mgl_render_header(), '"slug":"header-native"' ) ||
+     ! str_contains( mgl_render_footer(), '"slug":"footer-native"' ) ) {
+    throw new RuntimeException( 'Native homepage must use FSE header/footer parts.' );
+}
+$native_meta = false;
+if ( ! str_contains( mgl_render_header(), '<header' ) ||
+     ! str_contains( mgl_render_footer(), '<footer' ) ) {
+    throw new RuntimeException( 'Legacy header/footer fallback lost.' );
 }
 echo 'WORDPRESS PHP RENDERER SMOKE PASS: ' . $verified . " legacy pages, opt-in native page and shared parts.\n";

@@ -204,9 +204,17 @@ function mgl_render_page(): string {
 }
 
 function mgl_render_header(): string {
+    // The front-page fallback template uses this bridge for both modes.
+    // Resolve the native template part through WP so Site Editor overrides work.
+    if ( mgl_is_native_layout() ) {
+        return do_blocks( '<!-- wp:template-part {"slug":"header-native"} /-->' );
+    }
     return mgl_rewrite_links( mgl_template_markup( 'header.html' ), 'header.html' );
 }
 
 function mgl_render_footer(): string {
+    if ( mgl_is_native_layout() ) {
+        return do_blocks( '<!-- wp:template-part {"slug":"footer-native"} /-->' );
+    }
     return mgl_rewrite_links( mgl_template_markup( 'footer.html' ), 'footer.html' );
 }
