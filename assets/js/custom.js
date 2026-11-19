@@ -1,5 +1,5 @@
 // =================== preloader js  ================== //
-document.addEventListener('DOMContentLoaded', function () {
+function hidePreloader() {
     var preloader = document.querySelector('.preloader');
     preloader.style.transition = 'opacity 0.5s ease';
     // Hide the preloader 1 second (1000 milliseconds) after DOM content is loaded
@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
             preloader.style.display = 'none';
         }, 500); // .5 seconds for the fade-out transition
     }, 1000); // 1 second delay before starting the fade-out effect
-});
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hidePreloader);
+} else {
+    hidePreloader();
+}
 // =================== preloader js end ================== //
 
 
