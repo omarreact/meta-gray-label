@@ -1,31 +1,58 @@
-name: Validate JSON-driven static site
-
+name: Validate JSON-driven static and WordPress-ready themes
 on:
   pull_request:
     paths:
-      - "data/content.json"
-      - "data/content.xml"
-      - "data/page-map.json"
+      - "data/**"
       - "templates/**"
+      - "parts/**"
+      - "patterns/**"
+      - "styles/**"
+      - "inc/**"
       - "scripts/**"
+      - "tests/**"
+      - "docs/**"
       - "**/*.html"
+      - "functions.php"
+      - "style.css"
+      - "theme.json"
       - "sitemap.xml"
       - ".github/workflows/validate-content.yml"
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Check generator syntax
-        run: node --check scripts/generate.mjs
-      - name: Verify generated pages, shared layout, sitemap and page map
+      - name: Validate generator JavaScript
+        run: |
+          node --check scripts/generate.mjs
+          node --check scripts/package-wordpress.mjs
+          node --check inc/editor.js
+      - name: Verify original static HTML unchanged
         run: node scripts/generate.mjs --check
+      - name: Verify WordPress source package
+        run: node scripts/package-wordpress.mjs --check
+      - name: Lint WordPress PHP files
+        run: |
+          php -v
+          php -l functions.php
+          php -l inc/renderer.php
+          php -l inc/import-pages.php
+          php -l patterns/brokerage-hero.php
+          php -l patterns/brokerage-cta.php
+          php -l tests/wordpress-renderer-smoke.php
+      - name: Smoke-test PHP rendering across 52 page designs
+        run: php tests/wordpress-renderer-smoke.php
+      - name: Test WordPress theme package generation
+        run: |
+          node scripts/package-wordpress.mjs --write
+          test -f dist/wordpress/meta-grey-label/style.css
+          test -f dist/wordpress/meta-grey-label/functions.php
+          test -f dist/wordpress/meta-grey-label/templates/index.html
+          test -f dist/wordpress/meta-grey-label/data/content.json

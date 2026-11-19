@@ -1,0 +1,84 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "1180px",
+      "wideSize": "1400px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "brand",
+          "name": "Brand Green",
+          "color": "#00d094"
+        },
+        {
+          "slug": "ink",
+          "name": "Dark Ink",
+          "color": "#0c263a"
+        },
+        {
+          "slug": "deep",
+          "name": "Deep Teal",
+          "color": "#061f2d"
+        },
+        {
+          "slug": "surface",
+          "name": "Light Surface",
+          "color": "#f7fbfa"
+        },
+        {
+          "slug": "light",
+          "name": "White",
+          "color": "#ffffff"
+        },
+        {
+          "slug": "muted",
+          "name": "Muted Text",
+          "color": "#52656d"
+        }
+      ]
+    },
+    "typography": {
+      "fluid": true
+    },
+    "spacing": {
+      "units": [
+        "px",
+        "rem",
+        "em",
+        "%",
+        "vw",
+        "vh"
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#f7fbfa",
+      "text": "#0c263a"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "#008f72"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Site header",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Site footer",
+      "area": "footer"
+    }
+  ]
+}
