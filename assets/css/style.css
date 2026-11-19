@@ -78,7 +78,7 @@ Tags: Crypto, Forex, and Stocks Trading Business
 /*=====================================================================*/
 /* @@@@@@@@@@@@@  Extend Property CSS start here  @@@@@@@@@@@@@@ */
 /*=========<<Flex property extends start>>=========*/
-@import url("https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@100;200;300;400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 .about__content--style2 .about__content-inner, .roadmap--style2 .roadmap__upper-inner, .roadmap--style1 .roadmap__item-header, .accordion__button, .comment__author, .comment__head, .tags--style2 ul, .tags ul, .sidebar__categorie-body ul li, .sidebar__recentpost-inner, .testimonial__author, .testimonial__footer, .testimonial__item--style3 .testimonial__item-body, .blog-details__action-inner, .blog__writer, .floating-content__item--style4, .floating-content__item--style2, .social, .btn-group, .footer__end-links, .footer__app-inner, .footer__app, .account__check, .contact__item-inner, .subtitle, .section-header--style4, .menu, .header-wrapper .menu-area .header-btn, .header-wrapper .menu-area, .header-wrapper, .paginations ul li:not(:first-child, :last-child) a, .paginations ul li a, .swiper-nav {
   display: flex;
   flex-wrap: wrap;
@@ -1234,7 +1234,7 @@ body {
   color: var(--text-color);
   font-size: 1rem;
   line-height: 1.625;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
 }
 
 h1,
@@ -1243,7 +1243,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
   color: var(--title-color);
   line-height: 1.25;
   font-weight: 600;
@@ -2065,7 +2065,7 @@ ol {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   color: var(--title-color);
   gap: 10px;
 }
@@ -3499,7 +3499,7 @@ h6 a {
   font-size: 1rem;
   padding: 15px 22px;
   text-transform: capitalize;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   color: var(--title-color);
   font-weight: 500;
 }
@@ -3564,7 +3564,7 @@ h6 a {
     font-size: 1rem;
     padding: 10px 20px;
     text-transform: capitalize;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Inter", ui-sans-serif, sans-serif;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -3669,7 +3669,7 @@ h6 a {
     width: 100%;
   }
   .menu li .submenu li a {
-    font-family: "Anek Telugu", sans-serif;
+    font-family: "Poppins", ui-sans-serif, sans-serif;
     display: flex;
     justify-content: space-between;
     font-weight: 400;
@@ -4041,7 +4041,7 @@ h6 a {
 .subtitle p {
   font-size: 1.25rem;
   font-weight: 600;
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
 }
 .subtitle--style2 {
   color: var(--secondary-color);
@@ -4049,7 +4049,7 @@ h6 a {
 .subtitle--style3 p {
   font-size: 1.125rem;
   font-weight: 500;
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
   color: var(--secondary-color);
 }
 .subtitle--style4 p {
@@ -4968,7 +4968,7 @@ h6 a {
   margin-block-end: 32px;
 }
 .banner--style3 .banner__counter-item h4 {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   margin-bottom: 0px;
 }
 .banner--style3 .banner__counter-item h4 span {
@@ -4979,7 +4979,7 @@ h6 a {
 .banner--style3 .banner__counter-item p {
   font-size: 1.125rem;
   line-height: 1.3;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
 }
 .banner--style3 .banner__bg {
   z-index: -1;
@@ -5742,7 +5742,7 @@ textarea:focus-within {
 
 .form-label {
   font-size: 1.125rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   color: var(--title-color);
 }
 
@@ -6237,7 +6237,7 @@ textarea:focus-within {
   font-size: 1rem;
   border: transparent;
   color: #0C263A;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   padding: 0.75rem 1rem;
   text-decoration: none;
   -webkit-transition: all 0.3s ease-out;
@@ -6786,7 +6786,7 @@ textarea:focus-within {
 .text-btn.text-btn--small {
   font-size: 1rem;
   color: var(--title-color);
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
 }
 .text-btn.text-btn--small span {
   -webkit-transition: all 0.3s ease-out;
@@ -6937,7 +6937,7 @@ textarea:focus-within {
 }
 .social__item h6 {
   font-size: 1.125rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
 }
 .social__link {
   -webkit-transition: background-color 0.2s linear;
@@ -7279,7 +7279,7 @@ textarea:focus-within {
   }
 }
 .floating-content__item h3 {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   line-height: 32px;
   color: var(--secondary-color);
 }
@@ -7395,7 +7395,7 @@ textarea:focus-within {
 }
 .floating-content__item--style6 h3 {
   color: var(--title-color);
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
   margin-block-end: -5px;
 }
 .floating-content__item--style6 p {
@@ -7742,7 +7742,7 @@ textarea:focus-within {
 .feature--style1 .feature__item-content h6 {
   font-size: 1.125rem;
   color: var(--text-color);
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
 }
 .feature--style1 .feature__image img {
   border-radius: 20px;
@@ -8248,7 +8248,7 @@ textarea:focus-within {
 }
 .pricing__item-top h3 span {
   font-size: 1.125rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   color: var(--text-color-4);
 }
 .pricing__item--style2 .pricing__item-top h3 {
@@ -8656,7 +8656,7 @@ textarea:focus-within {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
   color: var(--title-color);
 }
 .team__item-author--style2 .team__item-authorinfo h6:hover {
@@ -8668,7 +8668,7 @@ textarea:focus-within {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   color: var(--title-color);
   z-index: 2;
 }
@@ -8917,7 +8917,7 @@ textarea:focus-within {
 }
 .blog__writer-designation h6 {
   font-size: 1rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
   color: var(--title-color);
 }
 .blog__writer-designation p {
@@ -9768,7 +9768,7 @@ textarea:focus-within {
 .sidebar__recentpost-content p {
   font-size: 1rem;
   color: var(--title-color);
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
 }
 .sidebar__recentpost-content p a {
   -webkit-transition: all 0.3s ease-out;
@@ -9855,7 +9855,7 @@ textarea:focus-within {
 }
 .tags ul li h6 {
   font-size: 1.125rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
 }
 .tags ul li a {
   -webkit-transition: all 0.3s ease-out;
@@ -9883,7 +9883,7 @@ textarea:focus-within {
 }
 .tags--style2 ul li h6 {
   font-size: 1.125rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
 }
 .tags--style2 ul li a {
   -webkit-transition: all 0.3s ease-out;
@@ -10161,7 +10161,7 @@ textarea:focus-within {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
   color: var(--text-color);
   font-size: 1rem;
 }
@@ -10223,7 +10223,7 @@ textarea:focus-within {
 .accordion__button {
   font-size: 1.25rem;
   color: var(--brand-color);
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
   border: none;
 }
 .accordion__button-content {
@@ -10421,7 +10421,7 @@ textarea:focus-within {
 }
 .roadmap--style1 .roadmap__item-header span {
   font-size: calc(1.325rem + 0.7714285714vw);
-  font-family: "Anek Telugu", sans-serif;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
   color: var(--brand-color);
   margin-block-start: -5px;
 }
@@ -10928,7 +10928,7 @@ textarea:focus-within {
 .about--style3 .about__content ul li {
   font-size: 1.125rem;
   color: var(--title-color-style2);
-  font-family: "Open Sans", sans-serif;
+  font-family: "Inter", ui-sans-serif, sans-serif;
 }
 .about--style3 .about__content ul li span img {
   max-width: 25px;
