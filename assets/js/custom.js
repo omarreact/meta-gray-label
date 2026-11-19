@@ -26,7 +26,7 @@ const colorSwitcher = document.getElementById('btnSwitch');
 
 
 switchThemeByUrl();
-updateThemeColor(localStorage.getItem('theme'))
+updateThemeColor(localStorage.getItem('theme') || 'dark')
 
 
 colorSwitcher?.addEventListener('click', () => {
@@ -45,7 +45,7 @@ colorSwitcher?.addEventListener('click', () => {
     refreshScrollEffectsAfterLayout();
 });
 
-function updateThemeColor(themeMode = 'light') {
+function updateThemeColor(themeMode = 'dark') {
     themeMode = themeMode === 'dark' ? 'dark' : 'light';
 
     document.documentElement.setAttribute('data-bs-theme', themeMode);
