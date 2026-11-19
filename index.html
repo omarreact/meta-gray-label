@@ -787,6 +787,105 @@
       #capabilities .mgl-stack-card--platform { grid-column:span 1; min-height:0; padding:24px 20px; }
       #capabilities .mgl-stack-card-top { margin-bottom:20px; }
     }
+
+    /* Flexible stack layout and floating operating-layer accents */
+    #capabilities .mgl-stack-overview {
+      display:flex;
+      flex-wrap:wrap;
+      gap:clamp(26px,4vw,60px);
+    }
+    #capabilities .mgl-stack-overview-copy {
+      flex:1 1 500px;
+    }
+    #capabilities .mgl-stack-flow {
+      flex:1 1 430px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    #capabilities .mgl-stack-flow li {
+      flex:1 1 calc(50% - 5px);
+    }
+    #capabilities .mgl-stack-grid {
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      align-items:stretch;
+    }
+    #capabilities .mgl-stack-card {
+      flex:1 1 calc(33.333% - 12px);
+    }
+    #capabilities .mgl-stack-card--platform {
+      flex:2 1 calc(66.666% - 9px);
+    }
+    #capabilities .mgl-stack-float {
+      position:absolute;
+      z-index:2;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:32px;
+      padding:7px 11px;
+      border:1px solid rgba(186,255,239,.24);
+      border-radius:999px;
+      color:#dcfffa;
+      background:rgba(255,255,255,.10);
+      box-shadow:0 12px 28px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.17);
+      backdrop-filter:blur(12px) saturate(140%);
+      -webkit-backdrop-filter:blur(12px) saturate(140%);
+      font-size:.68rem;
+      font-weight:800;
+      letter-spacing:.07em;
+      pointer-events:none;
+      animation:mgl-stack-float 5s ease-in-out infinite;
+    }
+    #capabilities .mgl-stack-float--platform {
+      top:18px;
+      right:clamp(32px,4vw,70px);
+      animation-delay:-.8s;
+    }
+    #capabilities .mgl-stack-float--kyc {
+      right:20px;
+      bottom:22px;
+      color:#bde1ff;
+      border-color:rgba(189,225,255,.24);
+      animation-delay:-2.2s;
+    }
+    #capabilities .mgl-stack-float--liquidity {
+      right:42%;
+      bottom:18px;
+      color:#ffe8b2;
+      border-color:rgba(255,232,178,.24);
+      animation-delay:-3.3s;
+    }
+    @keyframes mgl-stack-float {
+      0%,100% { transform:translate3d(0,0,0); }
+      50% { transform:translate3d(0,-8px,0); }
+    }
+    @media(max-width:991px) {
+      #capabilities .mgl-stack-card {
+        flex-basis:calc(50% - 9px);
+      }
+      #capabilities .mgl-stack-card--platform {
+        flex-basis:100%;
+      }
+      #capabilities .mgl-stack-float--liquidity {
+        right:46%;
+      }
+    }
+    @media(max-width:575px) {
+      #capabilities .mgl-stack-flow li,
+      #capabilities .mgl-stack-card,
+      #capabilities .mgl-stack-card--platform {
+        flex-basis:100%;
+      }
+      #capabilities .mgl-stack-float {
+        display:none;
+      }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      #capabilities .mgl-stack-float { animation:none; }
+    }
 </style>
 </head>
 
@@ -1520,6 +1619,9 @@
 
       <div class="mgl-stack-layout">
         <section class="mgl-stack-overview" aria-labelledby="stack-overview-title">
+          <span class="mgl-stack-float mgl-stack-float--platform" aria-hidden="true">MT4 / MT5</span>
+          <span class="mgl-stack-float mgl-stack-float--kyc" aria-hidden="true">KYC</span>
+          <span class="mgl-stack-float mgl-stack-float--liquidity" aria-hidden="true">Liquidity</span>
           <div class="mgl-stack-overview-copy">
             <span class="mgl-stack-kicker">From model to live operations</span>
             <h3 id="stack-overview-title">Every layer is planned to work with the next one.</h3>
