@@ -34,16 +34,6 @@
       "sourceFallback": false
     },
     {
-      "id": "doc-04",
-      "title": "Client Testimonials",
-      "status": "available",
-      "route": "/about-us/testimonials/",
-      "path": "about-us/testimonials/index.html",
-      "sourceParagraphs": 10,
-      "renderedParagraphs": 0,
-      "sourceFallback": false
-    },
-    {
       "id": "doc-05",
       "title": "Forex White Label",
       "status": "available",
@@ -242,16 +232,6 @@
       "sourceParagraphs": 31,
       "renderedParagraphs": 31,
       "sourceFallback": false
-    },
-    {
-      "id": "doc-25",
-      "title": "Trader's Room (Client Portal)",
-      "status": "unavailable",
-      "route": "/forex-crm/traders-room/",
-      "path": "forex-crm/traders-room/index.html",
-      "sourceParagraphs": 0,
-      "renderedParagraphs": 5,
-      "sourceFallback": true
     },
     {
       "id": "doc-26",
@@ -502,36 +482,33 @@
       "sourceParagraphs": 42,
       "renderedParagraphs": 42,
       "sourceFallback": false
+    }
+  ],
+  "excludedUnverifiedContent": [
+    {
+      "title": "Client Testimonials",
+      "route": "/about-us/testimonials/",
+      "reason": "Unverified testimonial placeholders"
     },
     {
-      "id": "doc-51",
+      "title": "Trader's Room (Client Portal)",
+      "route": "/forex-crm/traders-room/",
+      "reason": "No primary source content"
+    },
+    {
       "title": "Contact",
-      "status": "unavailable",
       "route": "/contact/",
-      "path": "contact/index.html",
-      "sourceParagraphs": 0,
-      "renderedParagraphs": 3,
-      "sourceFallback": true
+      "reason": "No primary source content"
     },
     {
-      "id": "doc-52",
       "title": "Privacy Policy",
-      "status": "unavailable",
       "route": "/privacy-policy/",
-      "path": "privacy-policy/index.html",
-      "sourceParagraphs": 0,
-      "renderedParagraphs": 3,
-      "sourceFallback": true
+      "reason": "No primary source content"
     },
     {
-      "id": "doc-53",
       "title": "Terms of Service",
-      "status": "unavailable",
       "route": "/terms-of-service/",
-      "path": "terms-of-service/index.html",
-      "sourceParagraphs": 0,
-      "renderedParagraphs": 3,
-      "sourceFallback": true
+      "reason": "No primary source content"
     }
   ]
 }
