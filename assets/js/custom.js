@@ -84,37 +84,18 @@ function switchThemeByUrl() {
 
 
 function changeImage(themeMode = 'light') {
-
     const icon = document.querySelector('#btnSwitch img');
-
-
-    if (themeMode === "dark") {
-
-        icon.src = './assets/images/icon/sun.svg';
-        var images = document.querySelectorAll('img.dark');
-
-        for (var i = 0; i < images.length; i++) {
-            var oldSrc = images[i].src;
-            oldSrc = oldSrc.replace("-dark.", ".");
-            var oldIndex = oldSrc.lastIndexOf(".");
-            var baseName = oldSrc.slice(0, oldIndex);
-            var extension = oldSrc.slice(oldIndex);
-            var newSrc = baseName + "-dark" + extension;
-            images[i].src = newSrc;
-        }
-    } else {
-        icon.src = './assets/images/icon/moon.svg';
-        var images = document.querySelectorAll('img.dark');
-
-        for (var i = 0; i < images.length; i++) {
-            var oldSrc = images[i].src;
-            var newSrc = oldSrc.replace("-dark.", ".");
-            images[i].src = newSrc;
-        }
+    if (icon) {
+        icon.src = themeMode === 'dark' ? './assets/images/icon/sun.svg' : './assets/images/icon/moon.svg';
     }
 
+    // Do not fabricate -dark asset paths. Only swap when a verified alternate is configured.
+    document.querySelectorAll('img[data-dark-src]').forEach(image => {
+        if (!image.dataset.lightSrc) image.dataset.lightSrc = image.getAttribute('src');
+        const target = themeMode === 'dark' ? image.dataset.darkSrc : image.dataset.lightSrc;
+        if (target && image.getAttribute('src') !== target) image.setAttribute('src', target);
+    });
 }
-
 
 // =================== Change image path end ================== //
 
@@ -464,3 +445,13 @@ if (htmlTag.getAttribute('dir') === 'rtl') {
     toggleAllIconsDirection();
 }
 // =================== rtl icon direction chnage end here =================== //
+// The homepage form navigates between launch models; it does not send lead data.
+document.querySelector('.cta-form.form-subscribe')?.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const preference = (this.querySelector('input')?.value || '').trim().toLowerCase();
+  const selected = preference.includes('white') ? 0 : preference.includes('grey') || preference.includes('gray') ? 1 : preference.includes('turnkey') ? 2 : null;
+  if (selected !== null) {
+    document.querySelectorAll('#models .pricing__item-inner').forEach((card, index) => card.classList.toggle('active', index === selected));
+  }
+  document.querySelector('#models')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
