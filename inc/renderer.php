@@ -32,7 +32,7 @@ function mgl_page_source_path(): string {
     if ( is_page() ) {
         $id   = get_queried_object_id();
         $slug = trim( (string) get_page_uri( $id ), '/' );
-        if ( 'services' === $slug ) {
+        if ( 'services' === $slug || 'services.html' === $slug ) {
             return 'services.html';
         }
         if ( '' !== $slug ) {
