@@ -124,7 +124,7 @@ jobs:
                 MODE="$mode" PATH_QA="$actual" python3 - <<'PY'
           import re,os,json,html
           data=open('/tmp/rendered.html').read()
-          m=re.search(r'<script type="application/json" id="meta-qa-data">(.+?)</script>',data,re.S)
+          m=re.search(r'<script id="meta-qa-data" type="application/json">(.+?)</script>',data,re.S)
           if not m:
               print('DEBUG rendered length:',len(data))
               print('DEBUG rendered start:',data[:1300])
