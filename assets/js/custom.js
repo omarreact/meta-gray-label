@@ -206,6 +206,26 @@ AOS.init();
 
 // Meta Grey Label's capability links are ordinary accessible links.
 
+// component slider here
+const Partner = new Swiper('.partner__slider', {
+    spaceBetween: 24,
+    grabCursor: true,
+    loop: true,
+    slidesPerView: 2,
+    breakpoints: {
+        576: { slidesPerView: 3 },
+        768: { slidesPerView: 4 },
+        992: { slidesPerView: 5, spaceBetween: 15 },
+        1200: { slidesPerView: 6, spaceBetween: 25 },
+    },
+    autoplay: {
+        delay: 1,
+        disableOnInteraction: true,
+    },
+    speed: 2000,
+});
+
+
 // blog  slider here
 const blog = new Swiper('.blog__slider', {
     spaceBetween: 24,
@@ -240,7 +260,7 @@ const blog = new Swiper('.blog__slider', {
 const testimonial = new Swiper('.testimonial__slider', {
     spaceBetween: 24,
     grabCursor: true,
-    loop: false,
+    loop: true,
     slidesPerView: 1,
     breakpoints: {
         576: {
@@ -258,7 +278,7 @@ const testimonial = new Swiper('.testimonial__slider', {
         },
     },
 
-    autoplay: false,
+    autoplay: true,
     speed: 500,
 
     navigation: {
