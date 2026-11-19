@@ -1,0 +1,81 @@
+name: Temporary content-only cleanup QA
+on:
+  push:
+    branches: [cleanup/source-backed-menu-pages-20261119]
+    paths: [.github/workflows/content-only-qa.yml]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Static site integrity and content audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object assets/css/style.css)" = "90b42525c97a20e380ca4c01edea60d3d3eb22d0"
+          node --check assets/js/custom.js
+          node --check assets/js/includes.js
+          python3 - <<'PY'
+          import json,re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          root=Path('.').resolve()
+          pages=list(Path('.').rglob('*.html'))
+          removed=['about-us/testimonials/','forex-crm/traders-room/','contact/','privacy-policy/','terms-of-service/']
+          assert len(pages)==54,len(pages)
+          for path in removed:assert not Path(path+'index.html').exists(),path
+          assert len(list(Path('assets/images').rglob('*.*')))==3
+          for f in ['index.html','header.html','footer.html','services.html','assets/js/custom.js','assets/js/includes.js']:
+              assert not re.search(r'bitrader|thetork|themeforest|envato',Path(f).read_text(),re.I),f
+          class Audit(HTMLParser):
+              def __init__(self):super().__init__();self.urls=[];self.ids=[];self.h1=0
+              def handle_starttag(self,tag,attrs):
+                  data=dict(attrs)
+                  if tag=='h1':self.h1+=1
+                  if 'id' in data:self.ids.append(data['id'])
+                  for key in ('href','src','poster'):
+                      if key in data:self.urls.append(data[key])
+          errors=[]
+          for page in pages:
+              a=Audit();content=page.read_text();a.feed(content)
+              if len(a.ids)!=len(set(a.ids)):errors.append((str(page),'duplicate ID'))
+              if page.name not in ('header.html','footer.html') and a.h1!=1:errors.append((str(page),'incorrect H1',a.h1))
+              for url in a.urls:
+                  if not url or url.startswith(('#','https:','http:','mailto:','tel:','data:','javascript:','//')):continue
+                  path=url.split('#')[0].split('?')[0]
+                  if not path:continue
+                  target=(page.parent/path).resolve()
+                  if path.endswith('/'):target=target/'index.html'
+                  if not target.is_file():errors.append((str(page),url))
+                  if path.endswith('/') and any(path.endswith(item) for item in removed):errors.append((str(page),'removed route',url))
+          assert not errors,errors[:20]
+          docs=json.loads(Path('data/page-map.json').read_text())['pages']
+          assert len(docs)==48 and all(p['status']=='available' for p in docs)
+          sitemap=Path('sitemap.xml').read_text()
+          for item in removed:assert ('meta-gray-label/'+item+'<') not in sitemap
+          print('PASS all 54 HTML files, source-only records, local routes and preserved CSS')
+          PY
+      - name: Browser smoke test homepage and nested pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8137 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          chrome="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$chrome"
+          for path in index.html services.html solutions/ forex-grey-label/ insights/ about-us/; do
+            for theme in light dark; do
+              timeout 30 "$chrome" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=5000 --window-size=390,850 --dump-dom "http://127.0.0.1:8137/$path?theme=$theme" >/tmp/render.html 2>/tmp/chrome.log
+              grep -q 'mgl-share-whatsapp' /tmp/render.html
+              grep -q 'mgl-share-telegram' /tmp/render.html
+              grep -q 'data-brand-logo' /tmp/render.html
+              grep -q 'data-brand-footer' /tmp/render.html
+              if grep -q 'home-showcase' /tmp/render.html; then echo "FAIL demo markup $path"; exit 1; fi
+              echo "PASS $path $theme"
+            done
+          done
