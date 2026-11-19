@@ -59,7 +59,7 @@ function updateThemeColor(themeMode = 'light') {
     const assetRoot = './media/branding/';
     const headerLogo = document.querySelector('img[data-brand-logo]');
     const footerLogo = document.querySelector('img[data-brand-footer]');
-    if (headerLogo) headerLogo.src = assetRoot + 'header-' + themeMode + '.webp';
+    if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'footer-light.webp' : 'header-light.webp');
     if (footerLogo) footerLogo.src = assetRoot + 'footer-' + themeMode + '.webp';
     const favicon = document.querySelector('#site-favicon');
     const largeIcon = document.querySelector('#site-icon-large');
@@ -95,7 +95,7 @@ function switchThemeByUrl() {
 function changeImage(themeMode = 'light') {
     const icon = document.querySelector('#btnSwitch img');
     if (icon) {
-        icon.src = themeMode === 'dark' ? './media/branding/theme-sun.webp' : './media/branding/theme-moon.webp';
+        icon.src = themeMode === 'dark' ? './assets/images/icon/sun.svg' : './assets/images/icon/moon.svg';
     }
 
     // Do not fabricate -dark asset paths. Only swap when a verified alternate is configured.
