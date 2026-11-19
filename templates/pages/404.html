@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+  <title>__MGL_CONTENT_00001__</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="__MGL_CONTENT_00002__">
+  <meta name="viewport" content="__MGL_CONTENT_00003__">
+
+  <!-- Sites meta Data -->
+  <meta name="application-name"
+    content="__MGL_CONTENT_00004__">
+  <meta name="author" content="__MGL_CONTENT_00005__">
+  <meta name="keywords" content="__MGL_CONTENT_00006__">
+  <meta name="description"
+    content="__MGL_CONTENT_00007__">
+
+  <!-- OG meta data -->
+  <meta property="og:title"
+    content="__MGL_CONTENT_00008__">
+  <meta property="og:site_name" content="__MGL_CONTENT_00009__">
+  <meta property="og:url" content="__MGL_CONTENT_00010__">
+  <meta property="og:description"
+    content="__MGL_CONTENT_00011__">
+  <meta property="og:type" content="__MGL_CONTENT_00012__">
+  <meta property="og:image" content="__MGL_CONTENT_00013__">
+
+
+
+  <link id="site-favicon" rel="icon" type="image/svg+xml" href="./media/branding/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="./media/branding/favicon-32.png">
+  <link id="site-icon-large" rel="icon" type="image/png" sizes="192x192" href="./media/branding/icon-192.png">
+  <link id="site-apple-icon" rel="apple-touch-icon" sizes="180x180" href="./media/branding/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/aos.css">
+  <link rel="stylesheet" href="./assets/css/all.min.css">
+
+  <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css">
+
+
+
+  <!-- main css for template -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <style id="mgl-targeted-fixes">
+    /* Original global style.css remains unchanged. */
+    .lightdark-switch .switch-btn {
+      position: fixed !important; top: auto !important; right: auto !important;
+      bottom: max(18px, env(safe-area-inset-bottom)) !important; left: 18px !important;
+      display: flex; align-items: center; justify-content: center;
+      width: 38px !important; height: 38px !important; padding: 7px !important;
+      border-radius: 8px; border: 1px solid rgba(0,163,125,.45);
+      background: #00c99b;
+      box-shadow: 0 4px 14px rgba(0,80,70,.20); z-index: 9999;
+      transition: transform .2s ease, box-shadow .2s ease; cursor: pointer;
+    }
+    .lightdark-switch .switch-btn.dark-switcher { background-color: #00c99b !important; border-color: rgba(0,163,125,.45) !important; }
+    .lightdark-switch .switch-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,80,70,.28); }
+    .lightdark-switch .switch-btn:focus-visible { outline: 3px solid #1fbfd2; outline-offset: 4px; }
+    .lightdark-switch .switch-btn img { width: 20px; height: 20px; max-width: none; max-height: none !important; object-fit: contain; display: block; }
+    #capabilities .team__item-thumb img {
+      display:block; width:100%; aspect-ratio:1/1; height:auto; object-fit:contain;
+      padding:10px; border-radius:16px; background:linear-gradient(145deg,#081c32,#073c50);
+    }
+    #capabilities .team__item-thumb--style1 img { transform:none; }
+    #capabilities .team__item:hover .team__item-thumb--style1 img { transform: translateY(-2px); }
+    #why .testimonial__wrapper { opacity:1 !important; visibility:visible !important; transform:none !important; }
+    #why .testimonial__slider { overscroll-behavior-x: contain; }
+    @media (prefers-reduced-motion:reduce) { .lightdark-switch .switch-btn,#capabilities .team__item-thumb img {transition:none !important;} }
+  </style>
+
+<style id="mgl-inner-page-styles">
+  .mgl-page-hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(112deg,#052b2d,#061f2d 55%,#071934);color:#fff;padding:clamp(65px,9vw,120px) 0;}
+  .mgl-page-hero::before{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(circle at 85% 15%,rgba(0,205,163,.18),transparent 44%);}
+  .mgl-page-hero h1{color:#fff;font-size:clamp(2.6rem,5vw,4.4rem);line-height:1.13;margin:0 0 20px;}
+  .mgl-page-hero p{color:#d3e9e8;max-width:690px;line-height:1.75;font-size:clamp(1rem,1.3vw,1.2rem);}
+  .mgl-page-hero .eyebrow{display:inline-block;color:#71efcd;font-weight:700;letter-spacing:.14em;font-size:.82rem;text-transform:uppercase;margin-bottom:15px;}
+  .mgl-page-hero .breadcrumb{padding:0;background:transparent;margin:24px 0 0;}
+  .mgl-page-hero .breadcrumb-item,.mgl-page-hero .breadcrumb-item.active{color:#d5eeeb;}
+  .mgl-page-hero .breadcrumb-item a{color:#7df1cd;}
+  .mgl-page-hero .breadcrumb-item + .breadcrumb-item::before{color:#bcd6d4;}
+  .mgl-delivery{padding:clamp(66px,7vw,105px) 0;background:var(--bg-color,#f6f9fb);}
+  .mgl-delivery__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}
+  .mgl-delivery__card{border:1px solid var(--service-item-border-color,rgba(0,50,70,.13));background:var(--wh-color,#fff);border-radius:22px;padding:clamp(24px,3vw,36px);}
+  .mgl-delivery__card span{color:#00ac86;letter-spacing:.12em;font-size:.83rem;font-weight:800;display:block;margin-bottom:16px;}
+  .mgl-delivery__card h3{font-size:1.5rem;color:var(--title-color,#082537);margin-bottom:16px;}
+  .mgl-delivery__card p{color:var(--text-color,#607482);line-height:1.75;margin:0;}
+  .mgl-cta{padding:clamp(66px,7vw,104px) 0;}
+  .mgl-cta__inner{border-radius:26px;background:linear-gradient(125deg,#073a39,#072438);padding:clamp(30px,5vw,70px);display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:center;}
+  .mgl-cta h2{color:#fff;margin:0 0 16px;line-height:1.15;}
+  .mgl-cta p{color:#cfe2e1;margin:0;max-width:630px;line-height:1.75;}
+  .mgl-cta__buttons{display:flex;gap:12px;flex-wrap:wrap;}
+  .mgl-cta__buttons a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:12px;font-weight:700;text-decoration:none;}
+  .mgl-cta__buttons a:first-child{color:#073131;background:#00d4a5;}
+  .mgl-cta__buttons a:last-child{color:#fff;border:1px solid #a0c2c3;}
+  #services .service__item{height:100%;}
+  #services .service__item-thumb img{max-height:75px;max-width:75px;}
+  @media(max-width:767px){.mgl-delivery__grid{grid-template-columns:1fr;}.mgl-cta__buttons{width:100%;}}
+</style>
+<meta name="robots" content="__MGL_CONTENT_00014__"></head>
+
+<body>
+
+  <!-- ===============>> Preloader start here <<================= -->
+  <div class="preloader">
+    <img src="./media/branding/logo-symbol.svg" alt="__MGL_CONTENT_00015__" width="90" height="90">
+  </div>
+  <!-- ===============>> Preloader end here <<================= -->
+
+
+
+  <!-- ===============>> light&dark switch start here <<================= -->
+  <div class="lightdark-switch">
+    <button class="switch-btn" id="btnSwitch" type="button" aria-label="__MGL_CONTENT_00016__" aria-pressed="false" title="__MGL_CONTENT_00017__">
+      <img src="./assets/images/icon/moon.svg" alt="" class="switch-icon" width="40" height="40">
+    </button>
+  </div>
+  <!-- ===============>> light&dark switch start here <<================= -->
+
+
+
+
+
+  <!-- ===============>> Header section start here <<================= -->
+  <template data-shared-part="header"></template>
+  <!-- ===============>> Header section end here <<================= -->
+
+
+
+
+
+  <main id="main-content" class="mgl-inner-page"><section class="mgl-inner-hero mgl-inner-hero--compact"><div class="container">
+<nav class="mgl-crumb" aria-label="Breadcrumb"><ol><li><a href="__MGL_CONTENT_00032__">__MGL_CONTENT_00018__</a></li><li aria-current="page">__MGL_CONTENT_00019__</li></ol></nav>
+<span class="mgl-kicker">__MGL_CONTENT_00020__</span><h1>__MGL_CONTENT_00021__</h1>
+<p class="mgl-hero-summary">__MGL_CONTENT_00022__</p>
+<div class="mgl-hero-actions"><a class="mgl-btn mgl-btn-primary" href="__MGL_CONTENT_00033__">__MGL_CONTENT_00023__</a><a class="mgl-btn mgl-btn-outline" href="__MGL_CONTENT_00034__">__MGL_CONTENT_00024__</a></div></div></section>
+<section class="mgl-related"><div class="container"><h2>__MGL_CONTENT_00025__</h2><div class="mgl-related-grid">
+<a class="mgl-related-card" href="__MGL_CONTENT_00035__"><span>__MGL_CONTENT_00026__</span><h3>__MGL_CONTENT_00027__</h3><b>__MGL_CONTENT_00028__</b></a>
+<a class="mgl-related-card" href="__MGL_CONTENT_00036__"><span>__MGL_CONTENT_00029__</span><h3>__MGL_CONTENT_00030__</h3><b>__MGL_CONTENT_00031__</b></a>
+
+</div></div></section></main>
+<!-- ===============>> footer start here <<================= -->
+  <template data-shared-part="footer"></template>
+  <!-- ===============>> footer end here <<================= -->
+
+
+
+  <!-- ===============>> scrollToTop start here <<================= -->
+  <a href="__MGL_CONTENT_00037__" class="scrollToTop scrollToTop--style1"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
+  <!-- ===============>> scrollToTop ending here <<================= -->
+
+
+  <!-- vendor plugins -->
+
+  <script src="./assets/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/js/all.min.js"></script>
+  <script src="./assets/js/swiper-bundle.min.js"></script>
+  <script src="./assets/js/aos.js"></script>
+  <script src="./assets/js/purecounter_vanilla.js"></script>
+
+
+
+  <script src="./assets/js/includes.js"></script>
+
+
+</body>
+
+</html>
