@@ -36,6 +36,34 @@
   try {
     await Promise.all([insertPart('header'), insertPart('footer')]);
 
+    // GitHub Pages is now a compatibility shell. Keep its retained entry pages
+    // usable by handing internal navigation to the canonical dynamic Worker.
+    function handOffLegacyPagesToDynamicRuntime() {
+      if (window.location.hostname !== 'omarreact.github.io' ||
+          !window.location.pathname.startsWith('/meta-gray-label')) return;
+
+      const dynamicRoot = new URL('https://meta-gray-label-dynamic.farukkhanone.workers.dev/');
+      const staticRootPath = new URL(siteRoot).pathname;
+
+      document.querySelectorAll('a[href]').forEach(function (link) {
+        const raw = link.getAttribute('href');
+        if (!raw || raw.startsWith('#') || raw.startsWith('//') ||
+            /^(?:mailto:|tel:|javascript:)/i.test(raw)) return;
+
+        const resolved = new URL(raw, document.baseURI);
+        if (resolved.origin !== window.location.origin ||
+            !resolved.pathname.startsWith(staticRootPath)) return;
+
+        const relativePath = resolved.pathname.slice(staticRootPath.length).replace(/^\/+/, '');
+        const target = new URL(relativePath || '/', dynamicRoot);
+        target.search = resolved.search;
+        target.hash = resolved.hash;
+        link.href = target.href;
+      });
+    }
+
+    handOffLegacyPagesToDynamicRuntime();
+
     // Resolve the shared inner-page hero background from the site root so it
     // works consistently on the homepage host, GitHub Pages and nested routes.
     const innerHeroImage = new URL('assets/images/banner/home1/bg.png', siteRoot).href;
