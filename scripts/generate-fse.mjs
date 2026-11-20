@@ -16,7 +16,7 @@ if (flags.size !== 1 || (!flags.has("--check") && !flags.has("--write"))) {
 }
 const config = JSON.parse(readFileSync(join(root, "data/content.json"), "utf8"));
 const { pages, excluded, special } = buildNativePages(config,
-  readFileSync(join(root,"templates/pages/index.html"),"utf8"));
+  readFileSync(join(root,"index.html"),"utf8"));
 const { header, footer } = buildNativeParts(config);
 function checkOrWrite(relative, output) {
   const file = resolve(root, relative);

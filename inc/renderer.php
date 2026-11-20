@@ -1,8 +1,8 @@
 <?php
 /**
- * Reuses the checked-in JSON and page-specific static HTML templates.
- * The bridge is intentionally server-rendered; native Gutenberg editing of
- * legacy layout sections is a separate migration step.
+ * Uses the approved static HTML files directly as the legacy WordPress
+ * fallback. JSON remains structured route/content metadata for Gutenberg,
+ * without maintaining a duplicate static page-template tree.
  */
 defined( 'ABSPATH' ) || exit;
 
@@ -48,28 +48,15 @@ function mgl_template_markup( string $source ): string {
         return '';
     }
     $record = $pages[ $source ];
-    $name   = $record['template'] ?? '';
-    if ( ! is_string( $name ) || ! preg_match( '#^templates/(pages|shared)/[a-zA-Z0-9/_-]+\.html$#', $name ) ) {
+    $name   = $record['template'] ?? $source;
+    if ( ! is_string( $name ) ||
+        str_contains( $name, '..' ) ||
+        ! preg_match( '#^[a-zA-Z0-9/_-]+\.html$#', $name ) ) {
         return '';
     }
     $path = get_theme_file_path( $name );
     $raw  = is_readable( $path ) ? file_get_contents( $path ) : false;
-    if ( ! is_string( $raw ) ) {
-        return '';
-    }
-    $fields = $record['fields'] ?? array();
-    if ( ! is_array( $fields ) ) {
-        return '';
-    }
-    return (string) preg_replace_callback(
-        '/__MGL_CONTENT_\d{5}__/',
-        static function ( array $matches ) use ( $fields ): string {
-            return isset( $fields[ $matches[0] ] ) && is_string( $fields[ $matches[0] ] )
-                ? $fields[ $matches[0] ]
-                : '';
-        },
-        $raw
-    );
+    return is_string( $raw ) ? $raw : '';
 }
 
 function mgl_resolve_asset_or_route( string $url, string $source, string $attr ): string {

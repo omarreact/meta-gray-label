@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { buildNativePages, buildNativeParts, nativePreview } from "../scripts/fse-pages.mjs";
 const data = JSON.parse(readFileSync(new URL("../data/content.json", import.meta.url), "utf8"));
 const { pages, excluded, special } = buildNativePages(data,
-  readFileSync(new URL("../templates/pages/index.html",import.meta.url),"utf8"));
+  readFileSync(new URL("../index.html",import.meta.url),"utf8"));
 assert.equal(pages.length, 52);
 assert.deepEqual(excluded, []);
 assert.deepEqual(special, ["404.html", "insights/index.html", "services.html", "solutions/index.html"]);

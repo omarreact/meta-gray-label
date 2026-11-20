@@ -12435,7 +12435,7 @@
     "404.html": {
       "role": "page",
       "route": "/404.html",
-      "template": "templates/pages/404.html",
+      "template": "404.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Page Not Found | Meta Grey Label",
         "__MGL_CONTENT_00002__": "IE=edge",
@@ -12479,7 +12479,7 @@
     "about-us/index.html": {
       "role": "page",
       "route": "/about-us/",
-      "template": "templates/pages/about-us/index.html",
+      "template": "about-us/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "About MetaTrader Grey Label: The Team Behind Your Brokerage Tech | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -12595,7 +12595,7 @@
     "about-us/why-choose-us/index.html": {
       "role": "page",
       "route": "/about-us/why-choose-us/",
-      "template": "templates/pages/about-us/why-choose-us/index.html",
+      "template": "about-us/why-choose-us/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Why Choose MetaTrader Grey Label for Your Brokerage Setup | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -12719,7 +12719,7 @@
     "footer.html": {
       "role": "shared-part",
       "route": null,
-      "template": "templates/shared/footer.html",
+      "template": "footer.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MetaGreyLabel coordinates platform, liquidity and client operations for white label, grey label and turnkey brokerage launches.",
         "__MGL_CONTENT_00002__": "Explore",
@@ -12766,7 +12766,7 @@
     "forex-broker-turnkey/how-it-works/index.html": {
       "role": "page",
       "route": "/forex-broker-turnkey/how-it-works/",
-      "template": "templates/pages/forex-broker-turnkey/how-it-works/index.html",
+      "template": "forex-broker-turnkey/how-it-works/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Launch Forex Broker in 2 Days: Our Step-by-Step Setup Process | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -12907,7 +12907,7 @@
     "forex-broker-turnkey/index.html": {
       "role": "page",
       "route": "/forex-broker-turnkey/",
-      "template": "templates/pages/forex-broker-turnkey/index.html",
+      "template": "forex-broker-turnkey/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Turnkey Forex Broker Packages Built Around Where Your Brokerage Is Today | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -13035,7 +13035,7 @@
     "forex-company-license/company-formation/index.html": {
       "role": "page",
       "route": "/forex-company-license/company-formation/",
-      "template": "templates/pages/forex-company-license/company-formation/index.html",
+      "template": "forex-company-license/company-formation/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Offshore Forex Company Formation for Brokers Who Want to Launch Without Delay | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -13188,7 +13188,7 @@
     "forex-company-license/index.html": {
       "role": "page",
       "route": "/forex-company-license/",
-      "template": "templates/pages/forex-company-license/index.html",
+      "template": "forex-company-license/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex Company Formation and Licensing for New Brokers | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -13317,7 +13317,7 @@
     "forex-crm/back-office/index.html": {
       "role": "page",
       "route": "/forex-crm/back-office/",
-      "template": "templates/pages/forex-crm/back-office/index.html",
+      "template": "forex-crm/back-office/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex Back Office Software That Gives Your Team Full Control Behind the Scenes | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -13464,7 +13464,7 @@
     "forex-crm/ib-portal/index.html": {
       "role": "page",
       "route": "/forex-crm/ib-portal/",
-      "template": "templates/pages/forex-crm/ib-portal/index.html",
+      "template": "forex-crm/ib-portal/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex IB Portal and Affiliate Management Built to Grow Your Partner Network | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -13617,7 +13617,7 @@
     "forex-crm/index.html": {
       "role": "page",
       "route": "/forex-crm/",
-      "template": "templates/pages/forex-crm/index.html",
+      "template": "forex-crm/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex CRM and Trader’s Room That Keep Your Brokerage Running Smoothly | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -13753,7 +13753,7 @@
     "forex-crm/kyc/index.html": {
       "role": "page",
       "route": "/forex-crm/kyc/",
-      "template": "templates/pages/forex-crm/kyc/index.html",
+      "template": "forex-crm/kyc/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex KYC Software and Compliance Tools That Make Onboarding Fast and Safe | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -13901,7 +13901,7 @@
     "forex-crm/payments-automation/index.html": {
       "role": "page",
       "route": "/forex-crm/payments-automation/",
-      "template": "templates/pages/forex-crm/payments-automation/index.html",
+      "template": "forex-crm/payments-automation/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex Deposit Automation and Withdrawal Automation That Keeps Money Moving Smoothly | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -14062,7 +14062,7 @@
     "forex-grey-label/index.html": {
       "role": "page",
       "route": "/forex-grey-label/",
-      "template": "templates/pages/forex-grey-label/index.html",
+      "template": "forex-grey-label/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex Grey Label Solutions for Brokers Who Want Real Control | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -14193,7 +14193,7 @@
     "forex-grey-label/mt4-grey-label/index.html": {
       "role": "page",
       "route": "/forex-grey-label/mt4-grey-label/",
-      "template": "templates/pages/forex-grey-label/mt4-grey-label/index.html",
+      "template": "forex-grey-label/mt4-grey-label/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT4 Grey Label for Brokers Who Want Control on a Platform Traders Trust | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -14324,7 +14324,7 @@
     "forex-grey-label/mt5-grey-label/index.html": {
       "role": "page",
       "route": "/forex-grey-label/mt5-grey-label/",
-      "template": "templates/pages/forex-grey-label/mt5-grey-label/index.html",
+      "template": "forex-grey-label/mt5-grey-label/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT5 Grey Label for Brokers Building a Modern, Multi-Asset Business | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -14463,7 +14463,7 @@
     "forex-grey-label/pricing/index.html": {
       "role": "page",
       "route": "/forex-grey-label/pricing/",
-      "template": "templates/pages/forex-grey-label/pricing/index.html",
+      "template": "forex-grey-label/pricing/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Grey Label Forex Price Guide: What You’ll Pay and Why | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -14600,7 +14600,7 @@
     "forex-grey-label/upgrade-to-admin/index.html": {
       "role": "page",
       "route": "/forex-grey-label/upgrade-to-admin/",
-      "template": "templates/pages/forex-grey-label/upgrade-to-admin/index.html",
+      "template": "forex-grey-label/upgrade-to-admin/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Upgrade Grey Label to Admin License and Take Full Ownership of Your Brokerage | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -14737,7 +14737,7 @@
     "forex-liquidity/a-book-b-book/index.html": {
       "role": "page",
       "route": "/forex-liquidity/a-book-b-book/",
-      "template": "templates/pages/forex-liquidity/a-book-b-book/index.html",
+      "template": "forex-liquidity/a-book-b-book/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "A Book vs B Book vs Hybrid: Choosing the Right Execution Model for Your Brokerage | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -14870,7 +14870,7 @@
     "forex-liquidity/index.html": {
       "role": "page",
       "route": "/forex-liquidity/",
-      "template": "templates/pages/forex-liquidity/index.html",
+      "template": "forex-liquidity/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex Liquidity Providers and Solutions for Growing Brokers | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -15001,7 +15001,7 @@
     "forex-liquidity/liquidity-bridge/index.html": {
       "role": "page",
       "route": "/forex-liquidity/liquidity-bridge/",
-      "template": "templates/pages/forex-liquidity/liquidity-bridge/index.html",
+      "template": "forex-liquidity/liquidity-bridge/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex Liquidity Bridge Setup That Keeps Your Execution Fast and Stable | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -15141,7 +15141,7 @@
     "forex-liquidity/prime-of-prime/index.html": {
       "role": "page",
       "route": "/forex-liquidity/prime-of-prime/",
-      "template": "templates/pages/forex-liquidity/prime-of-prime/index.html",
+      "template": "forex-liquidity/prime-of-prime/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Prime of Prime Forex Liquidity for Brokers Who Want Institutional Pricing Without Institutional Barriers | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -15281,7 +15281,7 @@
     "forex-white-label/index.html": {
       "role": "page",
       "route": "/forex-white-label/",
-      "template": "templates/pages/forex-white-label/index.html",
+      "template": "forex-white-label/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex White Label Solutions to Start Your Brokerage Without the Heavy Costs | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -15403,7 +15403,7 @@
     "forex-white-label/mt4-white-label/index.html": {
       "role": "page",
       "route": "/forex-white-label/mt4-white-label/",
-      "template": "templates/pages/forex-white-label/mt4-white-label/index.html",
+      "template": "forex-white-label/mt4-white-label/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT4 White Label for Brokers Who Want a Proven Platform From Day One | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -15527,7 +15527,7 @@
     "forex-white-label/mt5-white-label/index.html": {
       "role": "page",
       "route": "/forex-white-label/mt5-white-label/",
-      "template": "templates/pages/forex-white-label/mt5-white-label/index.html",
+      "template": "forex-white-label/mt5-white-label/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT5 White Label for Brokers Ready to Offer More Than Forex | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -15652,7 +15652,7 @@
     "forex-white-label/pricing/index.html": {
       "role": "page",
       "route": "/forex-white-label/pricing/",
-      "template": "templates/pages/forex-white-label/pricing/index.html",
+      "template": "forex-white-label/pricing/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex White Label Price Guide: Clear Costs for New Brokers | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -15782,7 +15782,7 @@
     "forex-white-label/vs-grey-label/index.html": {
       "role": "page",
       "route": "/forex-white-label/vs-grey-label/",
-      "template": "templates/pages/forex-white-label/vs-grey-label/index.html",
+      "template": "forex-white-label/vs-grey-label/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "White Label vs Grey Label: Which Model Fits Your Brokerage? | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -15910,7 +15910,7 @@
     "header.html": {
       "role": "shared-part",
       "route": null,
-      "template": "templates/shared/header.html",
+      "template": "header.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Home",
         "__MGL_CONTENT_00002__": "Solutions",
@@ -16013,7 +16013,7 @@
     "index.html": {
       "role": "page",
       "route": "/",
-      "template": "templates/pages/index.html",
+      "template": "index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Meta Grey Label | Brokerage Technology\r\n  ",
         "__MGL_CONTENT_00002__": "IE=edge",
@@ -16306,7 +16306,7 @@
     "insights/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/index.html": {
       "role": "page",
       "route": "/insights/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/",
-      "template": "templates/pages/insights/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/index.html",
+      "template": "insights/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Common Mistakes to Avoid When Choosing a MetaTrader Grey Label Provider | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -16458,7 +16458,7 @@
     "insights/comparing-metatrader-grey-label-providers-features-support-and-prices/index.html": {
       "role": "page",
       "route": "/insights/comparing-metatrader-grey-label-providers-features-support-and-prices/",
-      "template": "templates/pages/insights/comparing-metatrader-grey-label-providers-features-support-and-prices/index.html",
+      "template": "insights/comparing-metatrader-grey-label-providers-features-support-and-prices/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Comparing MetaTrader Grey Label Providers: Features, Support and Prices | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -16599,7 +16599,7 @@
     "insights/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/index.html": {
       "role": "page",
       "route": "/insights/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/",
-      "template": "templates/pages/insights/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/index.html",
+      "template": "insights/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Compliance and KYC Basics for MetaTrader Grey Label Brokerages | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -16752,7 +16752,7 @@
     "insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/index.html": {
       "role": "page",
       "route": "/insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/",
-      "template": "templates/pages/insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/index.html",
+      "template": "insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Copy Trading and Social Trading for MetaTrader Grey Label Brokers | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -16902,7 +16902,7 @@
     "insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/index.html": {
       "role": "page",
       "route": "/insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/",
-      "template": "templates/pages/insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/index.html",
+      "template": "insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Essential Tools and Plugins for a MetaTrader Grey Label Brokerage | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -17036,7 +17036,7 @@
     "insights/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/index.html": {
       "role": "page",
       "route": "/insights/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/",
-      "template": "templates/pages/insights/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/index.html",
+      "template": "insights/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "How MetaTrader Grey Label Can Help You Attract More Forex Traders | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -17175,7 +17175,7 @@
     "insights/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/index.html": {
       "role": "page",
       "route": "/insights/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/",
-      "template": "templates/pages/insights/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/index.html",
+      "template": "insights/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "How Much Capital Do You Need to Start With MetaTrader Grey Label? | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -17326,7 +17326,7 @@
     "insights/index.html": {
       "role": "page",
       "route": "/insights/",
-      "template": "templates/pages/insights/index.html",
+      "template": "insights/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Brokerage Insights | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -17448,7 +17448,7 @@
     "insights/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/index.html": {
       "role": "page",
       "route": "/insights/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/",
-      "template": "templates/pages/insights/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/index.html",
+      "template": "insights/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Introducing Broker (IB) Programs for MetaTrader Grey Label Businesses | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -17599,7 +17599,7 @@
     "insights/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/index.html": {
       "role": "page",
       "route": "/insights/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/",
-      "template": "templates/pages/insights/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/index.html",
+      "template": "insights/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MetaTrader Grey Label + CRM Integration: Boosting Client Onboarding and Retention | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -17742,7 +17742,7 @@
     "insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/index.html": {
       "role": "page",
       "route": "/insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/",
-      "template": "templates/pages/insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/index.html",
+      "template": "insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MetaTrader Grey Label Licensing: What It Includes and Why It Matters | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -17883,7 +17883,7 @@
     "insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/index.html": {
       "role": "page",
       "route": "/insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/",
-      "template": "templates/pages/insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/index.html",
+      "template": "insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MetaTrader Grey Label vs White Label: Which Is Best for Your Forex Brokerage? | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -18005,7 +18005,7 @@
     "insights/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/index.html": {
       "role": "page",
       "route": "/insights/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/",
-      "template": "templates/pages/insights/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/index.html",
+      "template": "insights/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Revenue Streams of a MetaTrader Grey Label Brokerage: Spreads, Commissions and More | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -18153,7 +18153,7 @@
     "insights/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/index.html": {
       "role": "page",
       "route": "/insights/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/",
-      "template": "templates/pages/insights/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/index.html",
+      "template": "insights/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Step-by-Step Guide to Setting Up a MetaTrader Grey Label Brokerage in Under a Week | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -18302,7 +18302,7 @@
     "insights/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/index.html": {
       "role": "page",
       "route": "/insights/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/",
-      "template": "templates/pages/insights/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/index.html",
+      "template": "insights/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Trader’s Room and Client Portal Features in a MetaTrader Grey Label Setup | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -18469,7 +18469,7 @@
     "insights/white-label-grey-label-or-turnkey-choosing-the-right-model/index.html": {
       "role": "page",
       "route": "/insights/white-label-grey-label-or-turnkey-choosing-the-right-model/",
-      "template": "templates/pages/insights/white-label-grey-label-or-turnkey-choosing-the-right-model/index.html",
+      "template": "insights/white-label-grey-label-or-turnkey-choosing-the-right-model/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "White Label, Grey Label or Turnkey? Choosing the Right Model | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -18611,7 +18611,7 @@
     "mt-admin-license/index.html": {
       "role": "page",
       "route": "/mt-admin-license/",
-      "template": "templates/pages/mt-admin-license/index.html",
+      "template": "mt-admin-license/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT4 and MT5 Admin License: Own Your MetaTrader Server Outright | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -18749,7 +18749,7 @@
     "mt-admin-license/mt4-admin/index.html": {
       "role": "page",
       "route": "/mt-admin-license/mt4-admin/",
-      "template": "templates/pages/mt-admin-license/mt4-admin/index.html",
+      "template": "mt-admin-license/mt4-admin/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT4 Admin License for Brokers Who Want Full Control of Their Platform | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -18886,7 +18886,7 @@
     "mt-admin-license/mt5-admin/index.html": {
       "role": "page",
       "route": "/mt-admin-license/mt5-admin/",
-      "template": "templates/pages/mt-admin-license/mt5-admin/index.html",
+      "template": "mt-admin-license/mt5-admin/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT5 Admin License for Brokers Ready to Own Their Trading Infrastructure | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -19028,7 +19028,7 @@
     "services.html": {
       "role": "page",
       "route": "/services.html",
-      "template": "templates/pages/services.html",
+      "template": "services.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Brokerage Services | Meta Grey Label",
         "__MGL_CONTENT_00002__": "IE=edge",
@@ -19103,7 +19103,7 @@
     "solutions/index.html": {
       "role": "page",
       "route": "/solutions/",
-      "template": "templates/pages/solutions/index.html",
+      "template": "solutions/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Brokerage Solutions | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -19227,7 +19227,7 @@
     "trading-platforms/desktop/index.html": {
       "role": "page",
       "route": "/trading-platforms/desktop/",
-      "template": "templates/pages/trading-platforms/desktop/index.html",
+      "template": "trading-platforms/desktop/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT4 Desktop Terminal and MT5 Desktop Terminal for Serious Traders | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -19370,7 +19370,7 @@
     "trading-platforms/index.html": {
       "role": "page",
       "route": "/trading-platforms/",
-      "template": "templates/pages/trading-platforms/index.html",
+      "template": "trading-platforms/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Forex Trading Platforms for Brokers That Traders Already Know and Trust | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -19514,7 +19514,7 @@
     "trading-platforms/mobile-app/index.html": {
       "role": "page",
       "route": "/trading-platforms/mobile-app/",
-      "template": "templates/pages/trading-platforms/mobile-app/index.html",
+      "template": "trading-platforms/mobile-app/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "Mobile Trading App for Brokers on iOS and Android | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
@@ -19666,7 +19666,7 @@
     "trading-platforms/web-trader/index.html": {
       "role": "page",
       "route": "/trading-platforms/web-trader/",
-      "template": "templates/pages/trading-platforms/web-trader/index.html",
+      "template": "trading-platforms/web-trader/index.html",
       "fields": {
         "__MGL_CONTENT_00001__": "MT4 Web Trader and MT5 Web Trader for Brokers Who Want Clients Trading in Seconds | Meta Grey Label",
         "__MGL_CONTENT_00002__": "width=device-width, initial-scale=1.0",
