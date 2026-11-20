@@ -34,7 +34,7 @@ function tags(html, name) {
 }
 function problem(file, message) { problems.push(file + ": " + message); }
 function warning(file, message) { warnings.push(file + ": " + message); }
-function localTargetExists(file, value) {
+function localTargetExists(file, value, baseHref = "") {
   if (!value || value.startsWith("#") || value.startsWith("?") ||
       value.startsWith("//") || value.startsWith("/") ||
       /^[a-z][a-z0-9+.-]*:/i.test(value)) {
@@ -42,7 +42,13 @@ function localTargetExists(file, value) {
   }
   const clean = value.split(/[?#]/, 1)[0];
   if (!clean) return true;
-  let target = resolve(root, dirname(file), clean);
+
+  const fileDir = resolve(root, dirname(file));
+  const hasLocalBase = baseHref && !baseHref.startsWith("//") &&
+    !/^[a-z][a-z0-9+.-]*:/i.test(baseHref);
+  const baseDir = hasLocalBase ? resolve(fileDir, baseHref) : fileDir;
+
+  let target = resolve(baseDir, clean);
   if (clean.endsWith("/")) target = resolve(target, "index.html");
   return existsSync(target);
 }
@@ -78,6 +84,8 @@ for (const [path, page] of pages) {
 
   const openGraph = meta.filter(tag => attr(tag, "property") === "og:title");
   if (openGraph.length !== 1) warning(path, "Open Graph title count is " + openGraph.length);
+  const baseTag = tags(html, "base")[0] || "";
+  const baseHref = attr(baseTag, "href");
   const refs = [
     ...tags(html, "a").map(tag => ["href", attr(tag, "href")]),
     ...tags(html, "link").map(tag => ["href", attr(tag, "href")]),
@@ -86,7 +94,7 @@ for (const [path, page] of pages) {
     ...tags(html, "source").map(tag => ["src", attr(tag, "src")])
   ];
   for (const [kind, value] of refs) {
-    if (value && !localTargetExists(path, value)) {
+    if (value && !localTargetExists(path, value, baseHref)) {
       problem(path, "broken local " + kind + " " + JSON.stringify(value));
     }
   }

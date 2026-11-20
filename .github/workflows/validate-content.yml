@@ -1,5 +1,8 @@
 name: Validate JSON-driven static and WordPress-ready themes
 on:
+  push:
+    branches:
+      - main
   pull_request:
     paths:
       - "data/**"
