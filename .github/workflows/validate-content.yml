@@ -15,7 +15,7 @@ on:
       - "assets/css/fse.css"
       - "assets/css/style.css"
       - "assets/js/**"
-      - "scripts/**"
+      - "scripts/**"\n      - "src/**"\n      - "worker.js"\n      - "wrangler.jsonc"
       - "tests/**"
       - "docs/**"
       - "**/*.html"
@@ -39,7 +39,7 @@ jobs:
           node-version: "24"
       - name: Validate generator JavaScript
         run: |
-          node --check scripts/audit-seo.mjs
+          node --check scripts/audit-seo.mjs\n          node --check worker.js\n          node --check src/renderer.js\n          node --check scripts/build-dynamic.mjs\n          node --check tests/dynamic-renderer.mjs
           node --check tests/architecture.mjs
           node --check scripts/package-wordpress.mjs
           node --check scripts/fse-pages.mjs
@@ -47,7 +47,7 @@ jobs:
           node --check inc/editor.js
       - name: Audit 52 canonical static pages for metadata and SEO
         run: node scripts/audit-seo.mjs --check
-      - name: Enforce block metadata and CSS namespace isolation
+      - name: Validate dynamic edge renderer and compact deploy assets\n        run: |\n          node tests/dynamic-renderer.mjs\n          node scripts/build-dynamic.mjs\n          test -f dist/public/index.html\n          test -f dist/public/data/content.json\n          test ! -e dist/public/forex-grey-label/mt5-grey-label/index.html\n          test ! -e dist/public/about-us/index.html\n      - name: Enforce block metadata and CSS namespace isolation
         run: node tests/architecture.mjs
       - name: Validate native Gutenberg page and template-part projection
         run: |

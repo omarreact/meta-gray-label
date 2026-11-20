@@ -5,6 +5,31 @@ Those files are the visual source of truth for GitHub Pages and the legacy
 WordPress fallback. The former duplicate `templates/pages/**` and
 `templates/shared/**` trees are removed.
 
+## Dynamic HTML runtime
+
+The canonical runtime is now data-driven. `worker.js` + `src/renderer.js`
+render structured inner routes from the single `data/content.json` source at
+the edge. Header and footer are injected server-side, so dynamic pages do not
+need the old client-side include round trip.
+
+`scripts/build-dynamic.mjs` builds `dist/public/` with only shared assets,
+branding, the content source and five special complex templates (home,
+services, solutions, insights index and 404). The dozens of nested static
+article/service HTML copies are deliberately **not** copied into the dynamic
+deployment artifact.
+
+```bash
+node tests/dynamic-renderer.mjs
+node scripts/build-dynamic.mjs
+npx wrangler dev
+```
+
+The checked-in nested HTML files remain temporarily because the existing public
+GitHub Pages site still publishes directly from `main`. They are compatibility
+copies, not the new application architecture. Once the production host is
+switched to the dynamic Worker, those compatibility files can be removed
+without changing the renderer, content model, URLs or WordPress conversion path.
+
 ## Minimal source model
 
 - Public site: root HTML plus route folders required by the current GitHub
