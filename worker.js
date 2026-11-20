@@ -10,7 +10,9 @@ import {
   specialAssetPath
 } from "./src/renderer.js";
 
-let sharedCache;\nlet sharedCacheAt = 0;\nconst SHARED_CACHE_TTL_MS = 300000;
+let sharedCache;
+let sharedCacheAt = 0;
+const SHARED_CACHE_TTL_MS = 300000;
 
 function staticOrigin(env, requestOrigin) {
   return String(env.STATIC_ORIGIN || requestOrigin).replace(/\/$/, "");
