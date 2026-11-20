@@ -755,17 +755,22 @@
 .mgl-capability-strip a:hover,.mgl-capability-strip a:focus-visible{color:var(--brand-color)}
 @media(max-width:767px){.mgl-capability-strip{justify-content:center;gap:12px 22px;text-align:center}}
 
-/* Keep every desktop submenu on the exact same glass surface as the floating header. */
+/* Keep desktop submenus visually glassy but opaque enough to fully separate them from page content. */
 @media (min-width: 992px) {
   .header-section--style2 .menu li > .submenu,
   .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega {
-    background: var(--mgl-glass-background) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
     -webkit-backdrop-filter: var(--mgl-glass-filter);
     backdrop-filter: var(--mgl-glass-filter);
     border: 1px solid var(--mgl-glass-border);
     border-radius: 20px;
     box-shadow: var(--mgl-glass-shadow);
     transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+
+  [data-bs-theme="dark"] .header-section--style2 .menu li > .submenu,
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega {
+    background: rgba(8, 28, 39, 0.96) !important;
   }
 }
 
