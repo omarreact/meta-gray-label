@@ -265,7 +265,6 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 </head>
 <body>
 <div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>
-<div class="lightdark-switch"><button class="switch-btn" id="btnSwitch" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle light and dark theme"><img src="/assets/images/icon/moon.svg" alt="" width="20" height="20"></button></div>
 ${rootifySharedMarkup(header)}
 <main class="mgl-inner-page mgl-family-${family}" id="main-content">
 <section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('${heroImage}')"><div class="container mgl-hero-grid"><div>
