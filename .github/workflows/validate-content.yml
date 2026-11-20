@@ -172,7 +172,7 @@ jobs:
           npx --yes @wordpress/env run cli wp option get page_on_front \
             > tmp/wordpress-qa/page-on-front.txt 2>&1 || true
           docker ps -a > tmp/wordpress-qa/docker-ps.txt 2>&1 || true
-          npx --yes @wordpress/env logs > tmp/wordpress-qa/wp-env.log 2>&1 || true
+          timeout 15s npx --yes @wordpress/env logs > tmp/wordpress-qa/wp-env.log 2>&1 || true
 
           {
             echo "## WordPress staging factory"
