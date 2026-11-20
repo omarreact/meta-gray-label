@@ -17,9 +17,11 @@ function staticOrigin(env, requestOrigin) {
 }
 
 async function staticFetch(env, requestOrigin, path, init = {}) {
-  const target = new URL(path, staticOrigin(env, requestOrigin));
+  const origin = staticOrigin(env, requestOrigin) + "/";
+  const relativePath = String(path || "").replace(/^\/+/, "");
+  const target = new URL(relativePath, origin);
   if (env.ASSETS && typeof env.ASSETS.fetch === "function") {
-    const local = new URL(path, requestOrigin);
+    const local = new URL("/" + relativePath, requestOrigin);
     return env.ASSETS.fetch(new Request(local.toString(), init));
   }
   return fetch(new Request(target.toString(), init));
