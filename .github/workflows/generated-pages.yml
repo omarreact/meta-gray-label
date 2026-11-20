@@ -1,0 +1,57 @@
+name: Generated GitHub Pages safety deployment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "templates/**"
+      - "assets/**"
+      - "media/**"
+      - "scripts/generate.mjs"
+      - "scripts/audit-seo.mjs"
+      - "services/index.html"
+      - "robots.txt"
+      - ".github/workflows/generated-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages-generated"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build deploy artifact from source
+        run: node scripts/generate.mjs --write --out=dist/site
+      - name: Validate generated site
+        run: node scripts/audit-seo.mjs --check --root=dist/site
+      - name: Switch Pages publishing source to GitHub Actions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy generated artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
