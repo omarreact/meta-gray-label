@@ -68,6 +68,13 @@ export default {
 
     const url = new URL(request.url);
     const path = normalizePath(url.pathname);
+    const base = publicBase(request, env);
+
+    if (path === "/robots.txt") {
+      return new Response(`User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`, {
+        headers: { "content-type": "text/plain; charset=UTF-8", "cache-control": "public, max-age=300" }
+      });
+    }
 
     if (isStaticAssetPath(path)) {
       const upstream = await staticFetch(env, url.origin, path, request);
@@ -77,7 +84,6 @@ export default {
     }
 
     const { data, header, footer } = await sharedData(env, url.origin);
-    const base = publicBase(request, env);
 
     if (path === "/sitemap.xml") {
       return new Response(renderDynamicSitemap(data, base), {

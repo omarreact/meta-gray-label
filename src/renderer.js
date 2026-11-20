@@ -19,7 +19,7 @@ export function normalizePath(pathname = "/") {
 export function isStaticAssetPath(pathname) {
   const path = normalizePath(pathname);
   return STATIC_PREFIXES.some((prefix) => path.startsWith(prefix)) ||
-    path === "/robots.txt" || path === "/favicon.ico";
+    path === "/favicon.ico";
 }
 
 export function specialAssetPath(pathname) {

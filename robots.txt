@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://omarreact.github.io/meta-gray-label/sitemap.xml
+Sitemap: https://meta-gray-label-dynamic.farukkhanone.workers.dev/sitemap.xml
