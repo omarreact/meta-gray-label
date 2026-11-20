@@ -240,8 +240,8 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
   const heroImage = family === "article" ? "/assets/images/service/5.png" : "/assets/images/about/1.png";
 
   const page = `<!doctype html>
-<html lang="en" data-bs-theme="light">
-<head>
+<html lang="en" data-bs-theme="dark">
+<head><script id="mgl-theme-boot">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${escapeHtml(title)} | Meta Grey Label</title>
@@ -305,5 +305,5 @@ export function renderDynamicSitemap(data, canonicalBase) {
 }
 
 export function renderSimple404({ header = "", footer = "", canonicalBase = "" } = {}) {
-  return `<!doctype html><html lang="en" data-bs-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><title>Page Not Found | Meta Grey Label</title><link rel="stylesheet" href="/assets/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/css/style.css"></head><body>${rootifySharedMarkup(header)}<main class="mgl-inner-page" id="main-content"><section class="mgl-inner-hero"><div class="container"><h1>Page not found</h1><p class="mgl-hero-summary">The page you requested does not exist or may have moved.</p><a class="mgl-btn mgl-btn-primary" href="/">Return home</a></div></section></main>${rootifySharedMarkup(footer)}<script src="/assets/js/bootstrap.bundle.min.js"></script><script src="/assets/js/custom.js"></script></body></html>`;
+  return `<!doctype html><html lang="en" data-bs-theme="dark"><head><script id="mgl-theme-boot">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><title>Page Not Found | Meta Grey Label</title><link rel="stylesheet" href="/assets/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/css/style.css"></head><body>${rootifySharedMarkup(header)}<main class="mgl-inner-page" id="main-content"><section class="mgl-inner-hero"><div class="container"><h1>Page not found</h1><p class="mgl-hero-summary">The page you requested does not exist or may have moved.</p><a class="mgl-btn mgl-btn-primary" href="/">Return home</a></div></section></main>${rootifySharedMarkup(footer)}<script src="/assets/js/bootstrap.bundle.min.js"></script><script src="/assets/js/custom.js"></script></body></html>`;
 }

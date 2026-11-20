@@ -27,8 +27,7 @@ const colorSwitcher = document.getElementById('btnSwitch');
 
 switchThemeByUrl();
 const savedTheme = localStorage.getItem('theme');
-const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-updateThemeColor(savedTheme || systemTheme);
+updateThemeColor(savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark');
 
 
 colorSwitcher?.addEventListener('click', () => {
@@ -54,10 +53,10 @@ function updateThemeColor(themeMode = 'dark') {
     localStorage.setItem('theme', themeMode)
 
     if (themeMode === 'dark') {
-        colorSwitcher.classList.add('dark-switcher');
+        colorSwitcher?.classList.add('dark-switcher');
 
     } else {
-        colorSwitcher.classList.remove('dark-switcher');
+        colorSwitcher?.classList.remove('dark-switcher');
     }
 
     changeImage(themeMode);

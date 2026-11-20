@@ -119,13 +119,13 @@
   },
   "styles": {
     "color": {
-      "background": "#f7fbfa",
-      "text": "#0c263a"
+      "background": "#061f2d",
+      "text": "#f4fbfa"
     },
     "elements": {
       "link": {
         "color": {
-          "text": "#008f72"
+          "text": "#55e6bc"
         }
       },
       "heading": {
