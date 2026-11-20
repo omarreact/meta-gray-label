@@ -100,3 +100,28 @@ desktop/mobile browser tests.
 Cloudflare Workers is the dynamic runtime. GitHub Pages remains a lightweight
 legacy compatibility surface for the few retained static design sources.
 No custom-domain DNS is changed by this repository migration.
+
+
+## GitHub Codespaces WordPress staging
+
+The repository includes a Codespaces development container that starts an
+isolated WordPress + database environment and installs the generated native
+Meta Grey Label block theme.
+
+Open the repository in Codespaces:
+
+`https://codespaces.new/omarreact/meta-gray-label?quickstart=1`
+
+During first creation, `.devcontainer/setup-wordpress.sh` automatically:
+
+1. waits for Docker,
+2. packages `dist/wordpress/meta-grey-label/`,
+3. starts WordPress with `@wordpress/env`,
+4. activates the `meta-grey-label` theme,
+5. enables pretty permalinks,
+6. imports the native Gutenberg/FSE pages and sets the homepage, and
+7. updates WordPress to the Codespaces forwarded port URL.
+
+Open forwarded port `8888` after setup. The local development credentials
+provided by `wp-env` are `admin` / `password`. Keep this port **Private**;
+this environment is for development/staging, not production hosting.
