@@ -97,6 +97,7 @@ async function capture(kind, base, route, size) {
 
   const metrics = await inspect(page);
   assert.equal(metrics.h1Count, 1, kind + " " + route + " must have exactly one H1");
+  assert.ok(metrics.main, kind + " " + route + " missing main landmark");
   assert.ok(metrics.scrollWidth <= metrics.clientWidth + 3,
     kind + " " + route + " horizontal overflow " + metrics.scrollWidth + " > " + metrics.clientWidth);
 
