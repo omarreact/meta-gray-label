@@ -24,6 +24,7 @@ on:
       - "theme.json"
       - ".github/workflows/validate-content.yml"
       - ".wp-env.json"
+      - ".devcontainer/**"
   workflow_dispatch:
 
 permissions:
