@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 
 <head>
   <title>Meta Grey Label | Brokerage Technology
@@ -571,354 +571,6 @@
         display:none;
       }
     }
-
-    /* Content-rich connected brokerage stack */
-    #capabilities.mgl-stack-section {
-      background:
-        radial-gradient(circle at 8% 14%,rgba(0,208,148,.10),transparent 27%),
-        radial-gradient(circle at 94% 78%,rgba(35,117,255,.10),transparent 30%),
-        var(--bg-color);
-    }
-    #capabilities .mgl-stack-eyebrow {
-      display:block;
-      margin-bottom:13px;
-      color:var(--brand-color);
-      font-size:.76rem;
-      font-weight:800;
-      letter-spacing:.14em;
-    }
-    #capabilities .mgl-stack-layout { display:grid; gap:24px; }
-    #capabilities .mgl-stack-overview {
-      position:relative;
-      display:grid;
-      grid-template-columns:minmax(0,1.06fr) minmax(470px,.94fr);
-      gap:clamp(26px,4vw,60px);
-      align-items:center;
-      padding:clamp(30px,4vw,54px);
-      overflow:hidden;
-      border:1px solid rgba(12,38,58,.10);
-      border-radius:30px;
-      background:linear-gradient(118deg,rgba(6,43,45,.99),rgba(8,78,74,.97) 58%,rgba(17,104,133,.94));
-      box-shadow:0 24px 60px rgba(12,38,58,.14);
-    }
-    #capabilities .mgl-stack-overview::before {
-      position:absolute;
-      inset:auto -75px -110px auto;
-      width:310px;
-      height:310px;
-      border:1px solid rgba(130,239,216,.25);
-      border-radius:50%;
-      box-shadow:0 0 0 42px rgba(130,239,216,.05),0 0 0 84px rgba(130,239,216,.035);
-      content:"";
-      pointer-events:none;
-    }
-    #capabilities .mgl-stack-overview-copy { position:relative; z-index:1; }
-    #capabilities .mgl-stack-overview .mgl-stack-kicker { color:#6fe8cf; }
-    #capabilities .mgl-stack-overview h3 {
-      max-width:680px;
-      margin:0 0 16px;
-      color:#fff;
-      font-size:clamp(1.8rem,3vw,3rem);
-      line-height:1.12;
-      letter-spacing:-.035em;
-    }
-    #capabilities .mgl-stack-overview p {
-      max-width:650px;
-      margin:0 0 25px;
-      color:#c5e1de;
-      font-size:1rem;
-      line-height:1.75;
-    }
-    #capabilities .mgl-stack-overview .mgl-stack-link { color:#fff; }
-    #capabilities .mgl-stack-overview .mgl-stack-link:hover { color:#6fe8cf; }
-    #capabilities .mgl-stack-flow {
-      position:relative;
-      z-index:1;
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
-      margin:0;
-      padding:0;
-      list-style:none;
-    }
-    #capabilities .mgl-stack-flow li {
-      display:grid;
-      grid-template-columns:30px minmax(0,1fr);
-      column-gap:10px;
-      align-items:center;
-      padding:13px;
-      border:1px solid rgba(200,255,244,.14);
-      border-radius:13px;
-      background:rgba(255,255,255,.07);
-      backdrop-filter:blur(10px);
-    }
-    #capabilities .mgl-stack-flow span {
-      grid-row:span 2;
-      color:#6fe8cf;
-      font-size:.72rem;
-      font-weight:800;
-      letter-spacing:.08em;
-    }
-    #capabilities .mgl-stack-flow b { color:#fff; font-size:.92rem; line-height:1.2; }
-    #capabilities .mgl-stack-flow small { color:#b9d8d4; font-size:.74rem; line-height:1.35; }
-    #capabilities .mgl-stack-grid {
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:18px;
-    }
-    #capabilities .mgl-stack-card {
-      display:flex;
-      flex-direction:column;
-      min-height:355px;
-      padding:28px;
-      border:1px solid rgba(12,38,58,.10);
-      border-radius:20px;
-      background:rgba(255,255,255,.84);
-      box-shadow:0 12px 32px rgba(12,38,58,.045);
-      transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
-    }
-    #capabilities .mgl-stack-card:hover {
-      transform:translateY(-5px);
-      border-color:rgba(0,208,148,.42);
-      box-shadow:0 20px 42px rgba(12,38,58,.11);
-    }
-    #capabilities .mgl-stack-card-top {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:24px;
-    }
-    #capabilities .mgl-stack-card .mgl-stack-index {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:43px;
-      height:43px;
-      border-radius:12px;
-      color:#087e69;
-      background:rgba(0,208,148,.12);
-      font-size:.78rem;
-      font-weight:800;
-      letter-spacing:.08em;
-    }
-    #capabilities .mgl-stack-card-label {
-      color:#64757b;
-      font-size:.68rem;
-      font-weight:800;
-      letter-spacing:.11em;
-    }
-    #capabilities .mgl-stack-card h3 {
-      margin:0 0 11px;
-      color:var(--title-color);
-      font-size:1.3rem;
-      line-height:1.28;
-    }
-    #capabilities .mgl-stack-card p {
-      margin:0 0 18px;
-      color:var(--text-color);
-      font-size:.95rem;
-      line-height:1.65;
-    }
-    #capabilities .mgl-stack-card ul {
-      display:grid;
-      gap:7px;
-      margin:0 0 22px;
-      padding:0;
-      list-style:none;
-    }
-    #capabilities .mgl-stack-card li {
-      position:relative;
-      padding-left:16px;
-      color:#51666a;
-      font-size:.84rem;
-      line-height:1.4;
-    }
-    #capabilities .mgl-stack-card li::before {
-      position:absolute;
-      top:.48em;
-      left:0;
-      width:6px;
-      height:6px;
-      border-radius:50%;
-      background:var(--brand-color);
-      content:"";
-    }
-    #capabilities .mgl-stack-card > a {
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      width:max-content;
-      margin-top:auto;
-      color:#087e69;
-      font-size:.9rem;
-      font-weight:800;
-      text-decoration:none;
-    }
-    #capabilities .mgl-stack-card > a:hover { color:var(--brand-color); }
-    #capabilities .mgl-stack-card--platform { grid-column:span 2; background:linear-gradient(135deg,rgba(237,253,248,.98),rgba(255,255,255,.92)); }
-    #capabilities .mgl-stack-card--platform h3 { font-size:clamp(1.4rem,2vw,1.75rem); }
-    #capabilities .mgl-stack-card--platform .mgl-stack-index,
-    #capabilities .mgl-stack-card--crm .mgl-stack-index { background:rgba(0,208,148,.15); }
-    #capabilities .mgl-stack-card--model .mgl-stack-index,
-    #capabilities .mgl-stack-card--admin .mgl-stack-index { color:#2469d8; background:rgba(35,117,255,.12); }
-    #capabilities .mgl-stack-card--liquidity .mgl-stack-index,
-    #capabilities .mgl-stack-card--launch .mgl-stack-index { color:#8a5d00; background:rgba(250,192,67,.18); }
-    [data-bs-theme="dark"] #capabilities .mgl-stack-card {
-      border-color:rgba(139,210,199,.16);
-      background:rgba(10,42,39,.84);
-      box-shadow:none;
-    }
-    [data-bs-theme="dark"] #capabilities .mgl-stack-card--platform { background:linear-gradient(135deg,rgba(9,57,50,.96),rgba(10,42,39,.90)); }
-    [data-bs-theme="dark"] #capabilities .mgl-stack-card h3 { color:#f4fbfa; }
-    [data-bs-theme="dark"] #capabilities .mgl-stack-card p,
-    [data-bs-theme="dark"] #capabilities .mgl-stack-card li { color:#b9cfcb; }
-    [data-bs-theme="dark"] #capabilities .mgl-stack-card-label { color:#9db9b5; }
-    @media(max-width:991px) {
-      #capabilities .mgl-stack-overview { grid-template-columns:1fr; }
-      #capabilities .mgl-stack-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      #capabilities .mgl-stack-card--platform { grid-column:span 2; }
-    }
-    @media(max-width:575px) {
-      #capabilities .mgl-stack-overview { padding:27px 20px; border-radius:22px; }
-      #capabilities .mgl-stack-flow { grid-template-columns:1fr; }
-      #capabilities .mgl-stack-grid { grid-template-columns:1fr; }
-      #capabilities .mgl-stack-card,
-      #capabilities .mgl-stack-card--platform { grid-column:span 1; min-height:0; padding:24px 20px; }
-      #capabilities .mgl-stack-card-top { margin-bottom:20px; }
-    }
-
-    /* Flexible stack layout and floating operating-layer accents */
-    #capabilities .mgl-stack-overview {
-      display:flex;
-      flex-wrap:wrap;
-      gap:clamp(26px,4vw,60px);
-    }
-    #capabilities .mgl-stack-overview-copy {
-      flex:1 1 500px;
-    }
-    #capabilities .mgl-stack-flow {
-      flex:1 1 430px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    #capabilities .mgl-stack-flow li {
-      flex:1 1 calc(50% - 5px);
-    }
-    #capabilities .mgl-stack-grid {
-      display:flex;
-      flex-wrap:wrap;
-      gap:18px;
-      align-items:stretch;
-    }
-    #capabilities .mgl-stack-card {
-      flex:1 1 calc(33.333% - 12px);
-    }
-    #capabilities .mgl-stack-card--platform {
-      flex:2 1 calc(66.666% - 9px);
-    }
-    #capabilities .mgl-stack-float {
-      position:absolute;
-      z-index:2;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:32px;
-      padding:7px 11px;
-      border:1px solid rgba(186,255,239,.24);
-      border-radius:999px;
-      color:#dcfffa;
-      background:rgba(255,255,255,.10);
-      box-shadow:0 12px 28px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.17);
-      backdrop-filter:blur(12px) saturate(140%);
-      -webkit-backdrop-filter:blur(12px) saturate(140%);
-      font-size:.68rem;
-      font-weight:800;
-      letter-spacing:.07em;
-      pointer-events:none;
-      animation:mgl-stack-float 5s ease-in-out infinite;
-    }
-    #capabilities .mgl-stack-float--platform {
-      top:18px;
-      right:clamp(32px,4vw,70px);
-      animation-delay:-.8s;
-    }
-    #capabilities .mgl-stack-float--kyc {
-      right:20px;
-      bottom:22px;
-      color:#bde1ff;
-      border-color:rgba(189,225,255,.24);
-      animation-delay:-2.2s;
-    }
-    #capabilities .mgl-stack-float--liquidity {
-      right:42%;
-      bottom:18px;
-      color:#ffe8b2;
-      border-color:rgba(255,232,178,.24);
-      animation-delay:-3.3s;
-    }
-    @keyframes mgl-stack-float {
-      0%,100% { transform:translate3d(0,0,0); }
-      50% { transform:translate3d(0,-8px,0); }
-    }
-    @media(max-width:991px) {
-      #capabilities .mgl-stack-card {
-        flex-basis:calc(50% - 9px);
-      }
-      #capabilities .mgl-stack-card--platform {
-        flex-basis:100%;
-      }
-      #capabilities .mgl-stack-float--liquidity {
-        right:46%;
-      }
-    }
-    @media(max-width:575px) {
-      #capabilities .mgl-stack-flow li,
-      #capabilities .mgl-stack-card,
-      #capabilities .mgl-stack-card--platform {
-        flex-basis:100%;
-      }
-      #capabilities .mgl-stack-float {
-        display:none;
-      }
-    }
-    @media(prefers-reduced-motion:reduce) {
-      #capabilities .mgl-stack-float { animation:none; }
-    }
-
-    /* Scroll-safe section entry: content clears the fixed glass navigation. */
-    :root {
-      --mgl-fixed-header-offset: 118px;
-      scroll-padding-top: var(--mgl-fixed-header-offset);
-    }
-    html { scroll-padding-top: var(--mgl-fixed-header-offset); }
-    section[id], [id="models"], [id="roadmap"], [id="capabilities"], [id="why"], [id="faq"], [id="contact"] {
-      scroll-margin-top: var(--mgl-fixed-header-offset);
-    }
-
-    /* Remove the empty-looking hand-offs visible while scrolling between the long homepage sections. */
-    #roadmap, #models, #capabilities, #why, #faq, #contact {
-      padding-top: clamp(72px, 7vw, 110px) !important;
-      padding-bottom: clamp(64px, 6vw, 96px) !important;
-    }
-    #faq { padding-bottom: clamp(54px, 5vw, 80px) !important; }
-    #faq .section-header { margin-bottom: clamp(24px, 3vw, 42px); }
-    #faq .faq__wrapper { margin-top: 0; }
-    #contact { padding-top: clamp(64px, 6vw, 94px) !important; }
-
-    /* Keep the two persistent controls clear of text and the footer on compact screens. */
-    .lightdark-switch .switch-btn { z-index: 9998; }
-    .scrollToTop { right: max(18px, env(safe-area-inset-right)) !important; bottom: max(18px, env(safe-area-inset-bottom)) !important; z-index: 9998; }
-
-    @media (max-width: 991px) {
-      :root { --mgl-fixed-header-offset: 96px; }
-      #roadmap, #models, #capabilities, #why, #faq, #contact {
-        padding-top: 64px !important;
-        padding-bottom: 58px !important;
-      }
-    }
-
 </style>
 </head>
 
@@ -1645,83 +1297,74 @@
   <section id="capabilities" class="mgl-stack-section padding-top padding-bottom">
     <div class="container">
       <div class="section-header section-header--max50">
-        <span class="mgl-stack-eyebrow">ONE OPERATING SYSTEM</span>
         <h2 class="mb-10 mt-minus-5">A connected <span>brokerage stack</span></h2>
         <p>Bring trading infrastructure, client operations, execution and launch controls into one operating model instead of managing disconnected tools.</p>
       </div>
 
-      <div class="mgl-stack-layout">
-        <section class="mgl-stack-overview" aria-labelledby="stack-overview-title">
-          <span class="mgl-stack-float mgl-stack-float--platform" aria-hidden="true">MT4 / MT5</span>
-          <span class="mgl-stack-float mgl-stack-float--kyc" aria-hidden="true">KYC</span>
-          <span class="mgl-stack-float mgl-stack-float--liquidity" aria-hidden="true">Liquidity</span>
-          <div class="mgl-stack-overview-copy">
-            <span class="mgl-stack-kicker">From model to live operations</span>
-            <h3 id="stack-overview-title">Every layer is planned to work with the next one.</h3>
-            <p>Choose the control level that suits your business, then connect the customer journey, execution path and operating controls around it. Each layer can start focused and expand as your brokerage grows.</p>
-            <div class="mgl-stack-actions">
-              <a class="mgl-stack-link" href="solutions/">Explore all solutions <span aria-hidden="true">→</span></a>
-              <a class="mgl-stack-link" href="forex-white-label/vs-grey-label/">Compare operating models <span aria-hidden="true">→</span></a>
-            </div>
+      <div class="mgl-stack-shell">
+        <div class="mgl-stack-intro" data-aos="fade-right" data-aos-duration="850">
+          <span class="mgl-stack-kicker">Brokerage infrastructure</span>
+          <h3>Build around the way your brokerage will actually operate.</h3>
+          <p>Start with the operating model that fits your level of control, then connect the platform, liquidity, CRM, compliance workflow and launch process around it.</p>
+          <div class="mgl-stack-actions">
+            <a class="mgl-stack-link" href="solutions/">Explore all solutions <span aria-hidden="true">→</span></a>
+            <a class="mgl-stack-link" href="forex-white-label/vs-grey-label/">Compare models <span aria-hidden="true">→</span></a>
           </div>
+        </div>
 
-          <ol class="mgl-stack-flow" aria-label="Brokerage stack sequence">
-            <li><span>01</span><b>Model</b><small>White, Grey or Turnkey</small></li>
-            <li><span>02</span><b>Platform</b><small>MT4 or MT5</small></li>
-            <li><span>03</span><b>Execution</b><small>Liquidity and routing</small></li>
-            <li><span>04</span><b>Operations</b><small>CRM and payments</small></li>
-            <li><span>05</span><b>Control</b><small>Admin and risk</small></li>
-            <li><span>06</span><b>Launch</b><small>Testing and handover</small></li>
-          </ol>
-        </section>
-
-        <div class="mgl-stack-grid">
-          <article class="mgl-stack-card mgl-stack-card--platform" data-aos="fade-up" data-aos-duration="700">
-            <div class="mgl-stack-card-top"><span class="mgl-stack-index">01</span><span class="mgl-stack-card-label">CORE LAYER</span></div>
-            <h3>Trading platform layer</h3>
-            <p>Deploy MT4 or MT5 with branded desktop, web and mobile terminals and the right management access for your operating model.</p>
-            <ul><li>Branded trader touchpoints</li><li>Web, desktop and mobile access</li><li>Manager and administrator options</li></ul>
-            <a href="trading-platforms/">Explore platforms <span aria-hidden="true">→</span></a>
+        <div class="mgl-stack-list">
+          <article class="mgl-stack-row mgl-stack-row--platform" data-aos="fade-up" data-aos-duration="700">
+            <span class="mgl-stack-index">01</span>
+            <div class="mgl-stack-copy">
+              <h4>Trading platform layer</h4>
+              <p>Deploy MT4 or MT5 environments with branded terminals, web and mobile access, plus the administrator or manager controls required by your operating model.</p>
+            </div>
+            <a href="trading-platforms/">Platforms →</a>
           </article>
 
-          <article class="mgl-stack-card mgl-stack-card--model" data-aos="fade-up" data-aos-duration="760">
-            <div class="mgl-stack-card-top"><span class="mgl-stack-index">02</span><span class="mgl-stack-card-label">CONTROL LEVEL</span></div>
-            <h3>Brokerage operating model</h3>
-            <p>Start with a White Label, add trading control through Grey Label, or bring the full operating stack together with Turnkey.</p>
-            <ul><li>Clear ownership and access</li><li>Flexible entry point</li><li>Defined upgrade path</li></ul>
-            <a href="forex-white-label/vs-grey-label/">Compare models <span aria-hidden="true">→</span></a>
+          <article class="mgl-stack-row mgl-stack-row--model" data-aos="fade-up" data-aos-duration="760">
+            <span class="mgl-stack-index">02</span>
+            <div class="mgl-stack-copy">
+              <h4>Brokerage operating model</h4>
+              <p>Choose White Label for a lighter entry point, Grey Label for more trading control, or a Turnkey structure when the platform and operating systems need to be delivered together.</p>
+            </div>
+            <a href="forex-white-label/vs-grey-label/">Compare →</a>
           </article>
 
-          <article class="mgl-stack-card mgl-stack-card--liquidity" data-aos="fade-up" data-aos-duration="820">
-            <div class="mgl-stack-card-top"><span class="mgl-stack-index">03</span><span class="mgl-stack-card-label">EXECUTION</span></div>
-            <h3>Liquidity and execution</h3>
-            <p>Connect providers, bridges and routing choices before live volume makes execution a separate problem to solve.</p>
-            <ul><li>Prime of Prime options</li><li>Bridge connectivity</li><li>A-Book and B-Book choices</li></ul>
-            <a href="forex-liquidity/">View liquidity options <span aria-hidden="true">→</span></a>
+          <article class="mgl-stack-row mgl-stack-row--liquidity" data-aos="fade-up" data-aos-duration="820">
+            <span class="mgl-stack-index">03</span>
+            <div class="mgl-stack-copy">
+              <h4>Liquidity and execution</h4>
+              <p>Connect liquidity, bridge and routing decisions with Prime of Prime options and A-Book or B-Book operating choices instead of treating execution as a separate layer.</p>
+            </div>
+            <a href="forex-liquidity/">Liquidity →</a>
           </article>
 
-          <article class="mgl-stack-card mgl-stack-card--crm" data-aos="fade-up" data-aos-duration="880">
-            <div class="mgl-stack-card-top"><span class="mgl-stack-index">04</span><span class="mgl-stack-card-label">CLIENT OPERATIONS</span></div>
-            <h3>Client operations</h3>
-            <p>Keep onboarding, account service and partner activity connected to the live trading environment.</p>
-            <ul><li>CRM and back-office workflows</li><li>KYC and payment automation</li><li>IB and affiliate management</li></ul>
-            <a href="forex-crm/">Explore CRM tools <span aria-hidden="true">→</span></a>
+          <article class="mgl-stack-row mgl-stack-row--crm" data-aos="fade-up" data-aos-duration="880">
+            <span class="mgl-stack-index">04</span>
+            <div class="mgl-stack-copy">
+              <h4>Client operations</h4>
+              <p>Link CRM, back office, IB portal, KYC and payment automation so onboarding and account servicing remain connected to the trading environment.</p>
+            </div>
+            <a href="forex-crm/">CRM →</a>
           </article>
 
-          <article class="mgl-stack-card mgl-stack-card--admin" data-aos="fade-up" data-aos-duration="940">
-            <div class="mgl-stack-card-top"><span class="mgl-stack-index">05</span><span class="mgl-stack-card-label">OVERSIGHT</span></div>
-            <h3>Admin, risk and trading control</h3>
-            <p>Set up the access and controls needed to manage accounts, conditions and day-to-day brokerage operations.</p>
-            <ul><li>Operational account oversight</li><li>Trading-condition controls</li><li>Scalable administration access</li></ul>
-            <a href="mt-admin-license/">Review admin access <span aria-hidden="true">→</span></a>
+          <article class="mgl-stack-row mgl-stack-row--admin" data-aos="fade-up" data-aos-duration="940">
+            <span class="mgl-stack-index">05</span>
+            <div class="mgl-stack-copy">
+              <h4>Admin, risk and trading control</h4>
+              <p>Use the appropriate administration layer for account settings, trading conditions and operational oversight, with a clear upgrade path when more direct platform control is required.</p>
+            </div>
+            <a href="mt-admin-license/">Admin access →</a>
           </article>
 
-          <article class="mgl-stack-card mgl-stack-card--launch" data-aos="fade-up" data-aos-duration="1000">
-            <div class="mgl-stack-card-top"><span class="mgl-stack-index">06</span><span class="mgl-stack-card-label">GO LIVE</span></div>
-            <h3>Launch, testing and handover</h3>
-            <p>Move through configuration, integration checks and team handover with one connected launch plan.</p>
-            <ul><li>Configuration review</li><li>Integration and journey testing</li><li>Operational handover support</li></ul>
-            <a href="forex-broker-turnkey/how-it-works/">See the launch process <span aria-hidden="true">→</span></a>
+          <article class="mgl-stack-row mgl-stack-row--launch" data-aos="fade-up" data-aos-duration="1000">
+            <span class="mgl-stack-index">06</span>
+            <div class="mgl-stack-copy">
+              <h4>Launch, testing and handover</h4>
+              <p>Bring configuration, integration checks and operational handover into the launch process so the brokerage moves from setup to live operations with fewer gaps between systems.</p>
+            </div>
+            <a href="forex-broker-turnkey/how-it-works/">Launch process →</a>
           </article>
         </div>
       </div>
