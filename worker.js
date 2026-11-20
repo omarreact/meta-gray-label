@@ -10,7 +10,7 @@ import {
   specialAssetPath
 } from "./src/renderer.js";
 
-let sharedCache;
+let sharedCache;\nlet sharedCacheAt = 0;\nconst SHARED_CACHE_TTL_MS = 300000;
 
 function staticOrigin(env, requestOrigin) {
   return String(env.STATIC_ORIGIN || requestOrigin).replace(/\/$/, "");
@@ -34,12 +34,20 @@ async function assetText(env, origin, path) {
 }
 
 async function sharedData(env, origin) {
-  if (!sharedCache) {
+  const now = Date.now();
+  if (!sharedCache || now - sharedCacheAt >= SHARED_CACHE_TTL_MS) {
+    sharedCacheAt = now;
     sharedCache = Promise.all([
       assetText(env, origin, "/data/content.json").then(JSON.parse),
       assetText(env, origin, "/header.html"),
       assetText(env, origin, "/footer.html")
-    ]).then(([data, header, footer]) => ({ data, header, footer }));
+    ])
+      .then(([data, header, footer]) => ({ data, header, footer }))
+      .catch((error) => {
+        sharedCache = undefined;
+        sharedCacheAt = 0;
+        throw error;
+      });
   }
   return sharedCache;
 }
