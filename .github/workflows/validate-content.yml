@@ -49,6 +49,7 @@ jobs:
           node --check scripts/generate-fse.mjs
           node --check tests/dynamic-renderer.mjs
           node --check tests/architecture.mjs
+          node --check tests/visual-parity.mjs
       - name: Audit dynamic SEO and route inventory
         run: node scripts/audit-seo.mjs --check
       - name: Validate dynamic renderer and compact asset build
@@ -140,6 +141,20 @@ jobs:
           npx playwright install chromium
           node tests/wp-browser.mjs
           node tests/wp-editor.mjs
+
+      - name: Capture source HTML and WordPress visual parity
+        run: |
+          mkdir -p tmp/design-parity
+          python3 -m http.server 4173 --bind 127.0.0.1 > tmp/design-parity/source-server.log 2>&1 &
+          echo $! > tmp/design-parity/source-server.pid
+          for attempt in {1..20}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:4173/ >/dev/null
+          node tests/visual-parity.mjs
       - name: Capture WordPress staging evidence
         if: always()
         run: |
@@ -188,9 +203,14 @@ jobs:
           name: wordpress-staging-qa
           path: |
             tmp/wp-browser-screens/
+            tmp/design-parity/
             tmp/wordpress-qa/
           if-no-files-found: warn
           retention-days: 14
-      - name: Shut down disposable WordPress
+      - name: Shut down disposable staging
         if: always()
-        run: npx --yes @wordpress/env stop || true
+        run: |
+          if [ -f tmp/design-parity/source-server.pid ]; then
+            kill "$(cat tmp/design-parity/source-server.pid)" 2>/dev/null || true
+          fi
+          npx --yes @wordpress/env stop || true
