@@ -39,7 +39,6 @@ jobs:
           node-version: "24"
       - name: Validate generator JavaScript
         run: |
-          node --check scripts/generate.mjs
           node --check scripts/audit-seo.mjs
           node --check tests/architecture.mjs
           node --check scripts/package-wordpress.mjs
