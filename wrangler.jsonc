@@ -9,6 +9,7 @@
     "run_worker_first": true
   },
   "vars": {
-    "PUBLIC_BASE_URL": ""
+    "PUBLIC_BASE_URL": "",
+    "STATIC_ORIGIN": "https://omarreact.github.io/meta-gray-label"
   }
 }

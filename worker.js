@@ -12,9 +12,21 @@ import {
 
 let sharedCache;
 
+function staticOrigin(env, requestOrigin) {
+  return String(env.STATIC_ORIGIN || requestOrigin).replace(/\/$/, "");
+}
+
+async function staticFetch(env, requestOrigin, path, init = {}) {
+  const target = new URL(path, staticOrigin(env, requestOrigin));
+  if (env.ASSETS && typeof env.ASSETS.fetch === "function") {
+    const local = new URL(path, requestOrigin);
+    return env.ASSETS.fetch(new Request(local.toString(), init));
+  }
+  return fetch(new Request(target.toString(), init));
+}
+
 async function assetText(env, origin, path) {
-  const url = new URL(path, origin);
-  const response = await env.ASSETS.fetch(new Request(url.toString(), { method: "GET" }));
+  const response = await staticFetch(env, origin, path, { method: "GET" });
   if (!response.ok) throw new Error(`Asset ${path} returned ${response.status}`);
   return response.text();
 }
@@ -55,7 +67,12 @@ export default {
     const url = new URL(request.url);
     const path = normalizePath(url.pathname);
 
-    if (isStaticAssetPath(path)) return env.ASSETS.fetch(request);
+    if (isStaticAssetPath(path)) {
+      const upstream = await staticFetch(env, url.origin, path, request);
+      const headers = new Headers(upstream.headers);
+      headers.set("cache-control", "public, max-age=3600, s-maxage=86400");
+      return new Response(upstream.body, { status: upstream.status, headers });
+    }
 
     const { data, header, footer } = await sharedData(env, url.origin);
     const base = publicBase(request, env);
@@ -68,7 +85,7 @@ export default {
 
     const special = specialAssetPath(path);
     if (special) {
-      const response = await env.ASSETS.fetch(new Request(new URL(special, url.origin), { method: "GET" }));
+      const response = await staticFetch(env, url.origin, special, { method: "GET" });
       if (response.ok) {
         let html = await response.text();
         html = injectSharedParts(html, header, footer);
