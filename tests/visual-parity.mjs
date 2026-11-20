@@ -46,7 +46,7 @@ async function inspect(page) {
       footer: box("footer"),
       h1: h1 ? { text: h1.textContent.trim().replace(/\s+/g, " "), ...h1box } : null,
       h1Count: document.querySelectorAll("h1").length,
-      sections: document.querySelectorAll("main section, main .mgl-native-section").length,
+      sections: document.querySelectorAll("section").length || document.querySelectorAll(".mgl-native-section").length,
       navLinks: document.querySelectorAll("header a").length,
       mobileToggleVisible: [...document.querySelectorAll(".header-bar,.wp-block-navigation__responsive-container-open")]
         .some((el) => {
@@ -79,6 +79,21 @@ async function capture(kind, base, route, size) {
     await page.waitForSelector("footer", { state: "attached", timeout: 10000 });
     await page.waitForTimeout(500);
   }
+
+  // Exercise the page like a real visitor so AOS/lazy content is revealed before evidence capture.
+  await page.evaluate(async () => {
+    const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const step = Math.max(240, Math.floor(window.innerHeight * 0.7));
+    for (let y = 0; y <= maxY; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => setTimeout(resolve, 35));
+    }
+    window.scrollTo(0, maxY);
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    window.AOS?.refreshHard?.();
+    window.scrollTo(0, 0);
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  });
 
   const metrics = await inspect(page);
   assert.equal(metrics.h1Count, 1, kind + " " + route + " must have exactly one H1");
