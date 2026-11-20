@@ -18,8 +18,8 @@ const copy = (source, target = source) => {
 };
 
 for (const path of ["assets", "media", "data/content.json", "header.html", "footer.html", "index.html",
-  "services.html", "services/index.html", "solutions/index.html", "insights/index.html", "404.html", "robots.txt"]) {
+  "services.html", "solutions/index.html", "insights/index.html", "robots.txt"]) {
   copy(path);
 }
 writeFileSync(resolve(out, ".nojekyll"), "", "utf8");
-console.log("DYNAMIC ASSET BUILD PASS: shared assets + 5 special HTML templates; structured inner routes are rendered at the edge.");
+console.log("DYNAMIC ASSET BUILD PASS: shared assets + 4 special HTML templates; structured inner routes are rendered at the edge.");

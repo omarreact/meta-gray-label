@@ -27,8 +27,8 @@ function checkOrWrite(relative, output) {
     throw new Error("Generated native part is stale: " + relative + ". Run --write.");
   }
 }
-checkOrWrite("parts/header-native.html", header);
-checkOrWrite("parts/footer-native.html", footer);
+checkOrWrite("parts/header.html", header);
+checkOrWrite("parts/footer.html", footer);
 if (pages.length !== 52 || excluded.length !== 0 || special.length !== 4) {
   throw new Error("Expected 48 mapped document pages + 4 unmatched routes");
 }

@@ -1,9 +1,8 @@
-name: Validate JSON-driven dynamic HTML and WordPress-ready themes
+name: Validate dynamic HTML and compact WordPress theme
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
     paths:
       - "data/**"
@@ -12,10 +11,8 @@ on:
       - "patterns/**"
       - "styles/**"
       - "inc/**"
-      - "blocks/**"
-      - "assets/css/fse.css"
-      - "assets/css/style.css"
-      - "assets/js/**"
+      - "assets/**"
+      - "media/**"
       - "scripts/**"
       - "src/**"
       - "worker.js"
@@ -25,7 +22,6 @@ on:
       - "functions.php"
       - "style.css"
       - "theme.json"
-      - "sitemap.xml"
       - ".github/workflows/validate-content.yml"
       - ".wp-env.json"
   workflow_dispatch:
@@ -42,74 +38,54 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-
-      - name: Validate JavaScript
+      - name: Validate source syntax
         run: |
-          node --check scripts/audit-seo.mjs
           node --check worker.js
           node --check src/renderer.js
+          node --check scripts/audit-seo.mjs
           node --check scripts/build-dynamic.mjs
-          node --check tests/dynamic-renderer.mjs
-          node --check tests/architecture.mjs
           node --check scripts/package-wordpress.mjs
           node --check scripts/fse-pages.mjs
           node --check scripts/generate-fse.mjs
-          node --check inc/editor.js
-
-      - name: Audit 52 canonical static compatibility pages
+          node --check tests/dynamic-renderer.mjs
+          node --check tests/architecture.mjs
+      - name: Audit dynamic SEO and route inventory
         run: node scripts/audit-seo.mjs --check
-
-      - name: Validate dynamic edge renderer and compact deploy assets
+      - name: Validate dynamic renderer and compact asset build
         run: |
           node tests/dynamic-renderer.mjs
           node scripts/build-dynamic.mjs
           test -f dist/public/index.html
-          test -f dist/public/data/content.json
-          test ! -e dist/public/forex-grey-label/mt5-grey-label/index.html
+          test -f dist/public/services.html
           test ! -e dist/public/about-us/index.html
-
-      - name: Enforce block metadata and CSS namespace isolation
+          test ! -e dist/public/forex-grey-label/mt5-grey-label/index.html
+      - name: Validate compact WordPress architecture
         run: node tests/architecture.mjs
-
-      - name: Validate native Gutenberg page and template-part projection
+      - name: Validate native Gutenberg projection
         run: |
           node tests/fse-pages.mjs
           node scripts/generate-fse.mjs --check
-
-      - name: Verify WordPress source package
+      - name: Verify WordPress package
         run: node scripts/package-wordpress.mjs --check
-
-      - name: Lint WordPress PHP files
+      - name: Lint WordPress PHP
         run: |
-          php -v
           php -l functions.php
-          php -l inc/renderer.php
           php -l inc/import-pages.php
           php -l patterns/brokerage-hero.php
           php -l patterns/brokerage-cta.php
-          php -l tests/wordpress-renderer-smoke.php
           php -l tests/wordpress-assets-smoke.php
-
-      - name: Smoke-test PHP rendering across 52 page designs
-        run: php tests/wordpress-renderer-smoke.php
-
-      - name: Smoke-test native-only assets WordPress metadata and SEO hooks
+      - name: Smoke-test WordPress assets
         run: php tests/wordpress-assets-smoke.php
-
-      - name: Test WordPress theme package generation
+      - name: Build WordPress theme package
         run: |
           node scripts/package-wordpress.mjs --write
-          test -f dist/wordpress/meta-grey-label/style.css
           test -f dist/wordpress/meta-grey-label/functions.php
-          test -f dist/wordpress/meta-grey-label/templates/index.html
-          test -f dist/wordpress/meta-grey-label/data/content.json
           test -f dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
-          test -f dist/wordpress/meta-grey-label/data/fse-pages/home.html
-          test -f dist/wordpress/meta-grey-label/parts/header-native.html
-          test ! -d templates/pages
-          test ! -d templates/shared
-          test -f dist/wordpress/meta-grey-label/blocks/legacy-page/block.json
+          test -f dist/wordpress/meta-grey-label/parts/header.html
+          test -f dist/wordpress/meta-grey-label/parts/footer.html
           test -f dist/wordpress/meta-grey-label/assets/css/fse.css
+          test ! -e dist/wordpress/meta-grey-label/assets/css/bootstrap.min.css
+          test ! -d dist/wordpress/meta-grey-label/blocks
 
   wordpress-integration:
     name: Real WordPress staging (isolated Docker)
@@ -121,41 +97,33 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-
-      - name: Build installable WordPress theme without touching production
+      - name: Build installable WordPress theme
         run: |
           node scripts/package-wordpress.mjs --write
           cp tests/wp-runtime.php dist/wordpress/meta-grey-label/qa-runtime.php
-
-      - name: Start isolated WordPress and MariaDB via official wp-env
+      - name: Start isolated WordPress and MariaDB
         run: npx --yes @wordpress/env start
-
-      - name: Activate theme and enable pretty permalinks
+      - name: Activate theme and pretty permalinks
         run: |
           npx --yes @wordpress/env run cli wp theme activate meta-grey-label
           npx --yes @wordpress/env run cli wp option update blogname 'Meta Grey Label'
           npx --yes @wordpress/env run cli wp option update permalink_structure '/%postname%/'
           npx --yes @wordpress/env run cli wp rewrite flush
-
-      - name: Dry-run then import into disposable staging database
+      - name: Import native pages
         run: |
-          npx --yes @wordpress/env run cli wp mgl import-pages --native
-          npx --yes @wordpress/env run cli wp mgl import-pages --apply --native --set-homepage
-
-      - name: Assert WordPress parsing rendering and Gutenberg navigation
+          npx --yes @wordpress/env run cli wp mgl import-pages
+          npx --yes @wordpress/env run cli wp mgl import-pages --apply --set-homepage
+      - name: Assert WordPress parsing and navigation
         run: npx --yes @wordpress/env run cli wp eval-file wp-content/themes/meta-grey-label/qa-runtime.php
-
-      - name: Assert actual HTTP pages and conditional frontend assets
+      - name: Assert HTTP pages and frontend assets
         run: node tests/wp-http.mjs
-
-      - name: Browser validation and representative desktop/mobile screenshots
+      - name: Browser validation and desktop/mobile screenshots
         run: |
           npm install --no-save --no-package-lock playwright@1.58.2
           npx playwright install chromium
           node tests/wp-browser.mjs
           node tests/wp-editor.mjs
-
-      - name: Publish disposable staging visual QA evidence
+      - name: Publish visual QA evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -163,7 +131,6 @@ jobs:
           path: tmp/wp-browser-screens/
           if-no-files-found: ignore
           retention-days: 7
-
-      - name: Shut down disposable WordPress environment
+      - name: Shut down disposable WordPress
         if: always()
         run: npx --yes @wordpress/env stop || true

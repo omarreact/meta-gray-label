@@ -1,10 +1,9 @@
 const SPECIAL_ROUTES = new Map([
   ["/", "/index.html"],
   ["/services.html", "/services.html"],
-  ["/services/", "/services/index.html"],
+  ["/services/", "/services.html"],
   ["/solutions/", "/solutions/index.html"],
   ["/insights/", "/insights/index.html"],
-  ["/404.html", "/404.html"]
 ]);
 
 const STATIC_PREFIXES = ["/assets/", "/media/"];

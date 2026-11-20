@@ -150,25 +150,6 @@
       "name": "footer",
       "title": "Site footer",
       "area": "footer"
-    },
-    {
-      "name": "header-native",
-      "title": "Editable native header",
-      "area": "header"
-    },
-    {
-      "name": "footer-native",
-      "title": "Editable native footer",
-      "area": "footer"
-    }
-  ],
-  "customTemplates": [
-    {
-      "name": "page-native",
-      "title": "Meta Grey Label — Editable Native Blocks",
-      "postTypes": [
-        "page"
-      ]
     }
   ]
 }

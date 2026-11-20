@@ -15,7 +15,7 @@ const routes = buildRouteIndex(data);
 assert.ok(routes.size >= 45, "Expected structured route coverage");
 assert.equal(normalizePath("/forex-grey-label"), "/forex-grey-label/");
 assert.equal(specialAssetPath("/"), "/index.html");
-assert.equal(specialAssetPath("/services/"), "/services/index.html");
+assert.equal(specialAssetPath("/services/"), "/services.html");
 
 let rendered = 0;
 for (const [route, entry] of routes) {
