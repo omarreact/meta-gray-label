@@ -152,17 +152,44 @@ menuList.forEach(function (menu) {
 
 var menuLinks = document.querySelectorAll(".menu li a");
 
+function closeSiblingSubmenus(element) {
+    var parentList = element?.parentElement;
+    if (!parentList) return;
+
+    Array.from(parentList.children).forEach(function (sibling) {
+        if (sibling === element || !sibling.classList?.contains("menu-item-has-children")) return;
+        sibling.classList.remove("open");
+        var siblingLink = sibling.querySelector(":scope > a");
+        if (siblingLink) siblingLink.setAttribute("aria-expanded", "false");
+    });
+}
+
+function resetMobileSubmenus() {
+    document.querySelectorAll(".menu .menu-item-has-children.open").forEach(function (item) {
+        item.classList.remove("open");
+        var link = item.querySelector(":scope > a");
+        if (link) link.setAttribute("aria-expanded", "false");
+    });
+}
+
 menuLinks.forEach(function (link) {
     link.addEventListener("click", function (e) {
-        e.stopPropagation(); // prevent the event from bubbling up to parent elements
         var element = link.parentElement;
-        var submenu = element.querySelector(":scope > .submenu");
-        if (parseInt(window.innerWidth, 10) < 992 && submenu) {
+        var submenu = element?.querySelector(":scope > .submenu");
+
+        if (mobileNavQuery.matches && submenu) {
             e.preventDefault();
+            e.stopPropagation();
+
             var expanded = !element.classList.contains("open");
+            closeSiblingSubmenus(element);
             element.classList.toggle("open", expanded);
-            submenu.style.display = expanded ? "block" : "none";
             link.setAttribute("aria-expanded", String(expanded));
+            return;
+        }
+
+        if (mobileNavQuery.matches && !submenu) {
+            setMobileMenu(false);
         }
     });
 });
@@ -183,6 +210,8 @@ function setMobileMenu(open) {
     headerBar.setAttribute("aria-expanded", String(open));
     headerBar.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
     document.documentElement.classList.toggle("mgl-nav-open", open && mobileNavQuery.matches);
+
+    if (!open) resetMobileSubmenus();
 }
 
 headerBar?.addEventListener("click", function () {
@@ -190,7 +219,10 @@ headerBar?.addEventListener("click", function () {
 });
 
 mobileNavQuery.addEventListener("change", function (event) {
-    if (!event.matches) setMobileMenu(false);
+    if (!event.matches) {
+        setMobileMenu(false);
+        resetMobileSubmenus();
+    }
 });
 
 
