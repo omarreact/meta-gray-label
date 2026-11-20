@@ -16,8 +16,7 @@
                   <li class="mgl-solution-group">
                     <span class="mgl-solution-heading">Overview</span>
                     <a href="solutions/">All Solutions</a>
-                    <a href="forex-white-label/vs-grey-label/">Compare Models</a>
-                  </li>
+</li>
                   <li class="mgl-solution-group">
                     <span class="mgl-solution-heading">White Label</span>
                     <a href="forex-white-label/">White Label Overview</a>
@@ -82,17 +81,11 @@
           </div>
           <div class="header-action">
             <div class="menu-area">
-              <div class="header-btn">
-                <a href="forex-white-label/vs-grey-label/" class="trk-btn trk-btn--border trk-btn--primary">
-                  <span>Compare Models</span>
-                </a>
-              </div>
+<div class="mgl-social-links" aria-label="Share this website"><a class="mgl-social-link mgl-share-whatsapp" href="https://api.whatsapp.com/send?text=MetaGreyLabel%20Brokerage%20Technology%20https%3A%2F%2Fmeta-gray-label-dynamic.farukkhanone.workers.dev%2F" target="_blank" rel="noopener noreferrer" aria-label="Share Meta Grey Label via WhatsApp" title="Share via WhatsApp"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 11.5a8.3 8.3 0 0 1-12.4 7.2L3 20l1.3-4.6A8.3 8.3 0 1 1 20.2 11.5Z"/><path d="M8.6 8.1c-.5.2-.9.9-.8 1.5.4 2.4 3 5.1 5.5 5.8.8.2 1.6-.2 1.9-.8l.4-1-2.1-1-.9 1a8.8 8.8 0 0 1-2.5-2.5l.9-.8-1.1-2.2H8.6Z"/></svg></a><a class="mgl-social-link mgl-share-telegram" href="https://t.me/share/url?url=https%3A%2F%2Fmeta-gray-label-dynamic.farukkhanone.workers.dev%2F&text=MetaGreyLabel%20Brokerage%20Technology" target="_blank" rel="noopener noreferrer" aria-label="Share Meta Grey Label via Telegram" title="Share via Telegram"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="m21 3-3.8 17-5.2-4.4-2.9 2.5.5-4.4L21 3Z"/><path d="m3 10 18-7-11.4 10.7L3 10Z"/></svg></a></div>
 
               <button class="mgl-theme-toggle switch-btn" id="btnSwitch" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle light and dark theme">
                 <img src="./assets/images/icon/moon.svg" alt="" width="20" height="20">
               </button>
-
-              <div class="mgl-social-links" aria-label="Share this website"><a class="mgl-social-link mgl-share-whatsapp" href="https://api.whatsapp.com/send?text=MetaGreyLabel%20Brokerage%20Technology%20https%3A%2F%2Fmeta-gray-label-dynamic.farukkhanone.workers.dev%2F" target="_blank" rel="noopener noreferrer" aria-label="Share Meta Grey Label via WhatsApp" title="Share via WhatsApp"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 11.5a8.3 8.3 0 0 1-12.4 7.2L3 20l1.3-4.6A8.3 8.3 0 1 1 20.2 11.5Z"/><path d="M8.6 8.1c-.5.2-.9.9-.8 1.5.4 2.4 3 5.1 5.5 5.8.8.2 1.6-.2 1.9-.8l.4-1-2.1-1-.9 1a8.8 8.8 0 0 1-2.5-2.5l.9-.8-1.1-2.2H8.6Z"/></svg></a><a class="mgl-social-link mgl-share-telegram" href="https://t.me/share/url?url=https%3A%2F%2Fmeta-gray-label-dynamic.farukkhanone.workers.dev%2F&text=MetaGreyLabel%20Brokerage%20Technology" target="_blank" rel="noopener noreferrer" aria-label="Share Meta Grey Label via Telegram" title="Share via Telegram"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="m21 3-3.8 17-5.2-4.4-2.9 2.5.5-4.4L21 3Z"/><path d="m3 10 18-7-11.4 10.7L3 10Z"/></svg></a></div>
 
               <!-- toggle icons -->
               <button class="header-bar d-lg-none header-bar--style1" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open navigation">
@@ -716,6 +709,205 @@
     transition-duration: .01ms !important;
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* Navbar submenu and mobile-control fixes */
+.header-section--style2 .header-action > .menu-area { gap: 8px; }
+.header-section--style2 .mgl-social-links { order: 1; }
+.header-section--style2 .mgl-theme-toggle { order: 2; }
+.header-section--style2 .header-bar { order: 3; }
+
+@media (min-width: 992px) {
+  .header-section--style2 .menu li > .submenu {
+    top: calc(100% + 8px);
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega {
+    top: calc(100% + 8px);
+    width: min(1120px, calc(100vw - 48px));
+    padding: 14px;
+    gap: 8px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.97) !important;
+  }
+
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega,
+  [data-bs-theme="dark"] .header-section--style2 .menu li > .submenu {
+    background: rgba(8,28,39,.97) !important;
+  }
+
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group { padding: 10px !important; }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-heading {
+    margin-bottom: 5px;
+    padding: 0 6px 7px;
+  }
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a {
+    padding: 7px 6px;
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega {
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    width: min(900px, calc(100vw - 40px));
+  }
+}
+
+@media (max-width: 991px) {
+  .header-section--style2 .header-bottom > .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .header-section--style2 .header-wrapper > .menu-area > .menu {
+    top: calc(100% + 8px);
+    max-height: calc(100dvh - 104px);
+    padding: 8px;
+    gap: 1px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .header-section--style2 .menu > li > a {
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  .header-section--style2 .menu li > .submenu {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-height: none !important;
+    margin: 3px 0 7px !important;
+    padding: 6px !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(12,38,58,.08) !important;
+    background: rgba(8,60,58,.035) !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    display: none !important;
+  }
+
+  .header-section--style2 .menu li.open > .submenu {
+    display: block !important;
+  }
+
+  .header-section--style2 .mgl-solutions-item.open > .mgl-solutions-mega {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 6px;
+    padding: 6px !important;
+  }
+
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    padding: 8px !important;
+    border: 1px solid rgba(12,38,58,.07) !important;
+    border-radius: 10px;
+    background: rgba(255,255,255,.38);
+  }
+
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-heading {
+    padding: 3px 5px 7px;
+    font-size: 11px;
+  }
+
+  .header-section--style2 .mgl-solutions-mega .mgl-solution-group > a {
+    padding: 7px 5px !important;
+    font-size: 13px !important;
+    line-height: 1.3;
+  }
+
+  [data-bs-theme="dark"] .header-section--style2 .menu li > .submenu {
+    border-color: rgba(255,255,255,.09) !important;
+    background: rgba(255,255,255,.035) !important;
+  }
+
+  [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-mega .mgl-solution-group {
+    border-color: rgba(255,255,255,.07) !important;
+    background: rgba(255,255,255,.025);
+  }
+
+  .header-section--style2 .header-bar {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    color: var(--title-color);
+    border: 1px solid rgba(75,144,147,.18) !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,.30) !important;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+  }
+
+  .header-section--style2 .header-bar span {
+    position: absolute !important;
+    left: 9px !important;
+    right: auto !important;
+    top: 50% !important;
+    bottom: auto !important;
+    width: 22px !important;
+    height: 2px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: currentColor !important;
+    transform-origin: center !important;
+    transition: transform .2s ease, opacity .2s ease !important;
+  }
+
+  .header-section--style2 .header-bar span:first-child { transform: translateY(-7px) !important; }
+  .header-section--style2 .header-bar span:nth-child(2) { transform: translateY(-1px) !important; }
+  .header-section--style2 .header-bar span:last-child { transform: translateY(5px) !important; }
+  .header-section--style2 .header-bar.active span:first-child { transform: translateY(-1px) rotate(45deg) !important; }
+  .header-section--style2 .header-bar.active span:nth-child(2) { opacity: 0 !important; }
+  .header-section--style2 .header-bar.active span:last-child { transform: translateY(-1px) rotate(-45deg) !important; }
+
+  [data-bs-theme="dark"] .header-section--style2 .header-bar {
+    color: #f4fbfa;
+    border-color: rgba(255,255,255,.14) !important;
+    background: rgba(255,255,255,.075) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+  }
+}
+
+@media (max-width: 575px) {
+  .header-section--style2 .mgl-solutions-item.open > .mgl-solutions-mega {
+    grid-template-columns: 1fr;
+  }
+
+  .header-section--style2 .header-action > .menu-area { gap: 6px; }
+
+  .header-section--style2 .header-bar {
+    min-width: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+  }
+
+  .header-section--style2 .header-bar span {
+    left: 8px !important;
+    width: 20px !important;
   }
 }
 
