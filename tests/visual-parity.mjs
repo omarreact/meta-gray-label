@@ -86,7 +86,7 @@ async function capture(kind, base, route, size) {
     const step = Math.max(240, Math.floor(window.innerHeight * 0.7));
     for (let y = 0; y <= maxY; y += step) {
       window.scrollTo(0, y);
-      await new Promise((resolve) => setTimeout(resolve, 35));
+      await new Promise((resolve) => setTimeout(resolve, 120));
     }
     window.scrollTo(0, maxY);
     await new Promise((resolve) => setTimeout(resolve, 150));
