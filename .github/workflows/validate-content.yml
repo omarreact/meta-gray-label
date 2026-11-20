@@ -1,4 +1,5 @@
-name: Validate JSON-driven static and WordPress-ready themes
+name: Validate JSON-driven dynamic HTML and WordPress-ready themes
+
 on:
   push:
     branches:
@@ -15,9 +16,11 @@ on:
       - "assets/css/fse.css"
       - "assets/css/style.css"
       - "assets/js/**"
-      - "scripts/**"\n      - "src/**"\n      - "worker.js"\n      - "wrangler.jsonc"
+      - "scripts/**"
+      - "src/**"
+      - "worker.js"
+      - "wrangler.jsonc"
       - "tests/**"
-      - "docs/**"
       - "**/*.html"
       - "functions.php"
       - "style.css"
@@ -26,8 +29,10 @@ on:
       - ".github/workflows/validate-content.yml"
       - ".wp-env.json"
   workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -37,24 +42,43 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Validate generator JavaScript
+
+      - name: Validate JavaScript
         run: |
-          node --check scripts/audit-seo.mjs\n          node --check worker.js\n          node --check src/renderer.js\n          node --check scripts/build-dynamic.mjs\n          node --check tests/dynamic-renderer.mjs
+          node --check scripts/audit-seo.mjs
+          node --check worker.js
+          node --check src/renderer.js
+          node --check scripts/build-dynamic.mjs
+          node --check tests/dynamic-renderer.mjs
           node --check tests/architecture.mjs
           node --check scripts/package-wordpress.mjs
           node --check scripts/fse-pages.mjs
           node --check scripts/generate-fse.mjs
           node --check inc/editor.js
-      - name: Audit 52 canonical static pages for metadata and SEO
+
+      - name: Audit 52 canonical static compatibility pages
         run: node scripts/audit-seo.mjs --check
-      - name: Validate dynamic edge renderer and compact deploy assets\n        run: |\n          node tests/dynamic-renderer.mjs\n          node scripts/build-dynamic.mjs\n          test -f dist/public/index.html\n          test -f dist/public/data/content.json\n          test ! -e dist/public/forex-grey-label/mt5-grey-label/index.html\n          test ! -e dist/public/about-us/index.html\n      - name: Enforce block metadata and CSS namespace isolation
+
+      - name: Validate dynamic edge renderer and compact deploy assets
+        run: |
+          node tests/dynamic-renderer.mjs
+          node scripts/build-dynamic.mjs
+          test -f dist/public/index.html
+          test -f dist/public/data/content.json
+          test ! -e dist/public/forex-grey-label/mt5-grey-label/index.html
+          test ! -e dist/public/about-us/index.html
+
+      - name: Enforce block metadata and CSS namespace isolation
         run: node tests/architecture.mjs
+
       - name: Validate native Gutenberg page and template-part projection
         run: |
           node tests/fse-pages.mjs
           node scripts/generate-fse.mjs --check
+
       - name: Verify WordPress source package
         run: node scripts/package-wordpress.mjs --check
+
       - name: Lint WordPress PHP files
         run: |
           php -v
@@ -65,10 +89,13 @@ jobs:
           php -l patterns/brokerage-cta.php
           php -l tests/wordpress-renderer-smoke.php
           php -l tests/wordpress-assets-smoke.php
+
       - name: Smoke-test PHP rendering across 52 page designs
         run: php tests/wordpress-renderer-smoke.php
-      - name: Smoke-test native-only assets, WordPress metadata and SEO hooks
+
+      - name: Smoke-test native-only assets WordPress metadata and SEO hooks
         run: php tests/wordpress-assets-smoke.php
+
       - name: Test WordPress theme package generation
         run: |
           node scripts/package-wordpress.mjs --write
@@ -83,6 +110,7 @@ jobs:
           test ! -d templates/shared
           test -f dist/wordpress/meta-grey-label/blocks/legacy-page/block.json
           test -f dist/wordpress/meta-grey-label/assets/css/fse.css
+
   wordpress-integration:
     name: Real WordPress staging (isolated Docker)
     needs: verify
@@ -93,32 +121,40 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+
       - name: Build installable WordPress theme without touching production
         run: |
           node scripts/package-wordpress.mjs --write
           cp tests/wp-runtime.php dist/wordpress/meta-grey-label/qa-runtime.php
+
       - name: Start isolated WordPress and MariaDB via official wp-env
         run: npx --yes @wordpress/env start
+
       - name: Activate theme and enable pretty permalinks
         run: |
           npx --yes @wordpress/env run cli wp theme activate meta-grey-label
           npx --yes @wordpress/env run cli wp option update blogname 'Meta Grey Label'
           npx --yes @wordpress/env run cli wp option update permalink_structure '/%postname%/'
           npx --yes @wordpress/env run cli wp rewrite flush
+
       - name: Dry-run then import into disposable staging database
         run: |
           npx --yes @wordpress/env run cli wp mgl import-pages --native
           npx --yes @wordpress/env run cli wp mgl import-pages --apply --native --set-homepage
+
       - name: Assert WordPress parsing rendering and Gutenberg navigation
         run: npx --yes @wordpress/env run cli wp eval-file wp-content/themes/meta-grey-label/qa-runtime.php
+
       - name: Assert actual HTTP pages and conditional frontend assets
         run: node tests/wp-http.mjs
+
       - name: Browser validation and representative desktop/mobile screenshots
         run: |
           npm install --no-save --no-package-lock playwright@1.58.2
           npx playwright install chromium
           node tests/wp-browser.mjs
           node tests/wp-editor.mjs
+
       - name: Publish disposable staging visual QA evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -127,6 +163,7 @@ jobs:
           path: tmp/wp-browser-screens/
           if-no-files-found: ignore
           retention-days: 7
+
       - name: Shut down disposable WordPress environment
         if: always()
         run: npx --yes @wordpress/env stop || true
