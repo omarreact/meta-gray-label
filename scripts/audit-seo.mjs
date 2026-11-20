@@ -6,7 +6,7 @@
  * node scripts/audit-seo.mjs --check   # CI: fail on broken technical signals
  * node scripts/audit-seo.mjs --report  # Print warnings and route summaries
  */
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -34,6 +34,18 @@ function tags(html, name) {
 }
 function problem(file, message) { problems.push(file + ": " + message); }
 function warning(file, message) { warnings.push(file + ": " + message); }
+function localTargetExists(file, value) {
+  if (!value || value.startsWith("#") || value.startsWith("?") ||
+      value.startsWith("//") || value.startsWith("/") ||
+      /^[a-z][a-z0-9+.-]*:/i.test(value)) {
+    return true;
+  }
+  const clean = value.split(/[?#]/, 1)[0];
+  if (!clean) return true;
+  let target = resolve(root, dirname(file), clean);
+  if (clean.endsWith("/")) target = resolve(target, "index.html");
+  return existsSync(target);
+}
 for (const [path, page] of pages) {
   const html = readFileSync(resolve(root, path), "utf8");
   const titleTags = [...html.matchAll(/<title\b[^>]*>([\s\S]*?)<\/title>/gi)].map(m => m[1].trim());
@@ -66,6 +78,19 @@ for (const [path, page] of pages) {
 
   const openGraph = meta.filter(tag => attr(tag, "property") === "og:title");
   if (openGraph.length !== 1) warning(path, "Open Graph title count is " + openGraph.length);
+  const refs = [
+    ...tags(html, "a").map(tag => ["href", attr(tag, "href")]),
+    ...tags(html, "link").map(tag => ["href", attr(tag, "href")]),
+    ...tags(html, "script").map(tag => ["src", attr(tag, "src")]),
+    ...tags(html, "img").map(tag => ["src", attr(tag, "src")]),
+    ...tags(html, "source").map(tag => ["src", attr(tag, "src")])
+  ];
+  for (const [kind, value] of refs) {
+    if (value && !localTargetExists(path, value)) {
+      problem(path, "broken local " + kind + " " + JSON.stringify(value));
+    }
+  }
+
   const imgs = tags(html, "img");
   const withoutAlt = imgs.filter(tag => !/\balt\s*=/.test(tag));
   if (withoutAlt.length) warning(path, "images missing alt attribute: " + withoutAlt.length);

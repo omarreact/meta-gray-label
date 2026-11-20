@@ -41,6 +41,20 @@ function localPath(relative) {
   }
   return absolute;
 }
+function rebaseOneLevelRelativeUrls(html) {
+  return html.replace(/\b(src|href)=("[^"]*"|'[^']*')/gi, (full, name, quoted) => {
+    const quote = quoted[0];
+    const value = quoted.slice(1, -1);
+    if (!value || value.startsWith("#") || value.startsWith("?") ||
+        value.startsWith("/") || value.startsWith("//") ||
+        value.startsWith("../") || /^[a-z][a-z0-9+.-]*:/i.test(value)) {
+      return full;
+    }
+    const rebased = value.startsWith("./") ? "../" + value.slice(2) : "../" + value;
+    return name + "=" + quote + rebased + quote;
+  });
+}
+
 let verified = 0;
 let updated = 0;
 const mismatches = [];
@@ -97,7 +111,10 @@ for (const [file, record] of Object.entries(config.pages)) {
   if (unused.length) {
     throw new Error("Unused fields in " + file + ": " + unused.slice(0, 4).join(", "));
   }
-  emit(file, rendered);
+  const output = file === "services/index.html"
+    ? rebaseOneLevelRelativeUrls(rendered)
+    : rendered;
+  emit(file, output);
 }
 const sitemap = config.sitemap;
 if (!Array.isArray(sitemap.urls) || !sitemap.xmlns || !sitemap.declaration) {

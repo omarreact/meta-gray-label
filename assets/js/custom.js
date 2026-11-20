@@ -26,7 +26,9 @@ const colorSwitcher = document.getElementById('btnSwitch');
 
 
 switchThemeByUrl();
-updateThemeColor(localStorage.getItem('theme') || 'dark')
+const savedTheme = localStorage.getItem('theme');
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+updateThemeColor(savedTheme || systemTheme);
 
 
 colorSwitcher?.addEventListener('click', () => {
@@ -156,7 +158,7 @@ menuLinks.forEach(function (link) {
         e.stopPropagation(); // prevent the event from bubbling up to parent elements
         var element = link.parentElement;
         var submenu = element.querySelector(":scope > .submenu");
-        if (parseInt(window.innerWidth, 10) < 1200 && submenu) {
+        if (parseInt(window.innerWidth, 10) < 992 && submenu) {
             e.preventDefault();
             var expanded = !element.classList.contains("open");
             element.classList.toggle("open", expanded);
@@ -171,12 +173,25 @@ menuLinks.forEach(function (link) {
 
 // Toggle header bar on click
 var headerBar = document.querySelector(".header-bar");
+var primaryMenu = document.querySelector("#primary-navigation, .header-section--style2 .menu");
+var mobileNavQuery = window.matchMedia("(max-width: 991.98px)");
+
+function setMobileMenu(open) {
+    if (!headerBar || !primaryMenu) return;
+
+    headerBar.classList.toggle("active", open);
+    primaryMenu.classList.toggle("active", open);
+    headerBar.setAttribute("aria-expanded", String(open));
+    headerBar.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    document.documentElement.classList.toggle("mgl-nav-open", open && mobileNavQuery.matches);
+}
+
 headerBar?.addEventListener("click", function () {
-    headerBar.classList.toggle("active");
-    var menu = document.querySelector(".menu");
-    if (menu) {
-        menu.classList.toggle("active");
-    }
+    setMobileMenu(!primaryMenu?.classList.contains("active"));
+});
+
+mobileNavQuery.addEventListener("change", function (event) {
+    if (!event.matches) setMobileMenu(false);
 });
 
 
@@ -204,6 +219,16 @@ window.addEventListener("scroll", function () {
 // invisible or offset during a fast scroll.
 function initialiseScrollEffects() {
     if (!window.AOS) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+        document.querySelectorAll('[data-aos]').forEach(function (element) {
+            element.removeAttribute('data-aos');
+            element.removeAttribute('data-aos-duration');
+            element.removeAttribute('data-aos-delay');
+        });
+        return;
+    }
 
     AOS.init({
         once: true,

@@ -53,7 +53,7 @@
         {
           "slug": "medium",
           "name": "Body",
-          "size": "1.125rem"
+          "size": "1rem"
         },
         {
           "slug": "large",
@@ -63,7 +63,7 @@
         {
           "slug": "x-large",
           "name": "Display",
-          "size": "clamp(2.35rem, 4.5vw, 4.8rem)"
+          "size": "clamp(2.25rem, 5.1vw, 4.25rem)"
         }
       ],
       "fontFamilies": [
@@ -135,8 +135,9 @@
       }
     },
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--inter)",
-      "lineHeight": "1.6"
+      "fontFamily": "var(--wp--preset--font-family--poppins)",
+      "lineHeight": "1.7",
+      "fontSize": "1rem"
     }
   },
   "templateParts": [

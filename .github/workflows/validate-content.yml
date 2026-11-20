@@ -10,6 +10,8 @@ on:
       - "inc/**"
       - "blocks/**"
       - "assets/css/fse.css"
+      - "assets/css/style.css"
+      - "assets/js/**"
       - "scripts/**"
       - "tests/**"
       - "docs/**"

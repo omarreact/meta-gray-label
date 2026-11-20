@@ -147,3 +147,42 @@
   width: auto !important;
   margin-inline: calc(50% - 50vw) !important;
 }
+
+
+/* MGL BENCHMARK PARITY OVERRIDES 2026-11-20 */
+.mgl-native-page {
+  --mgl-native-container: 1160px;
+  --mgl-native-gutter: 24px;
+  --mgl-native-section-y: 92px;
+  --mgl-native-section-y-mobile: 65px;
+  --mgl-native-h1: clamp(36px,5.1vw,68px);
+  --mgl-native-h2: clamp(28px,3.5vw,46px);
+  overflow-x: clip;
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  padding-bottom: var(--mgl-native-section-y);
+}
+.mgl-native-page .mgl-native-section {
+  padding-block: var(--mgl-native-section-y);
+  padding-inline: max(var(--mgl-native-gutter),calc((100vw - var(--mgl-native-container))/2));
+}
+.mgl-native-page h1 { font-size: var(--mgl-native-h1); line-height: 1.09; letter-spacing: -.045em; }
+.mgl-native-page h2 { font-size: var(--mgl-native-h2); line-height: 1.16; letter-spacing: -.045em; }
+.mgl-native-page h3 { font-size: clamp(18px,1.55vw,20px); line-height: 1.3; }
+.mgl-native-page p { max-width: 68ch; font-size: 16px; line-height: 1.8; }
+.mgl-native-page .mgl-native-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: .16em; }
+.mgl-native-page .mgl-native-section--hero { padding-top: 66px; padding-bottom: 42px; }
+@media(max-width:767.98px) {
+  .mgl-native-page {
+    --mgl-native-gutter: 17px;
+    font-size: 15px;
+    padding-bottom: var(--mgl-native-section-y-mobile);
+  }
+  .mgl-native-page .mgl-native-section {
+    padding-block: var(--mgl-native-section-y-mobile);
+    padding-inline: var(--mgl-native-gutter);
+  }
+  .mgl-native-page .mgl-native-section--hero { padding-top: 48px; padding-bottom: 35px; }
+  .mgl-native-page p { font-size: 15px; }
+}
