@@ -22,7 +22,7 @@ if (document.readyState === 'loading') {
 
 // =================== light and dark start ================== //
 
-const colorSwitcher = document.getElementById('btnSwitch');
+const colorSwitcher = document.querySelector('.header-section--style2 #btnSwitch') || document.getElementById('btnSwitch');
 
 
 switchThemeByUrl();
@@ -379,39 +379,34 @@ const roadmapSlider = new Swiper('.roadmap__slider', {
 
 // =================== scroll js start here =================== //
 
-// Show/hide button on scroll
-window.addEventListener('scroll', function () {
-    var scrollToTop = document.querySelector('.scrollToTop');
+const scrollToTop = document.querySelector('.scrollToTop');
 
-    if (scrollToTop) {
-        if (window.pageYOffset > 300) {
-            scrollToTop.style.bottom = '7%';
-            scrollToTop.style.opacity = '1';
-            scrollToTop.style.transition = 'all .5s ease';
-        } else {
-            scrollToTop.style.bottom = '-30%';
-            scrollToTop.style.opacity = '0';
-            scrollToTop.style.transition = 'all .5s ease';
-        }
-    }
-});
+function updateScrollToTopVisibility() {
+    if (!scrollToTop) return;
 
-var scrollToTop = document.querySelector('.scrollToTop');
+    const visible = window.scrollY > 300;
+    scrollToTop.style.bottom = visible ? '7%' : '-30%';
+    scrollToTop.style.opacity = visible ? '1' : '0';
+    scrollToTop.style.pointerEvents = visible ? 'auto' : 'none';
+    scrollToTop.setAttribute('aria-hidden', String(!visible));
+    scrollToTop.tabIndex = visible ? 0 : -1;
+}
 
 if (scrollToTop) {
+    scrollToTop.style.transition = 'bottom .35s ease, opacity .35s ease';
+    updateScrollToTopVisibility();
 
-    // Click event to scroll to top
-    scrollToTop.addEventListener('click', function (e) {
-        e.preventDefault();
-        var scrollDuration = 100; // Set scroll duration in milliseconds
-        var scrollStep = -window.scrollY / (scrollDuration / 15);
-        var scrollInterval = setInterval(function () {
-            if (window.scrollY !== 0) {
-                window.scrollBy(0, scrollStep);
-            } else {
-                clearInterval(scrollInterval);
-            }
-        }, 15);
+    window.addEventListener('scroll', updateScrollToTopVisibility, { passive: true });
+
+    scrollToTop.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: reduceMotion ? 'auto' : 'smooth'
+        });
     });
 }
 
