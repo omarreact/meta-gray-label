@@ -223,6 +223,12 @@
 .mgl-native-navigation .wp-block-navigation-item__content { padding:8px 9px;font-weight:600; }
 .mgl-native-navigation .wp-block-navigation__submenu-container { min-width:280px!important;padding:8px!important;border-radius:12px; }
 .mgl-native-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding:9px 10px;font-weight:500; }
+@media(min-width:1200px){
+  .mgl-native-navigation .wp-block-navigation-item.has-child > .wp-block-navigation__submenu-container{
+    top:100%!important;
+    margin-top:0!important;
+  }
+}
 @media(max-width:767px){
   .mgl-native-page .mgl-native-section{padding:48px 16px}
   .mgl-native-page h1{overflow-wrap:anywhere}
