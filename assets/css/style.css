@@ -14246,3 +14246,120 @@ textarea:focus-visible,
     width: 100%;
   }
 }
+
+
+/* MGL REFERENCE RHYTHM + SOFT DARK 2026-11-21 */
+:root {
+  --mgl-font-body: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mgl-font-heading: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --mgl-type-body: 16px;
+  --mgl-type-body-mobile: 15px;
+  --mgl-type-h1: clamp(34px, 4.7vw, 62px);
+  --mgl-type-h2: clamp(26px, 3vw, 42px);
+  --mgl-type-h3: clamp(18px, 1.45vw, 21px);
+  --mgl-leading-body: 1.65;
+  --mgl-leading-display: 1.08;
+  --mgl-leading-heading: 1.16;
+  --mgl-tracking-heading: -0.03em;
+  --mgl-copy-measure: 68ch;
+  --mgl-heading-measure: 760px;
+  --mgl-container: 1180px;
+  --mgl-section-y: 80px;
+  --mgl-section-y-mobile: 56px;
+  --mgl-hero-top: 58px;
+  --mgl-hero-bottom: 38px;
+  --mgl-hero-top-mobile: 44px;
+  --mgl-hero-bottom-mobile: 32px;
+  --mgl-card-pad: 22px;
+  --mgl-card-pad-mobile: 17px;
+}
+body {
+  font-family: var(--mgl-font-body);
+  font-size: var(--mgl-type-body);
+  line-height: var(--mgl-leading-body);
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--mgl-font-heading);
+  letter-spacing: var(--mgl-tracking-heading);
+}
+h1 { font-size: var(--mgl-type-h1); line-height: var(--mgl-leading-display); }
+h2 { font-size: var(--mgl-type-h2); line-height: var(--mgl-leading-heading); }
+h3 { font-size: var(--mgl-type-h3); line-height: 1.3; }
+.section-header { margin-block-end: 32px; }
+.section-header p { margin-block-start: 12px; line-height: 1.7; }
+.padding-top { padding-top: var(--mgl-section-y) !important; }
+.padding-bottom { padding-bottom: var(--mgl-section-y) !important; }
+.mgl-inner-page .mgl-inner-hero {
+  padding-top: var(--mgl-hero-top);
+  padding-bottom: var(--mgl-hero-bottom);
+}
+.mgl-hero-summary,
+.mgl-copy p { line-height: 1.7; }
+
+[data-bs-theme=dark] {
+  --body-color: #122720;
+  --tertiary-color: #1b3a31;
+  --tertiary-color2: #18342c;
+  --tertiary-color3: #1c342f;
+  --header-bg-color: #173b31;
+  --header-bg-color2: #1c4650;
+  --title-color: #f4fbf8;
+  --title-color-style2: #d6e3df;
+  --text-color: rgba(238, 248, 244, .76);
+  --text-color-light: #edf7f4;
+  --text-color-2: rgba(238, 248, 244, .72);
+  --text-color-3: rgba(238, 248, 244, .80);
+  --bg-color: rgba(239, 248, 245, .10);
+  --bg-color-trans: rgba(239, 248, 245, .035);
+  --bg-grad-color: #28453d;
+  --bg-grad-color-2: rgba(216, 236, 229, .18);
+  --bg-grad-color-3: rgba(41, 72, 63, .70);
+  --bg-color-2: #20352f;
+  --bg-color-3: #122720;
+  --bg-color-6: #20352f;
+  --bg-color-7: rgba(255, 255, 255, .06);
+  --bg-color-9: #17312a;
+  --bg-color-12: rgba(239, 248, 245, .10);
+  --bg-color-14: #213b34;
+  --bg-team: #203c34;
+  --wh-color: #203b34;
+  --floating-content-bg-color: rgba(47, 74, 66, .97);
+  --service-item-border-color: rgba(255, 255, 255, .08);
+  --service-item-bg-color: #1b362f;
+  --faq-bg-color: #1d392f;
+  --extra-bg-color: #1d392f;
+  --tag-bg-color: #1c4237;
+  --footer-bg-color: #10251f;
+  --pagination-bg-color: #17352d;
+  --section-bg-color: rgba(255, 255, 255, .035);
+  --sec-bg-color-2: #17352d;
+  --account-bg-color: #122720;
+  --account-bg-color2: #17352d;
+  --banner2-bg-color: #173a31;
+  --mgl-page: #122720;
+  --mgl-surface-soft: #1b3a31;
+  --mgl-ink: #f4fbf8;
+  --mgl-copy: rgba(238, 248, 244, .78);
+  --mgl-line: rgba(238, 248, 244, .13);
+}
+[data-bs-theme=dark] body {
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+[data-bs-theme=dark] .mgl-inner-page {
+  background: var(--mgl-page);
+  color: var(--mgl-ink);
+}
+[data-bs-theme=dark] .mgl-inner-page .mgl-inner-hero {
+  background-color: var(--mgl-surface-soft);
+}
+@media (max-width: 767.98px) {
+  body { font-size: var(--mgl-type-body-mobile); }
+  .padding-top { padding-top: var(--mgl-section-y-mobile) !important; }
+  .padding-bottom { padding-bottom: var(--mgl-section-y-mobile) !important; }
+  .mgl-inner-page .mgl-inner-hero {
+    padding-top: var(--mgl-hero-top-mobile);
+    padding-bottom: var(--mgl-hero-bottom-mobile);
+  }
+  .section-header { margin-block-end: 26px; }
+}
