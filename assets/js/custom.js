@@ -311,7 +311,9 @@ function initialiseScrollEffects() {
     if (!window.AOS) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) {
+    const compactViewport = window.matchMedia('(max-width: 767.98px)').matches;
+
+    if (reduceMotion || compactViewport) {
         document.querySelectorAll('[data-aos]').forEach(function (element) {
             element.removeAttribute('data-aos');
             element.removeAttribute('data-aos-duration');
@@ -320,11 +322,19 @@ function initialiseScrollEffects() {
         return;
     }
 
+    // Prevent long stagger chains from making the interface feel slow.
+    document.querySelectorAll('[data-aos-duration]').forEach(function (element) {
+        var duration = Number(element.getAttribute('data-aos-duration'));
+        if (!Number.isFinite(duration) || duration > 650) {
+            element.setAttribute('data-aos-duration', '560');
+        }
+    });
+
     AOS.init({
         once: true,
         mirror: false,
-        offset: 80,
-        duration: 650,
+        offset: 60,
+        duration: 560,
         easing: 'ease-out-cubic',
         anchorPlacement: 'top-bottom'
     });
@@ -360,7 +370,8 @@ const Partner = new Swiper('.partner__slider', {
     },
     autoplay: {
         delay: 1,
-        disableOnInteraction: true,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
     },
     speed: 2000,
 });
@@ -387,7 +398,11 @@ const blog = new Swiper('.blog__slider', {
         }
     },
 
-    autoplay: true,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
     speed: 500,
     navigation: {
         nextEl: ".blog__slider-next",
@@ -418,7 +433,11 @@ const testimonial = new Swiper('.testimonial__slider', {
         },
     },
 
-    autoplay: true,
+    autoplay: {
+        delay: 5500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
     speed: 500,
 
     navigation: {
@@ -458,7 +477,11 @@ const roadmapSlider = new Swiper('.roadmap__slider', {
 
     },
 
-    autoplay: true,
+    autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
     speed: 500,
 
 });
