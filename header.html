@@ -403,19 +403,22 @@
 }
 
 .mgl-nav-item:hover > .mgl-nav-panel,
-.mgl-nav-item:focus-within > .mgl-nav-panel {
+.mgl-nav-item:focus-within > .mgl-nav-panel,
+.mgl-nav-item.is-touch-open > .mgl-nav-panel {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
 
 .mgl-nav-item:hover > .mgl-simple-panel,
-.mgl-nav-item:focus-within > .mgl-simple-panel {
+.mgl-nav-item:focus-within > .mgl-simple-panel,
+.mgl-nav-item.is-touch-open > .mgl-simple-panel {
   transform: translateY(0);
 }
 
 .mgl-nav-item:hover > .mgl-mega-panel,
-.mgl-nav-item:focus-within > .mgl-mega-panel {
+.mgl-nav-item:focus-within > .mgl-mega-panel,
+.mgl-nav-item.is-touch-open > .mgl-mega-panel {
   transform: translate(-50%, 0);
 }
 
