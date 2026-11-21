@@ -148,10 +148,21 @@
   width: min(1520px, calc(100% - 24px));
   transform: translateX(-50%);
   color: var(--mgl-header-text);
+  font-family: "Inter", ui-sans-serif, sans-serif;
+  font-size: 1rem;
+  line-height: 1.625;
 }
 
 .mgl-site-header * {
   box-sizing: border-box;
+}
+
+.mgl-site-header a,
+.mgl-site-header button,
+.mgl-site-header input,
+.mgl-site-header select,
+.mgl-site-header textarea {
+  font-family: inherit;
 }
 
 .mgl-header-shell {
@@ -228,10 +239,11 @@
   padding: 10px clamp(9px, .8vw, 13px);
   border-radius: 11px;
   color: var(--mgl-header-text);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -.01em;
+  font-family: "Inter", ui-sans-serif, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.625;
+  letter-spacing: normal;
   text-decoration: none;
   white-space: nowrap;
   transition: color .18s ease, background-color .18s ease, transform .18s ease;
@@ -306,9 +318,10 @@
   padding: 10px 11px;
   border-radius: 9px;
   color: var(--mgl-header-text);
-  font-size: 13.5px;
-  font-weight: 650;
-  line-height: 1.35;
+  font-family: "Inter", ui-sans-serif, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.625;
   text-decoration: none;
   transition: color .16s ease, background-color .16s ease, transform .16s ease;
 }
@@ -358,10 +371,11 @@
   padding: 0 7px 7px;
   border-bottom: 1px solid rgba(18, 64, 72, .08);
   color: var(--mgl-header-muted);
-  font-size: 10.5px;
-  font-weight: 850;
-  line-height: 1.2;
-  letter-spacing: .08em;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 
@@ -369,10 +383,11 @@
   display: block;
   margin: 7px 7px 3px;
   color: var(--mgl-header-accent);
-  font-size: 10px;
-  font-weight: 850;
-  line-height: 1.2;
-  letter-spacing: .06em;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: .04em;
   text-transform: uppercase;
 }
 
@@ -381,9 +396,10 @@
   padding: 7px;
   border-radius: 8px;
   color: var(--mgl-header-text);
-  font-size: 13px;
-  font-weight: 620;
-  line-height: 1.28;
+  font-family: "Inter", ui-sans-serif, sans-serif;
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.625;
   text-decoration: none;
   transition: color .16s ease, background-color .16s ease, transform .16s ease;
 }
@@ -397,15 +413,19 @@
 .mgl-mega-group--overview a strong {
   display: block;
   margin-bottom: 4px;
-  font-size: 14px;
+  font-family: "Poppins", ui-sans-serif, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 .mgl-mega-group--overview a span {
   display: block;
   color: var(--mgl-header-muted);
-  font-size: 11.5px;
-  font-weight: 520;
-  line-height: 1.45;
+  font-family: "Inter", ui-sans-serif, sans-serif;
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: 1.625;
 }
 
 .mgl-nav-item:hover > .mgl-nav-panel,
@@ -472,9 +492,10 @@
   border-radius: 11px;
   background: linear-gradient(135deg, #00b98e, #009f7d);
   color: #fff;
-  font-size: 13px;
-  font-weight: 800;
-  line-height: 1;
+  font-family: "Inter", ui-sans-serif, sans-serif;
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.25;
   text-decoration: none;
   white-space: nowrap;
   box-shadow: 0 8px 20px rgba(0, 169, 130, .18);
@@ -593,7 +614,7 @@
 
   .mgl-nav-link {
     padding-inline: 8px;
-    font-size: 13.5px;
+    font-size: 1rem;
   }
 
   .mgl-header-actions {
@@ -610,7 +631,7 @@
   .mgl-header-cta {
     min-height: 38px;
     padding-inline: 12px;
-    font-size: 12.5px;
+    font-size: .9375rem;
   }
 }
 
@@ -685,7 +706,7 @@
     width: 100%;
     min-height: 44px;
     padding: 11px 12px;
-    font-size: 15px;
+    font-size: 1rem;
   }
 
   .mgl-nav-disclosure {
@@ -742,7 +763,7 @@
 
   .mgl-mega-group a {
     padding: 7px 6px;
-    font-size: 13px;
+    font-size: .9375rem;
   }
 
   .mgl-simple-panel a {
@@ -904,8 +925,9 @@
     border-radius: 10px;
     color: var(--mgl-header-text);
     background: rgba(255, 255, 255, .35);
-    font-size: 12.5px;
-    font-weight: 700;
+    font-family: "Inter", ui-sans-serif, sans-serif;
+    font-size: .9375rem;
+    font-weight: 500;
     text-decoration: none;
   }
 
