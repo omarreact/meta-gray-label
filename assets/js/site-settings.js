@@ -306,7 +306,7 @@
       return !search || font.family.toLowerCase().includes(search);
     });
     const selected = catalogMap.get(selectedFamily);
-    const visible = matches.slice(0, search ? 300 : 180);
+    const visible = search ? matches.slice(0, 300) : matches;
     if (selected && !visible.some(function (font) { return font.family === selected.family; })) visible.unshift(selected);
     select.innerHTML = visible.map(function (font) {
       const suffix = font.provider === 'system' ? ' — System' : '';
@@ -347,8 +347,8 @@
     const panel = document.getElementById('mgl-dev-settings-panel');
     if (!panel) return;
     const search = panel.querySelector('[data-mgl-font-search]');
-    if (search) search.value = setting.globalFontFamily;
-    renderFontOptions(setting.globalFontFamily, setting.globalFontFamily);
+    if (search) search.value = '';
+    renderFontOptions('', setting.globalFontFamily);
     const mapping = {
       '[data-mgl-body-size]': setting.bodySizePx,
       '[data-mgl-body-line-height]': setting.bodyLineHeight,
