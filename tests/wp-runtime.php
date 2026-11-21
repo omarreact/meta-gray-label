@@ -30,8 +30,8 @@ if ( $native !== 51 || 'page' !== get_option('show_on_front') || ! get_option('p
     WP_CLI::error( 'Wrong native count/homepage configuration.' );
 }
 $part=(string)file_get_contents(get_theme_file_path('parts/header.html'));
-if ( substr_count($part,'<!-- wp:navigation-link') !== 38 ||
-     substr_count($part,'<!-- wp:navigation-submenu') !== 9 ) {
+if ( substr_count($part,'<!-- wp:navigation-link') !== 47 ||
+     substr_count($part,'<!-- wp:navigation-submenu') !== 11 ) {
     WP_CLI::error( 'Native navigation inventory changed.' );
 }
 $parsed=parse_blocks($part);
