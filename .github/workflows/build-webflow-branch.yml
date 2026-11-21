@@ -61,6 +61,13 @@ jobs:
           rm -rf /tmp/mgl-webflow
           mkdir -p /tmp/mgl-webflow
           cp -a dist/public/. /tmp/mgl-webflow/
+          cat > /tmp/mgl-webflow/webflow.json <<'EOF'
+          {
+            "cloud": {
+              "framework": "static"
+            }
+          }
+          EOF
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
