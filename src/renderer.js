@@ -123,6 +123,28 @@ function routeCategory(route) {
   return parts[0] || "";
 }
 
+function heroImageForRoute(route, family) {
+  const category = routeCategory(route);
+  if (family === "article") {
+    const images = ["/assets/images/blog/1.png", "/assets/images/blog/2.png", "/assets/images/blog/3.png"];
+    const score = String(route).split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+    return images[score % images.length];
+  }
+
+  const categoryImages = {
+    "forex-white-label": "/assets/images/blog/1.png",
+    "forex-grey-label": "/assets/images/blog/2.png",
+    "forex-broker-turnkey": "/assets/images/blog/1.png",
+    "forex-liquidity": "/assets/images/blog/2.png",
+    "forex-crm": "/assets/images/blog/3.png",
+    "trading-platforms": "/assets/images/blog/2.png",
+    "mt-admin-license": "/assets/images/blog/3.png",
+    "forex-company-license": "/assets/images/blog/1.png",
+    "about-us": "/assets/images/team/4.png"
+  };
+  return categoryImages[category] || "/assets/images/about/1.png";
+}
+
 function breadcrumbs(route, entry, routeIndex) {
   const parts = normalizePath(route).split("/").filter(Boolean);
   const crumbs = [{ label: "Home", href: "/" }];
@@ -237,7 +259,8 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
   const { intro, sections } = splitDocument(blocks);
   const family = entry.family || (route.startsWith("/insights/") ? "article" : "service");
   const canonical = canonicalBase.replace(/\/$/, "") + normalizePath(route);
-  const heroImage = family === "article" ? "/assets/images/service/5.png" : "/assets/images/about/1.png";
+  const category = routeCategory(route);
+  const heroImage = heroImageForRoute(route, family);
 
   const page = `<!doctype html>
 <html lang="en" data-bs-theme="dark">
@@ -266,7 +289,7 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 <body>
 <div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>
 ${rootifySharedMarkup(header)}
-<main class="mgl-inner-page mgl-family-${family}" id="main-content">
+<main class="mgl-inner-page mgl-family-${family} mgl-category-${slugify(category)}" id="main-content">
 <section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('${heroImage}')"><div class="container mgl-hero-grid"><div>
 ${renderBreadcrumbs(route, entry, routeIndex)}
 <h1>${escapeHtml(title)}</h1>
@@ -279,7 +302,7 @@ ${renderSections(sections)}
 ${renderToc(sections, family)}
 </div></div></section>
 ${renderRelated(route, routeIndex, family)}
-<section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Build the right brokerage stack</h2><p>Compare the operating models and platform options before planning implementation.</p></div><a class="mgl-btn mgl-btn-primary" href="/forex-white-label/vs-grey-label/">Compare Models</a></div></div></section>
+<section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Plan the operating model before the implementation.</h2><p>Review the platform, execution and client-operations layers together, then choose the structure that fits your brokerage.</p></div><div class="mgl-bottom-actions"><a class="mgl-btn mgl-btn-primary" href="/#contact">Get Started</a><a class="mgl-bottom-link" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></div></div></div></section>
 </main>
 ${rootifySharedMarkup(footer)}
 <a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i></a>
