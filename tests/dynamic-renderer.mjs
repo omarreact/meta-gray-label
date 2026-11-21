@@ -13,10 +13,14 @@ const header = readFileSync(new URL("../header.html", import.meta.url), "utf8");
 const footer = readFileSync(new URL("../footer.html", import.meta.url), "utf8");
 const routes = buildRouteIndex(data);
 
-assert.ok(header.includes("Forex White Label"), "requested primary navigation missing");
-assert.ok(header.includes("Tools for Brokers"), "requested broker tools navigation missing");
-assert.ok(header.includes("Sitemap (HTML)"), "requested sitemap navigation label missing");
-assert.equal((header.match(/data-nav-disclosure/g) || []).length, 11, "expected 11 standard dropdown disclosures");
+assert.ok(header.includes(">Solutions<"), "Solutions navigation group missing");
+assert.ok(header.includes(">Technology<"), "Technology navigation group missing");
+assert.ok(header.includes(">Company<"), "Company navigation group missing");
+assert.ok(header.includes(">Resources<"), "Resources navigation group missing");
+assert.ok(header.includes("Forex White Label"), "requested solution route missing");
+assert.ok(header.includes("Copy Trading / PAMM / MAM"), "requested broker tools route missing");
+assert.ok(header.includes("mgl-nav-icon"), "top-level navigation icons missing");
+assert.equal((header.match(/data-nav-disclosure/g) || []).length, 4, "expected 4 grouped standard dropdown disclosures");
 assert.ok(!/mgl-mega|mega-panel|mega-grid/i.test(header), "mega menu markup must remain removed");
 
 assert.ok(routes.size >= 45, "Expected structured route coverage");

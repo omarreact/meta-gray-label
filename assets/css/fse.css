@@ -41,7 +41,10 @@
 .mgl-native-page--grey-label { --mgl-native-accent:#00d094; }
 .mgl-native-page--white-label { --mgl-native-accent:#30a18b; }
 .mgl-native-page--home .mgl-native-section--hero { background:linear-gradient(145deg,#0c263a,#0d6163); }
-.mgl-native-site-header { padding:18px clamp(20px,4vw,70px); border-bottom:1px solid #dbeae7; background:#fff; gap:20px; }
+.mgl-native-site-header { padding:18px clamp(20px,4vw,70px); border-bottom:1px solid #dbeae7; background:#fff; gap:20px; flex-wrap:nowrap!important; }
+.mgl-native-brand{flex:0 0 auto}
+.mgl-native-navigation{margin-left:auto;white-space:nowrap}
+.mgl-native-navigation .wp-block-navigation__container{flex-wrap:nowrap!important}
 .mgl-native-site-header .wp-block-site-title { font-size:1.2rem; font-weight:800; }
 .mgl-native-site-footer { padding:clamp(45px,5vw,90px) clamp(20px,4vw,70px); background:#092935; color:#e4f5f2; }
 .mgl-native-site-footer a { color:inherit; }
@@ -218,11 +221,16 @@
 [data-bs-theme="dark"] .mgl-native-page--home .mgl-native-home-benefits,
 [data-bs-theme="dark"] .mgl-native-home-capabilities { background:#173942;color:#f3f8f7; }
 [data-bs-theme="dark"] .mgl-native-site-footer { background:#153238;color:#eaf5f2; }
-.mgl-native-navigation { font-family:"Inter",ui-sans-serif,sans-serif;font-size:14px;line-height:1.45;gap:8px; }
+.mgl-native-navigation { font-family:"Inter",ui-sans-serif,sans-serif;font-size:13px;line-height:1.45;gap:4px; }
 .mgl-native-navigation .wp-block-navigation-item__content { padding:8px 9px;font-weight:600; }
 .mgl-native-navigation .wp-block-navigation__submenu-container { min-width:280px!important;padding:8px!important;border-radius:12px; }
 .mgl-native-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding:9px 10px;font-weight:500; }
 @media(max-width:767px){
   .mgl-native-page .mgl-native-section{padding:48px 16px}
   .mgl-native-page h1{overflow-wrap:anywhere}
+}
+
+@media(max-width:1199.98px){
+  .mgl-native-navigation .wp-block-navigation__responsive-container:not(.is-menu-open){display:none}
+  .mgl-native-navigation .wp-block-navigation__responsive-container-open{display:flex}
 }

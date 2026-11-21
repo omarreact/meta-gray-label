@@ -55,7 +55,7 @@ const server = createServer(async (req, res) => {
 
 await new Promise((resolveReady) => server.listen(4173, "127.0.0.1", resolveReady));
 const base = "http://127.0.0.1:4173";
-const widths = [360, 390, 768, 1024, 1180, 1440, 1920];
+const widths = [360, 390, 768, 1024, 1180, 1280, 1440, 1920];
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -69,6 +69,7 @@ async function inspectLayout(page, width, label) {
     const social = document.querySelector(".mgl-header-social");
     const cta = document.querySelector(".mgl-header-cta");
     const nav = document.querySelector(".mgl-primary-nav");
+    const navList = document.querySelector(".mgl-nav-list");
     const h1 = document.querySelector("main h1");
     const rect = header?.getBoundingClientRect();
     const display = (node) => node ? getComputedStyle(node).display : "missing";
@@ -89,6 +90,7 @@ async function inspectLayout(page, width, label) {
       socialDisplay: display(social),
       ctaDisplay: display(cta),
       navDisplay: display(nav),
+      navRows: navList ? new Set(Array.from(navList.children).filter(visible).map((item) => Math.round(item.getBoundingClientRect().top))).size : null,
       h1Visible: visible(h1)
     };
   });
@@ -98,13 +100,14 @@ async function inspectLayout(page, width, label) {
   assert(metrics.headerLeft !== null && metrics.headerLeft >= -1, `${label} @ ${width}px header left clipped`);
   assert(metrics.headerRight !== null && metrics.headerRight <= width + 1, `${label} @ ${width}px header right clipped: ${metrics.headerRight}`);
 
-  if (width <= 1279) {
+  if (width <= 1199) {
     assert(metrics.toggleVisible, `${label} @ ${width}px mobile menu toggle is not visible`);
     assert(metrics.socialDisplay === "none", `${label} @ ${width}px social control leaked into mobile top bar`);
     assert(metrics.ctaDisplay === "none", `${label} @ ${width}px desktop CTA leaked into mobile top bar`);
   } else {
     assert(!metrics.toggleVisible, `${label} @ ${width}px mobile menu toggle remains visible on desktop`);
     assert(metrics.navDisplay !== "none", `${label} @ ${width}px desktop nav is hidden`);
+    assert(metrics.navRows === 1, `${label} @ ${width}px desktop navigation wrapped into ${metrics.navRows} rows`);
   }
 
   return metrics;
@@ -135,7 +138,7 @@ try {
     await page.waitForSelector(".mgl-site-header");
     const home = await inspectLayout(page, width, "home");
 
-    if (width <= 1279) {
+    if (width <= 1199) {
       const toggle = page.locator(".mgl-menu-toggle");
       await toggle.click();
       assert(await toggle.getAttribute("aria-expanded") === "true", `home @ ${width}px menu did not open`);

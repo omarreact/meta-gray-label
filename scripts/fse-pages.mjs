@@ -377,88 +377,69 @@ function navSubmenu(label, route, children, topLevel = false) {
 export function buildNativeParts(config) {
   const navigation = [
     { label: "Home", route: "/" },
-    { label: "About Us", route: "/about-us/", children: [
-      ["Why Choose Us", "/about-us/why-choose-us/"],
-      ["Client Testimonials", "#"]
-    ]},
-    { label: "Forex White Label", route: "/forex-white-label/", children: [
+    { label: "Solutions", route: "/solutions/", children: [
+      ["Forex White Label", "/forex-white-label/"],
       ["MT4 White Label", "/forex-white-label/mt4-white-label/"],
       ["MT5 White Label", "/forex-white-label/mt5-white-label/"],
       ["White Label Pricing", "/forex-white-label/pricing/"],
-      ["White Label vs Grey Label", "/forex-white-label/vs-grey-label/"]
-    ]},
-    { label: "Forex Grey Label", route: "/forex-grey-label/", children: [
+      ["Forex Grey Label", "/forex-grey-label/"],
       ["MT4 Grey Label", "/forex-grey-label/mt4-grey-label/"],
       ["MT5 Grey Label", "/forex-grey-label/mt5-grey-label/"],
       ["Grey Label Pricing", "/forex-grey-label/pricing/"],
-      ["Upgrade Grey Label to Admin License", "/forex-grey-label/upgrade-to-admin/"]
+      ["MT4 / MT5 Admin License", "/mt-admin-license/"],
+      ["Forex Broker Turnkey", "/forex-broker-turnkey/"],
+      ["Launch in 2 Days", "/forex-broker-turnkey/how-it-works/"],
+      ["Pricing / Packages", "/solutions/"]
     ]},
-    { label: "MT4 / MT5 Admin License", route: "/mt-admin-license/", children: [
-      ["MT4 Admin License", "/mt-admin-license/mt4-admin/"],
-      ["MT5 Admin License", "/mt-admin-license/mt5-admin/"]
-    ]},
-    { label: "Forex Broker Turnkey", route: "/forex-broker-turnkey/", children: [
-      ["Turnkey Packages", "/forex-broker-turnkey/"],
-      ["Launch in 2 Days (Process)", "/forex-broker-turnkey/how-it-works/"]
-    ]},
-    { label: "Forex Liquidity", route: "/forex-liquidity/", children: [
+    { label: "Technology", route: "/services/", children: [
+      ["Forex Liquidity", "/forex-liquidity/"],
       ["A-Book / B-Book / Hybrid", "/forex-liquidity/a-book-b-book/"],
       ["Liquidity Bridge", "/forex-liquidity/liquidity-bridge/"],
-      ["Prime of Prime (PoP)", "/forex-liquidity/prime-of-prime/"]
-    ]},
-    { label: "Fx CRM | TradeRoom", route: "/forex-crm/", children: [
-      ["Trader's Room (Client Portal)", "#"],
-      ["IB / Affiliate Portal", "/forex-crm/ib-portal/"],
+      ["Prime of Prime (PoP)", "/forex-liquidity/prime-of-prime/"],
+      ["Fx CRM | TradeRoom", "/forex-crm/"],
       ["Back Office & Admin Panel", "/forex-crm/back-office/"],
-      ["KYC & Compliance Module", "/forex-crm/kyc/"],
-      ["Deposit / Withdrawal Automation", "/forex-crm/payments-automation/"]
-    ]},
-    { label: "Trading Platforms (Main Room)", route: "/trading-platforms/", children: [
+      ["KYC & Compliance", "/forex-crm/kyc/"],
+      ["Deposit / Withdrawal Automation", "/forex-crm/payments-automation/"],
+      ["Trading Platforms", "/trading-platforms/"],
       ["Web Trader", "/trading-platforms/web-trader/"],
-      ["Mobile Trading App (iOS / Android)", "/trading-platforms/mobile-app/"],
-      ["Desktop Platform", "/trading-platforms/desktop/"]
+      ["Mobile Trading App", "/trading-platforms/mobile-app/"],
+      ["Desktop Platform", "/trading-platforms/desktop/"],
+      ["MT4 / MT5 Plugins", "/insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/"],
+      ["Copy Trading / PAMM / MAM", "/insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/"]
     ]},
-    { label: "Fx Company & License", route: "/forex-company-license/", children: [
+    { label: "Company", route: "/about-us/", children: [
+      ["About Us", "/about-us/"],
+      ["Why Choose Us", "/about-us/why-choose-us/"],
+      ["Fx Company & License", "/forex-company-license/"],
       ["Offshore Company Formation", "/forex-company-license/company-formation/"],
-      ["Forex License Options", "/forex-company-license/"],
-      ["Bank & Merchant Account Support", "#"]
-    ]},
-    { label: "Branding & Marketing", route: "/services/", children: [
+      ["Branding & Marketing", "/services/"],
       ["Forex Website Design", "/services/"],
       ["Logo & Brand Identity", "/services/"],
       ["Forex SEO & Marketing", "/insights/"],
       ["IB & Affiliate Marketing", "/forex-crm/ib-portal/"]
     ]},
-    { label: "Tools for Brokers", route: "/services/", children: [
-      ["MT4 / MT5 Plugins", "/insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/"],
+    { label: "Resources", route: "/insights/", children: [
+      ["Blogs & News", "/insights/"],
+      ["FAQ", "/#faq"],
       ["Risk Management Tools", "/forex-liquidity/a-book-b-book/"],
       ["Payment Gateways (PSPs)", "/forex-crm/payments-automation/"],
-      ["Reports & Analytics", "/forex-crm/back-office/"],
-      ["Copy Trading / PAMM / MAM", "/insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/"]
+      ["Reports & Analytics", "/forex-crm/back-office/"]
     ]},
-    { label: "Blogs & News (index)", route: "/insights/" },
-    { label: "Pricing / Packages", route: "/solutions/" },
-    { label: "Get a Quote", route: "/contact/" },
-    { label: "FAQ", route: "/#faq" },
-    { label: "Contact", route: "/contact/" },
-    { label: "Privacy Policy", route: "#" },
-    { label: "Terms & Conditions", route: "#" },
-    { label: "Risk Disclosure", route: "#" },
-    { label: "Sitemap (HTML)", route: "#" }
+    { label: "Contact", route: "/contact/" }
   ];
   const navMarkup = navigation.map((item) => item.children
     ? navSubmenu(item.label, item.route, item.children.map(([label, route]) => navLink(label, route)), true)
     : navLink(item.label, item.route)
   ).join("\n");
   const header = [
-    '<!-- wp:group {"align":"full","className":"mgl-native-site-header","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->',
+    '<!-- wp:group {"align":"full","className":"mgl-native-site-header","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"}} -->',
     '<div class="wp-block-group alignfull mgl-native-site-header">',
     '<!-- wp:group {"className":"mgl-native-brand","layout":{"type":"flex","flexWrap":"nowrap"}} -->',
     '<div class="wp-block-group mgl-native-brand">',
     '<!-- wp:site-logo {"width":60,"shouldSyncIcon":false} /-->',
     '<!-- wp:site-title {"level":0} /-->',
     '</div><!-- /wp:group -->',
-    '<!-- wp:navigation {"overlayMenu":"mobile","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"}} -->',
+    '<!-- wp:navigation {"overlayMenu":"mobile","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right","flexWrap":"nowrap"}} -->',
     navMarkup,
     '<!-- /wp:navigation -->',
     '</div><!-- /wp:group -->'
