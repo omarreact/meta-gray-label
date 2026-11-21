@@ -50,6 +50,7 @@ jobs:
           node --check scripts/generate-fse.mjs
           node --check tests/dynamic-renderer.mjs
           node --check tests/architecture.mjs
+          node --check tests/responsive-browser.mjs
       - name: Audit dynamic SEO and route inventory
         run: node scripts/audit-seo.mjs --check
       - name: Validate dynamic renderer and compact asset build
@@ -87,6 +88,33 @@ jobs:
           test -f dist/wordpress/meta-grey-label/assets/css/fse.css
           test ! -e dist/wordpress/meta-grey-label/assets/css/bootstrap.min.css
           test ! -d dist/wordpress/meta-grey-label/blocks
+
+  responsive-web:
+    name: Responsive web QA (7 breakpoints)
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build static runtime fixtures
+        run: node scripts/build-dynamic.mjs
+      - name: Install Chromium QA runtime
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install chromium
+      - name: Validate homepage and Get Started across responsive breakpoints
+        run: node tests/responsive-browser.mjs
+      - name: Publish responsive screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: responsive-web-screenshots
+          path: tmp/responsive-browser-screens/
+          if-no-files-found: ignore
+          retention-days: 7
 
   wordpress-integration:
     name: Real WordPress staging (isolated Docker)
