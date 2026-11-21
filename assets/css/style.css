@@ -14872,3 +14872,143 @@ summary,
     transform:none!important;
   }
 }
+
+
+/* MGL REFERENCE TYPOGRAPHY LOCK + FULL-WIDTH CTA — 2026-11-21 */
+:root{
+  --mgl-ref-xs:12px;
+  --mgl-ref-sm:14px;
+  --mgl-ref-base:clamp(14px,calc(.875rem + ((1vw - 3.2px) * .337)),17px);
+  --mgl-ref-medium:clamp(14px,calc(.875rem + ((1vw - 3.2px) * .674)),20px);
+  --mgl-ref-lg:clamp(15.197px,calc(.95rem + ((1vw - 3.2px) * .877)),23px);
+  --mgl-ref-xl:clamp(20px,calc(1.25rem + ((1vw - 3.2px) * 1.348)),32px);
+  --mgl-ref-large:clamp(22.041px,calc(1.378rem + ((1vw - 3.2px) * 1.568)),36px);
+  --mgl-ref-xlarge:clamp(25.014px,calc(1.563rem + ((1vw - 3.2px) * 1.909)),42px);
+  --mgl-ref-display:clamp(38.682px,calc(2.418rem + ((1vw - 3.2px) * 3.744)),72px);
+}
+html,body{
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+body{
+  font-size:var(--mgl-ref-base)!important;
+  font-style:normal!important;
+  font-weight:400!important;
+  line-height:1.75!important;
+}
+body p,
+body li,
+body dd,
+body dt,
+body td,
+body th,
+body address,
+body blockquote{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:inherit;
+  font-weight:400;
+  line-height:1.75;
+}
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6,
+.banner__content-heading,
+.section-header h2,
+.cta__subscribe h2,
+.mgl-page-hero h1{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-style:normal!important;
+  font-weight:600!important;
+  letter-spacing:-.065em!important;
+  line-height:1.04!important;
+}
+body h1,
+.banner__content-heading,
+.mgl-page-hero h1{
+  font-size:var(--mgl-ref-display)!important;
+}
+body h2,
+.section-header h2,
+.cta__subscribe h2{
+  font-size:var(--mgl-ref-display)!important;
+}
+body h3{
+  font-size:var(--mgl-ref-xlarge)!important;
+}
+body h4{
+  font-size:var(--mgl-ref-large)!important;
+}
+body h5{
+  font-size:var(--mgl-ref-lg)!important;
+}
+body h6{
+  font-size:var(--mgl-ref-sm)!important;
+}
+.banner__content-moto,
+.mgl-hero-summary,
+.section-header p,
+.cta__subscribe p{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:var(--mgl-ref-lg)!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+.mgl-nav-link{
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+.mgl-dropdown-link{
+  font-size:13px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+.trk-btn,
+.mgl-btn,
+.mgl-home-btn,
+.mgl-header-cta,
+.mgl-model-shortcuts a,
+button[type="submit"],
+input[type="submit"]{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:14px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:normal!important;
+}
+/* The CTA card must occupy the full Bootstrap container instead of legacy 80/85% widths. */
+#contact .cta__newsletter,
+#contact .cta__newsletter-inner{
+  width:100%!important;
+  max-width:none!important;
+}
+#contact .cta__newsletter-inner{
+  margin-inline:0!important;
+  box-sizing:border-box;
+}
+#contact .cta__subscribe{
+  min-width:0;
+}
+@media(max-width:767.98px){
+  body h1,
+  body h2,
+  .banner__content-heading,
+  .section-header h2,
+  .cta__subscribe h2,
+  .mgl-page-hero h1{
+    font-size:clamp(38.682px,10.5vw,56px)!important;
+  }
+  body h3{font-size:clamp(25.014px,7vw,36px)!important}
+  .banner__content-moto,
+  .mgl-hero-summary,
+  .section-header p,
+  .cta__subscribe p{
+    font-size:var(--mgl-ref-base)!important;
+    line-height:1.75!important;
+  }
+}
