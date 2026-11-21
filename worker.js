@@ -131,7 +131,7 @@ export default {
       if (response.ok) {
         let html = await response.text();
         html = injectSharedParts(html, header, footer);
-        const canonicalPath = path === "/services/" ? "/services.html" : path === "/404.html" ? "" : path;
+        const canonicalPath = path === "/index.html" ? "/" : path === "/services/" ? "/services.html" : path === "/404.html" ? "" : path;
         html = rewriteRuntimeSeo(html, canonicalPath ? base + canonicalPath : base + path, { noindex: path === "/404.html" });
         return htmlResponse(html, path === "/404.html" ? 404 : 200);
       }
