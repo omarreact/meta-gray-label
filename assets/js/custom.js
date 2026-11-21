@@ -225,6 +225,65 @@ mobileNavQuery.addEventListener("change", function (event) {
     }
 });
 
+// Preserve desktop dropdowns while the pointer crosses the small visual gap
+// between a top-level menu trigger and its submenu. This does not alter layout.
+var desktopHoverQuery = window.matchMedia("(min-width: 992px)");
+var desktopHoverCloseDelay = 220;
+var desktopHoverTimers = new WeakMap();
+
+function clearDesktopHoverTimer(item) {
+    var timer = desktopHoverTimers.get(item);
+    if (timer) {
+        window.clearTimeout(timer);
+        desktopHoverTimers.delete(item);
+    }
+}
+
+function openDesktopSubmenu(item) {
+    if (!desktopHoverQuery.matches) return;
+    clearDesktopHoverTimer(item);
+    item.classList.add("mgl-hover-open");
+}
+
+function scheduleDesktopSubmenuClose(item) {
+    if (!desktopHoverQuery.matches) return;
+    clearDesktopHoverTimer(item);
+    var timer = window.setTimeout(function () {
+        item.classList.remove("mgl-hover-open");
+        desktopHoverTimers.delete(item);
+    }, desktopHoverCloseDelay);
+    desktopHoverTimers.set(item, timer);
+}
+
+document.querySelectorAll(".menu .menu-item-has-children").forEach(function (item) {
+    var submenu = item.querySelector(":scope > .submenu");
+    if (!submenu) return;
+
+    item.addEventListener("mouseenter", function () {
+        openDesktopSubmenu(item);
+    });
+
+    item.addEventListener("mouseleave", function () {
+        scheduleDesktopSubmenuClose(item);
+    });
+
+    submenu.addEventListener("mouseenter", function () {
+        openDesktopSubmenu(item);
+    });
+
+    submenu.addEventListener("mouseleave", function () {
+        scheduleDesktopSubmenuClose(item);
+    });
+});
+
+desktopHoverQuery.addEventListener("change", function (event) {
+    if (event.matches) return;
+    document.querySelectorAll(".menu .mgl-hover-open").forEach(function (item) {
+        clearDesktopHoverTimer(item);
+        item.classList.remove("mgl-hover-open");
+    });
+});
+
 
 
 
