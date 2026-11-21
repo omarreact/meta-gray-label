@@ -191,6 +191,32 @@ try {
       assert(await toggle.getAttribute("aria-expanded") === "false", `home @ ${width}px Escape did not close menu`);
     }
 
+    const faqButtons = page.locator("#faq .accordion__button");
+    assert(await faqButtons.count() === 6, `home @ ${width}px expected six FAQ controls`);
+    assert(await faqButtons.nth(0).getAttribute("aria-expanded") === "true", `home @ ${width}px first FAQ ARIA state does not match its open panel`);
+    assert(await faqButtons.nth(1).getAttribute("aria-expanded") === "false", `home @ ${width}px second FAQ initial ARIA state should be false`);
+    assert(await page.locator("#faq .mgl-faq-topic-icon").count() === 6, `home @ ${width}px FAQ topic icons are missing`);
+    await faqButtons.nth(1).scrollIntoViewIfNeeded();
+    await faqButtons.nth(1).click();
+    await page.locator("#faqBody2").waitFor({ state: "visible" });
+    assert(await faqButtons.nth(1).getAttribute("aria-expanded") === "true", `home @ ${width}px FAQ did not expose expanded state after click`);
+    assert(await faqButtons.nth(0).getAttribute("aria-expanded") === "false", `home @ ${width}px accordion parent did not close the previous item`);
+    const faqOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    assert(faqOverflow <= 2, `home @ ${width}px expanded FAQ causes horizontal overflow: ${faqOverflow}px`);
+
+    if (width === 1440) {
+      const firstService = page.locator("#services .service__item").first();
+      await firstService.scrollIntoViewIfNeeded();
+      await firstService.hover();
+      const serviceInteraction = await firstService.locator(".service__item-inner").evaluate((node) => {
+        const box = getComputedStyle(node);
+        const arrow = getComputedStyle(node, "::after");
+        return { transform: box.transform, arrowOpacity: Number.parseFloat(arrow.opacity || "0") };
+      });
+      assert(serviceInteraction.transform !== "none", "home @ 1440px service card hover transform missing");
+      assert(serviceInteraction.arrowOpacity > 0.8, "home @ 1440px service card action icon did not reveal");
+    }
+
     await page.screenshot({ path: join(shots, `home-${width}.png`), fullPage: true });
 
     await page.goto(base + "/contact/?theme=dark", { waitUntil: "networkidle" });
