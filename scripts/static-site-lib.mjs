@@ -19,7 +19,7 @@ import {
 
 const SPECIAL_ROUTES = [
   { route: "/", source: "index.html", outputs: ["index.html"] },
-  { route: "/services.html", source: "services.html", outputs: ["services.html", "services/index.html"] },
+  { route: "/services.html", source: "services.html", outputs: ["services.html"] },
   { route: "/solutions/", source: "solutions/index.html", outputs: ["solutions/index.html"] },
   { route: "/insights/", source: "insights/index.html", outputs: ["insights/index.html"] },
   { route: "/contact/", source: "contact/index.html", outputs: ["contact/index.html"] }
@@ -90,7 +90,10 @@ function copyPath(projectRoot, outRoot, source, target = source) {
 }
 
 function specialSet() {
-  return new Set(SPECIAL_ROUTES.map((item) => normalizePath(item.route)));
+  const set = new Set(SPECIAL_ROUTES.map((item) => normalizePath(item.route)));
+  set.add("/index.html");
+  set.add("/services/");
+  return set;
 }
 
 function renderSpecial({ projectRoot, outRoot, publicBase, basePath, header, footer }) {
