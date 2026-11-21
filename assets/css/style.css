@@ -11811,3 +11811,16 @@ textarea:focus-visible,
 .scrollToTop.is-visible:hover {
   transform: translateY(-4px);
 }
+
+
+/* Shared footer brand sizing */
+.footer__about-logo {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.footer__about-logo img {
+  display: block;
+  width: min(230px, 100%);
+  height: auto;
+}
