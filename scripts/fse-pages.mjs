@@ -431,6 +431,7 @@ export function buildNativeParts(config) {
     links,
     '</div><!-- /wp:column -->',
     '</div><!-- /wp:columns -->',
+    '<!-- wp:paragraph {"className":"mgl-native-provider-disclosure"} --><p class="mgl-native-provider-disclosure">Technology provider only — not a broker, does not hold client funds, and does not provide investment, legal or regulatory advice.</p><!-- /wp:paragraph -->',
     '</div><!-- /wp:group -->'
   ].join("\n") + "\n";
   return { header, footer };
