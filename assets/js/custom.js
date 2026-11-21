@@ -127,6 +127,7 @@ const primaryNav = document.querySelector('.mgl-primary-nav');
 const navToggle = document.querySelector('.mgl-menu-toggle');
 const navDisclosureButtons = Array.from(document.querySelectorAll('[data-nav-disclosure]'));
 const mobileNavQuery = window.matchMedia('(max-width: 1199.98px)');
+const desktopTouchQuery = window.matchMedia('(min-width: 1200px) and (hover: none), (min-width: 1200px) and (pointer: coarse)');
 
 function closeHeaderSubmenus(exceptItem = null) {
     document.querySelectorAll('.mgl-nav-item.is-open').forEach(function (item) {
@@ -174,6 +175,21 @@ navDisclosureButtons.forEach(function (button) {
     });
 });
 
+document.querySelectorAll('.mgl-nav-item--has-panel > .mgl-nav-trigger > .mgl-nav-link').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+        if (!desktopTouchQuery.matches) return;
+
+        const item = link.closest('.mgl-nav-item--has-panel');
+        if (!item || item.classList.contains('is-touch-open')) return;
+
+        event.preventDefault();
+        document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (openItem) {
+            if (openItem !== item) openItem.classList.remove('is-touch-open');
+        });
+        item.classList.add('is-touch-open');
+    });
+});
+
 primaryNav?.addEventListener('click', function (event) {
     if (!mobileNavQuery.matches) return;
     const link = event.target.closest('a[href]');
@@ -181,8 +197,17 @@ primaryNav?.addEventListener('click', function (event) {
 });
 
 document.addEventListener('click', function (event) {
-    if (!mobileNavQuery.matches || !siteHeader?.contains(event.target)) {
-        if (primaryNav?.classList.contains('is-open')) setMobileNavigation(false);
+    if (mobileNavQuery.matches) {
+        if (!siteHeader?.contains(event.target) && primaryNav?.classList.contains('is-open')) {
+            setMobileNavigation(false);
+        }
+        return;
+    }
+
+    if (!siteHeader?.contains(event.target)) {
+        document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (item) {
+            item.classList.remove('is-touch-open');
+        });
     }
 });
 
@@ -195,6 +220,9 @@ document.addEventListener('keydown', function (event) {
     }
 
     closeHeaderSubmenus();
+    document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (item) {
+        item.classList.remove('is-touch-open');
+    });
 });
 
 mobileNavQuery.addEventListener('change', function (event) {
