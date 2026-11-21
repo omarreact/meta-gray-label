@@ -43,6 +43,7 @@ jobs:
         run: |
           node --check worker.js
           node --check src/renderer.js
+          node --check assets/js/site-settings.js
           node --check scripts/audit-seo.mjs
           node --check scripts/build-dynamic.mjs
           node --check scripts/package-wordpress.mjs
