@@ -158,7 +158,7 @@ function directoryPageMarkup(config, source, sequence) {
 }
 /**
  * The historical source document for the homepage differs from its current
- * approved 11-section homepage. The visible page fields are authoritative
+ * approved consolidated homepage. The visible page fields are authoritative
  * for its native projection: preserve current headings, body copy and CTA URLs.
  */
 function htmlText(markup) {
@@ -176,153 +176,139 @@ function homePageMarkup(entry, config, homepageTemplate, sequence) {
   if (typeof homepageTemplate !== "string" || !homepageTemplate.includes('id="home"')) {
     throw new Error("Rendered homepage source is required to preserve approved homepage copy");
   }
+
   const fields = config.pages["index.html"].fields;
   const html = homepageTemplate.replace(/__MGL_CONTENT_\d{5}__/g, (key) => {
     if (!Object.hasOwn(fields, key)) throw new Error("Missing home field " + key);
     return fields[key];
   });
+
   const sections = [...html.matchAll(/<section\b([^>]*)>([\s\S]*?)<\/section\s*>/gi)];
-  if (sections.length !== 11) throw new Error("Homepage section inventory changed: " + sections.length);
+  const expectedIds = ["home", "about", "roadmap", "services", "models", "resources", "faq", "contact"];
+  const actualIds = sections.map((section) =>
+    (section[1].match(/\bid\s*=\s*["']([^"']+)["']/i) || [])[1] || ""
+  );
+  if (actualIds.length !== expectedIds.length ||
+      expectedIds.some((id, index) => actualIds[index] !== id)) {
+    throw new Error("Homepage section inventory changed: " + actualIds.join(","));
+  }
+
   const pageClass = "mgl-native-page mgl-native-page--home mgl-native-route--home";
   const parts = [openGroup(pageClass, "main")];
-  let n = 0;
-  let hasH1 = false;
+  let sectionCount = 0;
   let blockCount = 0;
+  let hasH1 = false;
+
   function groupStart(cls) {
-    parts.push('<!-- wp:group' + jsonAttr({ className:cls,layout:{type:"constrained"} }) +
+    parts.push('<!-- wp:group' + jsonAttr({ className: cls, layout: { type: "constrained" } }) +
       ' -->\n<div class="wp-block-group ' + cls + '">');
   }
-  function groupEnd() { parts.push('</div><!-- /wp:group -->'); }
-  function renderCoreButton(label,url) {
+  function groupEnd() {
+    parts.push('</div><!-- /wp:group -->');
+  }
+  function renderCoreButton(label, url) {
     parts.push('<!-- wp:buttons --><div class="wp-block-buttons">');
     parts.push('<!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' +
       safeText(url) + '">' + safeText(label) + '</a></div><!-- /wp:button -->');
     parts.push('</div><!-- /wp:buttons -->');
     blockCount++;
   }
-  function intro(sectionBody) {
-    const h=(sectionBody.match(/<h2\b[^>]*>([\s\S]*?)<\/h2\s*>/i)||[])[1];
-    const p=(sectionBody.match(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/i)||[])[1];
-    if(!h || !p)throw new Error("Missing native section heading or intro copy");
-    parts.push(heading(htmlText(h),2),paragraph(htmlText(p)));
-    blockCount+=2;
-  }
-  function faqSection(body) {
-    intro(body);
-    const questions=[...body.matchAll(/<span\b[^>]*class=["'][^"']*accordion__button-content[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi)]
-      .map(m=>htmlText(m[1])).filter(Boolean);
-    const paras=[...body.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)].map(m=>htmlText(m[1])).filter(Boolean);
-    const answers=paras.slice(1);
-    if(questions.length!==6 || answers.length!==6) {
-      throw new Error("Home FAQ must preserve 6 actual questions and answers");
+  function renderButtons(body) {
+    const seen = new Set();
+    for (const anchor of body.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
+      const cls = (anchor[1].match(/\bclass\s*=\s*["']([^"']*)["']/i) || [])[1] || "";
+      if (!/mgl-home-btn/.test(cls)) continue;
+      const href = (anchor[1].match(/\bhref\s*=\s*["']([^"']*)["']/i) || [])[1] || "";
+      const label = htmlText(anchor[2]);
+      if (!href || !label || seen.has(href + "|" + label)) continue;
+      seen.add(href + "|" + label);
+      const url = href.startsWith("#") || /^(?:mailto:|tel:|https?:)/i.test(href) ? href : nativeUrl(href);
+      renderCoreButton(label, url);
     }
-    groupStart("mgl-native-faq-stack");
-    for(let i=0;i<questions.length;i++){
-      const q=questions[i],a=answers[i];
-      parts.push('<!-- wp:details' + jsonAttr({summary:q}) + ' -->\n<details class="wp-block-details">' +
-        '<summary>' + safeText(q) + '</summary>' + paragraph(a) + '</details>\n<!-- /wp:details -->');
-      blockCount+=2;
-    }
-    groupEnd();
   }
-  function servicesSection(body) {
-    intro(body);
-    const cards=[...body.matchAll(/<h5\b[^>]*>([\s\S]*?)<\/h5\s*>[\s\S]*?<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)];
-    if(cards.length!==6)throw new Error("Expected six source services");
-    groupStart("mgl-native-service-grid");
-    for(let i=0;i<cards.length;i++){
-      const content=cards[i][1], p=htmlText(cards[i][2]);
-      const label=htmlText(content);
-      const href=(content.match(/<a\b[^>]*href=["']([^"']+)["']/i)||[])[1];
-      if(!href || !label || !p)throw new Error("Missing service card data");
-      const dest=nativeUrl(href);
-      groupStart("mgl-native-service-card mgl-native-service-card--"+(i+1));
-      parts.push('<!-- wp:heading {"level":3} --><h3 class="wp-block-heading"><a href="' +
-        safeText(dest) + '">' + safeText(label) + '</a></h3><!-- /wp:heading -->');
-      parts.push(paragraph(p));
-      groupEnd();
-      blockCount+=2;
-    }
-    groupEnd();
-  }
-  function modelsSection(body) {
-    intro(body);
-    const names=[...body.matchAll(/<h6\b[^>]*>([\s\S]*?)<\/h6\s*>/gi)].map(m=>htmlText(m[1]));
-    const lists=[...body.matchAll(/<ul\b[^>]*class=["'][^"']*pricing__list[^"']*["'][^>]*>([\s\S]*?)<\/ul\s*>/gi)]
-      .map(m=>[...m[1].matchAll(/<li\b[^>]*>([\s\S]*?)<\/li\s*>/gi)].map(x=>htmlText(x[1])));
-    if(names.length!==3||lists.length!==3)throw new Error("Expected all three source pricing cards");
-    groupStart("mgl-native-pricing-grid");
-    for(let i=0;i<3;i++){
-      groupStart("mgl-native-pricing-card mgl-native-pricing-card--"+(i+1));
-      parts.push(heading(names[i],3),paragraph("Custom Scope","mgl-native-pricing-scope"));
-      parts.push('<!-- wp:list --><ul class="wp-block-list">');
-      for(const li of lists[i]){
-        parts.push('<!-- wp:list-item --><li>'+safeText(li)+'</li><!-- /wp:list-item -->');
+  function renderEditorial(body) {
+    const items = [...body.matchAll(/<(h[1-6]|p|li)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi)];
+    for (const item of items) {
+      const text = htmlText(item[2]);
+      if (!text || text.length < 2) continue;
+      if (item[1].startsWith("h")) {
+        const level = Number(item[1].slice(1));
+        if (level === 1) hasH1 = true;
+        parts.push(heading(text, level));
+        blockCount++;
+      } else if (item[1].toLowerCase() === "li") {
+        parts.push('<!-- wp:list --><ul class="wp-block-list"><!-- wp:list-item --><li>' +
+          safeText(text) + '</li><!-- /wp:list-item --></ul><!-- /wp:list -->');
+        blockCount++;
+      } else {
+        parts.push(paragraph(text));
         blockCount++;
       }
-      parts.push('</ul><!-- /wp:list -->');
-      renderCoreButton("Explore Model","#models");
-      groupEnd();
-      blockCount+=2;
+    }
+  }
+  function renderProof(body) {
+    const cards = [...body.matchAll(/<div\b[^>]*class=["'][^"']*mgl-home-proof__item[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)];
+    if (cards.length !== 4) throw new Error("Home proof strip must preserve four operating layers");
+    for (const card of cards) {
+      const label = htmlText((card[1].match(/<span\b[^>]*>([\s\S]*?)<\/span>/i) || [])[1]);
+      const value = htmlText((card[1].match(/<strong\b[^>]*>([\s\S]*?)<\/strong>/i) || [])[1]);
+      if (!label || !value) throw new Error("Incomplete proof item");
+      parts.push(heading(value, 3), paragraph(label, "mgl-native-eyebrow"));
+      blockCount += 2;
+    }
+  }
+  function renderFaq(body) {
+    const entries = [...body.matchAll(/<details\b[^>]*>([\s\S]*?)<\/details>/gi)];
+    if (entries.length !== 6) throw new Error("Home FAQ must preserve 6 questions and answers");
+    groupStart("mgl-native-faq-stack");
+    for (const entry of entries) {
+      const question = htmlText((entry[1].match(/<summary\b[^>]*>([\s\S]*?)<\/summary>/i) || [])[1]);
+      const answer = htmlText((entry[1].match(/<p\b[^>]*>([\s\S]*?)<\/p>/i) || [])[1]);
+      if (!question || !answer) throw new Error("Incomplete FAQ entry");
+      parts.push('<!-- wp:details' + jsonAttr({ summary: question }) + ' -->\n<details class="wp-block-details">' +
+        '<summary>' + safeText(question) + '</summary>' + paragraph(answer) +
+        '</details>\n<!-- /wp:details -->');
+      blockCount += 2;
     }
     groupEnd();
   }
-  for (const [index,section] of sections.entries()) {
-    const id = (section[1].match(/\bid\s*=\s*["']([^"']+)["']/i)||[])[1];
+
+  for (const [index, section] of sections.entries()) {
+    const id = actualIds[index];
     const cls = "mgl-native-section mgl-native-section--" + (index % 5) +
       (index === 0 ? " mgl-native-section--hero" : " mgl-native-section--editorial") +
-      " mgl-native-home-" + (id || "section-" + index);
-    const options = { tagName: "section", className: cls, layout: { type: "constrained" } };
-    if (id) options.anchor = id;
-    parts.push("<!-- wp:group" + jsonAttr(options) + " -->\n<section" +
-      (id ? ' id="' + safeText(id) + '"' : "") + ' class="wp-block-group ' + cls + '">');
-    if(id==="faq") faqSection(section[2]);
-    else if(id==="models") modelsSection(section[2]);
-    else if(id==="services") servicesSection(section[2]);
-    else {
-      const items = [...section[2].matchAll(/<(h[1-6]|p)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi)];
-      for (const item of items) {
-        const text = htmlText(item[2]);
-        if (!text || text.length < 2) continue;
-        if (item[1].startsWith("h")) {
-          const level = Number(item[1].slice(1));
-          if (level===1) hasH1 = true;
-          parts.push(heading(text, level));
-        } else {
-          parts.push(paragraph(text));
-        }
-        blockCount++;
-      }
-    }
-    const buttons = [];
-    for (const anchor of section[2].matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
-      const clsName = (anchor[1].match(/\bclass\s*=\s*["']([^"']*)["']/i)||[])[1] || "";
-      if (!/(^|[\s-])btn(?:\s|-|$)|button/i.test(clsName)) continue;
-      const href = (anchor[1].match(/\bhref\s*=\s*["']([^"']*)["']/i)||[])[1] || "";
-      const label = htmlText(anchor[2]);
-      if (!href || !label || /^(?:javascript|data):/i.test(href)) continue;
-      buttons.push([label, href.startsWith("#") || /^(?:mailto:|https?:)/i.test(href) ? href : nativeUrl(href)]);
-      if (buttons.length>=4) break;
-    }
-    if (buttons.length && !["models","services"].includes(id)) {
-      parts.push('<!-- wp:buttons --><div class="wp-block-buttons">');
-      for (const [label,url] of buttons) {
-        parts.push('<!-- wp:button --><div class="wp-block-button">' +
-          '<a class="wp-block-button__link wp-element-button" href="' +
-          safeText(url) + '">' + safeText(label) + '</a></div><!-- /wp:button -->');
-        blockCount++;
-      }
-      parts.push('</div><!-- /wp:buttons -->');
-    }
+      " mgl-native-home-" + id;
+    const options = { tagName: "section", className: cls, layout: { type: "constrained" }, anchor: id };
+    parts.push("<!-- wp:group" + jsonAttr(options) + " -->\n<section id=\"" +
+      safeText(id) + '\" class="wp-block-group ' + cls + '">');
+
+    if (id === "about") renderProof(section[2]);
+    else if (id === "faq") renderFaq(section[2]);
+    else renderEditorial(section[2]);
+
+    renderButtons(section[2]);
     parts.push(closeGroup("section"));
-    n++;
+    sectionCount++;
   }
+
   if (!hasH1) throw new Error("Visible homepage H1 missing from native projection");
   parts.push(closeGroup("main"));
-  return { path: "index.html", slug: "home", route: "/", title: "Home",
-    documentId: null, source: "visible-page-fields", family: "home",
-    sections: n, blocks: blockCount, sequence, markup: parts.join("\n") + "\n" };
+
+  return {
+    path: "index.html",
+    slug: "home",
+    route: "/",
+    title: "Home",
+    documentId: null,
+    source: "visible-page-fields",
+    family: "home",
+    sections: sectionCount,
+    blocks: blockCount,
+    sequence,
+    markup: parts.join("\n") + "\n"
+  };
 }
+
 export function buildNativePages(config, homepageTemplate) {
   if (!config?.pages || !config?.content?.documents || !config?.pageMap?.pages) {
     throw new Error("Missing canonical content data");
