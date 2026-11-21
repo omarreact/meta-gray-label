@@ -14294,11 +14294,11 @@ h3 { line-height: 1.22; }
 @media (min-width: 992px) {
   .section-header { margin-block-end: var(--mgl-space-4); }
 }
-@media (min-width: 1280px) {
-  html { scroll-padding-top: 152px; }
-  main [id], section[id] { scroll-margin-top: 152px; }
-  #home.banner--style1 { padding-block-start: clamp(158px, 10vw, 178px) !important; }
-  .mgl-page-hero { padding-top: clamp(158px, 10vw, 178px) !important; }
+@media (min-width: 1200px) {
+  html { scroll-padding-top: 104px; }
+  main [id], section[id] { scroll-margin-top: 104px; }
+  #home.banner--style1 { padding-block-start: clamp(122px, 8vw, 142px) !important; }
+  .mgl-page-hero { padding-top: clamp(122px, 8vw, 142px) !important; }
 }
 [data-bs-theme="dark"] {
   --body-color: #10282d;
