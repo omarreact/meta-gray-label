@@ -7,7 +7,7 @@
   --mgl-native-ink: var(--wp--preset--color--ink, #0c263a);
   --mgl-native-surface: var(--wp--preset--color--surface, #f7fbfa);
   color: var(--mgl-native-ink);
-  font-family: "Inter", ui-sans-serif, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   max-width: 100%;
   padding: 0 0 clamp(48px, 7vw, 110px);
 }
@@ -18,7 +18,7 @@
 .mgl-native-page h3,
 .mgl-native-page h4,
 .mgl-native-page h5,
-.mgl-native-page h6 { font-family: "Poppins", ui-sans-serif, sans-serif; }
+.mgl-native-page h6 { font-family: Arial, Helvetica, sans-serif; }
 .mgl-native-page h1 { font-size:clamp(2.35rem,4.5vw,4.8rem); line-height:1.12; max-width:920px; letter-spacing:-.035em; }
 .mgl-native-page h2 { font-size:clamp(1.65rem,2.7vw,2.9rem); line-height:1.22; max-width:890px; letter-spacing:-.025em; }
 .mgl-native-page h3 { font-size:clamp(1.13rem,1.7vw,1.4rem); line-height:1.35; }
@@ -159,7 +159,7 @@
   --mgl-native-h1: clamp(36px,5.1vw,68px);
   --mgl-native-h2: clamp(28px,3.5vw,46px);
   overflow-x: clip;
-  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.7;
   padding-bottom: var(--mgl-native-section-y);
@@ -189,7 +189,7 @@
 }
 /* Source-derived typography/spacing + softer dark surfaces — 2026-11-21 */
 .mgl-native-page {
-  font-family:"Inter",ui-sans-serif,sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
   padding-bottom:72px;
 }
 .mgl-native-page .mgl-native-section {
@@ -203,7 +203,7 @@
 .mgl-native-page h4,
 .mgl-native-page h5,
 .mgl-native-page h6 {
-  font-family:"Poppins",ui-sans-serif,sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
   font-weight:600;
   letter-spacing:-.05em;
 }
@@ -219,7 +219,7 @@
 [data-bs-theme="dark"] .mgl-native-page--home .mgl-native-home-benefits,
 [data-bs-theme="dark"] .mgl-native-home-capabilities { background:#173942;color:#f3f8f7; }
 [data-bs-theme="dark"] .mgl-native-site-footer { background:#153238;color:#eaf5f2; }
-.mgl-native-navigation { font-family:"Inter",ui-sans-serif,sans-serif;font-size:13px;line-height:1.45;gap:4px; }
+.mgl-native-navigation { font-family:Arial, Helvetica, sans-serif;font-size:13px;line-height:1.45;gap:4px; }
 .mgl-native-navigation .wp-block-navigation-item__content { padding:8px 9px;font-weight:600; }
 .mgl-native-navigation .wp-block-navigation__submenu-container { min-width:280px!important;padding:8px!important;border-radius:12px; }
 .mgl-native-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding:9px 10px;font-weight:500; }
