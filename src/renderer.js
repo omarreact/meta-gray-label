@@ -277,6 +277,12 @@ export function injectSharedParts(html, header, footer) {
   output = output.replace(/<template\b[^>]*data-shared-part=["']header["'][^>]*><\/template>/i, rootifySharedMarkup(header));
   output = output.replace(/<template\b[^>]*data-shared-part=["']footer["'][^>]*><\/template>/i, rootifySharedMarkup(footer));
   output = output.replace(/<script\b[^>]*src=["'][^"']*assets\/js\/includes\.js["'][^>]*><\/script>/gi, "");
+  if (!/assets\/css\/site-settings\.css/.test(output)) {
+    output = output.replace(/<\/head>/i, '<link rel="stylesheet" href="/assets/css/site-settings.css"></head>');
+  }
+  if (!/assets\/js\/site-settings\.js/.test(output)) {
+    output = output.replace(/<\/body>/i, '<script src="/assets/js/site-settings.js"></script></body>');
+  }
   if (!/assets\/js\/custom\.js/.test(output)) {
     output = output.replace(/<\/body>/i, '<script src="/assets/js/custom.js"></script></body>');
   }
@@ -340,6 +346,7 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 <link rel="stylesheet" href="/assets/css/aos.css">
 <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
 <link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/site-settings.css">
 </head>
 <body>
 <div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>
@@ -366,6 +373,7 @@ ${rootifySharedMarkup(footer)}
 <script src="/assets/js/swiper-bundle.min.js"></script>
 <script src="/assets/js/aos.js"></script>
 <script src="/assets/js/purecounter_vanilla.js"></script>
+<script src="/assets/js/site-settings.js"></script>
 <script src="/assets/js/custom.js"></script>
 </body></html>`;
   return page;
@@ -382,5 +390,5 @@ export function renderDynamicSitemap(data, canonicalBase) {
 }
 
 export function renderSimple404({ header = "", footer = "", canonicalBase = "" } = {}) {
-  return `<!doctype html><html lang="en" data-bs-theme="dark"><head><script id="mgl-theme-boot">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><title>Page Not Found | Meta Grey Label</title><link rel="stylesheet" href="/assets/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/css/style.css"></head><body>${rootifySharedMarkup(header)}<main class="mgl-inner-page" id="main-content"><section class="mgl-inner-hero"><div class="container"><h1>Page not found</h1><p class="mgl-hero-summary">The page you requested does not exist or may have moved.</p><a class="mgl-btn mgl-btn-primary" href="/">Return home</a></div></section></main>${rootifySharedMarkup(footer)}<script src="/assets/js/bootstrap.bundle.min.js"></script><script src="/assets/js/custom.js"></script></body></html>`;
+  return `<!doctype html><html lang="en" data-bs-theme="dark"><head><script id="mgl-theme-boot">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><title>Page Not Found | Meta Grey Label</title><link rel="stylesheet" href="/assets/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="/assets/css/site-settings.css"></head><body>${rootifySharedMarkup(header)}<main class="mgl-inner-page" id="main-content"><section class="mgl-inner-hero"><div class="container"><h1>Page not found</h1><p class="mgl-hero-summary">The page you requested does not exist or may have moved.</p><a class="mgl-btn mgl-btn-primary" href="/">Return home</a></div></section></main>${rootifySharedMarkup(footer)}<script src="/assets/js/bootstrap.bundle.min.js"></script><script src="/assets/js/site-settings.js"></script><script src="/assets/js/custom.js"></script></body></html>`;
 }
