@@ -124,8 +124,11 @@ try {
     const page = await context.newPage();
     const errors = [];
     page.on("pageerror", (error) => errors.push("pageerror: " + error.message));
-    page.on("console", (message) => {
-      if (message.type() === "error") errors.push("console: " + message.text());
+    page.on("response", (response) => {
+      const type = response.request().resourceType();
+      if (response.status() >= 400 && ["document", "stylesheet", "script", "image", "font"].includes(type)) {
+        errors.push(type + " " + response.status() + ": " + response.url());
+      }
     });
 
     await page.goto(base + "/index.html?theme=dark", { waitUntil: "networkidle" });
