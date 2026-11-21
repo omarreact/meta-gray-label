@@ -55,6 +55,11 @@ for(const [path,record] of pages){
     const canonical=tags(html,"link").filter(t=>attr(t,"rel").split(/\s+/).includes("canonical"));
     const expected=base+record.route;
     if(canonical.length!==1||attr(canonical[0],"href")!==expected) problem(path,"canonical mismatch");
+    const robots=meta.filter(t=>attr(t,"name").toLowerCase()==="robots");
+    if(robots.length!==1||!/index/i.test(attr(robots[0],"content"))) problem(path,"requires index robots metadata");
+    const twitter=meta.filter(t=>attr(t,"name").toLowerCase()==="twitter:card");
+    if(twitter.length!==1||!attr(twitter[0],"content")) problem(path,"requires Twitter card metadata");
+    if(!/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>/i.test(html)) problem(path,"requires JSON-LD structured data");
   } else if(!meta.some(t=>attr(t,"name").toLowerCase()==="robots"&&/noindex/i.test(attr(t,"content")))){
     problem(path,"404 must be noindex");
   }
