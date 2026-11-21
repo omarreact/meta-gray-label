@@ -27,63 +27,109 @@ jobs:
 
       - name: Validate and apply requested setting
         env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_BODY: \${{ github.event.issue.body }}
         run: |
           node <<'NODE'
           const fs = require('fs');
 
           const body = process.env.ISSUE_BODY || '';
-          const match = body.match(/<!-- MGL_SITE_SETTINGS_V1\s*([\s\S]*?)\s*-->/);
-          if (!match) throw new Error('Missing MGL_SITE_SETTINGS_V1 payload.');
+          const match = body.match(/<!-- MGL_SITE_SETTINGS_V2\s*([\s\S]*?)\s*-->/);
+          if (!match) throw new Error('Missing MGL_SITE_SETTINGS_V2 payload.');
 
           const request = JSON.parse(match[1]);
-          const allowed = new Map([
-            ['Arial', 'system'],
-            ['Inter', 'google'],
-            ['Roboto', 'google'],
-            ['Open Sans', 'google'],
-            ['Lato', 'google'],
-            ['Montserrat', 'google'],
-            ['Poppins', 'google'],
-            ['Nunito Sans', 'google'],
-            ['DM Sans', 'google'],
-            ['Manrope', 'google'],
-            ['Work Sans', 'google'],
-            ['Source Sans 3', 'google'],
-            ['Merriweather', 'google'],
-            ['Playfair Display', 'google']
+          const systemFamilies = new Set([
+            'Arial','Helvetica','Georgia','Times New Roman','Verdana','Tahoma','Trebuchet MS','Courier New'
           ]);
 
-          const family = String(request.globalFontFamily || '');
-          const provider = allowed.get(family);
-          if (!provider) throw new Error('Requested font is not in the approved site-settings catalog.');
-          if (request.provider !== provider) throw new Error('Font provider does not match the approved catalog.');
+          const family = String(request.globalFontFamily || '').trim();
+          if (!/^[A-Za-z0-9 .&+'-]{1,100}$/.test(family)) throw new Error('Invalid font family.');
+          const provider = systemFamilies.has(family) ? 'system' : 'google';
+          if (request.provider !== provider) throw new Error('Font provider mismatch.');
 
-          const fallback = 'Arial, Helvetica, sans-serif';
-          const stack = provider === 'google' ? '"' + family + '", ' + fallback : fallback;
+          const number = (value, min, max, label) => {
+            const parsed = Number(value);
+            if (!Number.isFinite(parsed) || parsed < min || parsed > max) {
+              throw new Error(label + ' is outside the supported range.');
+            }
+            return parsed;
+          };
+          const weight = (value, label) => {
+            const parsed = number(value, 100, 900, label);
+            if (parsed % 100 !== 0) throw new Error(label + ' must be a 100-step CSS weight.');
+            return parsed;
+          };
+
+          const headingSizes = request.headingSizes || {};
+          const normalized = {
+            globalFontFamily: family,
+            provider,
+            fallback: 'Arial, Helvetica, sans-serif',
+            bodySizePx: number(request.bodySizePx, 12, 28, 'Body size'),
+            bodyWeight: weight(request.bodyWeight, 'Body weight'),
+            bodyLineHeight: number(request.bodyLineHeight, 1.1, 2.2, 'Body line height'),
+            bodyLetterSpacingEm: number(request.bodyLetterSpacingEm, -0.08, 0.2, 'Body letter spacing'),
+            headingWeight: weight(request.headingWeight, 'Heading weight'),
+            headingLineHeight: number(request.headingLineHeight, 0.9, 1.6, 'Heading line height'),
+            headingLetterSpacingEm: number(request.headingLetterSpacingEm, -0.12, 0.12, 'Heading letter spacing'),
+            headingSizes: {
+              h1: number(headingSizes.h1, 28, 120, 'H1 size'),
+              h2: number(headingSizes.h2, 26, 100, 'H2 size'),
+              h3: number(headingSizes.h3, 20, 72, 'H3 size'),
+              h4: number(headingSizes.h4, 18, 56, 'H4 size'),
+              h5: number(headingSizes.h5, 16, 48, 'H5 size'),
+              h6: number(headingSizes.h6, 14, 40, 'H6 size')
+            },
+            uiSizePx: number(request.uiSizePx, 11, 22, 'UI size'),
+            uiWeight: weight(request.uiWeight, 'UI weight'),
+            buttonSizePx: number(request.buttonSizePx, 11, 22, 'Button size'),
+            buttonWeight: weight(request.buttonWeight, 'Button weight')
+          };
 
           const configPath = 'assets/site-settings.json';
           const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-          config.version = 1;
-          config.typography = {
-            globalFontFamily: family,
-            provider,
-            fallback,
-            googleCss2Weights: [400, 500, 600, 700, 800]
-          };
+          config.version = 2;
+          config.typography = normalized;
           fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n');
+
+          const fallback = normalized.fallback;
+          const stack = provider === 'google' ? '"' + family + '", ' + fallback :
+            (family === 'Arial' ? fallback : '"' + family + '", ' + fallback);
 
           const themePath = 'theme.json';
           const theme = JSON.parse(fs.readFileSync(themePath, 'utf8'));
-          const fontFamilies = theme?.settings?.typography?.fontFamilies;
-          if (!Array.isArray(fontFamilies)) throw new Error('theme.json typography.fontFamilies is missing.');
+          const typography = theme?.settings?.typography;
+          if (!typography || !Array.isArray(typography.fontFamilies) || !Array.isArray(typography.fontSizes)) {
+            throw new Error('theme.json typography presets are missing.');
+          }
 
-          for (const entry of fontFamilies) {
+          for (const entry of typography.fontFamilies) {
             if (entry.slug === 'body' || entry.slug === 'display') {
-              entry.name = provider === 'google' ? family : 'Arial / Helvetica';
+              entry.name = family;
               entry.fontFamily = stack;
             }
           }
+          const basePreset = typography.fontSizes.find((entry) => entry.slug === 'base');
+          if (basePreset) basePreset.size = normalized.bodySizePx + 'px';
+          const displayPreset = typography.fontSizes.find((entry) => entry.slug === 'display');
+          if (displayPreset) displayPreset.size = normalized.headingSizes.h1 + 'px';
+
+          theme.styles.typography.fontSize = normalized.bodySizePx + 'px';
+          theme.styles.typography.fontWeight = String(normalized.bodyWeight);
+          theme.styles.typography.lineHeight = String(normalized.bodyLineHeight);
+          theme.styles.typography.letterSpacing = normalized.bodyLetterSpacingEm + 'em';
+
+          theme.styles.elements.heading.typography.fontWeight = String(normalized.headingWeight);
+          theme.styles.elements.heading.typography.lineHeight = String(normalized.headingLineHeight);
+          theme.styles.elements.heading.typography.letterSpacing = normalized.headingLetterSpacingEm + 'em';
+
+          theme.styles.elements.button.typography.fontSize = normalized.buttonSizePx + 'px';
+          theme.styles.elements.button.typography.fontWeight = String(normalized.buttonWeight);
+
+          theme.styles.blocks['core/navigation'].typography.fontSize = normalized.uiSizePx + 'px';
+          theme.styles.blocks['core/navigation'].typography.fontWeight = String(normalized.uiWeight);
+          theme.styles.blocks['core/button'].typography.fontSize = normalized.buttonSizePx + 'px';
+          theme.styles.blocks['core/button'].typography.fontWeight = String(normalized.buttonWeight);
+
           fs.writeFileSync(themePath, JSON.stringify(theme, null, 2) + '\n');
           NODE
 
@@ -104,13 +150,13 @@ jobs:
 
       - name: Report result and close request
         env:
-          GH_TOKEN: ${{ github.token }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          CHANGED: ${{ steps.commit.outputs.changed }}
+          GH_TOKEN: \${{ github.token }}
+          ISSUE_NUMBER: \${{ github.event.issue.number }}
+          CHANGED: \${{ steps.commit.outputs.changed }}
         run: |
           if [ "$CHANGED" = "true" ]; then
-            gh issue comment "$ISSUE_NUMBER" --body "✅ Site setting applied to main. Normal validation and GitHub Pages deployment will run from the new commit."
+            gh issue comment "$ISSUE_NUMBER" --body "✅ Typography settings applied to main. Normal validation and deployment will run from the new commit."
           else
-            gh issue comment "$ISSUE_NUMBER" --body "✅ No code change was required; the requested font is already the current global setting."
+            gh issue comment "$ISSUE_NUMBER" --body "✅ No code change was required; these typography settings already match main."
           fi
           gh issue close "$ISSUE_NUMBER" --reason completed
