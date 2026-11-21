@@ -46,33 +46,49 @@
   try {
     await Promise.all([insertPart('header'), insertPart('footer')]);
 
-    // GitHub Pages is now a compatibility shell. Keep its retained entry pages
-    // usable by handing internal navigation to the canonical dynamic Worker.
-    function handOffLegacyPagesToDynamicRuntime() {
-      if (window.location.hostname !== 'omarreact.github.io' ||
-          !window.location.pathname.startsWith('/meta-gray-label')) return;
-
-      const dynamicRoot = new URL('https://meta-gray-label-dynamic.farukkhanone.workers.dev/');
-      const staticRootPath = new URL(siteRoot).pathname;
+    // Keep internal navigation on the platform the visitor is currently using.
+    // Known mirror-domain links are converted to the active host while preserving
+    // the route, query string and hash. This prevents Webflow/GitHub/Cloudflare
+    // mirrors from unexpectedly handing visitors to another platform.
+    function keepInternalLinksOnActivePlatform() {
+      const currentHost = window.location.hostname;
+      const githubPrefix = '/meta-gray-label/';
+      const mirrorHosts = new Set([
+        'meta-gray-label-dynamic.farukkhanone.workers.dev',
+        'mg-label.webflow.io',
+        'omarreact.github.io'
+      ]);
 
       document.querySelectorAll('a[href]').forEach(function (link) {
         const raw = link.getAttribute('href');
         if (!raw || raw.startsWith('#') || raw.startsWith('//') ||
-            /^(?:mailto:|tel:|javascript:)/i.test(raw)) return;
+            /^(?:mailto:|tel:|javascript:|data:)/i.test(raw)) return;
 
-        const resolved = new URL(raw, document.baseURI);
-        if (resolved.origin !== window.location.origin ||
-            !resolved.pathname.startsWith(staticRootPath)) return;
+        let target;
+        try {
+          target = new URL(raw, document.baseURI);
+        } catch (_) {
+          return;
+        }
 
-        const relativePath = resolved.pathname.slice(staticRootPath.length).replace(/^\/+/, '');
-        const target = new URL(relativePath || '/', dynamicRoot);
-        target.search = resolved.search;
-        target.hash = resolved.hash;
-        link.href = target.href;
+        if (!mirrorHosts.has(target.hostname) || target.hostname === currentHost) return;
+
+        let routePath = target.pathname;
+        if (target.hostname === 'omarreact.github.io' && routePath.startsWith(githubPrefix)) {
+          routePath = '/' + routePath.slice(githubPrefix.length);
+        }
+
+        let localPath = routePath;
+        if (currentHost === 'omarreact.github.io' &&
+            window.location.pathname.startsWith(githubPrefix)) {
+          localPath = githubPrefix + routePath.replace(/^\/+/, '');
+        }
+
+        link.href = localPath + target.search + target.hash;
       });
     }
 
-    handOffLegacyPagesToDynamicRuntime();
+    keepInternalLinksOnActivePlatform();
 
     // Resolve the shared inner-page hero background from the site root so it
     // works consistently on the homepage host, GitHub Pages and nested routes.
