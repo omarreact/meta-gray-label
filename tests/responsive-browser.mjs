@@ -208,6 +208,7 @@ try {
       const firstService = page.locator("#services .service__item").first();
       await firstService.scrollIntoViewIfNeeded();
       await firstService.hover();
+      await page.waitForTimeout(380);
       const serviceInteraction = await firstService.locator(".service__item-inner").evaluate((node) => {
         const box = getComputedStyle(node);
         const arrow = getComputedStyle(node, "::after");
