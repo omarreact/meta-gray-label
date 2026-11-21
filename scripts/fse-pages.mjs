@@ -374,29 +374,81 @@ function navSubmenu(label, route, children, topLevel = false) {
     children.join("\n") + "\n<!-- /wp:navigation-submenu -->";
 }
 export function buildNativeParts(config) {
-  const f = config.pages["header.html"].fields;
-  const get = (n) => f["__MGL_CONTENT_" + String(n).padStart(5, "0") + "__"];
-  const link = (t,h) => {
-    if (!get(t) || !get(h)) throw new Error("Missing menu label/link " + t);
-    return navLink(get(t),get(h));
-  };
-  const menuSection = (heading, start, end, firstHref) => {
-    const children = [];
-    for(let i=start;i<=end;i++) children.push(link(i,firstHref+i-start));
-    return navSubmenu(get(heading),get(firstHref),children);
-  };
-  const solutions = navSubmenu(get(2),get(51),[
-    menuSection(3,4,5,52),
-    menuSection(6,7,11,54),
-    menuSection(12,13,17,59),
-    menuSection(18,19,23,64),
-    menuSection(24,25,28,69),
-    menuSection(29,30,34,73),
-    menuSection(35,36,39,78)
-  ],true);
-  const company = navSubmenu(get(41),get(83),[link(42,84),link(43,85),link(44,86)],true);
-  const navMarkup = [link(1,50),solutions,link(40,82),company,
-    link(45,87),link(46,88),link(47,89)].join("\n");
+  const submenu = (label, route, items) => navSubmenu(label, route,
+    items.map(([childLabel, childRoute]) => navLink(childLabel, childRoute)), true);
+
+  const navMarkup = [
+    navLink("Home", "/"),
+    submenu("About Us", "/about-us/", [
+      ["Why Choose Us", "/about-us/why-choose-us/"],
+      ["Client Testimonials", "/about-us/testimonials/"]
+    ]),
+    submenu("Forex White Label", "/forex-white-label/", [
+      ["MT4 White Label", "/forex-white-label/mt4-white-label/"],
+      ["MT5 White Label", "/forex-white-label/mt5-white-label/"],
+      ["White Label Pricing", "/forex-white-label/pricing/"],
+      ["White Label vs Grey Label", "/forex-white-label/vs-grey-label/"]
+    ]),
+    submenu("Forex Grey Label", "/forex-grey-label/", [
+      ["MT4 Grey Label", "/forex-grey-label/mt4-grey-label/"],
+      ["MT5 Grey Label", "/forex-grey-label/mt5-grey-label/"],
+      ["Grey Label Pricing", "/forex-grey-label/pricing/"],
+      ["Upgrade Grey Label to Admin License", "/forex-grey-label/upgrade-to-admin/"]
+    ]),
+    submenu("MT4 / MT5 Admin License", "/mt-admin-license/", [
+      ["MT4 Admin License", "/mt-admin-license/mt4-admin/"],
+      ["MT5 Admin License", "/mt-admin-license/mt5-admin/"]
+    ]),
+    submenu("Forex Broker Turnkey", "/forex-broker-turnkey/", [
+      ["Turnkey Packages", "/forex-broker-turnkey/"],
+      ["Launch in 2 Days (Process)", "/forex-broker-turnkey/how-it-works/"]
+    ]),
+    submenu("Forex Liquidity", "/forex-liquidity/", [
+      ["A-Book / B-Book / Hybrid", "/forex-liquidity/a-book-b-book/"],
+      ["Liquidity Bridge", "/forex-liquidity/liquidity-bridge/"],
+      ["Prime of Prime (PoP)", "/forex-liquidity/prime-of-prime/"]
+    ]),
+    submenu("Fx CRM | TradeRoom", "/forex-crm/", [
+      ["Trader's Room (Client Portal)", "/forex-crm/traders-room/"],
+      ["IB / Affiliate Portal", "/forex-crm/ib-portal/"],
+      ["Back Office & Admin Panel", "/forex-crm/back-office/"],
+      ["KYC & Compliance Module", "/forex-crm/kyc/"],
+      ["Deposit / Withdrawal Automation", "/forex-crm/payments-automation/"]
+    ]),
+    submenu("Trading Platforms (Main Room)", "/trading-platforms/", [
+      ["Web Trader", "/trading-platforms/web-trader/"],
+      ["Mobile Trading App (iOS / Android)", "/trading-platforms/mobile-app/"],
+      ["Desktop Platform", "/trading-platforms/desktop/"]
+    ]),
+    submenu("Fx Company & License", "/forex-company-license/", [
+      ["Offshore Company Formation", "/forex-company-license/company-formation/"],
+      ["Forex License Options", "/forex-company-license/"],
+      ["Bank & Merchant Account Support", "/forex-company-license/bank-merchant-account-support/"]
+    ]),
+    submenu("Branding & Marketing", "/branding-marketing/", [
+      ["Forex Website Design", "/branding-marketing/forex-website-design/"],
+      ["Logo & Brand Identity", "/branding-marketing/logo-brand-identity/"],
+      ["Forex SEO & Marketing", "/branding-marketing/forex-seo-marketing/"],
+      ["IB & Affiliate Marketing", "/branding-marketing/ib-affiliate-marketing/"]
+    ]),
+    submenu("Tools for Brokers", "/tools-for-brokers/", [
+      ["MT4 / MT5 Plugins", "/tools-for-brokers/mt4-mt5-plugins/"],
+      ["Risk Management Tools", "/tools-for-brokers/risk-management/"],
+      ["Payment Gateways (PSPs)", "/tools-for-brokers/payment-gateways/"],
+      ["Reports & Analytics", "/tools-for-brokers/reports-analytics/"],
+      ["Copy Trading / PAMM / MAM", "/tools-for-brokers/copy-pamm-mam/"]
+    ]),
+    navLink("Blogs & News", "/insights/"),
+    navLink("Pricing / Packages", "/solutions/"),
+    navLink("Get a Quote", "/contact/"),
+    navLink("FAQ", "/#faq"),
+    navLink("Contact", "/contact/"),
+    navLink("Privacy Policy", "/privacy-policy/"),
+    navLink("Terms & Conditions", "/terms-conditions/"),
+    navLink("Risk Disclosure", "/risk-disclosure/"),
+    navLink("Sitemap (HTML)", "/sitemap/")
+  ].join("\n");
+
   const header = [
     '<!-- wp:group {"align":"full","className":"mgl-native-site-header","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->',
     '<div class="wp-block-group alignfull mgl-native-site-header">',
@@ -405,7 +457,7 @@ export function buildNativeParts(config) {
     '<!-- wp:site-logo {"width":60,"shouldSyncIcon":false} /-->',
     '<!-- wp:site-title {"level":0} /-->',
     '</div><!-- /wp:group -->',
-    '<!-- wp:navigation {"overlayMenu":"mobile","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right"}} -->',
+    '<!-- wp:navigation {"overlayMenu":"always","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right"}} -->',
     navMarkup,
     '<!-- /wp:navigation -->',
     '</div><!-- /wp:group -->'
@@ -436,6 +488,7 @@ export function buildNativeParts(config) {
   ].join("\n") + "\n";
   return { header, footer };
 }
+
 export function nativePreview(page, styleLink = "../../../assets/css/fse.css") {
   const body = page.markup.replace(/<!--\s*\/?wp:[\s\S]*?-->/g, "");
   return '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">' +
