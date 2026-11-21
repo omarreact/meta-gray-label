@@ -186,3 +186,43 @@
   .mgl-native-page .mgl-native-section--hero { padding-top: 48px; padding-bottom: 35px; }
   .mgl-native-page p { font-size: 15px; }
 }
+/* Source-derived typography/spacing + softer dark surfaces — 2026-11-21 */
+.mgl-native-page {
+  font-family:"Inter",ui-sans-serif,sans-serif;
+  padding-bottom:72px;
+}
+.mgl-native-page .mgl-native-section {
+  padding:clamp(48px,5.5vw,72px) max(24px,calc((100vw - 1210px)/2));
+}
+.mgl-native-page .mgl-native-section > * { max-width:1210px; }
+.mgl-native-page--editorial .mgl-native-section > * { max-width:760px; }
+.mgl-native-page h1,
+.mgl-native-page h2,
+.mgl-native-page h3,
+.mgl-native-page h4,
+.mgl-native-page h5,
+.mgl-native-page h6 {
+  font-family:"Poppins",ui-sans-serif,sans-serif;
+  font-weight:600;
+  letter-spacing:-.05em;
+}
+.mgl-native-page h1 { font-size:clamp(38.682px,4.8vw,72px);line-height:1.04;max-width:920px; }
+.mgl-native-page h2 { font-size:clamp(28px,3.2vw,48px);line-height:1.10;max-width:890px; }
+.mgl-native-page h3 { font-size:clamp(20px,1.7vw,26px);line-height:1.22; }
+.mgl-native-page p { font-size:clamp(14px,calc(.875rem + ((1vw - 3.2px) * .337)),17px);line-height:1.75;max-width:760px; }
+.mgl-native-page .mgl-native-section--hero { padding-top:clamp(72px,7vw,112px);padding-bottom:clamp(72px,7vw,112px); }
+[data-bs-theme="dark"] .mgl-native-page .mgl-native-section--1,
+[data-bs-theme="dark"] .mgl-native-page .mgl-native-section--4 { background:#1b3c40;color:#f2f8f6; }
+[data-bs-theme="dark"] .mgl-native-page .mgl-native-section--2 { background:#17353a;color:#f2f8f6; }
+[data-bs-theme="dark"] .mgl-native-page .mgl-native-section--3 { background:#21464a;color:#f2f8f6; }
+[data-bs-theme="dark"] .mgl-native-page--home .mgl-native-home-benefits,
+[data-bs-theme="dark"] .mgl-native-home-capabilities { background:#173942;color:#f3f8f7; }
+[data-bs-theme="dark"] .mgl-native-site-footer { background:#153238;color:#eaf5f2; }
+.mgl-native-navigation { font-family:"Inter",ui-sans-serif,sans-serif;font-size:14px;line-height:1.45;gap:8px; }
+.mgl-native-navigation .wp-block-navigation-item__content { padding:8px 9px;font-weight:600; }
+.mgl-native-navigation .wp-block-navigation__submenu-container { min-width:280px!important;padding:8px!important;border-radius:12px; }
+.mgl-native-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding:9px 10px;font-weight:500; }
+@media(max-width:767px){
+  .mgl-native-page .mgl-native-section{padding:48px 16px}
+  .mgl-native-page h1{overflow-wrap:anywhere}
+}
