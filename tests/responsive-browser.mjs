@@ -195,11 +195,15 @@ try {
       const container = node.closest(".container");
       const nodeRect = node.getBoundingClientRect();
       const containerRect = container?.getBoundingClientRect();
+      const containerStyle = container ? getComputedStyle(container) : null;
       const heading = node.querySelector("h2");
       const headingStyle = heading ? getComputedStyle(heading) : null;
+      const containerContentWidth = containerRect
+        ? containerRect.width - Number.parseFloat(containerStyle?.paddingLeft || "0") - Number.parseFloat(containerStyle?.paddingRight || "0")
+        : 0;
       return {
         width: nodeRect.width,
-        containerWidth: containerRect?.width || 0,
+        containerWidth: containerContentWidth,
         headingFamily: headingStyle?.fontFamily || "",
         headingWeight: headingStyle?.fontWeight || "",
         headingLineHeight: Number.parseFloat(headingStyle?.lineHeight || "0"),
