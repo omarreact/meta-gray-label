@@ -98,13 +98,15 @@ async function inspectLayout(page, width, label) {
   assert(metrics.headerLeft !== null && metrics.headerLeft >= -1, `${label} @ ${width}px header left clipped`);
   assert(metrics.headerRight !== null && metrics.headerRight <= width + 1, `${label} @ ${width}px header right clipped: ${metrics.headerRight}`);
 
-  if (width <= 1199) {
-    assert(metrics.toggleVisible, `${label} @ ${width}px mobile menu toggle is not visible`);
-    assert(metrics.socialDisplay === "none", `${label} @ ${width}px social control leaked into mobile top bar`);
-    assert(metrics.ctaDisplay === "none", `${label} @ ${width}px desktop CTA leaked into mobile top bar`);
+  assert(metrics.toggleVisible, `${label} @ ${width}px menu toggle is not visible`);
+  assert(metrics.navDisplay !== "none", `${label} @ ${width}px navigation panel is unavailable`);
+
+  if (width <= 767) {
+    assert(metrics.socialDisplay === "none", `${label} @ ${width}px social control leaked into compact top bar`);
+    assert(metrics.ctaDisplay === "none", `${label} @ ${width}px desktop CTA leaked into compact top bar`);
   } else {
-    assert(!metrics.toggleVisible, `${label} @ ${width}px mobile menu toggle remains visible on desktop`);
-    assert(metrics.navDisplay !== "none", `${label} @ ${width}px desktop nav is hidden`);
+    assert(metrics.socialDisplay !== "none", `${label} @ ${width}px social control is unexpectedly hidden`);
+    assert(metrics.ctaDisplay !== "none", `${label} @ ${width}px quote CTA is unexpectedly hidden`);
   }
 
   return metrics;
@@ -135,12 +137,20 @@ try {
     await page.waitForSelector(".mgl-site-header");
     const home = await inspectLayout(page, width, "home");
 
-    if (width <= 1199) {
+    {
       const toggle = page.locator(".mgl-menu-toggle");
       await toggle.click();
       assert(await toggle.getAttribute("aria-expanded") === "true", `home @ ${width}px menu did not open`);
       const openOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-      assert(openOverflow <= 2, `home @ ${width}px open mobile menu causes horizontal overflow: ${openOverflow}px`);
+      assert(openOverflow <= 2, `home @ ${width}px open menu causes horizontal overflow: ${openOverflow}px`);
+
+      const aboutDisclosure = page.locator('[data-nav-disclosure][aria-controls="about-navigation"]');
+      await aboutDisclosure.click();
+      assert(await aboutDisclosure.getAttribute("aria-expanded") === "true",
+        `home @ ${width}px About Us submenu did not open`);
+      assert(await page.locator("#about-navigation").isVisible(),
+        `home @ ${width}px About Us submenu is not visible`);
+
       await page.keyboard.press("Escape");
       assert(await toggle.getAttribute("aria-expanded") === "false", `home @ ${width}px Escape did not close menu`);
     }
