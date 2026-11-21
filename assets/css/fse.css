@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 /*
  * Scoped Gutenberg-native preview and WordPress content styles.
  * Does not change the existing production HTML or original Bitrader CSS.
@@ -233,4 +231,83 @@
 @media(max-width:1199.98px){
   .mgl-native-navigation .wp-block-navigation__responsive-container:not(.is-menu-open){display:none}
   .mgl-native-navigation .wp-block-navigation__responsive-container-open{display:flex}
+}
+
+
+/* MGL EXACT REFERENCE TYPOGRAPHY — omar.akogs-fashion.com — 2026-11-21 */
+:root{
+  --mgl-ref-font:Arial,Helvetica,sans-serif;
+  --mgl-ref-body:clamp(14px,calc(.875rem + ((1vw - 3.2px) * .337)),17px);
+  --mgl-ref-display:clamp(38.682px,calc(2.418rem + ((1vw - 3.2px) * 3.744)),72px);
+}
+body,.mgl-native-page,.mgl-native-site-header,.mgl-native-site-footer{
+  font-family:var(--mgl-ref-font)!important;
+  font-size:var(--mgl-ref-body);
+  font-weight:400;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+.mgl-native-page h1,
+.mgl-native-page h2,
+.mgl-native-page h3,
+.mgl-native-page h4,
+.mgl-native-page h5,
+.mgl-native-page h6,
+.wp-block-heading{
+  font-family:var(--mgl-ref-font)!important;
+  font-style:normal;
+  font-weight:600!important;
+  line-height:1.04!important;
+  letter-spacing:-.065em!important;
+}
+.mgl-native-page h1{font-size:var(--mgl-ref-display)}
+.mgl-native-page h2{font-size:clamp(42px,4.9vw,72px)}
+.mgl-native-page h3{font-size:28px}
+.mgl-native-page p{font-family:var(--mgl-ref-font)!important;font-size:var(--mgl-ref-body);font-weight:400;line-height:1.75}
+.mgl-native-navigation,
+.mgl-native-navigation .wp-block-navigation-item__content{
+  font-family:var(--mgl-ref-font)!important;
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+.mgl-native-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content{
+  font-size:13px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+}
+.wp-block-button__link,.wp-element-button{
+  font-family:var(--mgl-ref-font)!important;
+  font-size:14px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:normal!important;
+}
+.mgl-native-page .mgl-native-eyebrow{
+  font-family:var(--mgl-ref-font)!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  letter-spacing:.17em!important;
+}
+.mgl-native-page summary{
+  font-family:var(--mgl-ref-font)!important;
+  font-size:19px!important;
+  font-weight:600!important;
+  line-height:1.4!important;
+  letter-spacing:-.03em!important;
+}
+.mgl-native-site-footer h1,
+.mgl-native-site-footer h2,
+.mgl-native-site-footer h3,
+.mgl-native-site-footer h4,
+.mgl-native-site-footer h5,
+.mgl-native-site-footer h6{
+  font-family:var(--mgl-ref-font)!important;
+}
+@media(max-width:560px){
+  .mgl-native-page h2{font-size:40px}
+  .mgl-native-page h3{font-size:25px}
+  .mgl-native-page summary{font-size:17px!important}
 }
