@@ -4,6 +4,15 @@
   const siteRoot = new URL('../../', document.currentScript.src);
   const isNestedPage = new URL('.', document.baseURI).href !== siteRoot.href;
 
+  // Developer site settings are shared across every static/dynamic route.
+  if (!document.getElementById('mgl-site-settings-style')) {
+    const settingsStyle = document.createElement('link');
+    settingsStyle.id = 'mgl-site-settings-style';
+    settingsStyle.rel = 'stylesheet';
+    settingsStyle.href = new URL('assets/css/site-settings.css', siteRoot).href;
+    document.head.appendChild(settingsStyle);
+  }
+
   async function insertPart(name) {
     const target = document.querySelector('template[data-shared-part="' + name + '"]');
     if (!target) return;
@@ -75,6 +84,11 @@
       // the short page summary. All supporting content begins after the hero.
       hero.querySelectorAll('.mgl-kicker, .mgl-hero-actions, .mgl-hero-art').forEach((extra) => extra.remove());
     });
+
+    const settingsScript = document.createElement('script');
+    settingsScript.src = new URL('assets/js/site-settings.js', siteRoot).href;
+    settingsScript.onerror = () => console.error('Failed to load developer site settings.');
+    document.body.appendChild(settingsScript);
 
     const script = document.createElement('script');
     script.src = new URL('assets/js/custom.js', siteRoot).href;
