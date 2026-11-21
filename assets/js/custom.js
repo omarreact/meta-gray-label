@@ -126,8 +126,8 @@ const siteHeader = document.querySelector('[data-site-header]');
 const primaryNav = document.querySelector('.mgl-primary-nav');
 const navToggle = document.querySelector('.mgl-menu-toggle');
 const navDisclosureButtons = Array.from(document.querySelectorAll('[data-nav-disclosure]'));
-const mobileNavQuery = window.matchMedia('(max-width: 1279.98px)');
-const desktopTouchQuery = window.matchMedia('(min-width: 1280px) and (hover: none), (min-width: 1280px) and (pointer: coarse)');
+const mobileNavQuery = window.matchMedia('(max-width: 1199.98px)');
+const desktopTouchQuery = window.matchMedia('(min-width: 1200px) and (hover: none), (min-width: 1200px) and (pointer: coarse)');
 
 function closeHeaderSubmenus(exceptItem = null) {
     document.querySelectorAll('.mgl-nav-item.is-open').forEach(function (item) {
