@@ -173,8 +173,8 @@ try {
     await page.goto(base + "/index.html?theme=dark", { waitUntil: "networkidle" });
     await page.waitForSelector(".mgl-site-header");
     const home = await inspectLayout(page, width, "home");
-    assert(home.h1FontWeight === "500", `home @ ${width}px hero weight is ${home.h1FontWeight}, expected 500`);
-    assert(Math.abs(home.h1LineHeight / home.h1FontSize - 1.01) < 0.03, `home @ ${width}px hero line-height ratio differs from 1.01`);
+    assert(home.h1FontWeight === "600", `home @ ${width}px hero weight is ${home.h1FontWeight}, expected 600`);
+    assert(Math.abs(home.h1LineHeight / home.h1FontSize - 1.04) < 0.03, `home @ ${width}px hero line-height ratio differs from 1.04`);
 
     if (width <= 1199) {
       const toggle = page.locator(".mgl-menu-toggle");
@@ -190,6 +190,29 @@ try {
       await page.keyboard.press("Escape");
       assert(await toggle.getAttribute("aria-expanded") === "false", `home @ ${width}px Escape did not close menu`);
     }
+
+    const ctaMetrics = await page.locator("#contact .cta__newsletter-inner").evaluate((node) => {
+      const container = node.closest(".container");
+      const nodeRect = node.getBoundingClientRect();
+      const containerRect = container?.getBoundingClientRect();
+      const heading = node.querySelector("h2");
+      const headingStyle = heading ? getComputedStyle(heading) : null;
+      return {
+        width: nodeRect.width,
+        containerWidth: containerRect?.width || 0,
+        headingFamily: headingStyle?.fontFamily || "",
+        headingWeight: headingStyle?.fontWeight || "",
+        headingLineHeight: Number.parseFloat(headingStyle?.lineHeight || "0"),
+        headingFontSize: Number.parseFloat(headingStyle?.fontSize || "0"),
+        headingLetterSpacing: Number.parseFloat(headingStyle?.letterSpacing || "0")
+      };
+    });
+    assert(ctaMetrics.containerWidth > 0, `home @ ${width}px CTA container not found`);
+    assert(Math.abs(ctaMetrics.width - ctaMetrics.containerWidth) <= 2, `home @ ${width}px CTA is not full container width: ${ctaMetrics.width}px vs ${ctaMetrics.containerWidth}px`);
+    assert(/Arial/i.test(ctaMetrics.headingFamily), `home @ ${width}px CTA heading is not using reference Arial stack`);
+    assert(ctaMetrics.headingWeight === "600", `home @ ${width}px CTA heading weight is ${ctaMetrics.headingWeight}, expected 600`);
+    assert(Math.abs(ctaMetrics.headingLineHeight / ctaMetrics.headingFontSize - 1.04) < 0.03, `home @ ${width}px CTA heading line-height ratio differs from 1.04`);
+    assert(ctaMetrics.headingLetterSpacing < 0, `home @ ${width}px CTA heading reference tracking missing`);
 
     const faqButtons = page.locator("#faq .accordion__button");
     assert(await faqButtons.count() === 6, `home @ ${width}px expected six FAQ controls`);
