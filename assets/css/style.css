@@ -11790,3 +11790,24 @@ textarea:focus-visible,
     justify-content: center;
   }
 }
+
+
+/* Reliable scroll-to-top visibility; avoids inline-style vs !important conflicts */
+.scrollToTop {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity .22s ease, transform .22s ease, visibility .22s ease !important;
+}
+
+.scrollToTop.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scrollToTop.is-visible:hover {
+  transform: translateY(-4px);
+}
