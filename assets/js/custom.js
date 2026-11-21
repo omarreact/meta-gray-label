@@ -499,15 +499,12 @@ function updateScrollToTopVisibility() {
     if (!scrollToTop) return;
 
     const visible = window.scrollY > 300;
-    scrollToTop.style.bottom = visible ? '7%' : '-30%';
-    scrollToTop.style.opacity = visible ? '1' : '0';
-    scrollToTop.style.pointerEvents = visible ? 'auto' : 'none';
+    scrollToTop.classList.toggle('is-visible', visible);
     scrollToTop.setAttribute('aria-hidden', String(!visible));
     scrollToTop.tabIndex = visible ? 0 : -1;
 }
 
 if (scrollToTop) {
-    scrollToTop.style.transition = 'bottom .35s ease, opacity .35s ease';
     updateScrollToTopVisibility();
 
     window.addEventListener('scroll', updateScrollToTopVisibility, { passive: true });
