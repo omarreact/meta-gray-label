@@ -58,6 +58,24 @@ export function applyBasePathToHtml(html, basePath = "") {
   return output;
 }
 
+export function applyRelativeRootToHtml(html, relativeOutputPath) {
+  const directory = dirname(String(relativeOutputPath || "index.html")).replace(/\\/g, "/");
+  const depth = directory === "." ? 0 : directory.split("/").filter(Boolean).length;
+  const prefix = depth ? "../".repeat(depth) : "./";
+
+  let output = String(html || "");
+  output = output.replace(/\b(href|src|action|poster)=(["'])(\/[^"']*)\2/gi, (match, attr, quote, value) => {
+    if (value.startsWith("//")) return match;
+    const local = value === "/" ? prefix : prefix + value.replace(/^\/+/, "");
+    return `${attr}=${quote}${local}${quote}`;
+  });
+  output = output.replace(/url\((["']?)(\/[^)'"]+)\1\)/gi, (match, quote, value) => {
+    const local = prefix + value.replace(/^\/+/, "");
+    return `url(${quote}${local}${quote})`;
+  });
+  return output;
+}
+
 export function rewritePlatformReferences(html, publicBase) {
   let output = String(html || "");
   const target = normalizePublicBase(publicBase);
@@ -113,6 +131,7 @@ export function generateStructuredPages({
   outRoot,
   publicBase,
   basePath = "",
+  relativePaths = false,
   cleanStale = false,
   manifestPath = ".github/generated-pages.json"
 }) {
@@ -136,7 +155,9 @@ export function generateStructuredPages({
       canonicalBase: normalizePublicBase(publicBase)
     });
     html = rewritePlatformReferences(html, publicBase);
-    html = applyBasePathToHtml(html, basePath);
+    html = relativePaths
+      ? applyRelativeRootToHtml(html, relative)
+      : applyBasePathToHtml(html, basePath);
     writeText(outRoot, relative, html);
     generated.push(relative);
   }
@@ -204,15 +225,15 @@ export function buildStaticSite({
 
 export function materializeGitHubPages({
   projectRoot,
-  publicBase = "https://omarreact.github.io/meta-gray-label",
-  basePath = "/meta-gray-label"
+  publicBase = "https://mg-label.webflow.io"
 }) {
   const root = resolve(projectRoot);
   const result = generateStructuredPages({
     projectRoot: root,
     outRoot: root,
     publicBase,
-    basePath,
+    basePath: "",
+    relativePaths: true,
     cleanStale: true
   });
 
@@ -222,7 +243,12 @@ export function materializeGitHubPages({
     canonicalBase: normalizePublicBase(publicBase)
   });
   notFound = rewritePlatformReferences(notFound, publicBase);
-  notFound = applyBasePathToHtml(notFound, basePath);
+  notFound = notFound
+    .replace(/href=(["'])\/\1/gi, 'href=$1./$1')
+    .replace(/href=(["'])\/assets\//gi, 'href=$1./assets/')
+    .replace(/src=(["'])\/assets\//gi, 'src=$1./assets/')
+    .replace(/href=(["'])\/media\//gi, 'href=$1./media/')
+    .replace(/src=(["'])\/media\//gi, 'src=$1./media/');
   writeText(root, "404.html", notFound);
   writeText(root, "sitemap.xml", renderDynamicSitemap(result.data, normalizePublicBase(publicBase)));
   writeText(root, "robots.txt", `User-agent: *\nAllow: /\nSitemap: ${normalizePublicBase(publicBase)}/sitemap.xml\n`);
@@ -230,7 +256,7 @@ export function materializeGitHubPages({
   const manifest = {
     generatedAt: new Date().toISOString(),
     publicBase: normalizePublicBase(publicBase),
-    basePath: normalizeBasePath(basePath),
+    linkMode: "relative",
     files: result.generated
   };
   writeText(root, ".github/generated-pages.json", JSON.stringify(manifest, null, 2) + "\n");

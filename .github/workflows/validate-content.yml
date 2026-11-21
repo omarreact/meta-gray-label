@@ -92,6 +92,18 @@ jobs:
           grep -q 'href="/assets/css/style.css"' dist/public/about-us/index.html
           ! grep -R -q '/meta-gray-label/assets/' dist/public
           ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
+      - name: Validate shared-main host-neutral materialization
+        run: |
+          tmpdir="$(mktemp -d)"
+          cp -a . "$tmpdir/site"
+          cd "$tmpdir/site"
+          PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/materialize-pages.mjs
+          grep -q 'https://mg-label.webflow.io/about-us/' about-us/index.html
+          grep -q 'href="../assets/css/style.css"' about-us/index.html
+          grep -q 'href="../../assets/css/style.css"' forex-grey-label/mt5-grey-label/index.html
+          grep -q 'href="../"' about-us/index.html
+          ! grep -R -q '/meta-gray-label/assets/' about-us forex-grey-label
+          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' about-us forex-grey-label
       - name: Validate compact WordPress architecture
         run: node tests/architecture.mjs
       - name: Validate native Gutenberg projection
