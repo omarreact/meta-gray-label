@@ -13,6 +13,12 @@ const header = readFileSync(new URL("../header.html", import.meta.url), "utf8");
 const footer = readFileSync(new URL("../footer.html", import.meta.url), "utf8");
 const routes = buildRouteIndex(data);
 
+assert.ok(header.includes("Forex White Label"), "requested primary navigation missing");
+assert.ok(header.includes("Tools for Brokers"), "requested broker tools navigation missing");
+assert.ok(header.includes("Sitemap (HTML)"), "requested sitemap navigation label missing");
+assert.equal((header.match(/data-nav-disclosure/g) || []).length, 11, "expected 11 standard dropdown disclosures");
+assert.ok(!/mgl-mega|mega-panel|mega-grid/i.test(header), "mega menu markup must remain removed");
+
 assert.ok(routes.size >= 45, "Expected structured route coverage");
 assert.equal(normalizePath("/forex-grey-label"), "/forex-grey-label/");
 assert.equal(specialAssetPath("/"), "/index.html");
