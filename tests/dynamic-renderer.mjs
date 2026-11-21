@@ -37,6 +37,11 @@ for (const [route, entry] of routes) {
   assert.match(html, /<header\b/i, "shared header missing: " + route);
   assert.match(html, /<footer\b/i, "shared footer missing: " + route);
   assert.equal((html.match(/<h1\b/gi) || []).length, 1, "expected one H1: " + route);
+  assert.match(html, /<meta name="robots" content="index,follow,max-image-preview:large">/i, "robots metadata missing: " + route);
+  assert.match(html, /<meta name="twitter:card" content="summary_large_image">/i, "Twitter card missing: " + route);
+  assert.match(html, /<script type="application\/ld\+json">/i, "JSON-LD missing: " + route);
+  assert.match(html, /https:\/\/wa\.me\/447988028424/i, "direct WhatsApp contact missing: " + route);
+  assert.ok(!html.includes("api.whatsapp.com/send?text=MetaGreyLabel"), "share-only WhatsApp link remains: " + route);
   assert.ok(!html.includes("data-shared-part"), "unresolved shared placeholder: " + route);
   assert.ok(!html.includes("../assets/"), "relative assets remain: " + route);
   for (const block of entry.document.blocks || []) {

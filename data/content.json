@@ -10,7 +10,7 @@
           {
             "type": "heading",
             "level": 1,
-            "text": "MetaTrader Grey Label Solutions to Launch Your Forex Brokerage in 2 Days"
+            "text": "Connected Brokerage Technology for Launch, Control and Scale"
           },
           {
             "type": "paragraph",
@@ -18,12 +18,12 @@
           },
           {
             "type": "paragraph",
-            "text": "That’s the part we take off your plate. MetaGreyLabel gives you a ready MetaTrader grey label setup, configured and branded, so your time goes into clients and compliance instead of chasing server engineers late at night."
+            "text": "That’s the part we take off your plate. Meta Grey Label coordinates MetaTrader platform configuration, hosting, liquidity and client operations so your team can focus on clients, compliance and day-to-day brokerage operations."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "A Forex Technology Provider That Gets You Live Fast"
+            "text": "Brokerage Technology Planned as One Connected Operating Stack"
           },
           {
             "type": "paragraph",
@@ -62,7 +62,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Yes, two days. People raise an eyebrow at that, so here’s where the time actually goes."
+            "text": "Yes, a short technical configuration window. People raise an eyebrow at that, so here’s where the time actually goes."
           },
           {
             "type": "paragraph",
@@ -3917,222 +3917,120 @@
         ]
       },
       "doc-19": {
-        "title": "Launch in 2 Days (Process)",
+        "title": "Brokerage Launch Process",
         "status": "available",
         "blocks": [
           {
             "type": "heading",
             "level": 1,
-            "text": "Launch Forex Broker in 2 Days: Our Step-by-Step Setup Process"
+            "text": "Brokerage Launch Process: From Discovery to Managed Support"
           },
           {
             "type": "paragraph",
-            "text": "“Two days” makes most people a little suspicious. They’ve heard stories of brokerages taking six months or more to get off the ground, and assume a fast launch must mean cutting corners."
+            "text": "A reliable brokerage launch is less about a headline timeline and more about sequencing the dependencies correctly. Platform, hosting, liquidity, CRM, KYC and payments need to be planned as one operating system, then tested together before clients arrive."
           },
           {
             "type": "paragraph",
-            "text": "It doesn’t. The reason we can launch forex broker in 2 days is that the slow work has already been done. The servers exist. The integrations are built. The testing processes are in place. What’s left is configuring all of it around your brand and your business. This page walks you through exactly how that happens, and what needs to be ready before the clock starts."
+            "text": "The technical configuration can move quickly when requirements and third-party approvals are ready. Licensing, banking, liquidity, payment and compliance timelines remain separate dependencies and should be planned honestly from the start."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "Why Most Brokerage Launches Take So Long"
+            "text": "01 Discovery"
           },
           {
             "type": "paragraph",
-            "text": "It’s worth understanding where the time usually goes, because that explains how we save it."
-          },
-          {
-            "type": "paragraph",
-            "text": "Buying and setting up a MetaTrader server from scratch takes weeks. Finding a CRM, then getting it to sync with the platform, takes more. Payment gateways, liquidity bridges and a website each come from separate suppliers, each with their own timelines. Then everything has to be tested together, and that’s usually when the problems show up."
-          },
-          {
-            "type": "paragraph",
-            "text": "We’ve already built and connected those pieces. Your launch becomes a configuration job, not a construction project."
+            "text": "We start with the operating model: target markets, account types, expected volumes, platform preference, execution model and the providers you already have. Clear inputs prevent avoidable rework later."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "Before Day One: What You’ll Need Ready"
+            "text": "02 Architecture"
           },
           {
             "type": "paragraph",
-            "text": "The two-day timeline starts once a few things are in place. Getting these sorted early is the single biggest factor in how fast you go live."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Company and Licensing Documents"
-          },
-          {
-            "type": "paragraph",
-            "text": "Your company registration details and, where required, your regulatory licence or application status. Requirements depend on your jurisdiction, so check with your legal advisor early."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Branding"
-          },
-          {
-            "type": "paragraph",
-            "text": "Your company name, logo, brand colours and domain name. If you don’t have these finalised, the launch will wait for them."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Trading Decisions"
-          },
-          {
-            "type": "paragraph",
-            "text": "Which platform you want, MT4, MT5 or both. Which instruments you’ll offer. Your starting spreads, leverage levels and account types. We can help you think these through, but the final call is yours."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Payment and Liquidity Partners"
-          },
-          {
-            "type": "paragraph",
-            "text": "Accounts with your chosen payment processors and liquidity providers, or at least approvals in progress. These often take longer than the technology itself, so start early."
+            "text": "Next we map the stack: MT4 or MT5, hosting region, liquidity connection, CRM, KYC, payments, reporting and the systems that need to exchange data. Existing tools can be retained when they fit the target architecture."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "The Forex Broker Setup Process, Day by Day"
+            "text": "03 Integration"
           },
           {
             "type": "paragraph",
-            "text": "Here’s how our forex broker setup process runs once everything above is ready."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Day One Morning: Kick-Off and Configuration"
-          },
-          {
-            "type": "paragraph",
-            "text": "We hold a short kick-off call to confirm every detail. Then the work begins. Your MetaTrader environment is set up, account groups are created, symbols are configured and your trading conditions are applied."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Day One Afternoon: Branding and Integrations"
-          },
-          {
-            "type": "paragraph",
-            "text": "Your logo and colours are applied across the trading platform, client portal and email templates. We connect your CRM to MetaTrader, link your payment gateways and set up the liquidity bridge to your chosen providers."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Day Two Morning: Testing"
-          },
-          {
-            "type": "paragraph",
-            "text": "This is where we slow down on purpose. We run real scenarios from start to finish. A client registers, uploads KYC documents, gets approved, deposits funds, places trades, withdraws money. We check that reports match, commissions calculate correctly and nothing gets lost between systems."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Day Two Afternoon: Your Team Takes Over"
-          },
-          {
-            "type": "paragraph",
-            "text": "Your team logs in and runs through the same scenarios. We show them the manager terminal, back office and CRM, answer questions and fix anything that doesn’t look right. Once you’re happy, you go live."
+            "text": "Platform settings, trading groups, symbols, bridge or gateway connectivity, CRM workflows, KYC and payment services are configured around the approved architecture. Vendor requirements and technical handoffs are coordinated in one implementation plan."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "What Happens After Launch"
+            "text": "04 Testing"
           },
           {
             "type": "paragraph",
-            "text": "Going live isn’t the end of our involvement. The first few weeks are when brokers usually need the most help, so our team stays close."
-          },
-          {
-            "type": "paragraph",
-            "text": "We monitor your server, handle early configuration changes, adjust settings as real client activity comes in and help your team settle into daily operations. You’ll have named contacts who already know your setup, so you won’t be explaining everything from scratch."
+            "text": "We test real workflows end to end: onboarding, account creation, deposits, pricing, order routing, rejects, reporting and withdrawals where applicable. The goal is to find integration gaps before a live client does."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "How to Start Forex Brokerage the Right Way"
+            "text": "05 Go-Live"
           },
           {
             "type": "paragraph",
-            "text": "If you’re still at the planning stage and wondering how to start forex brokerage operations properly, here’s the order we recommend."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Step One: Define Your Market"
-          },
-          {
-            "type": "paragraph",
-            "text": "Decide which countries and client types you’ll serve. This shapes your licensing, payment methods and even which platform you choose."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Step Two: Sort Out Licensing"
-          },
-          {
-            "type": "paragraph",
-            "text": "Speak to a legal advisor about what licence you need, if any, for your target markets. This is often the longest part of the whole journey."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Step Three: Choose Your Model"
-          },
-          {
-            "type": "paragraph",
-            "text": "White label, grey label, turnkey package or your own admin licence. We can help you weigh the costs and control each one offers."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Step Four: Line Up Partners"
-          },
-          {
-            "type": "paragraph",
-            "text": "Open accounts with payment processors and liquidity providers. Start these early, as approvals can take weeks."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Step Five: Launch Your Technology"
-          },
-          {
-            "type": "paragraph",
-            "text": "This is where we come in. Once the steps above are underway, your technology can be live in two days."
-          },
-          {
-            "type": "heading",
-            "level": 3,
-            "text": "Step Six: Market and Grow"
-          },
-          {
-            "type": "paragraph",
-            "text": "With your brokerage live, the focus shifts to attracting traders, building trust and keeping clients happy."
+            "text": "Launch happens only after the agreed checks are complete, access has been handed over and monitoring is in place. The team should know how to operate the platform, client systems and escalation path before production traffic starts."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "When Two Days Isn’t Realistic"
+            "text": "06 Managed Support"
           },
           {
             "type": "paragraph",
-            "text": "We’d rather be honest than overpromise. If you need a fully custom website, complex multi-region payment setups, both MT4 and MT5 with many symbols, or integrations with unusual third-party tools, it’ll take longer. Usually days rather than weeks, but longer all the same. We’ll tell you at the start exactly what your timeline looks like."
+            "text": "After launch, the environment still needs monitoring, updates, configuration changes, backup checks and incident response. Support continues as the brokerage adds clients, instruments, liquidity routes or operational tools."
           },
           {
             "type": "heading",
             "level": 2,
-            "text": "Ready to Get Started?"
+            "text": "What Affects the Timeline"
           },
           {
             "type": "paragraph",
-            "text": "The technology shouldn’t be what holds your brokerage back. With the infrastructure already built, you can launch forex broker in 2 days and put your energy into clients and growth."
+            "text": "A standard technical configuration may be short when documents, branding, account structure and provider approvals are ready. Custom websites, unusual integrations, multi-region payment setups, large symbol sets or unresolved licensing and vendor approvals extend the overall timeline."
+          },
+          {
+            "type": "paragraph",
+            "text": "We separate technical implementation time from external approval time so the launch plan stays realistic."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "What to Prepare Before Implementation"
+          },
+          {
+            "type": "heading",
+            "level": 3,
+            "text": "Business and market scope"
+          },
+          {
+            "type": "paragraph",
+            "text": "Company details, target jurisdictions, client profile, intended account types and expected launch sequence."
+          },
+          {
+            "type": "heading",
+            "level": 3,
+            "text": "Platform and trading decisions"
+          },
+          {
+            "type": "paragraph",
+            "text": "MT4, MT5 or both; instruments; leverage and group structure; execution model; liquidity preference; and any migration requirements."
+          },
+          {
+            "type": "heading",
+            "level": 3,
+            "text": "Operational dependencies"
+          },
+          {
+            "type": "paragraph",
+            "text": "CRM, KYC, payment providers, domains, branding, reporting requirements and the status of any regulatory or banking approvals."
           },
           {
             "type": "heading",
@@ -4142,11 +4040,11 @@
           {
             "type": "heading",
             "level": 3,
-            "text": "Can I really launch a forex broker in 2 days?"
+            "text": "Can the technology be configured quickly?"
           },
           {
             "type": "paragraph",
-            "text": "Yes, for a standard setup, once your documents, branding, trading conditions and partner accounts are ready. The two days cover configuration, integration and testing of the technology."
+            "text": "Yes, when the scope is standard and the required inputs are ready. The full brokerage launch can still take longer because licensing, liquidity, payment, banking or compliance approvals are outside the platform configuration itself."
           },
           {
             "type": "heading",
@@ -4155,25 +4053,25 @@
           },
           {
             "type": "paragraph",
-            "text": "Missing documents, unfinished branding, and payment or liquidity providers that haven’t approved your account yet. Technology is rarely the bottleneck."
+            "text": "Incomplete requirements, missing documents, unfinished branding, unresolved provider approvals, custom integrations and late changes to account or execution models are common causes."
           },
           {
             "type": "heading",
             "level": 3,
-            "text": "Do I need a licence before I launch?"
+            "text": "Will the full workflow be tested before go-live?"
           },
           {
             "type": "paragraph",
-            "text": "That depends on your jurisdiction and target markets. Some require a licence before you accept clients. Your legal advisor should confirm what applies to you."
+            "text": "That is the target. Platform, integrations, reporting and client operations should be tested together against the agreed scope before production launch."
           },
           {
             "type": "heading",
             "level": 3,
-            "text": "Will my brokerage be fully tested before going live?"
+            "text": "Does Meta Grey Label handle regulatory approval?"
           },
           {
             "type": "paragraph",
-            "text": "Yes. We test every client journey end to end, then your team tests it again. You only go live once you’re satisfied."
+            "text": "No. We provide technology, software and infrastructure integration. Regulatory, legal and licensing obligations remain with the brokerage and its qualified advisers."
           }
         ]
       },
@@ -12480,7 +12378,7 @@
       "role": "shared-part",
       "route": null,
       "fields": {
-        "__MGL_CONTENT_00001__": "MetaGreyLabel coordinates platform, liquidity and client operations for white label, grey label and turnkey brokerage launches.",
+        "__MGL_CONTENT_00001__": "Meta Grey Label connects MT4/MT5 platform configuration, hosting, liquidity, CRM, KYC and payments for white label, grey label and turnkey brokerage operations.",
         "__MGL_CONTENT_00002__": "Explore",
         "__MGL_CONTENT_00003__": "All Solutions",
         "__MGL_CONTENT_00004__": "Services",
@@ -12496,7 +12394,7 @@
         "__MGL_CONTENT_00014__": "Why Choose Us",
         "__MGL_CONTENT_00015__": "Company &amp; Licensing",
         "__MGL_CONTENT_00016__": "Launch Process",
-        "__MGL_CONTENT_00017__": "© 2026 All Rights Reserved By ",
+        "__MGL_CONTENT_00017__": "© 2026 ",
         "__MGL_CONTENT_00018__": "Meta Grey Label",
         "__MGL_CONTENT_00019__": "index.html",
         "__MGL_CONTENT_00020__": "Meta Grey Label",
@@ -12513,12 +12411,12 @@
         "__MGL_CONTENT_00031__": "forex-company-license/",
         "__MGL_CONTENT_00032__": "forex-broker-turnkey/how-it-works/",
         "__MGL_CONTENT_00033__": "index.html",
-        "__MGL_CONTENT_00034__": "https://api.whatsapp.com/send?text=MetaGreyLabel%20Brokerage%20Technology%20https%3A%2F%2Fomarreact.github.io%2Fmeta-gray-label%2F",
-        "__MGL_CONTENT_00035__": "Share Meta Grey Label via WhatsApp",
-        "__MGL_CONTENT_00036__": "Share via WhatsApp",
-        "__MGL_CONTENT_00037__": "https://t.me/share/url?url=https%3A%2F%2Fomarreact.github.io%2Fmeta-gray-label%2F&text=MetaGreyLabel%20Brokerage%20Technology",
-        "__MGL_CONTENT_00038__": "Share Meta Grey Label via Telegram",
-        "__MGL_CONTENT_00039__": "Share via Telegram",
+        "__MGL_CONTENT_00034__": "https://wa.me/447988028424?text=Hello%20Meta%20Grey%20Label%2C%20I%27d%20like%20to%20discuss%20a%20brokerage%20technology%20setup.",
+        "__MGL_CONTENT_00035__": "Chat with Meta Grey Label on WhatsApp",
+        "__MGL_CONTENT_00036__": "Chat on WhatsApp",
+        "__MGL_CONTENT_00037__": "https://t.me/forexbrokertech",
+        "__MGL_CONTENT_00038__": "Message Meta Grey Label on Telegram",
+        "__MGL_CONTENT_00039__": "Message on Telegram",
         "__MGL_CONTENT_00040__": "shape icon"
       }
     },
@@ -13592,7 +13490,7 @@
       },
       {
         "id": "doc-19",
-        "title": "Launch in 2 Days (Process)",
+        "title": "Brokerage Launch Process",
         "status": "available",
         "route": "/forex-broker-turnkey/how-it-works/",
         "path": "forex-broker-turnkey/how-it-works/index.html",
