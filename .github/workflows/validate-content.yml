@@ -79,6 +79,19 @@ jobs:
           grep -q 'https://omarreact.github.io/meta-gray-label/about-us/' dist/public/about-us/index.html
           grep -q '/meta-gray-label/assets/css/style.css' dist/public/about-us/index.html
           ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
+      - name: Validate Webflow root-host static build
+        env:
+          PUBLIC_BASE_URL: https://mg-label.webflow.io
+          BASE_PATH: ""
+        run: |
+          node scripts/build-static.mjs
+          test -f dist/public/index.html
+          test -f dist/public/about-us/index.html
+          test -f dist/public/forex-grey-label/mt5-grey-label/index.html
+          grep -q 'https://mg-label.webflow.io/about-us/' dist/public/about-us/index.html
+          grep -q 'href="/assets/css/style.css"' dist/public/about-us/index.html
+          ! grep -R -q '/meta-gray-label/assets/' dist/public
+          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
       - name: Validate compact WordPress architecture
         run: node tests/architecture.mjs
       - name: Validate native Gutenberg projection
