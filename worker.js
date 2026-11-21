@@ -18,6 +18,27 @@ function staticOrigin(env, requestOrigin) {
   return String(env.STATIC_ORIGIN || requestOrigin).replace(/\/$/, "");
 }
 
+function contentTypeForPath(pathname = "") {
+  const path = String(pathname).toLowerCase();
+  if (path.endsWith(".css")) return "text/css; charset=UTF-8";
+  if (path.endsWith(".js") || path.endsWith(".mjs")) return "application/javascript; charset=UTF-8";
+  if (path.endsWith(".json") || path.endsWith(".map")) return "application/json; charset=UTF-8";
+  if (path.endsWith(".html")) return "text/html; charset=UTF-8";
+  if (path.endsWith(".xml")) return "application/xml; charset=UTF-8";
+  if (path.endsWith(".txt")) return "text/plain; charset=UTF-8";
+  if (path.endsWith(".svg")) return "image/svg+xml";
+  if (path.endsWith(".png")) return "image/png";
+  if (path.endsWith(".jpg") || path.endsWith(".jpeg")) return "image/jpeg";
+  if (path.endsWith(".webp")) return "image/webp";
+  if (path.endsWith(".gif")) return "image/gif";
+  if (path.endsWith(".ico")) return "image/x-icon";
+  if (path.endsWith(".woff2")) return "font/woff2";
+  if (path.endsWith(".woff")) return "font/woff";
+  if (path.endsWith(".ttf")) return "font/ttf";
+  if (path.endsWith(".otf")) return "font/otf";
+  return "";
+}
+
 async function staticFetch(env, requestOrigin, path, init = {}) {
   const origin = staticOrigin(env, requestOrigin) + "/";
   const relativePath = String(path || "").replace(/^\/+/, "");
@@ -89,7 +110,10 @@ export default {
     if (isStaticAssetPath(path)) {
       const upstream = await staticFetch(env, url.origin, path, request);
       const headers = new Headers(upstream.headers);
+      const contentType = contentTypeForPath(path);
+      if (contentType) headers.set("content-type", contentType);
       headers.set("cache-control", "public, max-age=3600, s-maxage=86400");
+      headers.set("x-content-type-options", "nosniff");
       return new Response(upstream.body, { status: upstream.status, headers });
     }
 
