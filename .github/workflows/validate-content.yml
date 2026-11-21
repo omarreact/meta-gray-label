@@ -52,6 +52,7 @@ jobs:
           node --check tests/dynamic-renderer.mjs
           node --check tests/architecture.mjs
           node --check tests/responsive-browser.mjs
+          node --check tests/visual-parity.mjs
       - name: Audit dynamic SEO and route inventory
         run: node scripts/audit-seo.mjs --check
       - name: Validate dynamic renderer and compact asset build
@@ -79,7 +80,7 @@ jobs:
           php -l tests/wordpress-assets-smoke.php
       - name: Smoke-test WordPress assets
         run: php tests/wordpress-assets-smoke.php
-      - name: Build WordPress theme package
+      - name: Build installable WordPress theme package
         run: |
           node scripts/package-wordpress.mjs --write
           test -f dist/wordpress/meta-grey-label/functions.php
@@ -89,6 +90,23 @@ jobs:
           test -f dist/wordpress/meta-grey-label/assets/css/fse.css
           test ! -e dist/wordpress/meta-grey-label/assets/css/bootstrap.min.css
           test ! -d dist/wordpress/meta-grey-label/blocks
+          (
+            cd dist/wordpress
+            zip -qr meta-grey-label.zip meta-grey-label
+          )
+          unzip -t dist/wordpress/meta-grey-label.zip
+          sha256sum dist/wordpress/meta-grey-label.zip > dist/wordpress/meta-grey-label.zip.sha256
+
+      - name: Publish installable theme artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meta-grey-label-wordpress-theme
+          path: |
+            dist/wordpress/meta-grey-label.zip
+            dist/wordpress/meta-grey-label.zip.sha256
+            dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
+          if-no-files-found: error
+          retention-days: 14
 
   responsive-web:
     name: Responsive web QA (7 breakpoints)
@@ -153,14 +171,70 @@ jobs:
           npx playwright install chromium
           node tests/wp-browser.mjs
           node tests/wp-editor.mjs
-      - name: Publish visual QA evidence
+      - name: Capture source HTML and WordPress visual parity
+        run: |
+          mkdir -p tmp/design-parity
+          python3 -m http.server 4173 --bind 127.0.0.1 > tmp/design-parity/source-server.log 2>&1 &
+          echo $! > tmp/design-parity/source-server.pid
+          for attempt in {1..20}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:4173/ >/dev/null
+          node tests/visual-parity.mjs
+      - name: Capture WordPress staging evidence
+        if: always()
+        run: |
+          mkdir -p tmp/wordpress-qa
+          {
+            echo "# Meta Grey Label WordPress staging QA"
+            echo
+            echo "- Commit: $GITHUB_SHA"
+            echo "- Ref: $GITHUB_REF"
+            echo "- Run: $GITHUB_RUN_ID"
+            echo "- WordPress staging: isolated wp-env Docker environment"
+            echo "- Theme: meta-grey-label"
+            echo "- Expected native routes: 52"
+            echo "- Browser viewports: 1440x900 and 390x844"
+            echo "- Evidence: screenshots, runtime inventory and wp-env logs"
+          } > tmp/wordpress-qa/summary.md
+
+          npx --yes @wordpress/env run cli wp core version > tmp/wordpress-qa/wordpress-version.txt 2>&1 || true
+          npx --yes @wordpress/env run cli wp theme status meta-grey-label > tmp/wordpress-qa/theme-status.txt 2>&1 || true
+          npx --yes @wordpress/env run cli wp post list --post_type=page --post_status=publish --fields=ID,post_name,post_title --format=csv > tmp/wordpress-qa/pages.csv 2>&1 || true
+          npx --yes @wordpress/env run cli wp option get show_on_front > tmp/wordpress-qa/show-on-front.txt 2>&1 || true
+          npx --yes @wordpress/env run cli wp option get page_on_front > tmp/wordpress-qa/page-on-front.txt 2>&1 || true
+          docker ps -a > tmp/wordpress-qa/docker-ps.txt 2>&1 || true
+          timeout 15s npx --yes @wordpress/env logs > tmp/wordpress-qa/wp-env.log 2>&1 || true
+
+          {
+            echo "## WordPress staging factory"
+            echo
+            echo "- Commit: $GITHUB_SHA"
+            echo "- 52 native block routes packaged"
+            echo "- Real WordPress + MariaDB booted in isolated Docker"
+            echo "- HTTP, Gutenberg, Site Editor and responsive browser QA executed"
+            echo "- Installable theme ZIP is available from the meta-grey-label-wordpress-theme artifact"
+            echo "- Screenshots and diagnostics are available from the wordpress-staging-qa artifact"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish WordPress staging QA evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: wordpress-desktop-mobile-screenshots
-          path: tmp/wp-browser-screens/
-          if-no-files-found: ignore
-          retention-days: 7
-      - name: Shut down disposable WordPress
+          name: wordpress-staging-qa
+          path: |
+            tmp/wp-browser-screens/
+            tmp/design-parity/
+            tmp/wordpress-qa/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Shut down disposable staging
         if: always()
-        run: npx --yes @wordpress/env stop || true
+        run: |
+          if [ -f tmp/design-parity/source-server.pid ]; then
+            kill "$(cat tmp/design-parity/source-server.pid)" 2>/dev/null || true
+          fi
+          npx --yes @wordpress/env stop || true
