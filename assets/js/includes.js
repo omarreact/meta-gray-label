@@ -54,7 +54,6 @@
       const currentHost = window.location.hostname;
       const githubPrefix = '/meta-gray-label/';
       const mirrorHosts = new Set([
-        'meta-gray-label-dynamic.farukkhanone.workers.dev',
         'mg-label.webflow.io',
         'omarreact.github.io'
       ]);
