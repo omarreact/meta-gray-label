@@ -22,7 +22,7 @@ if (document.readyState === 'loading') {
 
 // =================== light and dark start ================== //
 
-const colorSwitcher = document.querySelector('.header-section--style2 #btnSwitch') || document.getElementById('btnSwitch');
+const colorSwitcher = document.querySelector('.mgl-site-header #btnSwitch') || document.getElementById('btnSwitch');
 
 
 switchThemeByUrl();
@@ -122,193 +122,120 @@ function changeImage(themeMode = 'light') {
 
 // =================== header js start here ===================
 
+const siteHeader = document.querySelector('[data-site-header]');
+const primaryNav = document.querySelector('.mgl-primary-nav');
+const navToggle = document.querySelector('.mgl-menu-toggle');
+const navDisclosureButtons = Array.from(document.querySelectorAll('[data-nav-disclosure]'));
+const mobileNavQuery = window.matchMedia('(max-width: 1199.98px)');
+const desktopTouchQuery = window.matchMedia('(min-width: 1200px) and (hover: none), (min-width: 1200px) and (pointer: coarse)');
 
-// Add class 'menu-item-has-children' to parent li elements of '.submenu'
-var submenuList = document.querySelectorAll("ul>li>.submenu");
-submenuList.forEach(function (submenu) {
-    var parentLi = submenu.parentElement;
-    if (parentLi) {
-        parentLi.classList.add("menu-item-has-children");
-        var trigger = parentLi.querySelector(":scope > a");
-        if (trigger) {
-            trigger.setAttribute("aria-haspopup", "true");
-            trigger.setAttribute("aria-expanded", "false");
-        }
+function closeHeaderSubmenus(exceptItem = null) {
+    document.querySelectorAll('.mgl-nav-item.is-open').forEach(function (item) {
+        if (item === exceptItem) return;
+        item.classList.remove('is-open');
+        const button = item.querySelector(':scope > .mgl-nav-trigger [data-nav-disclosure]');
+        if (button) button.setAttribute('aria-expanded', 'false');
+    });
+}
+
+function setMobileNavigation(open, restoreFocus = false) {
+    if (!primaryNav || !navToggle) return;
+
+    const shouldOpen = Boolean(open && mobileNavQuery.matches);
+    primaryNav.classList.toggle('is-open', shouldOpen);
+    navToggle.classList.toggle('is-active', shouldOpen);
+    navToggle.setAttribute('aria-expanded', String(shouldOpen));
+    navToggle.setAttribute('aria-label', shouldOpen ? 'Close navigation' : 'Open navigation');
+    document.documentElement.classList.toggle('mgl-nav-open', shouldOpen);
+
+    if (!shouldOpen) {
+        closeHeaderSubmenus();
+        if (restoreFocus) navToggle.focus({ preventScroll: true });
     }
+}
+
+navToggle?.addEventListener('click', function () {
+    setMobileNavigation(!primaryNav?.classList.contains('is-open'));
 });
 
-// Fix dropdown menu overflow problem
-var menuList = document.querySelectorAll("ul");
-menuList.forEach(function (menu) {
-    var parentLi = menu.parentElement;
-    if (parentLi) {
-        parentLi.addEventListener("mouseover", function () {
-            var menuPos = menu.getBoundingClientRect();
-            if (menuPos.left + menu.offsetWidth > window.innerWidth) {
-                menu.style.left = -menu.offsetWidth + "px";
-            }
+navDisclosureButtons.forEach(function (button) {
+    button.addEventListener('click', function (event) {
+        if (!mobileNavQuery.matches) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const item = button.closest('.mgl-nav-item--has-panel');
+        if (!item) return;
+
+        const willOpen = !item.classList.contains('is-open');
+        closeHeaderSubmenus(item);
+        item.classList.toggle('is-open', willOpen);
+        button.setAttribute('aria-expanded', String(willOpen));
+    });
+});
+
+document.querySelectorAll('.mgl-nav-item--has-panel > .mgl-nav-trigger > .mgl-nav-link').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+        if (!desktopTouchQuery.matches) return;
+
+        const item = link.closest('.mgl-nav-item--has-panel');
+        if (!item || item.classList.contains('is-touch-open')) return;
+
+        event.preventDefault();
+        document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (openItem) {
+            if (openItem !== item) openItem.classList.remove('is-touch-open');
+        });
+        item.classList.add('is-touch-open');
+    });
+});
+
+primaryNav?.addEventListener('click', function (event) {
+    if (!mobileNavQuery.matches) return;
+    const link = event.target.closest('a[href]');
+    if (link) setMobileNavigation(false);
+});
+
+document.addEventListener('click', function (event) {
+    if (mobileNavQuery.matches) {
+        if (!siteHeader?.contains(event.target) && primaryNav?.classList.contains('is-open')) {
+            setMobileNavigation(false);
+        }
+        return;
+    }
+
+    if (!siteHeader?.contains(event.target)) {
+        document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (item) {
+            item.classList.remove('is-touch-open');
         });
     }
 });
 
+document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape') return;
 
-
-// Toggle menu on click
-
-var menuLinks = document.querySelectorAll(".menu li a");
-
-function closeSiblingSubmenus(element) {
-    var parentList = element?.parentElement;
-    if (!parentList) return;
-
-    Array.from(parentList.children).forEach(function (sibling) {
-        if (sibling === element || !sibling.classList?.contains("menu-item-has-children")) return;
-        sibling.classList.remove("open");
-        var siblingLink = sibling.querySelector(":scope > a");
-        if (siblingLink) siblingLink.setAttribute("aria-expanded", "false");
-    });
-}
-
-function resetMobileSubmenus() {
-    document.querySelectorAll(".menu .menu-item-has-children.open").forEach(function (item) {
-        item.classList.remove("open");
-        var link = item.querySelector(":scope > a");
-        if (link) link.setAttribute("aria-expanded", "false");
-    });
-}
-
-menuLinks.forEach(function (link) {
-    link.addEventListener("click", function (e) {
-        var element = link.parentElement;
-        var submenu = element?.querySelector(":scope > .submenu");
-
-        if (mobileNavQuery.matches && submenu) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            var expanded = !element.classList.contains("open");
-            closeSiblingSubmenus(element);
-            element.classList.toggle("open", expanded);
-            link.setAttribute("aria-expanded", String(expanded));
-            return;
-        }
-
-        if (mobileNavQuery.matches && !submenu) {
-            setMobileMenu(false);
-        }
-    });
-});
-
-
-
-
-// Toggle header bar on click
-var headerBar = document.querySelector(".header-bar");
-var primaryMenu = document.querySelector("#primary-navigation, .header-section--style2 .menu");
-var mobileNavQuery = window.matchMedia("(max-width: 991.98px)");
-
-function setMobileMenu(open) {
-    if (!headerBar || !primaryMenu) return;
-
-    headerBar.classList.toggle("active", open);
-    primaryMenu.classList.toggle("active", open);
-    headerBar.setAttribute("aria-expanded", String(open));
-    headerBar.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-    document.documentElement.classList.toggle("mgl-nav-open", open && mobileNavQuery.matches);
-
-    if (!open) resetMobileSubmenus();
-}
-
-headerBar?.addEventListener("click", function () {
-    setMobileMenu(!primaryMenu?.classList.contains("active"));
-});
-
-mobileNavQuery.addEventListener("change", function (event) {
-    if (!event.matches) {
-        setMobileMenu(false);
-        resetMobileSubmenus();
+    if (primaryNav?.classList.contains('is-open')) {
+        setMobileNavigation(false, true);
+        return;
     }
-});
 
-// Preserve desktop dropdowns while the pointer crosses the small visual gap
-// between a top-level menu trigger and its submenu. This does not alter layout.
-var desktopHoverQuery = window.matchMedia("(min-width: 992px)");
-var desktopHoverCloseDelay = 220;
-var desktopHoverTimers = new WeakMap();
-
-function clearDesktopHoverTimer(item) {
-    var timer = desktopHoverTimers.get(item);
-    if (timer) {
-        window.clearTimeout(timer);
-        desktopHoverTimers.delete(item);
-    }
-}
-
-function openDesktopSubmenu(item) {
-    if (!desktopHoverQuery.matches) return;
-    clearDesktopHoverTimer(item);
-    item.classList.add("mgl-hover-open");
-    var trigger = item.querySelector(":scope > a");
-    if (trigger) trigger.setAttribute("aria-expanded", "true");
-}
-
-function scheduleDesktopSubmenuClose(item) {
-    if (!desktopHoverQuery.matches) return;
-    clearDesktopHoverTimer(item);
-    var timer = window.setTimeout(function () {
-        item.classList.remove("mgl-hover-open");
-        var trigger = item.querySelector(":scope > a");
-        if (trigger) trigger.setAttribute("aria-expanded", "false");
-        desktopHoverTimers.delete(item);
-    }, desktopHoverCloseDelay);
-    desktopHoverTimers.set(item, timer);
-}
-
-document.querySelectorAll(".menu .menu-item-has-children").forEach(function (item) {
-    var submenu = item.querySelector(":scope > .submenu");
-    if (!submenu) return;
-
-    item.addEventListener("mouseenter", function () {
-        openDesktopSubmenu(item);
-    });
-
-    item.addEventListener("mouseleave", function () {
-        scheduleDesktopSubmenuClose(item);
-    });
-
-    submenu.addEventListener("mouseenter", function () {
-        openDesktopSubmenu(item);
-    });
-
-    submenu.addEventListener("mouseleave", function () {
-        scheduleDesktopSubmenuClose(item);
+    closeHeaderSubmenus();
+    document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (item) {
+        item.classList.remove('is-touch-open');
     });
 });
 
-desktopHoverQuery.addEventListener("change", function (event) {
-    if (event.matches) return;
-    document.querySelectorAll(".menu .mgl-hover-open").forEach(function (item) {
-        clearDesktopHoverTimer(item);
-        item.classList.remove("mgl-hover-open");
-        var trigger = item.querySelector(":scope > a");
-        if (trigger) trigger.setAttribute("aria-expanded", "false");
-    });
+mobileNavQuery.addEventListener('change', function (event) {
+    if (!event.matches) setMobileNavigation(false);
 });
 
+function updateHeaderScrollState() {
+    if (!siteHeader) return;
+    siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
+}
 
-
-
-//Header
-var fixedTop = document.querySelector("header");
-window.addEventListener("scroll", function () {
-    if (!fixedTop) return;
-    if (window.scrollY > 300) {
-        fixedTop.classList.add("header-fixed", "fadeInUp");
-    } else {
-        fixedTop.classList.remove("header-fixed", "fadeInUp");
-    }
-}, { passive: true });
-
+updateHeaderScrollState();
+window.addEventListener('scroll', updateHeaderScrollState, { passive: true });
 
 // =================== header js end here =================== //
 
