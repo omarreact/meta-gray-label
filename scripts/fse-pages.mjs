@@ -359,6 +359,7 @@ export function buildNativePages(config, homepageTemplate) {
 function nativeUrl(route) {
   if (route === "index.html") return "/";
   if (route.startsWith("index.html#")) return "/" + route.slice("index.html".length);
+  if (route.startsWith("#")) return route;
   if (route === "services.html") return "/services/";
   if (route.startsWith("/")) return route === "/services.html" ? "/services/" : route;
   return "/" + route.replace(/(^\.\/|index\.html$)/g, "");
@@ -374,29 +375,81 @@ function navSubmenu(label, route, children, topLevel = false) {
     children.join("\n") + "\n<!-- /wp:navigation-submenu -->";
 }
 export function buildNativeParts(config) {
-  const f = config.pages["header.html"].fields;
-  const get = (n) => f["__MGL_CONTENT_" + String(n).padStart(5, "0") + "__"];
-  const link = (t,h) => {
-    if (!get(t) || !get(h)) throw new Error("Missing menu label/link " + t);
-    return navLink(get(t),get(h));
-  };
-  const menuSection = (heading, start, end, firstHref) => {
-    const children = [];
-    for(let i=start;i<=end;i++) children.push(link(i,firstHref+i-start));
-    return navSubmenu(get(heading),get(firstHref),children);
-  };
-  const solutions = navSubmenu(get(2),get(51),[
-    menuSection(3,4,5,52),
-    menuSection(6,7,11,54),
-    menuSection(12,13,17,59),
-    menuSection(18,19,23,64),
-    menuSection(24,25,28,69),
-    menuSection(29,30,34,73),
-    menuSection(35,36,39,78)
-  ],true);
-  const company = navSubmenu(get(41),get(83),[link(42,84),link(43,85),link(44,86)],true);
-  const navMarkup = [link(1,50),solutions,link(40,82),company,
-    link(45,87),link(46,88),link(47,89)].join("\n");
+  const navigation = [
+    { label: "Home", route: "/" },
+    { label: "About Us", route: "/about-us/", children: [
+      ["Why Choose Us", "/about-us/why-choose-us/"],
+      ["Client Testimonials", "#"]
+    ]},
+    { label: "Forex White Label", route: "/forex-white-label/", children: [
+      ["MT4 White Label", "/forex-white-label/mt4-white-label/"],
+      ["MT5 White Label", "/forex-white-label/mt5-white-label/"],
+      ["White Label Pricing", "/forex-white-label/pricing/"],
+      ["White Label vs Grey Label", "/forex-white-label/vs-grey-label/"]
+    ]},
+    { label: "Forex Grey Label", route: "/forex-grey-label/", children: [
+      ["MT4 Grey Label", "/forex-grey-label/mt4-grey-label/"],
+      ["MT5 Grey Label", "/forex-grey-label/mt5-grey-label/"],
+      ["Grey Label Pricing", "/forex-grey-label/pricing/"],
+      ["Upgrade Grey Label to Admin License", "/forex-grey-label/upgrade-to-admin/"]
+    ]},
+    { label: "MT4 / MT5 Admin License", route: "/mt-admin-license/", children: [
+      ["MT4 Admin License", "/mt-admin-license/mt4-admin/"],
+      ["MT5 Admin License", "/mt-admin-license/mt5-admin/"]
+    ]},
+    { label: "Forex Broker Turnkey", route: "/forex-broker-turnkey/", children: [
+      ["Turnkey Packages", "/forex-broker-turnkey/"],
+      ["Launch in 2 Days (Process)", "/forex-broker-turnkey/how-it-works/"]
+    ]},
+    { label: "Forex Liquidity", route: "/forex-liquidity/", children: [
+      ["A-Book / B-Book / Hybrid", "/forex-liquidity/a-book-b-book/"],
+      ["Liquidity Bridge", "/forex-liquidity/liquidity-bridge/"],
+      ["Prime of Prime (PoP)", "/forex-liquidity/prime-of-prime/"]
+    ]},
+    { label: "Fx CRM | TradeRoom", route: "/forex-crm/", children: [
+      ["Trader's Room (Client Portal)", "#"],
+      ["IB / Affiliate Portal", "/forex-crm/ib-portal/"],
+      ["Back Office & Admin Panel", "/forex-crm/back-office/"],
+      ["KYC & Compliance Module", "/forex-crm/kyc/"],
+      ["Deposit / Withdrawal Automation", "/forex-crm/payments-automation/"]
+    ]},
+    { label: "Trading Platforms (Main Room)", route: "/trading-platforms/", children: [
+      ["Web Trader", "/trading-platforms/web-trader/"],
+      ["Mobile Trading App (iOS / Android)", "/trading-platforms/mobile-app/"],
+      ["Desktop Platform", "/trading-platforms/desktop/"]
+    ]},
+    { label: "Fx Company & License", route: "/forex-company-license/", children: [
+      ["Offshore Company Formation", "/forex-company-license/company-formation/"],
+      ["Forex License Options", "/forex-company-license/"],
+      ["Bank & Merchant Account Support", "#"]
+    ]},
+    { label: "Branding & Marketing", route: "/services/", children: [
+      ["Forex Website Design", "/services/"],
+      ["Logo & Brand Identity", "/services/"],
+      ["Forex SEO & Marketing", "/insights/"],
+      ["IB & Affiliate Marketing", "/forex-crm/ib-portal/"]
+    ]},
+    { label: "Tools for Brokers", route: "/services/", children: [
+      ["MT4 / MT5 Plugins", "/insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/"],
+      ["Risk Management Tools", "/forex-liquidity/a-book-b-book/"],
+      ["Payment Gateways (PSPs)", "/forex-crm/payments-automation/"],
+      ["Reports & Analytics", "/forex-crm/back-office/"],
+      ["Copy Trading / PAMM / MAM", "/insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/"]
+    ]},
+    { label: "Blogs & News (index)", route: "/insights/" },
+    { label: "Pricing / Packages", route: "/solutions/" },
+    { label: "Get a Quote", route: "/contact/" },
+    { label: "FAQ", route: "/#faq" },
+    { label: "Contact", route: "/contact/" },
+    { label: "Privacy Policy", route: "#" },
+    { label: "Terms & Conditions", route: "#" },
+    { label: "Risk Disclosure", route: "#" },
+    { label: "Sitemap (HTML)", route: "#" }
+  ];
+  const navMarkup = navigation.map((item) => item.children
+    ? navSubmenu(item.label, item.route, item.children.map(([label, route]) => navLink(label, route)), true)
+    : navLink(item.label, item.route)
+  ).join("\n");
   const header = [
     '<!-- wp:group {"align":"full","className":"mgl-native-site-header","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->',
     '<div class="wp-block-group alignfull mgl-native-site-header">',
@@ -405,7 +458,7 @@ export function buildNativeParts(config) {
     '<!-- wp:site-logo {"width":60,"shouldSyncIcon":false} /-->',
     '<!-- wp:site-title {"level":0} /-->',
     '</div><!-- /wp:group -->',
-    '<!-- wp:navigation {"overlayMenu":"mobile","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right"}} -->',
+    '<!-- wp:navigation {"overlayMenu":"mobile","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"}} -->',
     navMarkup,
     '<!-- /wp:navigation -->',
     '</div><!-- /wp:group -->'
