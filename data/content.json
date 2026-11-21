@@ -3927,7 +3927,7 @@
           },
           {
             "type": "paragraph",
-            "text": "“Two days” makes most people a little suspicious. They’ve heard stories of brokerages taking six months or more to get off the ground, and assume a fast launch must mean cutting corners."
+            "text": "Fast-launch claims deserve context. They’ve heard stories of brokerages taking six months or more to get off the ground, and assume a fast launch must mean cutting corners."
           },
           {
             "type": "paragraph",
@@ -3957,7 +3957,7 @@
           },
           {
             "type": "paragraph",
-            "text": "The two-day timeline starts once a few things are in place. Getting these sorted early is the single biggest factor in how fast you go live."
+            "text": "The accelerated timeline starts once a few things are in place. Getting these sorted early is the single biggest factor in how fast you go live."
           },
           {
             "type": "heading",
@@ -4105,7 +4105,7 @@
           },
           {
             "type": "paragraph",
-            "text": "This is where we come in. Once the steps above are underway, your technology can be live in two days."
+            "text": "This is where we come in. Once the steps above are underway, your technology can be live in a short technical configuration window."
           },
           {
             "type": "heading",
@@ -4119,7 +4119,7 @@
           {
             "type": "heading",
             "level": 2,
-            "text": "When Two Days Isn’t Realistic"
+            "text": "When a short technical configuration window Isn’t Realistic"
           },
           {
             "type": "paragraph",
@@ -4146,7 +4146,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Yes, for a standard setup, once your documents, branding, trading conditions and partner accounts are ready. The two days cover configuration, integration and testing of the technology."
+            "text": "Yes, for a standard setup, once your documents, branding, trading conditions and partner accounts are ready. The a short technical configuration window cover configuration, integration and testing of the technology."
           },
           {
             "type": "heading",
@@ -13592,7 +13592,7 @@
       },
       {
         "id": "doc-19",
-        "title": "Launch in 2 Days (Process)",
+        "title": "Brokerage Launch Process",
         "status": "available",
         "route": "/forex-broker-turnkey/how-it-works/",
         "path": "forex-broker-turnkey/how-it-works/index.html",
