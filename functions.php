@@ -28,6 +28,21 @@ add_action( 'wp_enqueue_scripts', static function (): void {
         array(),
         '1.0.0'
     );
+
+    wp_enqueue_style(
+        'mgl-site-settings',
+        get_theme_file_uri( 'assets/css/site-settings.css' ),
+        array( 'mgl-fse-native' ),
+        '1.0.0'
+    );
+
+    wp_enqueue_script(
+        'mgl-site-settings',
+        get_theme_file_uri( 'assets/js/site-settings.js' ),
+        array(),
+        '1.0.0',
+        true
+    );
 } );
 
 add_action( 'wp_head', static function (): void {
