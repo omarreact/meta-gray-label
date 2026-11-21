@@ -52,5 +52,10 @@ for (const [route, entry] of routes) {
   }
   rendered++;
 }
+assert.doesNotMatch(header, /mgl-mega/i, "mega-menu markup must not return");
+assert.match(header, /Branding &amp; Marketing/);
+assert.match(header, /Tools for Brokers/);
+assert.match(header, /Sitemap \(HTML\)/);
+assert.match(header, /aria-controls="about-navigation"/);
 assert.ok(rendered >= 40);
 console.log("DYNAMIC RENDERER PASS: " + rendered + " structured routes rendered from one JSON source with shared header/footer.");
