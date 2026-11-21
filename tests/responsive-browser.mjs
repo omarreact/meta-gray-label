@@ -161,6 +161,9 @@ try {
       hasTouch: width <= 390
     });
     const page = await context.newPage();
+    await page.route('https://fonts.googleapis.com/**', async (route) => {
+      await route.fulfill({ status: 200, contentType: 'text/css; charset=utf-8', body: '/* mocked Google Fonts CSS2 response for QA */' });
+    });
     const errors = [];
     page.on("pageerror", (error) => errors.push("pageerror: " + error.message));
     page.on("response", (response) => {
@@ -175,6 +178,11 @@ try {
     const home = await inspectLayout(page, width, "home");
     assert(home.h1FontWeight === "600", `home @ ${width}px hero weight is ${home.h1FontWeight}, expected 600`);
     assert(Math.abs(home.h1LineHeight / home.h1FontSize - 1.04) < 0.03, `home @ ${width}px hero line-height ratio differs from 1.04`);
+
+    await page.waitForSelector("#mgl-dev-settings-toggle");
+    assert(await page.locator("#mgl-dev-settings-toggle").isVisible(), `home @ ${width}px floating settings control is not visible`);
+    assert(await page.locator("#mgl-dev-settings-panel").getAttribute("aria-hidden") === "true",
+      `home @ ${width}px settings panel should start closed`);
 
     if (width <= 1199) {
       const toggle = page.locator(".mgl-menu-toggle");
@@ -232,6 +240,34 @@ try {
     assert(faqOverflow <= 2, `home @ ${width}px expanded FAQ causes horizontal overflow: ${faqOverflow}px`);
 
     if (width === 1440) {
+      const settingsToggle = page.locator("#mgl-dev-settings-toggle");
+      await settingsToggle.click();
+      const settingsPanel = page.locator("#mgl-dev-settings-panel");
+      assert(await settingsPanel.getAttribute("aria-hidden") === "false", "home @ 1440px settings panel did not open");
+      await page.locator("#mgl-global-font-select").selectOption("Poppins");
+      await page.waitForTimeout(50);
+      const fontState = await page.evaluate(() => ({
+        family: document.documentElement.dataset.mglFontFamily,
+        cssVar: document.documentElement.style.getPropertyValue("--mgl-global-font-family"),
+        googleHref: document.querySelector("#mgl-google-font-runtime")?.getAttribute("href") || ""
+      }));
+      assert(fontState.family === "Poppins", "home @ 1440px font preview did not apply selected family");
+      assert(fontState.cssVar.includes("Poppins"), "home @ 1440px global font CSS variable was not updated");
+      assert(fontState.googleHref.includes("fonts.googleapis.com/css2") && fontState.googleHref.includes("Poppins"),
+        "home @ 1440px Google Fonts CSS2 request was not generated");
+      await page.locator("[data-mgl-save-device]").click();
+      const storedFont = await page.evaluate(() => JSON.parse(localStorage.getItem("mgl-dev-font-preference-v1") || "{}").globalFontFamily);
+      assert(storedFont === "Poppins", "home @ 1440px device font preference was not persisted");
+      await page.locator("[data-mgl-reset-font]").click();
+      const resetState = await page.evaluate(() => ({
+        family: document.documentElement.dataset.mglFontFamily,
+        stored: localStorage.getItem("mgl-dev-font-preference-v1")
+      }));
+      assert(resetState.family === "Arial" && resetState.stored === null,
+        "home @ 1440px font reset did not restore project setting");
+      await page.locator("[data-mgl-settings-close]").click();
+      assert(await settingsPanel.getAttribute("aria-hidden") === "true", "home @ 1440px settings panel did not close");
+
       const firstService = page.locator("#services .service__item").first();
       await firstService.scrollIntoViewIfNeeded();
       await firstService.hover();
