@@ -14367,3 +14367,195 @@ h3 { line-height: 1.22; }
 @media (max-width: 767.98px) {
   body { font-size: var(--mgl-type-body-mobile); }
 }
+
+
+/* MGL EXACT REFERENCE TYPOGRAPHY — omar.akogs-fashion.com — 2026-11-21 */
+:root{
+  --mgl-font-ui:Arial,Helvetica,sans-serif;
+  --mgl-font-display:Arial,Helvetica,sans-serif;
+  --mgl-type-xs:12px;
+  --mgl-type-sm:14px;
+  --mgl-type-body:clamp(14px,calc(.875rem + ((1vw - 3.2px) * .337)),17px);
+  --mgl-type-lg:clamp(15.197px,calc(.95rem + ((1vw - 3.2px) * .877)),23px);
+  --mgl-type-xl:clamp(20px,calc(1.25rem + ((1vw - 3.2px) * 1.348)),32px);
+  --mgl-type-display:clamp(38.682px,calc(2.418rem + ((1vw - 3.2px) * 3.744)),72px);
+  --mgl-type-section:clamp(42px,4.9vw,72px);
+  --mgl-type-hero:clamp(62px,6.75vw,108px);
+  --mgl-leading-body:1.75;
+  --mgl-leading-heading:1.04;
+  --mgl-tracking-heading:-.065em;
+}
+html,body{font-family:Arial,Helvetica,sans-serif}
+body{
+  font-size:var(--mgl-type-body);
+  font-style:normal;
+  font-weight:400;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font-family:inherit}
+p,li,dd,dt,td,th,address,blockquote{font-family:Arial,Helvetica,sans-serif}
+h1,h2,h3,h4,h5,h6{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-style:normal;
+  font-weight:600!important;
+  letter-spacing:-.065em!important;
+  line-height:1.04!important;
+}
+h1{font-size:var(--mgl-type-display)}
+h2,.section-header h2{font-size:var(--mgl-type-section)}
+h3{font-size:28px}
+h4{font-size:var(--mgl-type-xl)}
+h5{font-size:var(--mgl-type-lg)}
+h6{font-size:14px}
+.banner__content-heading{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:var(--mgl-type-hero)!important;
+  font-weight:500!important;
+  line-height:1.01!important;
+  letter-spacing:-.082em!important;
+}
+.banner__content-moto,
+.mgl-hero-summary,
+.mgl-contact-hero>*>div>p,
+.mgl-contact-hero p{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:clamp(18px,2vw,23px)!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+.eyebrow,
+.mgl-kicker,
+.mgl-home-kicker,
+.banner__content-coin+*,
+[class*="__eyebrow"],
+[class*="__kicker"]{
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+.eyebrow,.mgl-kicker,.mgl-home-kicker{
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  letter-spacing:.17em!important;
+  text-transform:uppercase;
+}
+.mgl-site-header,
+.mgl-site-header a,
+.mgl-site-header button{
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+.mgl-nav-link{
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+.mgl-dropdown-link{
+  font-size:13px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+.mgl-dropdown-group{
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  letter-spacing:.08em!important;
+}
+.mgl-header-cta,
+.mgl-mobile-utility,
+.mgl-btn,
+.mgl-home-btn,
+.trk-btn,
+.btn,
+button[type="submit"],
+input[type="submit"],
+.wp-element-button,
+.wp-block-button__link{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:14px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:normal!important;
+}
+label,
+.mgl-contact-fields label>span{
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+.mgl-contact-fields label>span,
+.mgl-contact-form label{
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  letter-spacing:.09em!important;
+  text-transform:uppercase;
+}
+input,select,textarea,
+.mgl-contact-fields input,
+.mgl-contact-fields select,
+.mgl-contact-fields textarea{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+summary,
+.faq__item-title,
+.accordion-button{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:19px!important;
+  font-weight:600!important;
+  line-height:1.4!important;
+  letter-spacing:-.03em!important;
+}
+.service__item-content p,
+.blog__item-content p,
+.mgl-directory-card p,
+.mgl-contact-steps small{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:normal!important;
+}
+.footer,.footer *{font-family:Arial,Helvetica,sans-serif}
+.footer__about-moto{
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+  letter-spacing:normal!important;
+}
+.footer__links-tittle h6{
+  font-size:13px!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase;
+}
+.footer__linklist-item a{
+  font-size:16px!important;
+  font-weight:400!important;
+  line-height:1.5!important;
+  letter-spacing:normal!important;
+}
+.footer__end-copyright p{
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+  letter-spacing:normal!important;
+}
+.mgl-contact-output pre{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:13px!important;
+  font-weight:400!important;
+  line-height:1.65!important;
+}
+@media(max-width:560px){
+  h2,.section-header h2{font-size:40px}
+  h3{font-size:25px}
+  .banner__content-heading{font-size:clamp(49px,13vw,69px)!important}
+  .banner__content-moto,.mgl-hero-summary,.mgl-contact-hero p{font-size:17px!important}
+  summary,.faq__item-title,.accordion-button{font-size:17px!important}
+}
