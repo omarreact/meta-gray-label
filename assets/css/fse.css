@@ -460,3 +460,69 @@
     transform:none!important;
   }
 }
+
+
+/* MGL REFERENCE TYPE SCALE LOCK — 2026-11-21 */
+:root{
+  --mgl-ref-base:clamp(14px,calc(.875rem + ((1vw - 3.2px) * .337)),17px);
+  --mgl-ref-lg:clamp(15.197px,calc(.95rem + ((1vw - 3.2px) * .877)),23px);
+  --mgl-ref-large:clamp(22.041px,calc(1.378rem + ((1vw - 3.2px) * 1.568)),36px);
+  --mgl-ref-xlarge:clamp(25.014px,calc(1.563rem + ((1vw - 3.2px) * 1.909)),42px);
+  --mgl-ref-display:clamp(38.682px,calc(2.418rem + ((1vw - 3.2px) * 3.744)),72px);
+}
+.mgl-native-page,
+.mgl-native-site-header,
+.mgl-native-site-footer{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:var(--mgl-ref-base)!important;
+  font-weight:400!important;
+  line-height:1.75!important;
+}
+.mgl-native-page h1,
+.mgl-native-page h2,
+.mgl-native-page h3,
+.mgl-native-page h4,
+.mgl-native-page h5,
+.mgl-native-page h6,
+.wp-block-heading{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-style:normal!important;
+  font-weight:600!important;
+  letter-spacing:-.065em!important;
+  line-height:1.04!important;
+}
+.mgl-native-page h1,
+.mgl-native-page h2{font-size:var(--mgl-ref-display)!important}
+.mgl-native-page h3{font-size:var(--mgl-ref-xlarge)!important}
+.mgl-native-page h4{font-size:var(--mgl-ref-large)!important}
+.mgl-native-page h5{font-size:var(--mgl-ref-lg)!important}
+.mgl-native-page h6{font-size:14px!important}
+.mgl-native-page p{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:var(--mgl-ref-base)!important;
+  font-weight:400!important;
+  line-height:1.75!important;
+}
+.mgl-native-navigation,
+.mgl-native-navigation .wp-block-navigation-item__content{
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+}
+.mgl-native-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content{
+  font-size:13px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+}
+.wp-block-button__link,.wp-element-button{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:14px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:normal!important;
+}
+@media(max-width:767.98px){
+  .mgl-native-page h1,
+  .mgl-native-page h2{font-size:clamp(38.682px,10.5vw,56px)!important}
+  .mgl-native-page h3{font-size:clamp(25.014px,7vw,36px)!important}
+}
