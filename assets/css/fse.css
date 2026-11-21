@@ -532,3 +532,67 @@
   .mgl-native-page h2{font-size:clamp(38.682px,10.5vw,56px)!important}
   .mgl-native-page h3{font-size:clamp(25.014px,7vw,36px)!important}
 }
+
+
+/* MGL NATIVE MOTION + DARK GLOW POLISH — 2026-11-21 */
+:root{
+  --mgl-native-motion:cubic-bezier(.22,1,.36,1);
+  --mgl-native-glow-green:rgba(38,212,167,.14);
+  --mgl-native-glow-blue:rgba(77,132,255,.10);
+}
+.mgl-native-page :where(
+  .mgl-native-service-card,
+  .mgl-native-pricing-card,
+  .mgl-native-resource-card,
+  .mgl-native-process-card,
+  .mgl-native-faq-item
+){
+  transition:
+    transform .36s var(--mgl-native-motion),
+    border-color .36s var(--mgl-native-motion),
+    box-shadow .36s var(--mgl-native-motion),
+    background-color .36s var(--mgl-native-motion);
+}
+@media not all and (pointer:coarse){
+  .mgl-native-page :where(
+    .mgl-native-service-card,
+    .mgl-native-pricing-card,
+    .mgl-native-resource-card,
+    .mgl-native-process-card
+  ):hover{
+    transform:translateY(-4px);
+  }
+}
+[data-bs-theme="dark"] .mgl-native-page :where(
+  .mgl-native-service-card,
+  .mgl-native-pricing-card,
+  .mgl-native-resource-card,
+  .mgl-native-process-card,
+  .mgl-native-faq-item
+){
+  box-shadow:
+    0 16px 42px rgba(0,0,0,.17),
+    0 0 0 1px rgba(38,212,167,.04),
+    0 0 32px rgba(38,212,167,.025);
+}
+@media not all and (pointer:coarse){
+  [data-bs-theme="dark"] .mgl-native-page :where(
+    .mgl-native-service-card,
+    .mgl-native-pricing-card,
+    .mgl-native-resource-card,
+    .mgl-native-process-card
+  ):hover{
+    border-color:rgba(38,212,167,.24);
+    box-shadow:
+      0 22px 52px rgba(0,0,0,.22),
+      0 0 0 1px rgba(38,212,167,.08),
+      0 0 36px var(--mgl-native-glow-green),
+      0 0 52px var(--mgl-native-glow-blue);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .mgl-native-page :where(
+    .mgl-native-service-card,.mgl-native-pricing-card,.mgl-native-resource-card,
+    .mgl-native-process-card,.mgl-native-faq-item
+  ){transition:none!important;transform:none!important}
+}

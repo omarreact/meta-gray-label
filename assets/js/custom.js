@@ -3,7 +3,7 @@ const mglSiteRoot = new URL('../../', document.currentScript.src);
 function hidePreloader() {
     var preloader = document.querySelector('.preloader');
     if (!preloader) return;
-    preloader.style.transition = 'opacity 0.5s ease';
+    preloader.style.transition = 'opacity 0.42s cubic-bezier(.22,1,.36,1)';
     // Hide the preloader 1 second (1000 milliseconds) after DOM content is loaded
     setTimeout(function () {
         preloader.style.opacity = '0';
@@ -263,16 +263,16 @@ function initialiseScrollEffects() {
     // Prevent long stagger chains from making the interface feel slow.
     document.querySelectorAll('[data-aos-duration]').forEach(function (element) {
         var duration = Number(element.getAttribute('data-aos-duration'));
-        if (!Number.isFinite(duration) || duration > 650) {
-            element.setAttribute('data-aos-duration', '560');
+        if (!Number.isFinite(duration) || duration > 780) {
+            element.setAttribute('data-aos-duration', '680');
         }
     });
 
     AOS.init({
         once: true,
         mirror: false,
-        offset: 60,
-        duration: 560,
+        offset: 48,
+        duration: 680,
         easing: 'ease-out-cubic',
         anchorPlacement: 'top-bottom'
     });
@@ -311,7 +311,7 @@ const Partner = window.Swiper && new window.Swiper('.partner__slider', {
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
     },
-    speed: 2000,
+    speed: 3200,
 });
 
 
@@ -341,7 +341,7 @@ const blog = window.Swiper && new window.Swiper('.blog__slider', {
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
     },
-    speed: 500,
+    speed: 720,
     navigation: {
         nextEl: ".blog__slider-next",
         prevEl: ".blog__slider-prev",
@@ -376,7 +376,7 @@ const testimonial = window.Swiper && new window.Swiper('.testimonial__slider', {
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
     },
-    speed: 500,
+    speed: 720,
 
     navigation: {
         nextEl: ".testimonial__slider-next",
@@ -420,7 +420,7 @@ const roadmapSlider = window.Swiper && new window.Swiper('.roadmap__slider', {
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
     },
-    speed: 500,
+    speed: 720,
 
 });
 

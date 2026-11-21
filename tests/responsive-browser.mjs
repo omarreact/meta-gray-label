@@ -268,6 +268,36 @@ try {
       await page.locator("[data-mgl-settings-close]").click();
       assert(await settingsPanel.getAttribute("aria-hidden") === "true", "home @ 1440px settings panel did not close");
 
+      const darkChrome = await page.evaluate(() => {
+        const themeIcon = document.querySelector("#btnSwitch img");
+        const whatsapp = document.querySelector(".mgl-header-social");
+        const logo = document.querySelector("[data-brand-logo]");
+        return {
+          theme: document.documentElement.getAttribute("data-bs-theme"),
+          themeFilter: themeIcon ? getComputedStyle(themeIcon).filter : "",
+          whatsappColor: whatsapp ? getComputedStyle(whatsapp).color : "",
+          logoWidth: logo?.getBoundingClientRect().width || 0
+        };
+      });
+      assert(darkChrome.theme === "dark", "home @ 1440px expected dark theme before toggle");
+      assert(darkChrome.themeFilter.includes("invert"), "home @ 1440px dark theme icon is not rendered light");
+      assert(darkChrome.whatsappColor === "rgb(37, 211, 102)", "home @ 1440px WhatsApp icon is not official #25D366");
+      assert(darkChrome.logoWidth >= 196, `home @ 1440px logo is too small for readable branding: ${darkChrome.logoWidth}px`);
+
+      await page.locator("#btnSwitch").click();
+      await page.waitForTimeout(80);
+      const lightChrome = await page.evaluate(() => {
+        const themeIcon = document.querySelector("#btnSwitch img");
+        return {
+          theme: document.documentElement.getAttribute("data-bs-theme"),
+          themeFilter: themeIcon ? getComputedStyle(themeIcon).filter : ""
+        };
+      });
+      assert(lightChrome.theme === "light", "home @ 1440px theme toggle did not switch to light");
+      assert(!lightChrome.themeFilter.includes("invert"), "home @ 1440px light theme icon did not switch to a dark treatment");
+      await page.locator("#btnSwitch").click();
+      await page.waitForTimeout(80);
+
       const firstService = page.locator("#services .service__item").first();
       await firstService.scrollIntoViewIfNeeded();
       await firstService.hover();

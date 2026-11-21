@@ -1,13 +1,26 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redirecting | Meta Grey Label</title></head>
-<body><p>Opening the dynamic Meta Grey Label site…</p>
-<script>
-(function(){
-  var base="https://meta-gray-label-dynamic.farukkhanone.workers.dev";
-  var prefix="/meta-gray-label";
-  var path=location.pathname.startsWith(prefix)?location.pathname.slice(prefix.length):location.pathname;
-  location.replace(base+(path||"/")+location.search+location.hash);
-})();
-</script>
-<noscript><a href="https://meta-gray-label-dynamic.farukkhanone.workers.dev/">Open Meta Grey Label</a></noscript>
-</body></html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <script id="mgl-theme-boot">(function(){try{var s=localStorage.getItem('theme');var t=s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>Page Not Found | Meta Grey Label</title>
+  <link rel="stylesheet" href="/meta-gray-label/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/meta-gray-label/assets/css/style.css">
+  <link rel="stylesheet" href="/meta-gray-label/assets/css/site-settings.css">
+</head>
+<body>
+  <main class="mgl-inner-page" id="main-content">
+    <section class="mgl-inner-hero">
+      <div class="container">
+        <h1>Page not found</h1>
+        <p class="mgl-hero-summary">The page you requested does not exist or may have moved.</p>
+        <a class="mgl-btn mgl-btn-primary" href="/meta-gray-label/">Return home</a>
+      </div>
+    </section>
+  </main>
+  <script src="/meta-gray-label/assets/js/site-settings.js"></script>
+  <script src="/meta-gray-label/assets/js/custom.js"></script>
+</body>
+</html>
