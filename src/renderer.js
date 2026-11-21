@@ -338,7 +338,6 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 <link rel="apple-touch-icon" sizes="180x180" href="/media/branding/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/aos.css">
-<link rel="stylesheet" href="/assets/css/all.min.css">
 <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
