@@ -19,15 +19,14 @@ shared header/footer + reusable layout sections
 server-rendered HTML
 ```
 
-Primary dynamic preview:
+## Live review URLs
 
-`https://meta-gray-label-dynamic.farukkhanone.workers.dev/`
+Use only these two public URLs when reviewing UI changes:
 
-**Production / canonical:** `https://meta-gray-label-dynamic.farukkhanone.workers.dev/`
+- GitHub Pages: `https://omarreact.github.io/meta-gray-label/`
+- Webflow: `https://mg-label.webflow.io/`
 
-**Webflow design reference only:** `https://mg-label.webflow.io/`
-
-The Worker is the only public/canonical runtime. GitHub remains the source repository; the Worker can proxy source assets from `main` until the static asset bundle is moved fully into Workers Static Assets.
+Do not use Netlify for this project. The Cloudflare Worker remains part of the runtime architecture, but it is not used as the live UI-review URL.
 
 The dynamic runtime renders 47 structured inner routes from one JSON source.
 Only four complex HTML design sources remain for layouts that intentionally
