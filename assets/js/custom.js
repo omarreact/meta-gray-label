@@ -295,7 +295,7 @@ initialiseScrollEffects();
 // Meta Grey Label's capability links are ordinary accessible links.
 
 // component slider here
-const Partner = new Swiper('.partner__slider', {
+const Partner = window.Swiper && new window.Swiper('.partner__slider', {
     spaceBetween: 24,
     grabCursor: true,
     loop: true,
@@ -316,7 +316,7 @@ const Partner = new Swiper('.partner__slider', {
 
 
 // blog  slider here
-const blog = new Swiper('.blog__slider', {
+const blog = window.Swiper && new window.Swiper('.blog__slider', {
     spaceBetween: 24,
     grabCursor: true,
     loop: true,
@@ -350,7 +350,7 @@ const blog = new Swiper('.blog__slider', {
 
 // testimonial slider
 
-const testimonial = new Swiper('.testimonial__slider', {
+const testimonial = window.Swiper && new window.Swiper('.testimonial__slider', {
     spaceBetween: 24,
     grabCursor: true,
     loop: true,
@@ -386,7 +386,7 @@ const testimonial = new Swiper('.testimonial__slider', {
 
 
 // roadmap slider 
-const roadmapSlider = new Swiper('.roadmap__slider', {
+const roadmapSlider = window.Swiper && new window.Swiper('.roadmap__slider', {
 
     grabCursor: true,
     // loop: true,
@@ -616,7 +616,7 @@ if (scrollToTop) {
 
 
 // =================== count start here =================== //
-new PureCounter();
+if (window.PureCounter) new window.PureCounter();
 // =================== count end here =================== //
 
 
