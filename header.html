@@ -1,3 +1,4 @@
+<a class="mgl-skip-link" href="#main-content">Skip to main content</a>
 <header class="header-section header-section--style2">
     <div class="header-bottom">
       <div class="container">
@@ -1021,6 +1022,288 @@
   [data-bs-theme="dark"] .header-section--style2 .menu li > .submenu,
   [data-bs-theme="dark"] .header-section--style2 .mgl-solutions-item > .mgl-solutions-mega {
     background: rgba(8, 28, 39, 0.96) !important;
+  }
+}
+
+
+
+/* Full-site UX audit: shared accessibility and inner-page polish */
+.mgl-skip-link {
+  position: fixed;
+  z-index: 10050;
+  top: 10px;
+  left: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #052f35;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform .18s ease;
+  box-shadow: 0 12px 30px rgba(0,0,0,.20);
+}
+
+.mgl-skip-link:focus {
+  transform: translateY(0);
+  color: #fff;
+}
+
+.mgl-inner-page {
+  --mgl-inner-border: rgba(12,76,83,.12);
+  --mgl-inner-surface: var(--wh-color);
+}
+
+.mgl-inner-page .mgl-inner-hero,
+.mgl-inner-page .mgl-inner-hero--compact {
+  padding-block: clamp(64px, 7vw, 92px);
+}
+
+.mgl-inner-page .mgl-inner-hero .container {
+  max-width: 1120px;
+}
+
+.mgl-inner-page .mgl-crumb {
+  margin-bottom: 14px;
+}
+
+.mgl-inner-page .mgl-inner-hero h1 {
+  max-width: 840px;
+  font-size: clamp(2.15rem, 4vw, 3.55rem);
+}
+
+.mgl-hero-summary {
+  max-width: 68ch;
+}
+
+.mgl-article-wrap {
+  padding-block: clamp(48px, 6vw, 82px);
+}
+
+.mgl-reading-layout {
+  grid-template-columns: minmax(0, 820px) minmax(240px, 285px);
+  justify-content: space-between;
+  gap: clamp(28px, 4vw, 58px);
+}
+
+.mgl-copy {
+  max-width: 820px;
+}
+
+.mgl-copy p {
+  max-width: 74ch;
+  font-size: 1rem;
+  line-height: 1.78;
+}
+
+.mgl-copy .mgl-intro {
+  margin-bottom: 28px;
+  padding-left: 20px;
+}
+
+.mgl-copy-block {
+  margin-bottom: 18px;
+  padding: clamp(22px, 3vw, 34px);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(12,38,58,.035);
+}
+
+.mgl-copy-heading {
+  margin-bottom: 17px;
+}
+
+.mgl-toc {
+  top: 112px;
+}
+
+.mgl-toc-inner {
+  padding: 20px 18px;
+  border-radius: 16px;
+}
+
+.mgl-directory {
+  padding-block: clamp(48px, 6vw, 82px);
+}
+
+.mgl-directory-group {
+  margin-bottom: 42px;
+}
+
+.mgl-directory-group:last-child {
+  margin-bottom: 0;
+}
+
+.mgl-related h2,
+.mgl-directory-group h2 {
+  margin-bottom: 20px;
+}
+
+.mgl-related-grid,
+.mgl-directory-grid {
+  gap: 14px;
+}
+
+.mgl-related-card,
+.mgl-directory-card {
+  position: relative;
+  min-height: 100%;
+  padding: 22px;
+  border-radius: 16px;
+  border-color: var(--mgl-inner-border);
+  background: var(--mgl-inner-surface);
+  box-shadow: 0 10px 28px rgba(12,38,58,.035);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.mgl-related-card::after,
+.mgl-directory-card::after {
+  content: "↗";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  color: rgba(11,164,130,.50);
+  font-size: .95rem;
+  transition: transform .18s ease, color .18s ease;
+}
+
+.mgl-related-card:hover,
+.mgl-directory-card:hover,
+.mgl-related-card:focus-visible,
+.mgl-directory-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(0,184,141,.36);
+  box-shadow: 0 16px 36px rgba(12,38,58,.075);
+}
+
+.mgl-related-card:hover::after,
+.mgl-directory-card:hover::after,
+.mgl-related-card:focus-visible::after,
+.mgl-directory-card:focus-visible::after {
+  color: #00a77f;
+  transform: translate(2px,-2px);
+}
+
+.mgl-related-card > span,
+.mgl-directory-card > span {
+  margin-bottom: 9px;
+  padding-right: 30px;
+  font-size: .72rem;
+}
+
+.mgl-related-card h3,
+.mgl-directory-card h3 {
+  margin-bottom: 10px;
+  font-size: clamp(1.04rem,1.35vw,1.22rem);
+  line-height: 1.35;
+}
+
+.mgl-directory-card p {
+  display: -webkit-box;
+  margin-bottom: 16px;
+  overflow: hidden;
+  font-size: .9rem;
+  line-height: 1.58;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.mgl-related-card b,
+.mgl-directory-card b {
+  font-size: .88rem;
+}
+
+.mgl-dir-search {
+  max-width: 620px;
+  margin-bottom: 28px;
+}
+
+.mgl-dir-search input {
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
+}
+
+.mgl-dir-search input:focus-visible {
+  border-color: #00a983;
+  outline: 3px solid rgba(0,185,142,.18);
+  outline-offset: 1px;
+}
+
+.mgl-related {
+  padding-block: clamp(44px,5vw,70px);
+}
+
+[data-bs-theme="dark"] .mgl-inner-page {
+  --mgl-inner-border: rgba(255,255,255,.10);
+  --mgl-inner-surface: rgba(255,255,255,.045);
+}
+
+[data-bs-theme="dark"] .mgl-inner-page .mgl-inner-hero {
+  background-color: #071c26;
+  background-image:
+    linear-gradient(110deg,rgba(5,27,35,.98),rgba(7,42,46,.94) 55%,rgba(7,24,42,.96)),
+    var(--mgl-inner-hero-image,none);
+  color: #f5fbfa;
+}
+
+[data-bs-theme="dark"] .mgl-inner-page .mgl-inner-hero::before {
+  background:
+    radial-gradient(circle at 84% 18%,rgba(0,208,148,.18),transparent 38%),
+    linear-gradient(120deg,rgba(0,208,148,.04),transparent 44%,rgba(51,126,184,.08));
+}
+
+[data-bs-theme="dark"] .mgl-inner-page .mgl-inner-hero h1 {
+  color: #f5fbfa !important;
+}
+
+[data-bs-theme="dark"] .mgl-inner-page .mgl-hero-summary,
+[data-bs-theme="dark"] .mgl-inner-page .mgl-crumb li {
+  color: #bdd2d0 !important;
+}
+
+[data-bs-theme="dark"] .mgl-inner-page .mgl-crumb a {
+  color: #6ee8c7;
+}
+
+[data-bs-theme="dark"] .mgl-copy-block,
+[data-bs-theme="dark"] .mgl-toc-inner,
+[data-bs-theme="dark"] .mgl-dir-search input {
+  border-color: rgba(255,255,255,.10);
+  background: rgba(255,255,255,.045);
+}
+
+@media (max-width: 991px) {
+  .mgl-reading-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .mgl-copy {
+    max-width: none;
+  }
+
+  .mgl-toc {
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .mgl-inner-page .mgl-inner-hero,
+  .mgl-inner-page .mgl-inner-hero--compact {
+    padding-block: 54px;
+  }
+
+  .mgl-related-card,
+  .mgl-directory-card {
+    padding: 18px;
+  }
+
+  .mgl-directory {
+    padding-block: 44px;
+  }
+
+  .mgl-copy-block {
+    padding: 20px 18px;
   }
 }
 
