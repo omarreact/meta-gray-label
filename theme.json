@@ -46,36 +46,66 @@
       "fluid": true,
       "fontSizes": [
         {
+          "slug": "xs",
+          "name": "Extra Small",
+          "size": "12px"
+        },
+        {
           "slug": "small",
           "name": "Small",
-          "size": "0.875rem"
+          "size": "13px"
+        },
+        {
+          "slug": "sm",
+          "name": "Small UI",
+          "size": "14px"
+        },
+        {
+          "slug": "base",
+          "name": "Body",
+          "size": "clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.337), 17px)"
         },
         {
           "slug": "medium",
-          "name": "Body",
-          "size": "clamp(0.875rem, 0.84rem + 0.17vw, 1.0625rem)"
+          "name": "Medium",
+          "size": "clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.674), 20px)"
+        },
+        {
+          "slug": "lg",
+          "name": "Lead",
+          "size": "clamp(15.197px, 0.95rem + ((1vw - 3.2px) * 0.877), 23px)"
+        },
+        {
+          "slug": "xl",
+          "name": "Heading",
+          "size": "clamp(20px, 1.25rem + ((1vw - 3.2px) * 1.348), 32px)"
         },
         {
           "slug": "large",
           "name": "Large",
-          "size": "clamp(1.25rem, 1.08rem + 0.75vw, 2rem)"
+          "size": "clamp(22.041px, 1.378rem + ((1vw - 3.2px) * 1.568), 36px)"
         },
         {
           "slug": "x-large",
+          "name": "Extra Large",
+          "size": "clamp(25.014px, 1.563rem + ((1vw - 3.2px) * 1.909), 42px)"
+        },
+        {
+          "slug": "display",
           "name": "Display",
-          "size": "clamp(2.417625rem, 4.8vw, 4.5rem)"
+          "size": "clamp(38.682px, 2.418rem + ((1vw - 3.2px) * 3.744), 72px)"
         }
       ],
       "fontFamilies": [
         {
-          "slug": "inter",
-          "name": "Inter",
-          "fontFamily": "\"Inter\", ui-sans-serif, sans-serif"
+          "slug": "body",
+          "name": "Arial / Helvetica",
+          "fontFamily": "Arial, Helvetica, sans-serif"
         },
         {
-          "slug": "poppins",
-          "name": "Poppins",
-          "fontFamily": "\"Poppins\", ui-sans-serif, sans-serif"
+          "slug": "display",
+          "name": "Arial / Helvetica Display",
+          "fontFamily": "Arial, Helvetica, sans-serif"
         }
       ]
     },
@@ -130,17 +160,49 @@
       },
       "heading": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--poppins)",
+          "fontFamily": "var(--wp--preset--font-family--display)",
+          "fontStyle": "normal",
           "fontWeight": "600",
-          "lineHeight": "1.08",
-          "letterSpacing": "-0.05em"
+          "lineHeight": "1.04",
+          "letterSpacing": "-0.065em"
+        }
+      },
+      "button": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--body)",
+          "fontSize": "14px",
+          "fontWeight": "800",
+          "lineHeight": "1.2",
+          "letterSpacing": "normal"
         }
       }
     },
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--inter)",
-      "lineHeight": "1.75",
-      "fontSize": "clamp(0.875rem, 0.84rem + 0.17vw, 1.0625rem)"
+      "fontFamily": "var(--wp--preset--font-family--body)",
+      "fontSize": "var(--wp--preset--font-size--base)",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "1.75"
+    },
+    "blocks": {
+      "core/navigation": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--body)",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "lineHeight": "1.5",
+          "letterSpacing": "normal"
+        }
+      },
+      "core/button": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--body)",
+          "fontSize": "14px",
+          "fontWeight": "800",
+          "lineHeight": "1.2",
+          "letterSpacing": "normal"
+        }
+      }
     }
   },
   "templateParts": [
