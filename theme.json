@@ -4,8 +4,8 @@
   "settings": {
     "appearanceTools": true,
     "layout": {
-      "contentSize": "1180px",
-      "wideSize": "1400px"
+      "contentSize": "760px",
+      "wideSize": "1210px"
     },
     "color": {
       "defaultPalette": false,
@@ -53,17 +53,17 @@
         {
           "slug": "medium",
           "name": "Body",
-          "size": "1rem"
+          "size": "clamp(0.875rem, 0.84rem + 0.17vw, 1.0625rem)"
         },
         {
           "slug": "large",
           "name": "Large",
-          "size": "1.65rem"
+          "size": "clamp(1.25rem, 1.08rem + 0.75vw, 2rem)"
         },
         {
           "slug": "x-large",
           "name": "Display",
-          "size": "clamp(2.25rem, 5.1vw, 4.25rem)"
+          "size": "clamp(2.417625rem, 4.8vw, 4.5rem)"
         }
       ],
       "fontFamilies": [
@@ -92,52 +92,55 @@
         {
           "slug": "xs",
           "name": "Extra Small",
-          "size": "0.5rem"
+          "size": "8px"
         },
         {
           "slug": "sm",
           "name": "Small",
-          "size": "1rem"
+          "size": "16px"
         },
         {
           "slug": "md",
           "name": "Medium",
-          "size": "2rem"
+          "size": "24px"
         },
         {
           "slug": "lg",
           "name": "Large",
-          "size": "3.5rem"
+          "size": "48px"
         },
         {
           "slug": "xl",
           "name": "Extra Large",
-          "size": "6rem"
+          "size": "72px"
         }
       ]
     }
   },
   "styles": {
     "color": {
-      "background": "#061f2d",
-      "text": "#f4fbfa"
+      "background": "#10282d",
+      "text": "#f3f8f7"
     },
     "elements": {
       "link": {
         "color": {
-          "text": "#55e6bc"
+          "text": "#68e7c5"
         }
       },
       "heading": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--poppins)"
+          "fontFamily": "var(--wp--preset--font-family--poppins)",
+          "fontWeight": "600",
+          "lineHeight": "1.08",
+          "letterSpacing": "-0.05em"
         }
       }
     },
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--poppins)",
-      "lineHeight": "1.7",
-      "fontSize": "1rem"
+      "fontFamily": "var(--wp--preset--font-family--inter)",
+      "lineHeight": "1.75",
+      "fontSize": "clamp(0.875rem, 0.84rem + 0.17vw, 1.0625rem)"
     }
   },
   "templateParts": [
