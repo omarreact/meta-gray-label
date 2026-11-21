@@ -11715,3 +11715,78 @@ textarea:focus-visible,
     transition: none !important;
   }
 }
+
+
+/* Homepage hero density correction for large displays */
+#home.banner--style1 {
+  padding-block-start: clamp(122px, 9vw, 148px);
+  padding-block-end: clamp(82px, 8vw, 124px);
+}
+
+#home .banner__content {
+  max-width: 690px;
+}
+
+#home .banner__content-heading {
+  max-width: 12ch;
+  font-size: clamp(2.7rem, 5vw, 5rem);
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+#home .banner__content-moto {
+  max-width: 56ch;
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.7;
+}
+
+#home .banner__btn-group {
+  gap: 10px;
+  margin-top: 24px;
+}
+
+@media (min-width: 1400px) {
+  #home.banner--style1 {
+    padding-block-end: 118px;
+  }
+
+  #home.banner--style1 .banner__thumb {
+    top: 128px;
+    right: clamp(58px, 7vw, 150px);
+    max-inline-size: 48%;
+  }
+}
+
+@media (min-width: 1600px) {
+  #home.banner--style1 {
+    padding-block-end: 124px;
+  }
+
+  #home.banner--style1 .banner__thumb {
+    top: 126px;
+    right: clamp(90px, 8vw, 180px);
+    max-inline-size: 46%;
+  }
+}
+
+@media (max-width: 767px) {
+  #home.banner--style1 {
+    padding-block-start: 112px;
+    padding-block-end: 58px;
+  }
+
+  #home .banner__content-heading {
+    max-width: none;
+    font-size: clamp(2.35rem, 11vw, 3.55rem);
+  }
+
+  #home .banner__btn-group {
+    width: 100%;
+  }
+
+  #home .banner__btn-group .trk-btn {
+    flex: 1 1 160px;
+    justify-content: center;
+  }
+}
