@@ -19,15 +19,17 @@ for (const page of pages) {
     (page.markup.match(/<!-- \/wp:group -->/g) || []).length);
   const sourceTextCount = (page.markup.match(/<!-- wp:(paragraph|heading)(?:\s| -->)/g) || []).length;
   if (page.path === "index.html") {
-    assert.equal(page.sections,11,"all approved homepage sections must be preserved");
-    assert.ok(page.markup.includes("Launch your brokerage with confidence."));
-    assert.ok(page.markup.includes("Plan your brokerage"));
+    assert.equal(page.sections,8,"all approved consolidated homepage sections must be preserved");
+    assert.ok(page.markup.includes("Launch a brokerage that works as one system."));
+    assert.ok(page.markup.includes("Every client event should connect to the next system."));
+    assert.ok(page.markup.includes("Build the stack in four clear operating layers."));
+    assert.ok(page.markup.includes("Start with the level of control your brokerage actually needs."));
+    assert.ok(page.markup.includes("Choose the operating model first. Then connect the technology around it."));
     assert.ok(page.markup.includes("<!-- wp:buttons -->"));
     assert.equal((page.markup.match(/<!-- wp:details /g)||[]).length,6,"native FAQ should have 6 editable disclosure blocks");
-    assert.equal((page.markup.match(/mgl-native-service-card--[1-6]/g)||[]).length,12,"6 service cards represented by block attrs and markup");
-    assert.equal((page.markup.match(/mgl-native-pricing-card--[1-3]/g)||[]).length,6,"3 pricing blocks represented by attrs and markup");
-    assert.ok(page.markup.includes("mgl-native-home-capabilities"));
-    assert.ok(page.markup.includes("mgl-native-home-why"));
+    for (const id of ["home","about","roadmap","services","models","resources","faq","contact"]) {
+      assert.ok(page.markup.includes("mgl-native-home-" + id), "missing native homepage section: " + id);
+    }
   } else if (doc) {
     assert.equal(sourceTextCount, doc.blocks.length + 1, "content loss: " + page.path);
   } else {
