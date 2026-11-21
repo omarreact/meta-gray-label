@@ -8,8 +8,9 @@
     "binding": "ASSETS",
     "run_worker_first": true
   },
+  // Legacy Cloudflare fallback only. Production source/canonical is GitHub main.
   "vars": {
-    "PUBLIC_BASE_URL": "https://meta-gray-label-dynamic.farukkhanone.workers.dev",
+    "PUBLIC_BASE_URL": "https://omarreact.github.io/meta-gray-label",
     "STATIC_ORIGIN": "https://raw.githubusercontent.com/omarreact/meta-gray-label/main"
   },
   "observability": {
