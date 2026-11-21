@@ -9,7 +9,8 @@
     if (!target) return;
 
     const url = new URL(name + '.html', siteRoot);
-    const response = await fetch(url);
+    url.searchParams.set('layout', '20261121-mobile-header-v2');
+    const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) throw new Error('Could not load ' + url + ': HTTP ' + response.status);
 
     const template = document.createElement('template');
