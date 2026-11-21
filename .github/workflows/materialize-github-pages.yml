@@ -36,8 +36,7 @@ jobs:
 
       - name: Generate structured static routes
         env:
-          PUBLIC_BASE_URL: https://omarreact.github.io/meta-gray-label
-          BASE_PATH: /meta-gray-label
+          PUBLIC_BASE_URL: https://mg-label.webflow.io
         run: node scripts/materialize-pages.mjs
 
       - name: Commit generated GitHub Pages routes
