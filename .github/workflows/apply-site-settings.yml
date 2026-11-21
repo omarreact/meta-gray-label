@@ -1,0 +1,116 @@
+name: Apply site settings
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  apply:
+    if: >
+      github.event.issue.user.login == github.repository_owner &&
+      startsWith(github.event.issue.title, '[Site Settings]')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: site-settings-main
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Validate and apply requested setting
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+
+          const body = process.env.ISSUE_BODY || '';
+          const match = body.match(/<!-- MGL_SITE_SETTINGS_V1\s*([\s\S]*?)\s*-->/);
+          if (!match) throw new Error('Missing MGL_SITE_SETTINGS_V1 payload.');
+
+          const request = JSON.parse(match[1]);
+          const allowed = new Map([
+            ['Arial', 'system'],
+            ['Inter', 'google'],
+            ['Roboto', 'google'],
+            ['Open Sans', 'google'],
+            ['Lato', 'google'],
+            ['Montserrat', 'google'],
+            ['Poppins', 'google'],
+            ['Nunito Sans', 'google'],
+            ['DM Sans', 'google'],
+            ['Manrope', 'google'],
+            ['Work Sans', 'google'],
+            ['Source Sans 3', 'google'],
+            ['Merriweather', 'google'],
+            ['Playfair Display', 'google']
+          ]);
+
+          const family = String(request.globalFontFamily || '');
+          const provider = allowed.get(family);
+          if (!provider) throw new Error('Requested font is not in the approved site-settings catalog.');
+          if (request.provider !== provider) throw new Error('Font provider does not match the approved catalog.');
+
+          const fallback = 'Arial, Helvetica, sans-serif';
+          const stack = provider === 'google' ? '"' + family + '", ' + fallback : fallback;
+
+          const configPath = 'assets/site-settings.json';
+          const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+          config.version = 1;
+          config.typography = {
+            globalFontFamily: family,
+            provider,
+            fallback,
+            googleCss2Weights: [400, 500, 600, 700, 800]
+          };
+          fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n');
+
+          const themePath = 'theme.json';
+          const theme = JSON.parse(fs.readFileSync(themePath, 'utf8'));
+          const fontFamilies = theme?.settings?.typography?.fontFamilies;
+          if (!Array.isArray(fontFamilies)) throw new Error('theme.json typography.fontFamilies is missing.');
+
+          for (const entry of fontFamilies) {
+            if (entry.slug === 'body' || entry.slug === 'display') {
+              entry.name = provider === 'google' ? family : 'Arial / Helvetica';
+              entry.fontFamily = stack;
+            }
+          }
+          fs.writeFileSync(themePath, JSON.stringify(theme, null, 2) + '\n');
+          NODE
+
+      - name: Commit setting to main
+        id: commit
+        run: |
+          if git diff --quiet -- assets/site-settings.json theme.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/site-settings.json theme.json
+          git commit -m "Apply global typography site setting"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Report result and close request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          CHANGED: ${{ steps.commit.outputs.changed }}
+        run: |
+          if [ "$CHANGED" = "true" ]; then
+            gh issue comment "$ISSUE_NUMBER" --body "✅ Site setting applied to `main`. Normal validation and GitHub Pages deployment will run from the new commit."
+          else
+            gh issue comment "$ISSUE_NUMBER" --body "✅ No code change was required; the requested font is already the current global setting."
+          fi
+          gh issue close "$ISSUE_NUMBER" --reason completed
