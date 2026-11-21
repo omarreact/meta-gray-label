@@ -429,6 +429,49 @@ const roadmapSlider = new Swiper('.roadmap__slider', {
 
 
 
+// =================== homepage lifecycle tabs =================== //
+const lifecycleTabs = Array.from(document.querySelectorAll('[data-lifecycle-step]'));
+const lifecyclePanels = Array.from(document.querySelectorAll('[data-lifecycle-panel]'));
+
+function activateLifecycleTab(tab, moveFocus = false) {
+    if (!tab) return;
+    const key = tab.getAttribute('data-lifecycle-step');
+
+    lifecycleTabs.forEach(function (item) {
+        const active = item === tab;
+        item.setAttribute('aria-selected', String(active));
+        item.tabIndex = active ? 0 : -1;
+    });
+
+    lifecyclePanels.forEach(function (panel) {
+        panel.hidden = panel.getAttribute('data-lifecycle-panel') !== key;
+    });
+
+    if (moveFocus) tab.focus({ preventScroll: true });
+}
+
+lifecycleTabs.forEach(function (tab, index) {
+    tab.addEventListener('click', function () {
+        activateLifecycleTab(tab);
+    });
+
+    tab.addEventListener('keydown', function (event) {
+        if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+
+        let nextIndex = index;
+        if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = lifecycleTabs.length - 1;
+        else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % lifecycleTabs.length;
+        else nextIndex = (index - 1 + lifecycleTabs.length) % lifecycleTabs.length;
+
+        activateLifecycleTab(lifecycleTabs[nextIndex], true);
+    });
+});
+
+// =================== homepage lifecycle tabs end =================== //
+
+
 // =================== scroll js start here =================== //
 
 const scrollToTop = document.querySelector('.scrollToTop');
@@ -494,17 +537,6 @@ if (htmlTag.getAttribute('dir') === 'rtl') {
     toggleAllIconsDirection();
 }
 // =================== rtl icon direction chnage end here =================== //
-// The homepage form navigates between launch models; it does not send lead data.
-document.querySelector('.cta-form.form-subscribe')?.addEventListener('submit', function (event) {
-  event.preventDefault();
-  const preference = (this.querySelector('input')?.value || '').trim().toLowerCase();
-  const selected = preference.includes('white') ? 0 : preference.includes('grey') || preference.includes('gray') ? 1 : preference.includes('turnkey') ? 2 : null;
-  if (selected !== null) {
-    document.querySelectorAll('#models .pricing__item-inner').forEach((card, index) => card.classList.toggle('active', index === selected));
-  }
-  document.querySelector('#models')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
-
 
 // Keep reveal animations enabled while recalculating their positions after any layout change.
 var mglAosRefreshFrame;
@@ -534,7 +566,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
 
     link.addEventListener('click', function (event) {
         event.preventDefault();
-        var header = document.querySelector('.header-section--style2 .header-bottom');
+        var header = document.querySelector('.mgl-site-header');
         var offset = (header ? header.getBoundingClientRect().height : 78) + 40;
         var targetTop = window.scrollY + target.getBoundingClientRect().top - offset;
         window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
