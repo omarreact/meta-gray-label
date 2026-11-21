@@ -46,6 +46,9 @@ jobs:
           node --check assets/js/site-settings.js
           node --check scripts/audit-seo.mjs
           node --check scripts/build-dynamic.mjs
+          node --check scripts/static-site-lib.mjs
+          node --check scripts/build-static.mjs
+          node --check scripts/materialize-pages.mjs
           node --check scripts/package-wordpress.mjs
           node --check scripts/fse-pages.mjs
           node --check scripts/generate-fse.mjs
@@ -63,6 +66,19 @@ jobs:
           test -f dist/public/services.html
           test ! -e dist/public/about-us/index.html
           test ! -e dist/public/forex-grey-label/mt5-grey-label/index.html
+      - name: Validate GitHub/Webflow static build
+        env:
+          PUBLIC_BASE_URL: https://omarreact.github.io/meta-gray-label
+          BASE_PATH: /meta-gray-label
+        run: |
+          node scripts/build-static.mjs
+          test -f dist/public/index.html
+          test -f dist/public/about-us/index.html
+          test -f dist/public/forex-grey-label/mt5-grey-label/index.html
+          test -f dist/public/404.html
+          grep -q 'https://omarreact.github.io/meta-gray-label/about-us/' dist/public/about-us/index.html
+          grep -q '/meta-gray-label/assets/css/style.css' dist/public/about-us/index.html
+          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
       - name: Validate compact WordPress architecture
         run: node tests/architecture.mjs
       - name: Validate native Gutenberg projection
