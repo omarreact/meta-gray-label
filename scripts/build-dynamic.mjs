@@ -18,7 +18,7 @@ const copy = (source, target = source) => {
 };
 
 for (const path of ["assets", "media", "data/content.json", "header.html", "footer.html", "index.html",
-  "services.html", "solutions/index.html", "insights/index.html", "robots.txt"]) {
+  "services.html", "solutions/index.html", "insights/index.html", "contact/index.html", "robots.txt"]) {
   copy(path);
 }
 writeFileSync(resolve(out, ".nojekyll"), "", "utf8");
