@@ -14558,3 +14558,317 @@ summary,
   .banner__content-moto,.mgl-hero-summary,.mgl-contact-hero p{font-size:17px!important}
   summary,.faq__item-title,.accordion-button{font-size:17px!important}
 }
+
+
+/* MGL INTERACTIVE SERVICE + FAQ SYSTEM — 2026-11-21 */
+/* Brokerage solution cards: interactive but restrained. */
+#services .service__item-inner{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  min-height:100%;
+  box-shadow:0 14px 34px rgba(9,48,59,.055);
+  transition:
+    transform .28s cubic-bezier(.2,.8,.2,1),
+    border-color .28s ease,
+    box-shadow .28s ease,
+    background-color .28s ease;
+}
+#services .service__item-inner::before{
+  content:"";
+  position:absolute;
+  inset:-35%;
+  z-index:-1;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle at 25% 18%,rgba(0,208,148,.14),transparent 42%);
+  transform:scale(.85);
+  transition:opacity .28s ease,transform .38s ease;
+}
+#services .service__item-inner::after{
+  content:"↗";
+  position:absolute;
+  right:20px;
+  bottom:18px;
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  background:var(--brand-color);
+  color:#fff;
+  font-size:17px;
+  font-weight:700;
+  line-height:1;
+  opacity:0;
+  transform:translate(8px,8px) scale(.82);
+  box-shadow:0 10px 24px rgba(0,181,145,.22);
+  transition:opacity .24s ease,transform .28s cubic-bezier(.2,.8,.2,1);
+}
+#services .service__item-thumb{
+  position:relative;
+  display:grid;
+  place-items:center;
+  min-height:132px;
+  overflow:hidden;
+  border:1px solid rgba(11,86,90,.08);
+  background:linear-gradient(145deg,#fff 35%,#f2fbf8 100%);
+  box-shadow:0 12px 30px rgba(12,52,91,.055);
+  transition:
+    transform .28s cubic-bezier(.2,.8,.2,1),
+    border-color .28s ease,
+    box-shadow .28s ease,
+    background-color .28s ease;
+}
+#services .service__item-thumb::after{
+  content:"";
+  position:absolute;
+  inset:-35%;
+  pointer-events:none;
+  background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.72) 50%,transparent 62%);
+  transform:translateX(-130%) skewX(-14deg);
+}
+#services .service__item-thumb img{
+  position:relative;
+  z-index:1;
+  width:auto;
+  max-width:76px;
+  max-height:76px;
+  transition:transform .32s cubic-bezier(.2,.8,.2,1),filter .32s ease;
+}
+#services .service__item-content{
+  padding-inline:8px;
+  padding-bottom:12px;
+}
+#services .service__item-content h5,
+#services .service__item-content p{
+  transition:transform .25s ease,color .25s ease;
+}
+#services .service__item:hover .service__item-inner,
+#services .service__item:focus-within .service__item-inner{
+  transform:translateY(-9px);
+  border-color:rgba(0,208,148,.46);
+  box-shadow:0 28px 58px rgba(9,48,59,.12),0 8px 20px rgba(0,208,148,.07);
+}
+#services .service__item:hover .service__item-inner::before,
+#services .service__item:focus-within .service__item-inner::before{
+  opacity:1;
+  transform:scale(1);
+}
+#services .service__item:hover .service__item-inner::after,
+#services .service__item:focus-within .service__item-inner::after{
+  opacity:1;
+  transform:translate(0,0) scale(1);
+}
+#services .service__item:hover .service__item-thumb,
+#services .service__item:focus-within .service__item-thumb{
+  transform:translateY(-3px);
+  border-color:rgba(0,208,148,.20);
+  box-shadow:0 18px 38px rgba(0,181,145,.11);
+}
+#services .service__item:hover .service__item-thumb::after,
+#services .service__item:focus-within .service__item-thumb::after{
+  transform:translateX(130%) skewX(-14deg);
+  transition:transform .7s ease;
+}
+#services .service__item:hover .service__item-thumb img,
+#services .service__item:focus-within .service__item-thumb img{
+  transform:translateY(-2px) scale(1.14) rotate(-3deg);
+  filter:drop-shadow(0 8px 10px rgba(0,181,145,.18));
+}
+#services .service__item:hover .service__item-content h5,
+#services .service__item:focus-within .service__item-content h5{
+  transform:translateY(-2px);
+}
+#services .service__item a:focus-visible{
+  outline:3px solid var(--brand-color);
+  outline-offset:6px;
+  border-radius:8px;
+}
+[data-bs-theme="dark"] #services .service__item-thumb{
+  border-color:rgba(255,255,255,.10);
+  background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.055));
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+/* FAQ accordion: semantic topic icons, active card state and consistent plus/minus affordance. */
+#faq .accordion--style1 .row{
+  --bs-gutter-y:12px;
+}
+#faq .accordion--style1 [class^="col"] .accordion__item{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(11,86,90,.15)!important;
+  border-radius:16px;
+  background:var(--wh-color);
+  box-shadow:0 10px 28px rgba(9,48,59,.045);
+  transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease,background-color .25s ease;
+}
+#faq .accordion--style1 [class^="col"] .accordion__item:has(.accordion__button:not(.collapsed)){
+  border-color:rgba(0,208,148,.50)!important;
+  box-shadow:0 18px 36px rgba(0,181,145,.09);
+}
+#faq .accordion__button{
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) 40px;
+  align-items:center;
+  gap:14px;
+  width:100%;
+  min-height:78px;
+  padding:15px 17px;
+  border:0;
+  background:transparent!important;
+  color:var(--title-color);
+  box-shadow:none!important;
+  text-align:left;
+  transition:color .22s ease,background-color .22s ease;
+}
+#faq .accordion__button:not(.collapsed){
+  color:var(--brand-color);
+}
+#faq .accordion__button:hover{
+  background:rgba(0,208,148,.045)!important;
+}
+#faq .accordion__button:focus-visible{
+  outline:3px solid rgba(0,208,148,.55);
+  outline-offset:-4px;
+  border-radius:14px;
+}
+#faq .mgl-faq-topic-icon{
+  display:grid;
+  place-items:center;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(0,208,148,.20);
+  border-radius:12px;
+  background:rgba(0,208,148,.08);
+  color:var(--brand-color);
+  font-size:17px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.62);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),background-color .25s ease,color .25s ease,box-shadow .25s ease;
+}
+#faq .accordion__button:hover .mgl-faq-topic-icon,
+#faq .accordion__button:not(.collapsed) .mgl-faq-topic-icon{
+  transform:translateY(-2px) scale(1.04);
+  background:var(--brand-color);
+  color:#fff;
+  box-shadow:0 9px 20px rgba(0,181,145,.18);
+}
+#faq .accordion__button-content{
+  min-width:0;
+  font-size:clamp(17px,1.35vw,20px);
+  font-weight:600;
+  line-height:1.35;
+  letter-spacing:-.025em;
+}
+#faq .accordion__button::after{
+  content:"";
+  width:38px;
+  height:38px;
+  margin:0;
+  border:1px solid rgba(11,86,90,.17);
+  border-radius:999px;
+  background-color:rgba(11,86,90,.025);
+  background-image:
+    linear-gradient(currentColor,currentColor),
+    linear-gradient(currentColor,currentColor);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:14px 2px,2px 14px;
+  color:var(--title-color);
+  transform:none!important;
+  transition:background-color .22s ease,border-color .22s ease,color .22s ease,box-shadow .22s ease;
+}
+#faq .accordion__button:not(.collapsed)::after{
+  border-color:var(--brand-color);
+  background-color:var(--brand-color);
+  background-image:linear-gradient(#fff,#fff);
+  background-size:14px 2px;
+  color:#fff;
+  box-shadow:0 8px 20px rgba(0,181,145,.18);
+}
+#faq .accordion__body{
+  position:relative;
+  padding:0 70px 20px 75px;
+}
+#faq .accordion__body::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:75px;
+  right:20px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(0,208,148,.32),rgba(0,208,148,0));
+}
+#faq .accordion__body p{
+  margin:0!important;
+  padding-top:17px;
+  color:var(--text-color);
+  font-size:15px;
+  line-height:1.72;
+}
+[data-bs-theme="dark"] #faq .accordion--style1 [class^="col"] .accordion__item{
+  border-color:rgba(255,255,255,.12)!important;
+  background:rgba(255,255,255,.055);
+  box-shadow:0 12px 28px rgba(0,0,0,.11);
+}
+[data-bs-theme="dark"] #faq .accordion--style1 [class^="col"] .accordion__item:has(.accordion__button:not(.collapsed)){
+  border-color:rgba(0,208,148,.44)!important;
+  background:rgba(0,208,148,.045);
+}
+[data-bs-theme="dark"] #faq .accordion__button::after{
+  border-color:rgba(255,255,255,.16);
+  background-color:rgba(255,255,255,.055);
+  color:#f3f8f7;
+}
+[data-bs-theme="dark"] #faq .accordion__button:not(.collapsed)::after{
+  border-color:var(--brand-color);
+  background-color:var(--brand-color);
+  color:#fff;
+}
+[data-bs-theme="dark"] #faq .mgl-faq-topic-icon{
+  border-color:rgba(0,208,148,.24);
+  background:rgba(0,208,148,.10);
+}
+@media(max-width:767.98px){
+  #services .service__item-thumb{min-height:112px}
+  #services .service__item-thumb img{max-width:64px;max-height:64px}
+  #services .service__item-inner::after{opacity:1;transform:none;width:32px;height:32px;font-size:15px}
+  #faq .accordion__button{
+    grid-template-columns:38px minmax(0,1fr) 36px;
+    gap:11px;
+    min-height:68px;
+    padding:13px 13px;
+  }
+  #faq .mgl-faq-topic-icon{width:36px;height:36px;border-radius:10px;font-size:15px}
+  #faq .accordion__button::after{width:34px;height:34px;background-size:13px 2px,2px 13px}
+  #faq .accordion__button:not(.collapsed)::after{background-size:13px 2px}
+  #faq .accordion__button-content{font-size:17px;line-height:1.32}
+  #faq .accordion__body{padding:0 16px 17px 62px}
+  #faq .accordion__body::before{left:62px;right:14px}
+  #faq .accordion__body p{font-size:14px;line-height:1.68}
+}
+@media(hover:none){
+  #services .service__item:hover .service__item-inner,
+  #services .service__item:hover .service__item-thumb,
+  #services .service__item:hover .service__item-content h5{
+    transform:none;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #services .service__item-inner,
+  #services .service__item-inner::before,
+  #services .service__item-inner::after,
+  #services .service__item-thumb,
+  #services .service__item-thumb::after,
+  #services .service__item-thumb img,
+  #services .service__item-content h5,
+  #services .service__item-content p,
+  #faq .accordion__item,
+  #faq .accordion__button,
+  #faq .accordion__button::after,
+  #faq .mgl-faq-topic-icon{
+    transition:none!important;
+    transform:none!important;
+  }
+}
