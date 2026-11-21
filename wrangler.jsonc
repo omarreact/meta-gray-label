@@ -10,7 +10,7 @@
   },
   "vars": {
     "PUBLIC_BASE_URL": "https://meta-gray-label-dynamic.farukkhanone.workers.dev",
-    "STATIC_ORIGIN": "https://omarreact.github.io/meta-gray-label"
+    "STATIC_ORIGIN": "https://raw.githubusercontent.com/omarreact/meta-gray-label/main"
   },
   "observability": {
     "enabled": true,
