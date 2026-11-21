@@ -109,7 +109,7 @@ jobs:
           CHANGED: ${{ steps.commit.outputs.changed }}
         run: |
           if [ "$CHANGED" = "true" ]; then
-            gh issue comment "$ISSUE_NUMBER" --body "✅ Site setting applied to `main`. Normal validation and GitHub Pages deployment will run from the new commit."
+            gh issue comment "$ISSUE_NUMBER" --body "✅ Site setting applied to main. Normal validation and GitHub Pages deployment will run from the new commit."
           else
             gh issue comment "$ISSUE_NUMBER" --body "✅ No code change was required; the requested font is already the current global setting."
           fi
