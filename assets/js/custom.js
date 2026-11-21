@@ -129,6 +129,11 @@ submenuList.forEach(function (submenu) {
     var parentLi = submenu.parentElement;
     if (parentLi) {
         parentLi.classList.add("menu-item-has-children");
+        var trigger = parentLi.querySelector(":scope > a");
+        if (trigger) {
+            trigger.setAttribute("aria-haspopup", "true");
+            trigger.setAttribute("aria-expanded", "false");
+        }
     }
 });
 
@@ -243,6 +248,8 @@ function openDesktopSubmenu(item) {
     if (!desktopHoverQuery.matches) return;
     clearDesktopHoverTimer(item);
     item.classList.add("mgl-hover-open");
+    var trigger = item.querySelector(":scope > a");
+    if (trigger) trigger.setAttribute("aria-expanded", "true");
 }
 
 function scheduleDesktopSubmenuClose(item) {
@@ -250,6 +257,8 @@ function scheduleDesktopSubmenuClose(item) {
     clearDesktopHoverTimer(item);
     var timer = window.setTimeout(function () {
         item.classList.remove("mgl-hover-open");
+        var trigger = item.querySelector(":scope > a");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
         desktopHoverTimers.delete(item);
     }, desktopHoverCloseDelay);
     desktopHoverTimers.set(item, timer);
@@ -281,6 +290,8 @@ desktopHoverQuery.addEventListener("change", function (event) {
     document.querySelectorAll(".menu .mgl-hover-open").forEach(function (item) {
         clearDesktopHoverTimer(item);
         item.classList.remove("mgl-hover-open");
+        var trigger = item.querySelector(":scope > a");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
     });
 });
 
