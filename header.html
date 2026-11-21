@@ -191,15 +191,15 @@
 .mgl-nav-disclosure{display:none;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:8px;background:transparent;color:var(--mgl-header-muted);cursor:pointer}
 .mgl-nav-disclosure svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s ease}
 .mgl-nav-panel{
-  position:absolute;top:calc(100% + 6px);left:0;z-index:30;opacity:0;visibility:hidden;pointer-events:none;
+  position:absolute;top:100%;left:0;z-index:30;opacity:0;visibility:hidden;pointer-events:none;
   border:1px solid var(--mgl-header-border);background:var(--mgl-header-bg-strong);box-shadow:var(--mgl-header-shadow);
   transition:opacity .16s ease,visibility .16s ease,transform .16s ease;
 }
-.mgl-simple-panel{width:320px;max-height:min(68vh,520px);padding:8px;overflow:auto;border-radius:14px;transform:translateY(6px);scrollbar-width:thin}
+.mgl-simple-panel{width:320px;max-height:min(68vh,520px);margin-top:0;padding:8px;overflow:auto;border-radius:14px;transform:none;scrollbar-width:thin}
 .mgl-nav-item:nth-last-child(-n+3)>.mgl-simple-panel{left:auto;right:0}
 .mgl-dropdown-link{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;color:var(--mgl-header-text);font-size:13px;font-weight:500;line-height:1.5;text-decoration:none;transition:color .16s ease,background-color .16s ease,transform .16s ease}.mgl-dropdown-link::before{content:"";width:6px;height:6px;flex:0 0 6px;border:1.5px solid currentColor;border-radius:999px;opacity:.46}.mgl-dropdown-group{display:block;margin:6px 10px 3px;padding-top:7px;border-top:1px solid var(--mgl-header-border);color:var(--mgl-header-muted);font-size:11px;font-weight:800;line-height:1.4;letter-spacing:.08em;text-transform:uppercase}.mgl-dropdown-group:first-child{margin-top:1px;padding-top:2px;border-top:0}.mgl-nav-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .mgl-dropdown-link:hover{color:var(--mgl-header-accent);background:var(--mgl-header-accent-soft);transform:translateX(2px)}
-.mgl-nav-item:hover>.mgl-nav-panel,.mgl-nav-item:focus-within>.mgl-nav-panel,.mgl-nav-item.is-touch-open>.mgl-nav-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+.mgl-nav-item:hover>.mgl-nav-panel,.mgl-nav-item:focus-within>.mgl-nav-panel,.mgl-nav-item.is-touch-open>.mgl-nav-panel{opacity:1;visibility:visible;pointer-events:auto;transform:none}
 .mgl-nav-link:focus-visible,.mgl-nav-disclosure:focus-visible,.mgl-header-action:focus-visible,.mgl-dropdown-link:focus-visible{outline:2px solid var(--mgl-header-accent);outline-offset:2px}
 .mgl-header-actions{grid-area:actions;display:flex;align-items:center;justify-content:flex-end;gap:6px}
 .mgl-header-action{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 40px;padding:0;border:1px solid var(--mgl-header-border);border-radius:11px;background:rgba(255,255,255,.56);color:var(--mgl-header-text);cursor:pointer;text-decoration:none;transition:color .18s ease,background-color .18s ease,border-color .18s ease,transform .18s ease}
@@ -238,7 +238,7 @@
   .mgl-nav-link{display:flex;width:100%;min-height:44px;padding:11px 12px;font-size:14px;font-weight:600;line-height:1.5}.mgl-nav-icon{width:17px;height:17px;flex-basis:17px}
   .mgl-nav-disclosure{display:inline-flex;width:40px;height:40px}
   .mgl-nav-item.is-open>.mgl-nav-trigger .mgl-nav-disclosure svg{transform:rotate(180deg)}
-  .mgl-nav-panel,.mgl-simple-panel{position:static;width:100%;max-height:none;margin:3px 0 8px;padding:7px;overflow:visible;border:1px solid var(--mgl-header-border);border-radius:12px;background:var(--mgl-header-accent-soft);box-shadow:none;opacity:1;visibility:visible;pointer-events:auto;transform:none;display:none}
+  .mgl-nav-panel,.mgl-simple-panel{position:static;width:100%;max-height:none;margin:0 0 8px;padding:7px;overflow:visible;border:1px solid var(--mgl-header-border);border-radius:12px;background:var(--mgl-header-accent-soft);box-shadow:none;opacity:1;visibility:visible;pointer-events:auto;transform:none;display:none}
   .mgl-nav-item.is-open>.mgl-nav-panel{display:block}
   .mgl-dropdown-link{padding:9px 10px;font-size:13px;font-weight:500;line-height:1.5}
   .mgl-header-social,.mgl-header-cta{display:none}
