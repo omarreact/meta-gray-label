@@ -27,7 +27,7 @@ Primary dynamic preview:
 
 **Webflow design reference only:** `https://mg-label.webflow.io/`
 
-GitHub Pages is retained only as a compatibility/staging asset origin for the current Worker deployment. It is not the canonical public site.
+The Worker is the only public/canonical runtime. GitHub remains the source repository; the Worker can proxy source assets from `main` until the static asset bundle is moved fully into Workers Static Assets.
 
 The dynamic runtime renders 47 structured inner routes from one JSON source.
 Only four complex HTML design sources remain for layouts that intentionally
