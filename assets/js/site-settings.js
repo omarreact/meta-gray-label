@@ -5,6 +5,7 @@
   const siteRoot = new URL('../../', script?.src || document.baseURI);
   const configUrl = new URL('assets/site-settings.json', siteRoot);
   const localKey = 'mgl-dev-typography-v2';
+  const legacyLocalKey = 'mgl-dev-font-preference-v1';
   const repoIssueUrl = 'https://github.com/omarreact/meta-gray-label/issues/new';
   const googleMetadataUrl = 'https://fonts.google.com/metadata/fonts';
 
@@ -203,7 +204,7 @@
 
   function readLocalSetting() {
     try {
-      const raw = localStorage.getItem(localKey);
+      const raw = localStorage.getItem(localKey) || localStorage.getItem(legacyLocalKey);
       return raw ? normalizeSetting(JSON.parse(raw)) : null;
     } catch (_) {
       return null;
@@ -211,7 +212,9 @@
   }
 
   function saveLocalSetting(setting) {
-    localStorage.setItem(localKey, JSON.stringify(normalizeSetting(setting)));
+    const normalized = normalizeSetting(setting);
+    localStorage.setItem(localKey, JSON.stringify(normalized));
+    localStorage.setItem(legacyLocalKey, JSON.stringify(normalized));
   }
 
   function setStatus(message, tone) {
@@ -463,7 +466,7 @@
     panel.innerHTML = [
       '<div class="mgl-dev-settings-head"><div><span class="mgl-dev-settings-kicker">Developer controls</span><h2 class="mgl-dev-settings-title">Typography Settings</h2></div><button class="mgl-dev-settings-close" type="button" aria-label="Close settings" data-mgl-settings-close>×</button></div>',
       '<div class="mgl-dev-settings-body">',
-      '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Font family</h3><label class="mgl-dev-settings-label" for="mgl-font-search">Search Google Fonts</label><input class="mgl-dev-settings-search" id="mgl-font-search" type="search" autocomplete="off" placeholder="Search font family…" data-mgl-font-search><select class="mgl-dev-settings-select" aria-label="Font family results" data-mgl-font-select></select><div class="mgl-dev-settings-meta"><span class="mgl-dev-settings-dot" aria-hidden="true"></span><span data-mgl-font-catalog-status>Loading Google Fonts catalog…</span></div><div class="mgl-dev-settings-meta"><span data-mgl-font-source></span></div></section>',
+      '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Font family</h3><label class="mgl-dev-settings-label" for="mgl-font-search">Search Google Fonts</label><input class="mgl-dev-settings-search" id="mgl-font-search" type="search" autocomplete="off" placeholder="Search font family…" data-mgl-font-search><select class="mgl-dev-settings-select" id="mgl-global-font-select" aria-label="Font family results" data-mgl-font-select></select><div class="mgl-dev-settings-meta"><span class="mgl-dev-settings-dot" aria-hidden="true"></span><span data-mgl-font-catalog-status>Loading Google Fonts catalog…</span></div><div class="mgl-dev-settings-meta"><span data-mgl-font-source></span></div></section>',
       '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Body text</h3><div class="mgl-dev-settings-grid">',
       numberField('Size','data-mgl-body-size','12','28','0.5','px'), '<label class="mgl-dev-control"><span>Weight</span><select data-mgl-body-weight></select></label>', numberField('Line height','data-mgl-body-line-height','1.1','2.2','0.05','×'), numberField('Letter spacing','data-mgl-body-letter-spacing','-0.08','0.2','0.005','em'), '</div></section>',
       '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Headings</h3><div class="mgl-dev-settings-grid"><label class="mgl-dev-control"><span>Weight</span><select data-mgl-heading-weight></select></label>', numberField('Line height','data-mgl-heading-line-height','0.9','1.6','0.01','×'), numberField('Letter spacing','data-mgl-heading-letter-spacing','-0.12','0.12','0.005','em'), '</div><div class="mgl-dev-heading-grid">',
@@ -498,7 +501,7 @@
     });
 
     panel.querySelector('[data-mgl-save-device]')?.addEventListener('click', function () { const setting = updateDraftFromForm(); saveLocalSetting(setting); setStatus('Typography saved on this device.'); });
-    panel.querySelector('[data-mgl-reset-font]')?.addEventListener('click', function () { localStorage.removeItem(localKey); draftSetting = normalizeSetting(projectSetting); syncForm(draftSetting); applySetting(draftSetting); setStatus('Reset to current codebase typography.'); });
+    panel.querySelector('[data-mgl-reset-font]')?.addEventListener('click', function () { localStorage.removeItem(localKey); localStorage.removeItem(legacyLocalKey); draftSetting = normalizeSetting(projectSetting); syncForm(draftSetting); applySetting(draftSetting); setStatus('Reset to current codebase typography.'); });
     panel.querySelector('[data-mgl-save-codebase]')?.addEventListener('click', function () {
       const setting = updateDraftFromForm();
       saveLocalSetting(setting);
