@@ -472,6 +472,21 @@ lifecycleTabs.forEach(function (tab, index) {
 // =================== homepage lifecycle tabs end =================== //
 
 
+// The homepage form navigates between launch models; it does not send lead data.
+document.querySelector('.cta-form.form-subscribe')?.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const preference = (this.querySelector('input')?.value || '').trim().toLowerCase();
+  const selected = preference.includes('white') ? 0 : preference.includes('grey') || preference.includes('gray') ? 1 : preference.includes('turnkey') ? 2 : null;
+  if (selected !== null) {
+    document.querySelectorAll('#models .pricing__item-inner').forEach((card, index) => card.classList.toggle('active', index === selected));
+  }
+  document.querySelector('#models')?.scrollIntoView({
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    block: 'start'
+  });
+});
+
+
 // =================== contact qualification workflow =================== //
 const enquiryForm = document.getElementById('mgl-enquiry-form');
 
