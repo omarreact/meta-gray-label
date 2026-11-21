@@ -20,7 +20,7 @@ for (const page of pages) {
   const sourceTextCount = (page.markup.match(/<!-- wp:(paragraph|heading)(?:\s| -->)/g) || []).length;
   if (page.path === "index.html") {
     assert.equal(page.sections,11,"all approved homepage sections must be preserved");
-    assert.ok(page.markup.includes("Launch your brokerage with confidence."));
+    assert.ok(page.markup.includes("Connect your brokerage for"), "current homepage hero copy must reach FSE");
     assert.ok(page.markup.includes("Plan your brokerage"));
     assert.ok(page.markup.includes("<!-- wp:buttons -->"));
     assert.equal((page.markup.match(/<!-- wp:details /g)||[]).length,6,"native FAQ should have 6 editable disclosure blocks");
@@ -46,6 +46,8 @@ assert.ok(!parts.header.includes("<nav "), "Use the native Navigation block seri
 assert.ok(parts.header.includes('url":"/services/"'));
 assert.ok(parts.header.includes('url":"/#faq"'));
 assert.ok(parts.footer.includes("wp:site-title"));
+assert.ok(parts.footer.includes("Technology provider only"), "provider disclosure must reach native footer");
+assert.ok(parts.footer.includes("MT4/MT5 platform configuration"), "current service scope must reach native footer");
 assert.ok(!parts.header.includes("__MGL_CONTENT_"));
 console.log("FSE CORE-BLOCK TEST PASS: " + pages.length + " pages, " + blocks +
   " document content blocks, editable navigation and footer.");
