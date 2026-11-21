@@ -213,6 +213,52 @@ function renderRelated(route, routeIndex, family) {
   ).join("")}</div></div></section>`;
 }
 
+function structuredDataForPage({ route, title, description, canonical, canonicalBase, family, routeIndex }) {
+  const base = canonicalBase.replace(/\/$/, "");
+  const organizationId = base + "/#organization";
+  const crumbs = breadcrumbs(route, { title }, routeIndex);
+  const graph = [
+    {
+      "@type": "Organization",
+      "@id": organizationId,
+      name: "Meta Grey Label",
+      url: base + "/",
+      logo: base + "/media/branding/icon-512.png",
+      description: "Brokerage technology provider connecting MT4/MT5 platforms, hosting, liquidity, CRM, KYC and payment integrations.",
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+44 7988 028424",
+        contactType: "sales",
+        availableLanguage: ["English"]
+      },
+      sameAs: ["https://t.me/forexbrokertech"]
+    },
+    {
+      "@type": family === "article" ? "Article" : "Service",
+      "@id": canonical + "#primary",
+      name: title,
+      headline: family === "article" ? title : undefined,
+      description,
+      url: canonical,
+      mainEntityOfPage: canonical,
+      provider: family === "article" ? undefined : { "@id": organizationId },
+      publisher: family === "article" ? { "@id": organizationId } : undefined
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": canonical + "#breadcrumb",
+      itemListElement: crumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: crumb.label,
+        item: crumb.href ? base + normalizePath(crumb.href) : canonical
+      }))
+    }
+  ];
+  return JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
+    .replace(/</g, "\\u003c");
+}
+
 function rootifySharedMarkup(markup = "") {
   return String(markup).replace(/\b(src|href)=(["'])([^"']+)\2/gi, (match, attr, quote, raw) => {
     const value = raw.trim();
@@ -275,10 +321,18 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 <meta property="og:title" content="${escapeHtml(title)} | Meta Grey Label">
 <meta property="og:site_name" content="Meta Grey Label">
 <meta property="og:description" content="${escapeHtml(description)}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="${family === "article" ? "article" : "website"}">
 <meta property="og:url" content="${escapeHtml(canonical)}">
 <meta property="og:image" content="${escapeHtml(canonicalBase.replace(/\/$/, "") + "/media/branding/icon-512.png")}">
+<meta property="og:image:alt" content="Meta Grey Label brokerage technology">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#061a22">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${escapeHtml(title)} | Meta Grey Label">
+<meta name="twitter:description" content="${escapeHtml(description)}">
+<meta name="twitter:image" content="${escapeHtml(canonicalBase.replace(/\/$/, "") + "/media/branding/icon-512.png")}">
 <link rel="canonical" href="${escapeHtml(canonical)}">
+<script type="application/ld+json">${structuredDataForPage({ route, title, description, canonical, canonicalBase, family, routeIndex })}</script>
 <link rel="icon" type="image/svg+xml" href="/media/branding/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/media/branding/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/media/branding/apple-touch-icon.png">
