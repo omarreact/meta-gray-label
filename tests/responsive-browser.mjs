@@ -71,6 +71,7 @@ async function inspectLayout(page, width, label) {
     const nav = document.querySelector(".mgl-primary-nav");
     const navList = document.querySelector(".mgl-nav-list");
     const h1 = document.querySelector("main h1");
+    const navLink = document.querySelector(".mgl-nav-link");
     const rect = header?.getBoundingClientRect();
     const display = (node) => node ? getComputedStyle(node).display : "missing";
     const visible = (node) => {
@@ -79,6 +80,11 @@ async function inspectLayout(page, width, label) {
       const r = node.getBoundingClientRect();
       return style.display !== "none" && style.visibility !== "hidden" && r.width > 0 && r.height > 0;
     };
+    const bodyStyle = getComputedStyle(document.body);
+    const h1Style = h1 ? getComputedStyle(h1) : null;
+    const navStyle = navLink ? getComputedStyle(navLink) : null;
+    const ctaStyle = cta ? getComputedStyle(cta) : null;
+    const numeric = (value) => Number.parseFloat(value || "0");
     return {
       viewport: window.innerWidth,
       scrollWidth: root.scrollWidth,
@@ -91,7 +97,24 @@ async function inspectLayout(page, width, label) {
       ctaDisplay: display(cta),
       navDisplay: display(nav),
       navRows: navList ? new Set(Array.from(navList.children).filter(visible).map((item) => Math.round(item.getBoundingClientRect().top))).size : null,
-      h1Visible: visible(h1)
+      h1Visible: visible(h1),
+      bodyFontFamily: bodyStyle.fontFamily,
+      bodyFontWeight: bodyStyle.fontWeight,
+      bodyFontSize: numeric(bodyStyle.fontSize),
+      bodyLineHeight: numeric(bodyStyle.lineHeight),
+      h1FontFamily: h1Style?.fontFamily || "",
+      h1FontWeight: h1Style?.fontWeight || "",
+      h1FontSize: numeric(h1Style?.fontSize),
+      h1LineHeight: numeric(h1Style?.lineHeight),
+      h1LetterSpacing: numeric(h1Style?.letterSpacing),
+      navFontFamily: navStyle?.fontFamily || "",
+      navFontWeight: navStyle?.fontWeight || "",
+      navFontSize: numeric(navStyle?.fontSize),
+      navLineHeight: numeric(navStyle?.lineHeight),
+      ctaFontFamily: ctaStyle?.fontFamily || "",
+      ctaFontWeight: ctaStyle?.fontWeight || "",
+      ctaFontSize: numeric(ctaStyle?.fontSize),
+      ctaLineHeight: numeric(ctaStyle?.lineHeight)
     };
   });
 
@@ -99,6 +122,19 @@ async function inspectLayout(page, width, label) {
   assert(metrics.h1Visible, `${label} @ ${width}px H1 is not visible`);
   assert(metrics.headerLeft !== null && metrics.headerLeft >= -1, `${label} @ ${width}px header left clipped`);
   assert(metrics.headerRight !== null && metrics.headerRight <= width + 1, `${label} @ ${width}px header right clipped: ${metrics.headerRight}`);
+  assert(/Arial/i.test(metrics.bodyFontFamily), `${label} @ ${width}px body is not using Arial reference stack: ${metrics.bodyFontFamily}`);
+  assert(metrics.bodyFontWeight === "400", `${label} @ ${width}px body weight is ${metrics.bodyFontWeight}, expected 400`);
+  assert(metrics.bodyFontSize >= 14 && metrics.bodyFontSize <= 17.1, `${label} @ ${width}px body size ${metrics.bodyFontSize} outside 14–17px reference range`);
+  assert(Math.abs(metrics.bodyLineHeight / metrics.bodyFontSize - 1.75) < 0.03, `${label} @ ${width}px body line-height ratio differs from 1.75`);
+  assert(/Arial/i.test(metrics.h1FontFamily), `${label} @ ${width}px H1 is not using Arial reference stack`);
+  assert(metrics.h1LetterSpacing < 0, `${label} @ ${width}px H1 reference negative tracking missing`);
+  assert(/Arial/i.test(metrics.navFontFamily), `${label} @ ${width}px nav is not using Arial reference stack`);
+  assert(Math.abs(metrics.navFontSize - 14) < 0.25, `${label} @ ${width}px nav size ${metrics.navFontSize} is not 14px`);
+  assert(metrics.navFontWeight === "600", `${label} @ ${width}px nav weight is ${metrics.navFontWeight}, expected 600`);
+  assert(Math.abs(metrics.navLineHeight / metrics.navFontSize - 1.5) < 0.03, `${label} @ ${width}px nav line-height ratio differs from 1.5`);
+  assert(/Arial/i.test(metrics.ctaFontFamily), `${label} @ ${width}px CTA is not using Arial reference stack`);
+  assert(metrics.ctaFontWeight === "800", `${label} @ ${width}px CTA weight is ${metrics.ctaFontWeight}, expected 800`);
+  assert(Math.abs(metrics.ctaFontSize - 14) < 0.25, `${label} @ ${width}px CTA size ${metrics.ctaFontSize} is not 14px`);
 
   if (width <= 1199) {
     assert(metrics.toggleVisible, `${label} @ ${width}px mobile menu toggle is not visible`);
@@ -137,6 +173,8 @@ try {
     await page.goto(base + "/index.html?theme=dark", { waitUntil: "networkidle" });
     await page.waitForSelector(".mgl-site-header");
     const home = await inspectLayout(page, width, "home");
+    assert(home.h1FontWeight === "500", `home @ ${width}px hero weight is ${home.h1FontWeight}, expected 500`);
+    assert(Math.abs(home.h1LineHeight / home.h1FontSize - 1.01) < 0.03, `home @ ${width}px hero line-height ratio differs from 1.01`);
 
     if (width <= 1199) {
       const toggle = page.locator(".mgl-menu-toggle");
@@ -158,6 +196,8 @@ try {
     await page.goto(base + "/contact/?theme=dark", { waitUntil: "networkidle" });
     await page.waitForSelector("#mgl-enquiry-form");
     const contact = await inspectLayout(page, width, "contact");
+    assert(contact.h1FontWeight === "600", `contact @ ${width}px H1 weight is ${contact.h1FontWeight}, expected 600`);
+    assert(Math.abs(contact.h1LineHeight / contact.h1FontSize - 1.04) < 0.03, `contact @ ${width}px H1 line-height ratio differs from 1.04`);
     await page.screenshot({ path: join(shots, `contact-${width}.png`), fullPage: true });
 
     if (width === 390) {
