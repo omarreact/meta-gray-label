@@ -240,7 +240,7 @@
   --mgl-ref-body:clamp(14px,calc(.875rem + ((1vw - 3.2px) * .337)),17px);
   --mgl-ref-display:clamp(38.682px,calc(2.418rem + ((1vw - 3.2px) * 3.744)),72px);
 }
-body,.mgl-native-page,.mgl-native-site-header,.mgl-native-site-footer{
+.mgl-native-page,.mgl-native-site-header,.mgl-native-site-footer{
   font-family:var(--mgl-ref-font)!important;
   font-size:var(--mgl-ref-body);
   font-weight:400;
