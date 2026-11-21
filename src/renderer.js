@@ -265,7 +265,6 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 </head>
 <body>
 <div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>
-<div class="lightdark-switch"><button class="switch-btn" id="btnSwitch" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle light and dark theme"><img src="/assets/images/icon/moon.svg" alt="" width="20" height="20"></button></div>
 ${rootifySharedMarkup(header)}
 <main class="mgl-inner-page mgl-family-${family}" id="main-content">
 <section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('${heroImage}')"><div class="container mgl-hero-grid"><div>
@@ -283,7 +282,7 @@ ${renderRelated(route, routeIndex, family)}
 <section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Build the right brokerage stack</h2><p>Compare the operating models and platform options before planning implementation.</p></div><a class="mgl-btn mgl-btn-primary" href="/forex-white-label/vs-grey-label/">Compare Models</a></div></div></section>
 </main>
 ${rootifySharedMarkup(footer)}
-<a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
+<a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i></a>
 <script src="/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/all.min.js"></script>
 <script src="/assets/js/swiper-bundle.min.js"></script>

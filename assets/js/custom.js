@@ -129,6 +129,11 @@ submenuList.forEach(function (submenu) {
     var parentLi = submenu.parentElement;
     if (parentLi) {
         parentLi.classList.add("menu-item-has-children");
+        var trigger = parentLi.querySelector(":scope > a");
+        if (trigger) {
+            trigger.setAttribute("aria-haspopup", "true");
+            trigger.setAttribute("aria-expanded", "false");
+        }
     }
 });
 
@@ -243,6 +248,8 @@ function openDesktopSubmenu(item) {
     if (!desktopHoverQuery.matches) return;
     clearDesktopHoverTimer(item);
     item.classList.add("mgl-hover-open");
+    var trigger = item.querySelector(":scope > a");
+    if (trigger) trigger.setAttribute("aria-expanded", "true");
 }
 
 function scheduleDesktopSubmenuClose(item) {
@@ -250,6 +257,8 @@ function scheduleDesktopSubmenuClose(item) {
     clearDesktopHoverTimer(item);
     var timer = window.setTimeout(function () {
         item.classList.remove("mgl-hover-open");
+        var trigger = item.querySelector(":scope > a");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
         desktopHoverTimers.delete(item);
     }, desktopHoverCloseDelay);
     desktopHoverTimers.set(item, timer);
@@ -281,6 +290,8 @@ desktopHoverQuery.addEventListener("change", function (event) {
     document.querySelectorAll(".menu .mgl-hover-open").forEach(function (item) {
         clearDesktopHoverTimer(item);
         item.classList.remove("mgl-hover-open");
+        var trigger = item.querySelector(":scope > a");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
     });
 });
 
@@ -311,7 +322,9 @@ function initialiseScrollEffects() {
     if (!window.AOS) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) {
+    const compactViewport = window.matchMedia('(max-width: 767.98px)').matches;
+
+    if (reduceMotion || compactViewport) {
         document.querySelectorAll('[data-aos]').forEach(function (element) {
             element.removeAttribute('data-aos');
             element.removeAttribute('data-aos-duration');
@@ -320,11 +333,19 @@ function initialiseScrollEffects() {
         return;
     }
 
+    // Prevent long stagger chains from making the interface feel slow.
+    document.querySelectorAll('[data-aos-duration]').forEach(function (element) {
+        var duration = Number(element.getAttribute('data-aos-duration'));
+        if (!Number.isFinite(duration) || duration > 650) {
+            element.setAttribute('data-aos-duration', '560');
+        }
+    });
+
     AOS.init({
         once: true,
         mirror: false,
-        offset: 80,
-        duration: 650,
+        offset: 60,
+        duration: 560,
         easing: 'ease-out-cubic',
         anchorPlacement: 'top-bottom'
     });
@@ -360,7 +381,8 @@ const Partner = new Swiper('.partner__slider', {
     },
     autoplay: {
         delay: 1,
-        disableOnInteraction: true,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
     },
     speed: 2000,
 });
@@ -387,7 +409,11 @@ const blog = new Swiper('.blog__slider', {
         }
     },
 
-    autoplay: true,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
     speed: 500,
     navigation: {
         nextEl: ".blog__slider-next",
@@ -418,7 +444,11 @@ const testimonial = new Swiper('.testimonial__slider', {
         },
     },
 
-    autoplay: true,
+    autoplay: {
+        delay: 5500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
     speed: 500,
 
     navigation: {
@@ -458,7 +488,11 @@ const roadmapSlider = new Swiper('.roadmap__slider', {
 
     },
 
-    autoplay: true,
+    autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
     speed: 500,
 
 });
@@ -476,15 +510,12 @@ function updateScrollToTopVisibility() {
     if (!scrollToTop) return;
 
     const visible = window.scrollY > 300;
-    scrollToTop.style.bottom = visible ? '7%' : '-30%';
-    scrollToTop.style.opacity = visible ? '1' : '0';
-    scrollToTop.style.pointerEvents = visible ? 'auto' : 'none';
+    scrollToTop.classList.toggle('is-visible', visible);
     scrollToTop.setAttribute('aria-hidden', String(!visible));
     scrollToTop.tabIndex = visible ? 0 : -1;
 }
 
 if (scrollToTop) {
-    scrollToTop.style.transition = 'bottom .35s ease, opacity .35s ease';
     updateScrollToTopVisibility();
 
     window.addEventListener('scroll', updateScrollToTopVisibility, { passive: true });

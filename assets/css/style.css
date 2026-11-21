@@ -11320,3 +11320,507 @@ html.mgl-nav-open { overflow: hidden; }
     transition-duration: .01ms !important;
   }
 }
+
+
+/* ========================================================================
+   FULL-SITE UI/UX AUDIT OVERRIDES
+   Shared visual rhythm, interaction states, compact density and responsive QA
+   ======================================================================== */
+
+:root {
+  --mgl-section-space: clamp(58px, 6vw, 88px);
+  --mgl-section-space-compact: clamp(42px, 4.5vw, 66px);
+  --mgl-card-radius: 18px;
+  --mgl-card-border: rgba(12, 76, 83, 0.12);
+  --mgl-card-shadow: 0 14px 36px rgba(12, 38, 58, 0.06);
+  --mgl-card-shadow-hover: 0 20px 44px rgba(12, 38, 58, 0.10);
+  --mgl-focus: #00b98e;
+}
+
+html {
+  scroll-padding-top: 110px;
+}
+
+body {
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+a,
+button,
+input,
+select,
+textarea,
+[tabindex] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--mgl-focus) 78%, white);
+  outline-offset: 3px;
+}
+
+.section-header {
+  width: min(100%, 760px);
+  margin-inline: auto;
+  margin-block-end: clamp(26px, 3.5vw, 42px);
+}
+
+.section-header h2 {
+  margin-block-end: 10px;
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+.section-header p {
+  max-width: 68ch;
+  margin-inline: auto;
+  margin-block-end: 0;
+  line-height: 1.7;
+}
+
+#about,
+#benefits,
+#services,
+#roadmap,
+#models,
+#resources,
+#why,
+#faq,
+#contact {
+  scroll-margin-top: 110px;
+}
+
+#benefits.padding-top,
+#services.padding-top,
+#roadmap.padding-top,
+#models.padding-top,
+#resources.padding-top,
+#why.padding-top,
+#faq.padding-top,
+#contact.padding-top {
+  padding-block-start: var(--mgl-section-space);
+}
+
+#benefits.padding-bottom,
+#services.padding-bottom,
+#roadmap.padding-bottom,
+#models.padding-bottom,
+#resources.padding-bottom,
+#faq.padding-bottom,
+#contact.padding-bottom {
+  padding-block-end: var(--mgl-section-space);
+}
+
+#why.padding-bottom-style2 {
+  padding-block-end: var(--mgl-section-space-compact);
+}
+
+/* Homepage card system: less empty space, stronger hierarchy, consistent hover */
+#benefits .feature__item,
+#services .service__item,
+#models .pricing__item,
+#resources .blog__item,
+#why .testimonial__item,
+#faq .accordion__item {
+  border-radius: var(--mgl-card-radius);
+}
+
+#services .service__item-inner,
+#models .pricing__item,
+#resources .blog__item-inner,
+#why .testimonial__item-inner,
+#faq .accordion__item {
+  border: 1px solid var(--mgl-card-border);
+  box-shadow: var(--mgl-card-shadow);
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease,
+    background-color .22s ease;
+}
+
+#services .service__item:hover .service__item-inner,
+#models .pricing__item:hover,
+#resources .blog__item:hover .blog__item-inner,
+#why .testimonial__item:hover .testimonial__item-inner,
+#faq .accordion__item:has(.accordion__button:not(.collapsed)) {
+  transform: translateY(-4px);
+  border-color: rgba(0, 185, 142, .34);
+  box-shadow: var(--mgl-card-shadow-hover);
+}
+
+#services .service__item-inner {
+  min-height: 100%;
+  padding: clamp(20px, 2.5vw, 28px);
+}
+
+#services .service__item-thumb {
+  margin-block-end: 18px !important;
+}
+
+#services .service__item-content h5 {
+  margin-block-end: 8px;
+  line-height: 1.3;
+}
+
+#services .service__item-content p {
+  line-height: 1.65;
+}
+
+#models .pricing__item {
+  overflow: hidden;
+}
+
+#roadmap .roadmap__item-inner {
+  border-radius: 16px;
+}
+
+#resources .blog__item-inner {
+  overflow: hidden;
+  height: 100%;
+}
+
+#resources .blog__content h5 {
+  line-height: 1.35;
+}
+
+#why .testimonial__item-inner {
+  min-height: 100%;
+}
+
+#faq .accordion__button {
+  min-height: 58px;
+  line-height: 1.35;
+}
+
+/* CTA: keep it actionable instead of looking like a non-functional search box */
+.mgl-model-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.mgl-model-shortcuts a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 1px solid rgba(8, 64, 68, .15);
+  border-radius: 11px;
+  background: var(--wh-color);
+  color: var(--title-color);
+  font-weight: 750;
+  text-decoration: none;
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+}
+
+.mgl-model-shortcuts a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 185, 142, .38);
+  background: rgba(0, 185, 142, .08);
+  color: var(--title-color);
+}
+
+.mgl-model-shortcuts i {
+  color: var(--brand-color);
+}
+
+/* Services standalone page */
+.mgl-page-hero {
+  padding-block: clamp(72px, 8vw, 104px) !important;
+}
+
+.mgl-page-hero .container {
+  max-width: 980px;
+}
+
+.mgl-page-hero h1 {
+  font-size: clamp(2.35rem, 4.5vw, 4rem) !important;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.mgl-page-hero p {
+  max-width: 66ch !important;
+}
+
+.mgl-delivery {
+  padding-block: var(--mgl-section-space) !important;
+}
+
+.mgl-delivery__grid {
+  gap: 14px !important;
+}
+
+.mgl-delivery__card {
+  padding: clamp(22px, 2.8vw, 32px) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--mgl-card-shadow);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.mgl-delivery__card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 185, 142, .32);
+  box-shadow: var(--mgl-card-shadow-hover);
+}
+
+.mgl-cta {
+  padding-block: var(--mgl-section-space) !important;
+}
+
+.mgl-cta__inner {
+  padding: clamp(28px, 4vw, 52px) !important;
+  border-radius: 22px !important;
+}
+
+/* Footer: reduce excessive 100px whitespace while preserving information hierarchy */
+.footer__top--style1 {
+  padding-block: clamp(52px, 5.5vw, 74px) !important;
+}
+
+.footer__about-moto {
+  max-width: 48ch;
+  line-height: 1.7;
+}
+
+.footer__links-tittle h6 {
+  margin-block-end: 14px !important;
+}
+
+.footer__linklist-item + .footer__linklist-item {
+  margin-block-start: 7px;
+}
+
+.footer__linklist-item a {
+  line-height: 1.5;
+}
+
+.footer__end {
+  padding-block: 18px;
+  gap: 18px;
+}
+
+.footer__shape {
+  pointer-events: none;
+}
+
+/* Scroll-to-top remains accessible above fixed mobile browser chrome */
+.scrollToTop {
+  right: max(18px, env(safe-area-inset-right)) !important;
+  bottom: max(18px, env(safe-area-inset-bottom)) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 28px rgba(0, 88, 69, .20);
+}
+
+/* Theme-aware global polish */
+[data-bs-theme="dark"] {
+  --mgl-card-border: rgba(255, 255, 255, 0.10);
+  --mgl-card-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
+  --mgl-card-shadow-hover: 0 22px 46px rgba(0, 0, 0, 0.24);
+}
+
+[data-bs-theme="dark"] .mgl-model-shortcuts a {
+  border-color: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.055);
+  color: var(--title-color);
+}
+
+[data-bs-theme="dark"] .mgl-model-shortcuts a:hover {
+  border-color: rgba(88, 227, 189, .30);
+  background: rgba(0, 185, 142, .10);
+}
+
+@media (max-width: 991px) {
+  :root {
+    --mgl-section-space: clamp(48px, 8vw, 68px);
+  }
+
+  .section-header {
+    margin-block-end: 26px;
+    padding-inline: 14px;
+  }
+
+  #services .service__item-inner {
+    padding: 20px;
+  }
+
+  .footer__top--style1 {
+    padding-block: 52px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  html {
+    scroll-padding-top: 92px;
+  }
+
+  .section-header {
+    text-align: left !important;
+    padding-inline: 0;
+  }
+
+  .section-header p {
+    margin-inline: 0;
+  }
+
+  #benefits,
+  #services,
+  #roadmap,
+  #models,
+  #resources,
+  #why,
+  #faq,
+  #contact {
+    scroll-margin-top: 92px;
+  }
+
+  .mgl-model-shortcuts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mgl-model-shortcuts a:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer__top--style1 {
+    padding-block: 42px !important;
+  }
+
+  .footer__end {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #services .service__item-inner,
+  #models .pricing__item,
+  #resources .blog__item-inner,
+  #why .testimonial__item-inner,
+  .mgl-delivery__card,
+  .mgl-model-shortcuts a {
+    transition: none !important;
+  }
+}
+
+
+/* Homepage hero density correction for large displays */
+#home.banner--style1 {
+  padding-block-start: clamp(122px, 9vw, 148px);
+  padding-block-end: clamp(82px, 8vw, 124px);
+}
+
+#home .banner__content {
+  max-width: 690px;
+}
+
+#home .banner__content-heading {
+  max-width: 12ch;
+  font-size: clamp(2.7rem, 5vw, 5rem);
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+#home .banner__content-moto {
+  max-width: 56ch;
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.7;
+}
+
+#home .banner__btn-group {
+  gap: 10px;
+  margin-top: 24px;
+}
+
+@media (min-width: 1400px) {
+  #home.banner--style1 {
+    padding-block-end: 118px;
+  }
+
+  #home.banner--style1 .banner__thumb {
+    top: 128px;
+    right: clamp(58px, 7vw, 150px);
+    max-inline-size: 48%;
+  }
+}
+
+@media (min-width: 1600px) {
+  #home.banner--style1 {
+    padding-block-end: 124px;
+  }
+
+  #home.banner--style1 .banner__thumb {
+    top: 126px;
+    right: clamp(90px, 8vw, 180px);
+    max-inline-size: 46%;
+  }
+}
+
+@media (max-width: 767px) {
+  #home.banner--style1 {
+    padding-block-start: 112px;
+    padding-block-end: 58px;
+  }
+
+  #home .banner__content-heading {
+    max-width: none;
+    font-size: clamp(2.35rem, 11vw, 3.55rem);
+  }
+
+  #home .banner__btn-group {
+    width: 100%;
+  }
+
+  #home .banner__btn-group .trk-btn {
+    flex: 1 1 160px;
+    justify-content: center;
+  }
+}
+
+
+/* Reliable scroll-to-top visibility; avoids inline-style vs !important conflicts */
+.scrollToTop {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity .22s ease, transform .22s ease, visibility .22s ease !important;
+}
+
+.scrollToTop.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scrollToTop.is-visible:hover {
+  transform: translateY(-4px);
+}
+
+
+/* Shared footer brand sizing */
+.footer__about-logo {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.footer__about-logo img {
+  display: block;
+  width: min(230px, 100%);
+  height: auto;
+}
