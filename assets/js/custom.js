@@ -558,7 +558,7 @@ if (enquiryForm) {
         if (summary) summary.textContent = prepared;
         if (shareLink) {
             const shareText = prepared + '\n\nProject page: ' + window.location.href;
-            shareLink.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(shareText);
+            shareLink.href = 'https://wa.me/447988028424?text=' + encodeURIComponent(shareText);
         }
         if (output) {
             output.hidden = false;
