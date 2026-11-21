@@ -98,7 +98,7 @@ async function inspectLayout(page, width, label) {
   assert(metrics.headerLeft !== null && metrics.headerLeft >= -1, `${label} @ ${width}px header left clipped`);
   assert(metrics.headerRight !== null && metrics.headerRight <= width + 1, `${label} @ ${width}px header right clipped: ${metrics.headerRight}`);
 
-  if (width <= 1199) {
+  if (width <= 1279) {
     assert(metrics.toggleVisible, `${label} @ ${width}px mobile menu toggle is not visible`);
     assert(metrics.socialDisplay === "none", `${label} @ ${width}px social control leaked into mobile top bar`);
     assert(metrics.ctaDisplay === "none", `${label} @ ${width}px desktop CTA leaked into mobile top bar`);
@@ -135,12 +135,17 @@ try {
     await page.waitForSelector(".mgl-site-header");
     const home = await inspectLayout(page, width, "home");
 
-    if (width <= 1199) {
+    if (width <= 1279) {
       const toggle = page.locator(".mgl-menu-toggle");
       await toggle.click();
       assert(await toggle.getAttribute("aria-expanded") === "true", `home @ ${width}px menu did not open`);
       const openOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
       assert(openOverflow <= 2, `home @ ${width}px open mobile menu causes horizontal overflow: ${openOverflow}px`);
+      const firstDisclosure = page.locator("[data-nav-disclosure]").first();
+      await firstDisclosure.click();
+      assert(await firstDisclosure.getAttribute("aria-expanded") === "true", `home @ ${width}px submenu did not open`);
+      const submenuOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      assert(submenuOverflow <= 2, `home @ ${width}px open submenu causes horizontal overflow: ${submenuOverflow}px`);
       await page.keyboard.press("Escape");
       assert(await toggle.getAttribute("aria-expanded") === "false", `home @ ${width}px Escape did not close menu`);
     }
