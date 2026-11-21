@@ -23,6 +23,12 @@ Primary dynamic preview:
 
 `https://meta-gray-label-dynamic.farukkhanone.workers.dev/`
 
+**Production / canonical:** `https://meta-gray-label-dynamic.farukkhanone.workers.dev/`
+
+**Webflow design reference only:** `https://mg-label.webflow.io/`
+
+GitHub Pages is retained only as a compatibility/staging asset origin for the current Worker deployment. It is not the canonical public site.
+
 The dynamic runtime renders 47 structured inner routes from one JSON source.
 Only four complex HTML design sources remain for layouts that intentionally
 keep their bespoke markup:
