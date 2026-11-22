@@ -68,9 +68,8 @@ add_action( 'wp_head', static function (): void {
     }
 }, 15 );
 
-if ( defined( 'WP_CLI' ) && WP_CLI ) {
-    require_once get_theme_file_path( 'inc/import-pages.php' );
-}
+require_once get_theme_file_path( 'inc/import-pages.php' );
+require_once get_theme_file_path( 'inc/admin-setup.php' );
 
 // Match the static renderer's theme selection before the inner page paints.
 // Kept outside post content so every Gutenberg section remains native/editable.
