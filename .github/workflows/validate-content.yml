@@ -121,6 +121,7 @@ jobs:
         run: |
           php -l functions.php
           php -l inc/import-pages.php
+          php -l inc/admin-setup.php
           php -l patterns/brokerage-hero.php
           php -l patterns/brokerage-cta.php
           php -l patterns/inner-service.php
@@ -131,6 +132,7 @@ jobs:
         run: |
           node scripts/package-wordpress.mjs --write
           test -f dist/wordpress/meta-grey-label/functions.php
+          test -f dist/wordpress/meta-grey-label/inc/admin-setup.php
           test -f dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
           test -f dist/wordpress/meta-grey-label/parts/header.html
           test -f dist/wordpress/meta-grey-label/parts/footer.html
