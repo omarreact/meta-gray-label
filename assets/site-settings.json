@@ -1,20 +1,20 @@
 {
   "version": 2,
   "typography": {
-    "globalFontFamily": "Arial",
-    "provider": "system",
+    "globalFontFamily": "Inter",
+    "provider": "google",
     "fallback": "Arial, Helvetica, sans-serif",
-    "bodySizePx": 17,
+    "bodySizePx": 16,
     "bodyWeight": 400,
-    "bodyLineHeight": 1.75,
+    "bodyLineHeight": 1.65,
     "bodyLetterSpacingEm": 0,
     "headingWeight": 600,
     "headingLineHeight": 1.04,
-    "headingLetterSpacingEm": -0.065,
+    "headingLetterSpacingEm": -0.055,
     "headingSizes": {
-      "h1": 72,
-      "h2": 56,
-      "h3": 32,
+      "h1": 93,
+      "h2": 77,
+      "h3": 36,
       "h4": 26,
       "h5": 22,
       "h6": 18
