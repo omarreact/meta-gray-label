@@ -34,6 +34,18 @@ node scripts/inventory-pages.mjs
 
 After updating composition, regenerate native patterns with `node scripts/generate-fse.mjs --write`. Package the installable native block theme with `node scripts/package-wordpress.mjs --write`.
 
+## Manual WordPress install
+
+The packaged theme is designed to be testable without WP-CLI:
+
+1. Upload and activate `meta-grey-label.zip` from **Appearance → Themes → Add New → Upload Theme**.
+2. Open **Appearance → Meta Grey Label Setup**.
+3. Click **Import Missing Pages & Set Homepage**.
+4. The setup creates only missing native Gutenberg pages, does not overwrite existing pages, and configures the packaged Home page as the static front page.
+5. Review the site in **Appearance → Editor** and on the frontend.
+
+The WP-CLI command remains available for automated environments: `wp mgl import-pages --apply --set-homepage`.
+
 ## Real WordPress staging and browser QA
 
 GitHub Actions starts disposable wp-env Docker staging, activates the packaged theme, imports native pages, checks all native frontend routes, opens Gutenberg and Site Editor, and captures static/native evidence. The inner reference and route-family checks cover 360, 390, 430, 768, 1024, 1180, 1440 and 1920px in both themes. No test publishes to a production WordPress server.
