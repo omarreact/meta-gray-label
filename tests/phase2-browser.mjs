@@ -40,7 +40,7 @@ try{
    const filters=page.locator('.mgl-directory-filter a');const groups=page.locator('.mgl-directory-group');const count=await groups.count();assert.ok(count>=4);
    await filters.nth(1).click();assert.equal(await groups.filter({visible:true}).count(),1);assert.equal(await filters.nth(1).getAttribute('aria-pressed'),'true');
    await filters.first().focus();await filters.first().press('Space');assert.equal(await groups.filter({visible:true}).count(),count);
-   assert.ok(await page.locator('[role=status]').innerText());
+   assert.ok(await page.locator('.mgl-directory-status').innerText());
    await page.goto(base+route+'?theme='+theme+'#'+await groups.nth(1).getAttribute('id'),{waitUntil:'networkidle'});assert.equal(await groups.filter({visible:true}).count(),1);
    await page.goto(base+route+'?theme='+theme,{waitUntil:'networkidle'});
   }

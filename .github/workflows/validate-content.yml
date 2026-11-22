@@ -105,7 +105,9 @@ jobs:
           ! grep -R -q '/meta-gray-label/assets/' about-us forex-grey-label
           ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' about-us forex-grey-label
       - name: Validate compact WordPress architecture
-        run: node tests/architecture.mjs
+        run: |
+          node tests/architecture.mjs
+          node scripts/audit-assets.mjs
       - name: Validate native Gutenberg projection
         run: |
           node tests/directories.mjs

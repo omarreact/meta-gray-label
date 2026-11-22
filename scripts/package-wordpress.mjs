@@ -35,6 +35,9 @@ const sourcePaths = [
   "assets/js/contact-brief.js",
   "assets/site-settings.json",
   "media/branding",
+  "assets/images/about/1.png",
+  "assets/images/banner/home1/bg.png",
+  "assets/images/service",
   "data/content.json",
   "data/inner-pages.json",
   "data/directories.json",
@@ -85,4 +88,12 @@ for (const page of native.pages) {
 }
 writeFileSync(join(output, "manifest.json"),
   JSON.stringify({ pages: manifest, excluded: native.excluded, special: native.special }, null, 2) + "\n");
+// Verify every native stylesheet dependency also exists in the installable theme.
+for(const name of ['fse.css','native-chrome.css','directories.css','inner-pages.css','site-settings.css']){
+ const path=join(wpDir,'assets/css',name);
+ for(const [,url] of readFileSync(path,'utf8').matchAll(/url\(["']?([^"')]+)["']?\)/g)){
+  if(/^(data:|https?:|#)/.test(url))continue;
+  if(!existsSync(resolve(dirname(path),url)))throw new Error('Missing packaged CSS dependency: '+url);
+ }
+}
 console.log("WORDPRESS PACKAGE BUILT: " + wpDir + " (" + native.pages.length + " native pages)");
