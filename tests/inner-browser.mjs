@@ -57,8 +57,8 @@ try{
     const name=new URL(request.request().url()).pathname.split('/').pop();
     await request.fulfill({body:execFileSync('git',['show','7d5568d512e21e09cdd18e57749abe5e1eb7cf49:media/branding/'+name]),contentType:'image/svg+xml'});
    });
+   await page.route(base+route+'?theme='+theme,request=>request.fulfill({body:baseline,contentType:'text/html'}));
    await page.goto(base+route+'?theme='+theme,{waitUntil:'networkidle'});
-   await page.setContent(baseline,{waitUntil:'networkidle'});
    await page.locator('.preloader').waitFor({state:'hidden',timeout:5000});
    await page.screenshot({path:`${dir}/before-${theme}-${width}.png`,fullPage:true});
    await page.screenshot({path:`${dir}/before-${theme}-${width}-hero.png`});
