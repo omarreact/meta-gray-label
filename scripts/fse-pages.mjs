@@ -6,7 +6,7 @@ import { INNER_ROLLOUT, buildInnerPage, renderInnerTree, ui } from '../src/inner
  *
  * The 48 routes with authoritative structured documents have native,
  * independently editable core/heading and core/paragraph block content.
- * Unmapped directory/index routes retain their existing HTML renderer.
+ * Directories extend the shared semantic composition; contact retains its form widgets.
  * This module never mutates data/content.json or production HTML.
  */
 const safeText = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

@@ -23,6 +23,7 @@ Without JavaScript every group remains visible and its navigation links work. Na
 - Native chrome previously used a plain site title, a different header flow and a one-column footer. It now uses the approved wordmark, floating header proportions, theme control, quote/WhatsApp actions, navigation icons, three footer columns, disclosure and social links.
 - Browser QA found a native mobile specificity conflict: core button display rules kept desktop actions visible and pushed the menu toggle outside the viewport. Scoped mobile selectors now hide these actions. QA explicitly checks visible header controls stay within the viewport.
 - Fixed native chrome required extra breathing room above the existing native homepage hero. Only that compatibility spacing changes; the approved static homepage, static header and static footer sources remain byte-identical to main.
+- Strict parity caught WordPress smart-quote conversion in an article-list title. The shared directory display now uses the same typographic apostrophe; source data and factual meaning are unchanged.
 - Motion remains restrained. Shared anchor scrolling honors reduced motion; directory hover changes only the border. No new preloader or frontend dependency is introduced.
 
 ## Native editability and intentional differences

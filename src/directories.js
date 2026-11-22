@@ -64,7 +64,7 @@ function insights(entries){
  const featured=articles.find(x=>x.route.includes('white-label-grey-label-or-turnkey'))||articles[0];
  const topics=['Brokerage strategy','Client operations','Governance','Technology'];
  const articleCard=(entry,featured=false)=>group(featured?'mgl-directory-featured':'mgl-directory-article',[
- label(insightTopic(entry.route)),h(entry.title,featured?2:3),p(readingTime(entry)+' min read · Practical guide','mgl-inner-caption'),
+ label(insightTopic(entry.route)),h(entry.title.replace(/([A-Za-z])'([A-Za-z])/g,'$1’$2'),featured?2:3),p(readingTime(entry)+' min read · Practical guide','mgl-inner-caption'),
  featured?p('Understand the differences between brokerage models before defining your platform and operational scope.'):null,
  link(featured?'Read the featured guide ↗':'Read the guide →',entry.route,'mgl-directory-read')
  ],'article');
