@@ -44,9 +44,9 @@ try{
    await page.goto(base+route+'?theme='+theme+'#'+await groups.nth(1).getAttribute('id'),{waitUntil:'networkidle'});assert.equal(await groups.filter({visible:true}).count(),1);
    await page.goto(base+route+'?theme='+theme,{waitUntil:'networkidle'});
   }
+  await page.screenshot({path:`${dir}/${name}-${theme}-${width}-hero.png`});
   if([390,1440].includes(width)){
    await page.screenshot({path:`${dir}/${name}-${theme}-${width}.png`,fullPage:true});
-   await page.screenshot({path:`${dir}/${name}-${theme}-${width}-hero.png`});
    if(['services','solutions','insights'].includes(name)){
     await page.locator('.mgl-native-site-footer,.footer').scrollIntoViewIfNeeded();await page.screenshot({path:`${dir}/${name}-${theme}-${width}-footer.png`});
    }

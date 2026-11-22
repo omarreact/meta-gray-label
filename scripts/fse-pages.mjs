@@ -136,7 +136,7 @@ function directoryPageMarkup(config, source, sequence) {
   const route=source==='services.html'?'/services.html':rec.route;
   if(DIRECTORY_ROUTES.has(route)){
     const tree=buildDirectoryPage(route,directoryEntries(config));
-    return {path:source,slug:slugOf(source),route:rec.route,title:directoryEntry(route).title,documentId:null,family:'directory',sections:tree.children.length,blocks:0,sequence,markup:openGroup('mgl-native-page mgl-native-route--'+routeClass(rec.route),'main')+'\n'+renderInnerTree(tree,true)+'\n'+closeGroup('main')+'\n'};
+    return {path:source,slug:slugOf(source),route:rec.route,title:directoryEntry(route).title,documentId:null,family:'directory',sections:tree.children.length,blocks:0,sequence,markup:openGroup('mgl-native-page mgl-native-route--'+routeClass(rec.route),'main')+'\n'+renderInnerTree(tree,true).replaceAll('href="/services.html"','href="/services/"')+'\n'+closeGroup('main')+'\n'};
   }
   const is404 = source === "404.html";
   const f = rec.fields;

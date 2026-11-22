@@ -61,6 +61,16 @@ try {
       entry.name+" editor error");
     console.log("GUTENBERG EDITOR PASS "+entry.name+": "+state.total+" blocks, 0 invalid");
   }
+  const parts=await page.evaluate(async()=>{
+    const records=await wp.apiFetch({path:'/wp/v2/template-parts?context=edit'});
+    return records.filter(x=>x.theme==='meta-grey-label'&&['header','footer'].includes(x.slug)).map(record=>{
+      let total=0,invalid=0;
+      function walk(items){for(const block of items){total++;if(block.isValid===false)invalid++;walk(block.innerBlocks||[]);}}
+      walk(wp.blocks.parse(record.content.raw));return{slug:record.slug,total,invalid};
+    });
+  });
+  assert.equal(parts.length,2,'both native template parts must be editable');
+  for(const part of parts){assert.ok(part.total>10);assert.equal(part.invalid,0,part.slug+' invalid native blocks');console.log('TEMPLATE PART PASS '+part.slug+': '+part.total+' blocks, 0 invalid');}
   await page.goto(base+"/wp-admin/site-editor.php",{waitUntil:"domcontentloaded",timeout:45000});
   await page.waitForFunction(()=>!!window.wp?.data,{timeout:30000});
   const siteEditorText=(await page.locator("body").innerText()).slice(0,1500);

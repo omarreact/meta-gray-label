@@ -12,7 +12,7 @@ for(const route of DIRECTORY_ROUTES){
  assert.equal(wp.replace(/<!--\s*\/?wp:[\s\S]*?-->/g,'').replace(/\s+</g,'<').trim(),staticBody.replace(/\s+</g,'<').trim());
  assert.doesNotMatch(wp,/wp:html|<script|__MGL_CONTENT_/);
  const page=native.find(x=>x.path===(route==='/services.html'?'services.html':route.slice(1)+'index.html'));
- assert.ok(page.markup.includes(wp),'native directory drift');
+ assert.ok(page.markup.includes(wp.replaceAll('href="/services.html"','href="/services/"')),'native directory drift');
  const html=renderStructuredPage({route,entry:directoryEntry(route),routeIndex:routes,canonicalBase:'https://mg-label.webflow.io'});
  assert.equal((html.match(/<h1\b/g)||[]).length,1);
  assert.ok(html.includes('https://mg-label.webflow.io'+route));
