@@ -15,7 +15,7 @@ on:
       - "contact/**"
       - "assets/**"
       - "media/**"
-      - "src/renderer.js"
+      - "src/**"
       - "scripts/static-site-lib.mjs"
       - "scripts/build-static.mjs"
       - "package.json"

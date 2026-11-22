@@ -1,3 +1,5 @@
+import { INNER_ROLLOUT, buildInnerPage, renderInnerTree } from './inner-system.js';
+
 const SPECIAL_ROUTES = new Map([
   ["/", "/index.html"],
   ["/index.html", "/index.html"],
@@ -316,6 +318,7 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
   const category = routeCategory(route);
   const heroImage = heroImageForRoute(route, family);
 
+  const redesigned = INNER_ROLLOUT.has(route);
   const page = `<!doctype html>
 <html lang="en" data-bs-theme="dark">
 <head><script id="mgl-theme-boot">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script>
@@ -347,12 +350,13 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="stylesheet" href="/assets/css/site-settings.css">
+${redesigned ? '<link rel="stylesheet" href="/assets/css/inner-pages.css">' : ""}
 </head>
 <body>
 <div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>
 ${rootifySharedMarkup(header)}
 <main class="mgl-inner-page mgl-family-${family} mgl-category-${slugify(category)}" id="main-content">
-<section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('${heroImage}')"><div class="container mgl-hero-grid"><div>
+${redesigned ? renderInnerTree(buildInnerPage(entry, [...routeIndex.values()])) : `<section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('${heroImage}')"><div class="container mgl-hero-grid"><div>
 ${renderBreadcrumbs(route, entry, routeIndex)}
 <h1>${escapeHtml(title)}</h1>
 ${summary ? `<p class="mgl-hero-summary">${escapeHtml(summary)}</p>` : ""}
@@ -365,6 +369,7 @@ ${renderToc(sections, family)}
 </div></div></section>
 ${renderRelated(route, routeIndex, family)}
 <section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Plan the operating model before the implementation.</h2><p>Review the platform, execution and client-operations layers together, then choose the structure that fits your brokerage.</p></div><div class="mgl-bottom-actions"><a class="mgl-btn mgl-btn-primary" href="/contact/">Get Started</a><a class="mgl-bottom-link" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></div></div></div></section>
+`}
 </main>
 ${rootifySharedMarkup(footer)}
 <a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i></a>

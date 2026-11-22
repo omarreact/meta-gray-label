@@ -7,7 +7,7 @@ on:
       - "data/content.json"
       - "header.html"
       - "footer.html"
-      - "src/renderer.js"
+      - "src/**"
       - "scripts/static-site-lib.mjs"
       - "scripts/materialize-pages.mjs"
   workflow_dispatch:

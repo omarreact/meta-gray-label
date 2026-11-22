@@ -25,7 +25,7 @@ try {
   const homeId=list[0].id;
   const pages=[
     {id:homeId,name:"homepage"},
-    ...await Promise.all(["about-us","forex-grey-label"].map(async slug=>{
+    ...await Promise.all(["about-us","forex-grey-label","mt5-grey-label"].map(async slug=>{
       const r=await ctx.request.get(base+"/wp-json/wp/v2/pages?slug="+slug);
       assert.equal(r.status(),200);
       const j=await r.json();

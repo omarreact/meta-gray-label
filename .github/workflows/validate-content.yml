@@ -108,6 +108,7 @@ jobs:
         run: node tests/architecture.mjs
       - name: Validate native Gutenberg projection
         run: |
+          node tests/inner-system.mjs
           node tests/fse-pages.mjs
           node scripts/generate-fse.mjs --check
       - name: Verify WordPress package
@@ -176,6 +177,33 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+  inner-page-reference:
+    name: Inner page reference (8 widths, 2 themes)
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build static inner pages
+        run: PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/build-static.mjs
+      - name: Install Chromium QA
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install chromium
+      - name: Test both themes at all eight requested widths
+        run: node tests/inner-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inner-page-static-evidence
+          path: tmp/inner-static/
+          retention-days: 14
+
   wordpress-integration:
     name: Real WordPress staging (isolated Docker)
     needs: verify
@@ -212,6 +240,7 @@ jobs:
           npx playwright install chromium
           node tests/wp-browser.mjs
           node tests/wp-editor.mjs
+          MGL_INNER_TARGET=wordpress node tests/inner-browser.mjs
       - name: Capture source HTML and WordPress visual parity
         run: |
           mkdir -p tmp/design-parity
@@ -268,6 +297,7 @@ jobs:
           name: wordpress-staging-qa
           path: |
             tmp/wp-browser-screens/
+            tmp/inner-wordpress/
             tmp/design-parity/
             tmp/wordpress-qa/
           if-no-files-found: warn

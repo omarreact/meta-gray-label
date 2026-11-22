@@ -19,6 +19,7 @@ add_action( 'after_setup_theme', static function (): void {
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
     add_editor_style( 'assets/css/fse.css' );
+    add_editor_style( 'assets/css/inner-pages.css' );
 } );
 
 add_action( 'wp_enqueue_scripts', static function (): void {
@@ -35,6 +36,8 @@ add_action( 'wp_enqueue_scripts', static function (): void {
         array( 'mgl-fse-native' ),
         '1.0.0'
     );
+
+    wp_enqueue_style( 'mgl-inner-system', get_theme_file_uri( 'assets/css/inner-pages.css' ), array( 'mgl-site-settings' ), '1.0.0' );
 
     wp_enqueue_script(
         'mgl-site-settings',

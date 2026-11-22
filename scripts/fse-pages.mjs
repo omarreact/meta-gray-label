@@ -1,3 +1,4 @@
+import { INNER_ROLLOUT, buildInnerPage, renderInnerTree } from '../src/inner-system.js';
 /**
  * Block-first projection of the canonical JSON content.
  *
@@ -340,7 +341,13 @@ export function buildNativePages(config, homepageTemplate) {
     }
     const page = entry.path === "index.html" ?
       homePageMarkup(entry, config, homepageTemplate, index++) :
-      nativePageMarkup(entry, document, index++);
+      INNER_ROLLOUT.has(entry.route) ? {
+        path:entry.path, slug:slugOf(entry.path), route:entry.route, title:entry.title,
+        documentId:entry.id, family:familyOf(entry.route), sections:document.blocks.filter(b=>b.level===2).length,
+        blocks:document.blocks.length, sequence:index++,
+        markup: openGroup("mgl-native-page mgl-native-route--"+routeClass(entry.route), "main") + "\n" +
+          renderInnerTree(buildInnerPage({...entry,document}, config.pageMap.pages.map(x=>({...x,document:config.content.documents[x.id]}))), true) + "\n"+closeGroup("main")
+      } : nativePageMarkup(entry, document, index++);
     results.push(page);
     seen.add(entry.path);
   }
