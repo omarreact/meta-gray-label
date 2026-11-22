@@ -17,7 +17,7 @@ add_action( 'admin_menu', static function (): void {
 
 add_action( 'admin_post_mgl_import_pages', static function (): void {
     if ( ! current_user_can( 'edit_theme_options' ) ) {
-        wp_die( esc_html__( 'You do not have permission to configure this theme.', 'meta-grey-label' ), 403 );
+        wp_die( esc_html__( 'You do not have permission to configure this theme.', 'meta-grey-label' ), '', array( 'response' => 403 ) );
     }
 
     check_admin_referer( 'mgl_import_pages' );
