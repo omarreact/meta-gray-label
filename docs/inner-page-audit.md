@@ -63,3 +63,5 @@ Webflow MT5 representative: both themes at all eight requested widths had zero r
 The native WordPress header retains its existing editable navigation rather than copying static header markup. A scoped compatibility rule corrects header/dropdown/overlay contrast for the new inner themes. Static/native content geometry is tested independently from this pre-existing chrome difference.
 
 Screenshot review caught the legacy preloader masking family heroes during fast route navigation. Structured redesign routes now omit that delay entirely; the approved homepage preloader is untouched. Browser QA explicitly asserts no preloader on redesigned routes.
+
+Final family screenshot review found one source-formatting defect on the white-vs-grey comparison: `FAQs:H3:` was rendered literally. It is now a proper level-three question with its original wording and answer retained, producing a fourth native disclosure.

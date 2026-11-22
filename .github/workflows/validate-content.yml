@@ -120,6 +120,7 @@ jobs:
           php -l inc/import-pages.php
           php -l patterns/brokerage-hero.php
           php -l patterns/brokerage-cta.php
+          php -l patterns/inner-service.php
           php -l tests/wordpress-assets-smoke.php
       - name: Smoke-test WordPress assets
         run: php tests/wordpress-assets-smoke.php

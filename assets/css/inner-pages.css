@@ -7,6 +7,7 @@ html body .mgl-design {
   --mi-ease:var(--wp--custom--mgl-inner--motion,cubic-bezier(.22,1,.36,1));
   color:var(--mi-text); background:var(--mi-bg); margin:0; padding:0;
   font-family:var(--mgl-global-font-family,Arial,Helvetica,sans-serif);
+  font-size:var(--mgl-body-font-size,17px);line-height:1.75;
   overflow:clip; isolation:isolate;
 }
 [data-bs-theme="dark"] body .mgl-design,

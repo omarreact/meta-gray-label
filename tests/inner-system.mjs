@@ -8,6 +8,7 @@ const routes=buildRouteIndex(data);
 const native=buildNativePages(data,readFileSync('index.html','utf8')).pages;
 for(const route of INNER_ROLLOUT){
  const entry=routes.get(route);assert.ok(entry,'unknown rollout route');
+ for(const block of entry.document.blocks)assert.doesNotMatch(block.text,/FAQs?:H[1-6]:/,'draft heading marker in public copy');
  const html=renderStructuredPage({route,entry,routeIndex:routes,canonicalBase:'https://mg-label.webflow.io'});
  const wp=native.find(x=>x.route===route).markup;
  const tree=buildInnerPage(entry,[...routes.values()]);
