@@ -30,16 +30,16 @@
   });
 
   const defaults = {
-    globalFontFamily: 'Arial',
-    provider: 'system',
-    bodySizePx: 17,
+    globalFontFamily: 'Inter',
+    provider: 'google',
+    bodySizePx: 16,
     bodyWeight: 400,
-    bodyLineHeight: 1.75,
+    bodyLineHeight: 1.65,
     bodyLetterSpacingEm: 0,
     headingWeight: 600,
     headingLineHeight: 1.04,
-    headingLetterSpacingEm: -0.065,
-    headingSizes: { h1: 72, h2: 56, h3: 32, h4: 26, h5: 22, h6: 18 },
+    headingLetterSpacingEm: -0.055,
+    headingSizes: { h1: 93, h2: 77, h3: 36, h4: 26, h5: 22, h6: 18 },
     uiSizePx: 14,
     uiWeight: 600,
     buttonSizePx: 14,
