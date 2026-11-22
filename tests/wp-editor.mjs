@@ -77,7 +77,14 @@ try {
   const setupText=await page.locator("body").innerText();
   assert.match(setupText,/Missing pages:\s*0/i,"Admin setup should detect the already imported staging content");
   assert.doesNotMatch(setupText,/critical error|fatal error/i,"Admin setup critical error");
-  console.log("WORDPRESS ADMIN SETUP PASS: manual importer screen loads and detects installed native pages.");
+  await Promise.all([
+    page.waitForURL(/themes\.php\?page=mgl-setup.*mgl_status=imported/,{timeout:30000}),
+    page.locator("form[action$='admin-post.php'] input[type='submit']").click()
+  ]);
+  const setupResult=await page.locator("body").innerText();
+  assert.match(setupResult,/Setup complete\. 0 missing page\(s\) were created/i,
+    "Admin setup submit did not confirm its safe no-op result");
+  console.log("WORDPRESS ADMIN SETUP PASS: screen loads, detects installed pages and submits safely without overwriting.");
 
   await page.goto(base+"/wp-admin/site-editor.php",{waitUntil:"domcontentloaded",timeout:45000});
   await page.waitForFunction(()=>!!window.wp?.data,{timeout:30000});
