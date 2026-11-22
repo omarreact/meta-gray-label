@@ -71,6 +71,14 @@ try {
   });
   assert.equal(parts.length,2,'both native template parts must be editable');
   for(const part of parts){assert.ok(part.total>10);assert.equal(part.invalid,0,part.slug+' invalid native blocks');console.log('TEMPLATE PART PASS '+part.slug+': '+part.total+' blocks, 0 invalid');}
+  await page.goto(base+"/wp-admin/themes.php?page=mgl-setup",{waitUntil:"domcontentloaded",timeout:45000});
+  await page.locator("h1").filter({hasText:"Meta Grey Label Setup"}).waitFor({state:"visible"});
+  await page.locator("form[action$='admin-post.php'] input[name='action'][value='mgl_import_pages']").waitFor({state:"attached"});
+  const setupText=await page.locator("body").innerText();
+  assert.match(setupText,/Missing pages:\s*0/i,"Admin setup should detect the already imported staging content");
+  assert.doesNotMatch(setupText,/critical error|fatal error/i,"Admin setup critical error");
+  console.log("WORDPRESS ADMIN SETUP PASS: manual importer screen loads and detects installed native pages.");
+
   await page.goto(base+"/wp-admin/site-editor.php",{waitUntil:"domcontentloaded",timeout:45000});
   await page.waitForFunction(()=>!!window.wp?.data,{timeout:30000});
   const siteEditorText=(await page.locator("body").innerText()).slice(0,1500);
