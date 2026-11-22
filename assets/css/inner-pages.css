@@ -223,3 +223,5 @@ html body .mgl-design .mgl-inner-toc a:hover {color:var(--mi-accent)}
 /* Escape WordPress post-content constraints only for pages using this system. */
 html body .mgl-native-page:has(> .mgl-design){padding:0;margin-block:0}
 html body .mgl-native-page > .mgl-design{max-width:none!important;width:100%;margin-inline:0!important}
+
+@media(max-width:767px){html body .mgl-design .mgl-inner-hero-copy .mgl-inner-actions{padding-right:44px}}

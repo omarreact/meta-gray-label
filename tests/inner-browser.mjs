@@ -48,6 +48,22 @@ try{
   await ctx.close();
  }
  if(!wp){
+  // Historical HTML and original logos, using unchanged baseline CSS/JS assets.
+  const baseline=execFileSync('git',['show','7d5568d512e21e09cdd18e57749abe5e1eb7cf49:forex-grey-label/mt5-grey-label/index.html'],{encoding:'utf8'});
+  for(const theme of ['light','dark'])for(const width of [390,1440]){
+   const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});
+   const page=await ctx.newPage();
+   await page.route('**/media/branding/logo-*.svg',async request=>{
+    const name=new URL(request.request().url()).pathname.split('/').pop();
+    await request.fulfill({body:execFileSync('git',['show','7d5568d512e21e09cdd18e57749abe5e1eb7cf49:media/branding/'+name]),contentType:'image/svg+xml'});
+   });
+   await page.goto(base+route+'?theme='+theme,{waitUntil:'networkidle'});
+   await page.setContent(baseline,{waitUntil:'networkidle'});
+   await page.waitForTimeout(700);
+   await page.screenshot({path:`${dir}/before-${theme}-${width}.png`,fullPage:true});
+   await page.screenshot({path:`${dir}/before-${theme}-${width}-hero.png`});
+   await ctx.close();
+  }
   // Confirm the approved home and shared chrome sources are byte-for-byte intact.
   for(const path of ['index.html','header.html','footer.html'])assert.equal(execFileSync('git',['show','7d5568d512e21e09cdd18e57749abe5e1eb7cf49:'+path],{encoding:'utf8'}).toString(),execFileSync('cat',[path]).toString(),path+' changed');
  }

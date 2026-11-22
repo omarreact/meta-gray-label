@@ -59,3 +59,13 @@ add_action( 'wp_head', static function (): void {
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
     require_once get_theme_file_path( 'inc/import-pages.php' );
 }
+
+// Match the static renderer's theme selection before the inner page paints.
+// Kept outside post content so every Gutenberg section remains native/editable.
+add_action( 'wp_head', static function (): void {
+    if ( ! function_exists( 'is_page' ) || ! is_page() ||
+         ! str_contains( (string) get_post_field( 'post_content', get_queried_object_id() ), 'mgl-design' ) ) {
+        return;
+    }
+    echo "<script id=\"mgl-inner-theme-boot\">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script>\n";
+}, 1 );

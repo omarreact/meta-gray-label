@@ -82,6 +82,9 @@ export function rewritePlatformReferences(html, publicBase) {
   for (const base of LEGACY_BASES) {
     output = output.split(base).join(target);
   }
+  // Hosting paths may differ; search identity always belongs to Webflow production.
+  output = output.replace(/<head\b[^>]*>[\s\S]*?<\/head>/i, (head) =>
+    head.split(target).join("https://mg-label.webflow.io"));
   return output;
 }
 
@@ -212,8 +215,8 @@ export function buildStaticSite({
   notFound = rewritePlatformReferences(notFound, publicBase);
   notFound = applyBasePathToHtml(notFound, basePath);
   writeText(out, "404.html", notFound);
-  writeText(out, "sitemap.xml", renderDynamicSitemap(data, normalizePublicBase(publicBase)));
-  writeText(out, "robots.txt", `User-agent: *\nAllow: /\nSitemap: ${normalizePublicBase(publicBase)}/sitemap.xml\n`);
+  writeText(out, "sitemap.xml", renderDynamicSitemap(data, "https://mg-label.webflow.io"));
+  writeText(out, "robots.txt", `User-agent: *\nAllow: /\nSitemap: https://mg-label.webflow.io/sitemap.xml\n`);
   writeText(out, ".nojekyll", "");
 
   return {
@@ -251,7 +254,7 @@ export function materializeGitHubPages({
     .replace(/src=(["'])\/media\//gi, 'src=$1./media/');
   writeText(root, "404.html", notFound);
   writeText(root, "sitemap.xml", renderDynamicSitemap(result.data, normalizePublicBase(publicBase)));
-  writeText(root, "robots.txt", `User-agent: *\nAllow: /\nSitemap: ${normalizePublicBase(publicBase)}/sitemap.xml\n`);
+  writeText(root, "robots.txt", `User-agent: *\nAllow: /\nSitemap: https://mg-label.webflow.io/sitemap.xml\n`);
 
   const manifest = {
     generatedAt: new Date().toISOString(),
