@@ -5,7 +5,7 @@ body{margin:0}
 .wp-site-blocks{padding-block:0!important}
 .wp-site-blocks>header{position:relative;z-index:1000;margin:0!important}
 .wp-site-blocks>main,.wp-site-blocks>.mgl-native-page{margin-block-start:0!important}
-html body .mgl-native-site-header{box-sizing:border-box;position:fixed;top:10px;left:12px;width:calc(100% - 24px);max-width:1540px;margin:0!important;padding:8px 10px 8px 18px;min-height:0;border:1px solid var(--mc-line);border-radius:20px;background:var(--mc-bg);color:var(--mc-ink);backdrop-filter:blur(18px);gap:16px;display:flex;align-items:center;font-family:var(--mgl-global-font-family,Arial,Helvetica,sans-serif);box-shadow:0 4px 22px #001d2410}
+html body .mgl-native-site-header{box-sizing:border-box;position:fixed;top:10px;left:12px;width:calc(100% - 24px);max-width:1540px;margin:0!important;padding:8px 10px 8px 18px;min-height:0;border:1px solid var(--mc-line);border-radius:20px;background:var(--mc-bg);color:var(--mc-ink);backdrop-filter:blur(18px);gap:16px;display:flex;align-items:center;font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);box-shadow:0 4px 22px #001d2410}
 html body .mgl-native-brand{flex:0 0 auto;margin:0;gap:0}
 html body .mgl-native-brand-title{display:none}
 html body .mgl-native-logo{line-height:0;margin:0}
@@ -29,7 +29,7 @@ html body .mgl-native-theme-toggle a::after{content:'☾';font:24px/1 Arial,sans
 [data-bs-theme=dark] body .mgl-native-theme-toggle a::after{content:'☀'}
 html body .mgl-native-whatsapp a{width:40px;padding:0!important;font-size:0!important;border-color:#25d36655!important;background:#25d36612!important}
 html body .mgl-native-whatsapp a::after{content:'';width:21px;height:21px;background:#25d366;mask:url('../../media/branding/whatsapp.svg') center/contain no-repeat}
-html body .mgl-native-site-footer{margin:0!important;padding:0 32px;background:var(--mc-foot);color:var(--mc-ink);font-family:var(--mgl-global-font-family,Arial,Helvetica,sans-serif)}
+html body .mgl-native-site-footer{margin:0!important;padding:0 32px;background:var(--mc-foot);color:var(--mc-ink);font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)}
 html body .mgl-native-footer-content{max-width:1180px!important;margin:auto}
 html body .mgl-native-footer-top{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;gap:32px;padding:74px 0;margin:0}
 html body .mgl-native-footer-about .mgl-native-logo img{width:230px!important}
@@ -114,8 +114,8 @@ html body .mgl-native-social-telegram a::after{mask-image:url("data:image/svg+xm
 }
 @media(max-width:700px){html body .mgl-native-navigation .wp-block-navigation__responsive-container.is-menu-open{top:81px;left:8px;right:8px;width:calc(100% - 16px)}}
 /* Chrome has its own type hierarchy; global content heading controls must not enlarge it. */
-html body .mgl-native-site-header,html body .mgl-native-site-footer{font-family:var(--mgl-global-font-family,Arial,Helvetica,sans-serif)!important}
-html body .mgl-native-footer-links h3{font-family:var(--mgl-global-font-family,Arial,Helvetica,sans-serif)!important;font-size:13px!important;font-weight:700!important;line-height:18.2px!important;letter-spacing:.06em!important}
+html body .mgl-native-site-header,html body .mgl-native-site-footer{font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important}
+html body .mgl-native-footer-links h3{font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;font-size:13px!important;font-weight:700!important;line-height:18.2px!important;letter-spacing:.06em!important}
 html body .mgl-native-footer-about>p{font-size:15px!important;font-weight:400!important;line-height:25.5px!important;letter-spacing:0!important}
 html body .mgl-native-footer-links p{font-size:16px!important;font-weight:400!important;line-height:24px!important;letter-spacing:0!important}
 html body .mgl-native-provider-disclosure{font-size:12px!important;font-weight:400!important;line-height:19.8px!important;letter-spacing:0!important}
