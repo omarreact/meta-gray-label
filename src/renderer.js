@@ -237,14 +237,14 @@ function structuredDataForPage({ route, title, description, canonical, canonical
       sameAs: ["https://t.me/forexbrokertech"]
     },
     {
-      "@type": family === "article" ? "Article" : "Service",
+      "@type": family === "article" ? "Article" : family === "directory" ? "CollectionPage" : "Service",
       "@id": canonical + "#primary",
       name: title,
       headline: family === "article" ? title : undefined,
       description,
       url: canonical,
       mainEntityOfPage: canonical,
-      provider: family === "article" ? undefined : { "@id": organizationId },
+      provider: family === "article" || family === "directory" ? undefined : { "@id": organizationId },
       publisher: family === "article" ? { "@id": organizationId } : undefined
     },
     {

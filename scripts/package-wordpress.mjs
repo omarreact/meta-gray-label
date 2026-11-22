@@ -38,6 +38,8 @@ const sourcePaths = [
   "assets/images/about/1.png",
   "assets/images/banner/home1/bg.png",
   "assets/images/service",
+  "assets/images/icon/moon.svg",
+  "assets/images/icon/sun.svg",
   "data/content.json",
   "data/inner-pages.json",
   "data/directories.json",

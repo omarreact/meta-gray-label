@@ -101,3 +101,15 @@ html body .mgl-native-navigation .wp-block-navigation__container>.wp-block-navig
 }
 /* Fixed native chrome needs the same breathing room above the existing home hero. */
 html body .mgl-native-page--home>.mgl-native-section:first-child{padding-top:130px}
+
+/* Reuse the approved icon assets; labels remain available to assistive technology. */
+html body .mgl-native-theme-toggle a::after{content:'';width:20px;height:20px;background:var(--mc-ink);mask:url('../images/icon/moon.svg') center/contain no-repeat}
+[data-bs-theme=dark] body .mgl-native-theme-toggle a::after{content:'';mask-image:url('../images/icon/sun.svg')}
+html body .mgl-native-footer-social a{box-sizing:border-box;width:40px;height:40px;padding:0;font-size:0}
+html body .mgl-native-footer-social a::after{content:'';width:22px;height:22px;background:currentColor;mask:url('../../media/branding/whatsapp.svg') center/contain no-repeat}
+html body .mgl-native-social-telegram a::after{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='m21 3-3.8 17-5.2-4.4-2.9 2.5.5-4.4L21 3Z'/%3E%3Cpath d='m3 10 18-7-11.4 10.7L3 10Z'/%3E%3C/svg%3E")}
+@media(max-width:1199px){
+ html body .mgl-native-navigation .wp-block-navigation__responsive-container.is-menu-open{top:83px;left:10px;right:10px;bottom:auto;width:calc(100% - 20px);max-height:calc(100dvh - 96px);height:auto;overflow:auto;border:1px solid var(--mc-line);border-radius:17px;padding:48px 20px 20px;box-shadow:0 20px 54px #03121633}
+ html body .mgl-native-navigation .wp-block-navigation__responsive-container-close{position:absolute;top:0;right:0}
+}
+@media(max-width:700px){html body .mgl-native-navigation .wp-block-navigation__responsive-container.is-menu-open{top:81px;left:8px;right:8px;width:calc(100% - 16px)}}

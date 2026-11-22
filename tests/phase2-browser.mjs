@@ -30,19 +30,22 @@ try{
   const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'}),page=await ctx.newPage(),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   page.on('response',r=>{if(r.status()>=400&&r.url().startsWith(base))errors.push(r.status()+' '+r.url());});
-  await page.goto(base+route+'?theme='+theme,{waitUntil:'networkidle'});
+  await page.goto(base+route+'?theme='+theme,{waitUntil:'load'});
   const metrics=await page.evaluate(()=>{
    const q=s=>document.querySelector(s),box=e=>{const r=e.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}};
    return{overflow:document.documentElement.scrollWidth-innerWidth,h1:document.querySelectorAll('h1').length,theme:document.documentElement.dataset.bsTheme,header:box(q('.mgl-native-site-header,.mgl-header-shell')),logo:box([...document.querySelectorAll('.mgl-native-brand img,.mgl-header-brand img')].find(e=>e.getBoundingClientRect().width>0)||q('header img')),footer:box(q('.mgl-native-site-footer,.footer')),preloader:!!q('.preloader'),text:q('.mgl-design').innerText.length};
   });
   assert.ok(metrics.overflow<=2,`${name} ${theme} ${width} overflow ${metrics.overflow}`);assert.equal(metrics.h1,1);assert.equal(metrics.theme,theme);assert.equal(metrics.preloader,false);assert.deepEqual(errors,[],name);
+  const controls=await page.evaluate(()=>[...document.querySelectorAll('.mgl-native-site-header a,.mgl-native-site-header button,.mgl-header-shell a,.mgl-header-shell button')].filter(e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return r.width&&r.height&&s.visibility!=='hidden';}).map(e=>{const r=e.getBoundingClientRect();return{label:e.getAttribute('aria-label')||e.textContent.trim(),x:r.x,right:r.right,y:r.y};}));
+  for(const control of controls)assert.ok(control.x>=0&&control.right<=width+1,`${name} ${width} header control outside viewport: ${JSON.stringify(control)}`);
+  metrics.controls=controls;
   if(['services','solutions','insights'].includes(name)){
    const filters=page.locator('.mgl-directory-filter a');const groups=page.locator('.mgl-directory-group');const count=await groups.count();assert.ok(count>=4);
    await filters.nth(1).click();assert.equal(await groups.filter({visible:true}).count(),1);assert.equal(await filters.nth(1).getAttribute('aria-pressed'),'true');
    await filters.first().focus();await filters.first().press('Space');assert.equal(await groups.filter({visible:true}).count(),count);
    assert.ok(await page.locator('.mgl-directory-status').innerText());
-   await page.goto(base+route+'?theme='+theme+'#'+await groups.nth(1).getAttribute('id'),{waitUntil:'networkidle'});assert.equal(await groups.filter({visible:true}).count(),1);
-   await page.goto(base+route+'?theme='+theme,{waitUntil:'networkidle'});
+   await page.goto(base+route+'?theme='+theme+'#'+await groups.nth(1).getAttribute('id'),{waitUntil:'load'});assert.equal(await groups.filter({visible:true}).count(),1);
+   await page.goto(base+route+'?theme='+theme,{waitUntil:'load'});
   }
   await page.screenshot({path:`${dir}/${name}-${theme}-${width}-hero.png`});
   if([390,1440].includes(width)){
@@ -53,9 +56,10 @@ try{
   }
   // The visible control must switch theme and remain keyboard operable.
   const toggle=page.locator(wp?'.mgl-native-theme-toggle a':'#btnSwitch');await toggle.click();assert.equal(await page.locator('html').getAttribute('data-bs-theme'),theme==='dark'?'light':'dark');
+  await toggle.click();assert.equal(await page.locator('html').getAttribute('data-bs-theme'),theme);
   if(wp&&['services','solutions','insights'].includes(name)){
-   if(width<1200){const open=page.locator('.wp-block-navigation__responsive-container-open');await open.click();await page.locator('.wp-block-navigation__responsive-container.is-menu-open').waitFor();await page.locator('.wp-block-navigation__responsive-container-close').click();}
-   else{await page.locator('.mgl-native-navigation .wp-block-navigation-submenu').first().hover();await page.locator('.mgl-native-navigation .wp-block-navigation__submenu-container').first().waitFor({state:'visible'});}
+   if(width<1200){const open=page.locator('.wp-block-navigation__responsive-container-open');await open.click();await page.locator('.wp-block-navigation__responsive-container.is-menu-open').waitFor();if(name==='services')await page.screenshot({path:`${dir}/native-menu-${theme}-${width}.png`});await page.locator('.wp-block-navigation__responsive-container-close').click();}
+   else{await page.locator('.mgl-native-navigation .wp-block-navigation-submenu').first().hover();await page.locator('.mgl-native-navigation .wp-block-navigation__submenu-container').first().waitFor({state:'visible'});if(name==='services')await page.screenshot({path:`${dir}/native-dropdown-${theme}-${width}.png`});}
   }
   report.push({name,route,theme,width,...metrics});await ctx.close();
  }
@@ -65,7 +69,7 @@ try{
    const path=route==='/services.html'?'services.html':route.slice(1)+'index.html';
    const baseline=execFileSync('git',['show','ba882fa14430eaa9cd12665ae012eccd87c326fe:'+path],{encoding:'utf8'}).replaceAll('data-aos=','data-before-aos=');
    await page.route(base+route+'?theme='+theme,r=>r.fulfill({body:baseline,contentType:'text/html'}));
-   await page.goto(base+route+'?theme='+theme,{waitUntil:'networkidle'});await page.waitForTimeout(1700);
+   await page.goto(base+route+'?theme='+theme,{waitUntil:'load'});await page.waitForTimeout(1700);
    await page.screenshot({path:`${dir}/before-${name}-${theme}-${width}.png`,fullPage:true});await page.screenshot({path:`${dir}/before-${name}-${theme}-${width}-hero.png`});await ctx.close();
   }
  }

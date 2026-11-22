@@ -14,6 +14,7 @@ for(const route of DIRECTORY_ROUTES){
  const page=native.find(x=>x.path===(route==='/services.html'?'services.html':route.slice(1)+'index.html'));
  assert.ok(page.markup.includes(wp.replaceAll('href="/services.html"','href="/services/"')),'native directory drift');
  const html=renderStructuredPage({route,entry:directoryEntry(route),routeIndex:routes,canonicalBase:'https://mg-label.webflow.io'});
+ assert.ok(html.includes('CollectionPage'));
  assert.equal((html.match(/<h1\b/g)||[]).length,1);
  assert.ok(html.includes('https://mg-label.webflow.io'+route));
  assert.doesNotMatch(html,/preloader|aos.css|swiper-bundle|all.min.js/);
