@@ -17,6 +17,10 @@ assert.equal(existsSync(new URL("../assets/css/site-settings.css",import.meta.ur
 assert.doesNotMatch(func,/bootstrap\.min\.css|custom\.js|register_block_type|mgl_render_page/);
 assert.equal(existsSync(new URL("../blocks",import.meta.url)),false);
 assert.equal(existsSync(new URL("../inc/renderer.php",import.meta.url)),false);
+assert.equal(existsSync(new URL("../inc/import-pages.php",import.meta.url)),true);
+assert.equal(existsSync(new URL("../inc/admin-setup.php",import.meta.url)),true);
+assert.match(func,/inc\/import-pages\.php/);
+assert.match(func,/inc\/admin-setup\.php/);
 assert.match(read("templates/page.html"),/wp:post-content/);
 assert.match(read("templates/front-page.html"),/wp:post-content/);
 assert.match(read("parts/header.html"),/wp:navigation/);
