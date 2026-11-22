@@ -113,3 +113,10 @@ html body .mgl-native-social-telegram a::after{mask-image:url("data:image/svg+xm
  html body .mgl-native-navigation .wp-block-navigation__responsive-container-close{position:absolute;top:0;right:0}
 }
 @media(max-width:700px){html body .mgl-native-navigation .wp-block-navigation__responsive-container.is-menu-open{top:81px;left:8px;right:8px;width:calc(100% - 16px)}}
+/* Chrome has its own type hierarchy; global content heading controls must not enlarge it. */
+html body .mgl-native-site-header,html body .mgl-native-site-footer{font-family:var(--mgl-global-font-family,Arial,Helvetica,sans-serif)!important}
+html body .mgl-native-footer-links h3{font-family:var(--mgl-global-font-family,Arial,Helvetica,sans-serif)!important;font-size:13px!important;font-weight:700!important;line-height:18.2px!important;letter-spacing:.06em!important}
+html body .mgl-native-footer-about>p{font-size:15px!important;font-weight:400!important;line-height:25.5px!important;letter-spacing:0!important}
+html body .mgl-native-footer-links p{font-size:16px!important;font-weight:400!important;line-height:24px!important;letter-spacing:0!important}
+html body .mgl-native-provider-disclosure{font-size:12px!important;font-weight:400!important;line-height:19.8px!important;letter-spacing:0!important}
+html body .wp-site-blocks>.wp-block-post-content,html body .wp-site-blocks>.wp-block-template-part{margin-block:0!important}
