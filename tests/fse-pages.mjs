@@ -5,10 +5,10 @@ import { buildNativePages, buildNativeParts, nativePreview } from "../scripts/fs
 const data = JSON.parse(readFileSync(new URL("../data/content.json", import.meta.url), "utf8"));
 const { pages, excluded, special } = buildNativePages(data,
   readFileSync(new URL("../index.html",import.meta.url),"utf8"));
-assert.equal(pages.length, 52);
+assert.equal(pages.length, 53);
 assert.deepEqual(excluded, []);
-assert.deepEqual(special, ["404.html", "insights/index.html", "services.html", "solutions/index.html"]);
-assert.equal(new Set(pages.map(p => p.path)).size, 52);
+assert.deepEqual(special, ["404.html", "contact/index.html", "insights/index.html", "services.html", "solutions/index.html"]);
+assert.equal(new Set(pages.map(p => p.path)).size, 53);
 let blocks = 0;
 for (const page of pages) {
   const doc = data.content.documents[page.documentId];

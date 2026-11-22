@@ -39,6 +39,10 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 
     wp_enqueue_style( 'mgl-inner-system', get_theme_file_uri( 'assets/css/inner-pages.css' ), array( 'mgl-site-settings' ), '1.0.0' );
 
+    if ( function_exists( 'is_page' ) && is_page( 'contact' ) ) {
+        wp_enqueue_script( 'mgl-contact-brief', get_theme_file_uri( 'assets/js/contact-brief.js' ), array(), '1.0.0', true );
+    }
+
     wp_enqueue_script(
         'mgl-site-settings',
         get_theme_file_uri( 'assets/js/site-settings.js' ),

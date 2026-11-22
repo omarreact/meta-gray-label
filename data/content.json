@@ -13312,6 +13312,10 @@
     "trading-platforms/web-trader/index.html": {
       "role": "page",
       "route": "/trading-platforms/web-trader/"
+    },
+    "contact/index.html": {
+      "role": "page",
+      "route": "/contact/"
     }
   },
   "pageMap": {

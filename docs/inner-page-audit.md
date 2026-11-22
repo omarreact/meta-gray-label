@@ -10,7 +10,7 @@ Baseline: `main` at `7d5568d512e21e09cdd18e57749abe5e1eb7cf49`. Review date: 22 
 - A main-only Action creates generated `webflow` branch output; Webflow Cloud consumes static output. No live production change is required to review this PR.
 - WordPress is a native block-theme target. `scripts/fse-pages.mjs` projects content separately, `package-wordpress.mjs` packages it, and WP-CLI imports it through `inc/import-pages.php`. Templates use core post-content. Native navigation has its own representation.
 - The README predates materialization and incorrectly says per-route HTML is absent. The package script omitted site-settings assets even though functions.php enqueues them. The latter is fixed in this PR.
-- Contact is a bespoke static route outside the canonical page map. It is missing from the original 52-route SEO/FSE coverage. It is explicitly included in the new inventory; this discrepancy remains visible rather than silently claiming parity.
+- Contact was a bespoke static route outside the canonical page map. The final change adds it to SEO/FSE coverage, restoring a working destination for native inner CTAs. The 53-route inventory now includes it. Native headings, introductions and CTA sections remain editable core blocks; the existing form/output widgets use two HTML blocks and a small standalone local-only script. Static contact source is unchanged.
 
 ## UI findings
 
@@ -65,3 +65,5 @@ The native WordPress header retains its existing editable navigation rather than
 Screenshot review caught the legacy preloader masking family heroes during fast route navigation. Structured redesign routes now omit that delay entirely; the approved homepage preloader is untouched. Browser QA explicitly asserts no preloader on redesigned routes.
 
 Final family screenshot review found one source-formatting defect on the white-vs-grey comparison: `FAQs:H3:` was rendered literally. It is now a proper level-three question with its original wording and answer retained, producing a fourth native disclosure.
+
+The native contact projection reuses the existing form fields, validation and brief preparation. It does not submit to an invented endpoint or send messages automatically. Staging QA covers the form at all eight widths in both themes without clicking the external WhatsApp action.

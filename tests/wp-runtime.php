@@ -5,8 +5,8 @@ if ( 'Meta Grey Label' !== $theme->get( 'Name' ) || ! wp_is_block_theme() ) {
     WP_CLI::error( 'Meta Grey Label was not recognized as a block theme.' );
 }
 $manifest = json_decode( (string) file_get_contents( get_theme_file_path( 'data/fse-pages/manifest.json' ) ), true );
-if ( ! is_array( $manifest ) || count( $manifest['pages'] ?? array() ) !== 52 ) {
-    WP_CLI::error( 'Native block manifest must contain all 52 routes.' );
+if ( ! is_array( $manifest ) || count( $manifest['pages'] ?? array() ) !== 53 ) {
+    WP_CLI::error( 'Native block manifest must contain all 53 routes.' );
 }
 $native=0;
 foreach ( $manifest['pages'] as $source=>$record ) {
@@ -26,7 +26,7 @@ foreach ( $manifest['pages'] as $source=>$record ) {
     }
     $native++;
 }
-if ( $native !== 51 || 'page' !== get_option('show_on_front') || ! get_option('page_on_front') ) {
+if ( $native !== 52 || 'page' !== get_option('show_on_front') || ! get_option('page_on_front') ) {
     WP_CLI::error( 'Wrong native count/homepage configuration.' );
 }
 $part=(string)file_get_contents(get_theme_file_path('parts/header.html'));
@@ -36,4 +36,4 @@ if ( substr_count($part,'<!-- wp:navigation-link') !== 42 ||
 }
 $parsed=parse_blocks($part);
 if(!$parsed || $parsed[0]['blockName']!=='core/group') WP_CLI::error('Header does not parse.');
-WP_CLI::success('REAL WORDPRESS PASS: 51 native Pages, 52 routes and native FSE header/footer.');
+WP_CLI::success('REAL WORDPRESS PASS: 52 native Pages, 53 routes and native FSE header/footer.');

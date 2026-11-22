@@ -28,6 +28,7 @@ const sourcePaths = [
   "assets/css/inner-pages.css",
   "assets/css/site-settings.css",
   "assets/js/site-settings.js",
+  "assets/js/contact-brief.js",
   "assets/site-settings.json",
   "media/branding",
   "data/content.json",
@@ -43,7 +44,7 @@ for (const p of sourcePaths) if (!existsSync(safe(p))) throw new Error("Missing 
 const config = JSON.parse(readFileSync(safe("data/content.json"), "utf8"));
 const native = buildNativePages(config, readFileSync(safe("index.html"), "utf8"));
 const nativeParts = buildNativeParts(config);
-if (native.pages.length !== 52 || native.excluded.length !== 0) throw new Error("Unexpected native page coverage");
+if (native.pages.length !== 53 || native.excluded.length !== 0) throw new Error("Unexpected native page coverage");
 
 for (const name of ["index","front-page","page","404","single","archive","search"]) {
   const contents = readFileSync(safe("templates/" + name + ".html"), "utf8");
@@ -53,7 +54,7 @@ const theme = JSON.parse(readFileSync(safe("theme.json"), "utf8"));
 if (theme.version !== 3 || theme.templateParts?.length !== 2) throw new Error("Invalid compact theme.json");
 
 if (flags.has("--check")) {
-  console.log("WORDPRESS PACKAGE CHECK PASS: 52 native block pages; no legacy HTML renderer or framework bundle.");
+  console.log("WORDPRESS PACKAGE CHECK PASS: 53 native block pages; no legacy HTML renderer or framework bundle.");
   process.exit(0);
 }
 

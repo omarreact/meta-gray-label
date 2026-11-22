@@ -246,6 +246,7 @@ jobs:
           node tests/wp-editor.mjs
           MGL_INNER_TARGET=wordpress node tests/inner-browser.mjs
           MGL_INNER_TARGET=wordpress node tests/inner-routes-browser.mjs
+          node tests/wp-contact.mjs
       - name: Capture source HTML and WordPress visual parity
         run: |
           mkdir -p tmp/design-parity
@@ -273,7 +274,7 @@ jobs:
             echo "- Run: $GITHUB_RUN_ID"
             echo "- WordPress staging: isolated wp-env Docker environment"
             echo "- Theme: meta-grey-label"
-            echo "- Expected native routes: 52"
+            echo "- Expected native routes: 53"
             echo "- Browser viewports: 1440x900 and 390x844"
             echo "- Evidence: screenshots, runtime inventory and wp-env logs"
           } > tmp/wordpress-qa/summary.md
@@ -290,7 +291,7 @@ jobs:
             echo "## WordPress staging factory"
             echo
             echo "- Commit: $GITHUB_SHA"
-            echo "- 52 native block routes packaged"
+            echo "- 53 native block routes packaged"
             echo "- Real WordPress + MariaDB booted in isolated Docker"
             echo "- HTTP, Gutenberg, Site Editor and responsive browser QA executed"
             echo "- Installable theme ZIP is available from the meta-grey-label-wordpress-theme artifact"

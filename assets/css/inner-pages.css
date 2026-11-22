@@ -248,3 +248,24 @@ html body .mgl-design .mgl-inner-module:has(a:focus-visible){outline:3px solid v
 @media(max-width:767px){html body .mgl-design .mgl-inner-comparison-row{grid-template-columns:1fr;gap:20px}html body .mgl-design .mgl-inner-comparison-row--shared .mgl-inner-comparison-cell{grid-column:auto}}
 html[data-bs-theme="dark"] body:has(.mgl-design) .mgl-native-navigation :where(.wp-block-navigation__submenu-container,.wp-block-navigation__responsive-container.is-menu-open){background:#10282c;color:#eff8f4;border-color:#294348}
 html[data-bs-theme="light"] body:has(.mgl-design) .mgl-native-navigation :where(.wp-block-navigation__submenu-container,.wp-block-navigation__responsive-container.is-menu-open){background:#fff;color:#172e2d;border-color:#cfddd7}
+/* Native contact parity: the two HTML widgets retain the existing form behavior;
+   the surrounding content remains editable core Gutenberg blocks. */
+html body .mgl-design--contact .mgl-inner-container > p{margin-top:20px;max-width:76ch}
+html body .mgl-design--contact .mgl-contact-form{display:grid;gap:20px;margin-top:32px}
+html body .mgl-design--contact .mgl-contact-form__section,html body .mgl-design--contact .mgl-contact-output{padding:28px;border:1px solid var(--mi-line);border-radius:12px;background:var(--mi-surface)}
+html body .mgl-design--contact .mgl-contact-form__section-head{display:grid;grid-template-columns:32px 1fr;gap:16px;margin-bottom:24px}
+html body .mgl-design--contact .mgl-contact-form__section-head > span{color:var(--mi-accent);font-size:13px;font-weight:700}
+html body .mgl-design--contact .mgl-contact-form__section-head h3{margin-bottom:8px}
+html body .mgl-design--contact .mgl-contact-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+html body .mgl-design--contact .mgl-contact-fields label{display:grid;gap:8px;min-width:0}
+html body .mgl-design--contact .mgl-contact-field--wide{grid-column:1/-1}
+html body .mgl-design--contact :where(input,select,textarea){width:100%;min-height:48px;padding:12px;border:1px solid var(--mi-line);border-radius:8px;color:var(--mi-text);background:var(--mi-bg);box-sizing:border-box}
+html body .mgl-design--contact :where(input,select,textarea):focus{outline:2px solid var(--mi-accent);outline-offset:2px}
+html body .mgl-design--contact [aria-invalid="true"]{outline:2px solid #da6868}
+html body .mgl-design--contact .mgl-contact-form__actions,html body .mgl-design--contact .mgl-contact-output__actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+html body .mgl-design--contact .mgl-home-btn{display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:14px 20px;border:1px solid var(--mi-bright);border-radius:8px;background:var(--mi-bright);color:#05251c;font-weight:700;line-height:1.3;text-decoration:none;cursor:pointer}
+html body .mgl-design--contact .mgl-home-btn i{display:none}
+html body .mgl-design--contact .mgl-contact-output{margin-top:28px;scroll-margin-top:100px}
+html body .mgl-design--contact .mgl-contact-output[hidden]{display:none}
+html body .mgl-design--contact .mgl-contact-output pre{margin-block:24px;padding:20px;max-height:400px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--mi-bg);color:var(--mi-text)}
+@media(max-width:640px){html body .mgl-design--contact .mgl-contact-fields{grid-template-columns:1fr}html body .mgl-design--contact .mgl-contact-form__section{padding:24px 18px}}

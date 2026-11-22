@@ -32,8 +32,8 @@ checkOrWrite("parts/footer.html", footer);
 const reference = pages.find(page => page.route === "/forex-grey-label/mt5-grey-label/");
 const patternBody = reference.markup.replace(/^<!--[\s\S]*?-->\n<main[^>]*>\n/, "").replace(/\n<\/main>\n<!-- \/wp:group -->$/, "");
 checkOrWrite("patterns/inner-service.php", "<?php\n/**\n * Title: MT5 service page\n * Slug: meta-grey-label/inner-service\n * Categories: featured\n * Description: Native editable service composition generated from the shared inner-page model.\n */\n?>\n" + patternBody + "\n");
-if (pages.length !== 52 || excluded.length !== 0 || special.length !== 4) {
-  throw new Error("Expected 48 mapped document pages + 4 unmatched routes");
+if (pages.length !== 53 || excluded.length !== 0 || special.length !== 5) {
+  throw new Error("Expected 48 mapped document pages + 5 unmatched routes");
 }
 const manifest = {};
 for (const page of pages) {

@@ -42,4 +42,4 @@ For Codespaces, `.devcontainer/setup-wordpress.sh` provisions local WordPress on
 
 ## Audit and release scope
 
-See [route inventory](docs/route-inventory.md) and [architecture/design audit](docs/inner-page-audit.md). The static contact page predates the new system and is outside the JSON/FSE inventory. Article publication dates are absent from the source and are not fabricated.
+See [route inventory](docs/route-inventory.md) and [architecture/design audit](docs/inner-page-audit.md). The contact route is included in the canonical inventory and has a native WordPress projection. Its existing form and prepared-output widgets use two HTML blocks with a small standalone script; surrounding content uses core blocks. Article publication dates are absent from the source and are not fabricated.

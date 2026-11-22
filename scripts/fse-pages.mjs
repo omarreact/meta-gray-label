@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { INNER_ROLLOUT, buildInnerPage, renderInnerTree } from '../src/inner-system.js';
 /**
  * Block-first projection of the canonical JSON content.
@@ -102,7 +103,34 @@ function nativePageMarkup(entry, document, sequence) {
   return { path: entry.path, slug: slugOf(entry.path), route: entry.route, title: entry.title,
     documentId: entry.id, family, sections: sectionIndex, blocks: blocks.length, sequence, markup };
 }
+function contactPageMarkup(sequence) {
+  const html = readFileSync(new URL('../contact/index.html', import.meta.url), 'utf8');
+  const form = html.match(/<form id="mgl-enquiry-form"[\s\S]*?<\/form>/)[0];
+  const output = html.match(/<section id="mgl-enquiry-output"[\s\S]*?<\/section>/)[0];
+  const title = htmlText(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]);
+  const hero = htmlText(html.match(/<h1[^>]*>[\s\S]*?<\/h1>\s*<p>([\s\S]*?)<\/p>/)[1]);
+  const out = [openGroup('mgl-native-page mgl-native-route--contact', 'main'),
+    openGroup('mgl-design mgl-design--contact'),
+    openGroup('mgl-inner-hero-v2', 'section'), openGroup('mgl-inner-container'),
+    paragraph('Get started', 'mgl-inner-eyebrow'), heading(title,1), paragraph(hero,'mgl-inner-summary'),
+    paragraph('Before implementation: company / brand details, target markets, MT4 / MT5 preference, White / Grey / Turnkey model and intended launch window.'),
+    closeGroup(),closeGroup('section'),
+    openGroup('mgl-inner-section', 'section'),openGroup('mgl-inner-container'),
+    heading('A concise qualification workflow for the launch team.'),
+    paragraph('Complete only what you know. You can refine the brief later as licensing, liquidity or payment decisions become clearer.'),
+    paragraph('01 Business — Who is launching and where? / 02 Platform — What stack should be configured? / 03 Timeline — What needs to be ready, and when?'),
+    '<!-- wp:html -->\n'+form+'\n<!-- /wp:html -->',
+    '<!-- wp:html -->\n'+output+'\n<!-- /wp:html -->',
+    closeGroup(),closeGroup('section'),
+    openGroup('mgl-inner-section', 'section'),openGroup('mgl-inner-container'),
+    heading('Review the operating models before you commit to the implementation.'),
+    '<!-- wp:paragraph --><p><a href="/forex-white-label/vs-grey-label/">Compare models</a> · <a href="/solutions/">All solutions</a></p><!-- /wp:paragraph -->',
+    closeGroup(),closeGroup('section'),closeGroup(),closeGroup('main')];
+  return {path:'contact/index.html',slug:'contact',route:'/contact/',title:'Get Started',documentId:null,family:'contact',sections:3,blocks:12,sequence,markup:out.join('\n')};
+}
+
 function directoryPageMarkup(config, source, sequence) {
+  if (source === 'contact/index.html') return contactPageMarkup(sequence);
   const rec = config.pages[source];
   const is404 = source === "404.html";
   const f = rec.fields;
@@ -358,7 +386,7 @@ export function buildNativePages(config, homepageTemplate) {
     results.push(directoryPageMarkup(config, source, index++));
     seen.add(source);
   }
-  if (results.length !== 52 || seen.size !== 52) {
+  if (results.length !== 53 || seen.size !== 53) {
     throw new Error("Native page inventory differs from canonical JSON");
   }
   return { pages: results, special, excluded: [] };
