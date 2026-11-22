@@ -1,0 +1,57 @@
+name: Materialize GitHub Pages routes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/content.json"
+      - "header.html"
+      - "footer.html"
+      - "src/renderer.js"
+      - "scripts/static-site-lib.mjs"
+      - "scripts/materialize-pages.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: materialize-github-pages
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Generate structured static routes
+        env:
+          PUBLIC_BASE_URL: https://mg-label.webflow.io
+        run: node scripts/materialize-pages.mjs
+
+      - name: Commit generated GitHub Pages routes
+        run: |
+          if git diff --quiet -- . ':!.github/workflows'; then
+            echo "Generated routes already match main."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 404.html robots.txt sitemap.xml .github/generated-pages.json
+          while IFS= read -r file; do
+            [ -n "$file" ] && git add -- "$file"
+          done < <(node -e "const m=require('./.github/generated-pages.json'); for (const f of m.files) console.log(f)")
+          git add -u
+          git commit -m "Materialize structured routes for GitHub Pages"
+          git push origin HEAD:main

@@ -1,0 +1,281 @@
+name: Validate dynamic HTML and compact WordPress theme
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "data/**"
+      - "templates/**"
+      - "parts/**"
+      - "patterns/**"
+      - "styles/**"
+      - "inc/**"
+      - "assets/**"
+      - "media/**"
+      - "scripts/**"
+      - "src/**"
+      - "worker.js"
+      - "wrangler.jsonc"
+      - "tests/**"
+      - "**/*.html"
+      - "functions.php"
+      - "style.css"
+      - "theme.json"
+      - ".github/workflows/validate-content.yml"
+      - ".wp-env.json"
+      - ".devcontainer/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Validate source syntax
+        run: |
+          node --check worker.js
+          node --check src/renderer.js
+          node --check assets/js/site-settings.js
+          node --check scripts/audit-seo.mjs
+          node --check scripts/build-dynamic.mjs
+          node --check scripts/static-site-lib.mjs
+          node --check scripts/build-static.mjs
+          node --check scripts/materialize-pages.mjs
+          node --check scripts/package-wordpress.mjs
+          node --check scripts/fse-pages.mjs
+          node --check scripts/generate-fse.mjs
+          node --check tests/dynamic-renderer.mjs
+          node --check tests/architecture.mjs
+          node --check tests/responsive-browser.mjs
+          node --check tests/visual-parity.mjs
+      - name: Audit dynamic SEO and route inventory
+        run: node scripts/audit-seo.mjs --check
+      - name: Validate dynamic renderer and compact asset build
+        run: |
+          node tests/dynamic-renderer.mjs
+          node scripts/build-dynamic.mjs
+          test -f dist/public/index.html
+          test -f dist/public/services.html
+          test ! -e dist/public/about-us/index.html
+          test ! -e dist/public/forex-grey-label/mt5-grey-label/index.html
+      - name: Validate GitHub/Webflow static build
+        env:
+          PUBLIC_BASE_URL: https://omarreact.github.io/meta-gray-label
+          BASE_PATH: /meta-gray-label
+        run: |
+          node scripts/build-static.mjs
+          test -f dist/public/index.html
+          test -f dist/public/about-us/index.html
+          test -f dist/public/forex-grey-label/mt5-grey-label/index.html
+          test -f dist/public/404.html
+          grep -q 'https://omarreact.github.io/meta-gray-label/about-us/' dist/public/about-us/index.html
+          grep -q '/meta-gray-label/assets/css/style.css' dist/public/about-us/index.html
+          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
+      - name: Validate Webflow root-host static build
+        env:
+          PUBLIC_BASE_URL: https://mg-label.webflow.io
+          BASE_PATH: ""
+        run: |
+          node scripts/build-static.mjs
+          test -f dist/public/index.html
+          test -f dist/public/about-us/index.html
+          test -f dist/public/forex-grey-label/mt5-grey-label/index.html
+          grep -q 'https://mg-label.webflow.io/about-us/' dist/public/about-us/index.html
+          grep -q 'href="/assets/css/style.css"' dist/public/about-us/index.html
+          ! grep -R -q '/meta-gray-label/assets/' dist/public
+          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
+      - name: Validate shared-main host-neutral materialization
+        run: |
+          tmpdir="$(mktemp -d)"
+          cp -a . "$tmpdir/site"
+          cd "$tmpdir/site"
+          PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/materialize-pages.mjs
+          grep -q 'https://mg-label.webflow.io/about-us/' about-us/index.html
+          grep -q 'href="../assets/css/style.css"' about-us/index.html
+          grep -q 'href="../../assets/css/style.css"' forex-grey-label/mt5-grey-label/index.html
+          grep -q 'href="../"' about-us/index.html
+          ! grep -R -q '/meta-gray-label/assets/' about-us forex-grey-label
+          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' about-us forex-grey-label
+      - name: Validate compact WordPress architecture
+        run: node tests/architecture.mjs
+      - name: Validate native Gutenberg projection
+        run: |
+          node tests/fse-pages.mjs
+          node scripts/generate-fse.mjs --check
+      - name: Verify WordPress package
+        run: node scripts/package-wordpress.mjs --check
+      - name: Lint WordPress PHP
+        run: |
+          php -l functions.php
+          php -l inc/import-pages.php
+          php -l patterns/brokerage-hero.php
+          php -l patterns/brokerage-cta.php
+          php -l tests/wordpress-assets-smoke.php
+      - name: Smoke-test WordPress assets
+        run: php tests/wordpress-assets-smoke.php
+      - name: Build installable WordPress theme package
+        run: |
+          node scripts/package-wordpress.mjs --write
+          test -f dist/wordpress/meta-grey-label/functions.php
+          test -f dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
+          test -f dist/wordpress/meta-grey-label/parts/header.html
+          test -f dist/wordpress/meta-grey-label/parts/footer.html
+          test -f dist/wordpress/meta-grey-label/assets/css/fse.css
+          test ! -e dist/wordpress/meta-grey-label/assets/css/bootstrap.min.css
+          test ! -d dist/wordpress/meta-grey-label/blocks
+          (
+            cd dist/wordpress
+            zip -qr meta-grey-label.zip meta-grey-label
+          )
+          unzip -t dist/wordpress/meta-grey-label.zip
+          sha256sum dist/wordpress/meta-grey-label.zip > dist/wordpress/meta-grey-label.zip.sha256
+
+      - name: Publish installable theme artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meta-grey-label-wordpress-theme
+          path: |
+            dist/wordpress/meta-grey-label.zip
+            dist/wordpress/meta-grey-label.zip.sha256
+            dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
+          if-no-files-found: error
+          retention-days: 14
+
+  responsive-web:
+    name: Responsive web QA (7 breakpoints)
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build static runtime fixtures
+        run: node scripts/build-dynamic.mjs
+      - name: Install Chromium QA runtime
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install chromium
+      - name: Validate homepage and Get Started across responsive breakpoints
+        run: node tests/responsive-browser.mjs
+      - name: Publish responsive screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: responsive-web-screenshots
+          path: tmp/responsive-browser-screens/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  wordpress-integration:
+    name: Real WordPress staging (isolated Docker)
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build installable WordPress theme
+        run: |
+          node scripts/package-wordpress.mjs --write
+          cp tests/wp-runtime.php dist/wordpress/meta-grey-label/qa-runtime.php
+      - name: Start isolated WordPress and MariaDB
+        run: npx --yes @wordpress/env start
+      - name: Activate theme and pretty permalinks
+        run: |
+          npx --yes @wordpress/env run cli wp theme activate meta-grey-label
+          npx --yes @wordpress/env run cli wp option update blogname 'Meta Grey Label'
+          npx --yes @wordpress/env run cli wp option update permalink_structure '/%postname%/'
+          npx --yes @wordpress/env run cli wp rewrite flush
+      - name: Import native pages
+        run: |
+          npx --yes @wordpress/env run cli wp mgl import-pages
+          npx --yes @wordpress/env run cli wp mgl import-pages --apply --set-homepage
+      - name: Assert WordPress parsing and navigation
+        run: npx --yes @wordpress/env run cli wp eval-file wp-content/themes/meta-grey-label/qa-runtime.php
+      - name: Assert HTTP pages and frontend assets
+        run: node tests/wp-http.mjs
+      - name: Browser validation and desktop/mobile screenshots
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install chromium
+          node tests/wp-browser.mjs
+          node tests/wp-editor.mjs
+      - name: Capture source HTML and WordPress visual parity
+        run: |
+          mkdir -p tmp/design-parity
+          python3 -m http.server 4173 --bind 127.0.0.1 > tmp/design-parity/source-server.log 2>&1 &
+          echo $! > tmp/design-parity/source-server.pid
+          for attempt in {1..20}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:4173/ >/dev/null
+          node tests/visual-parity.mjs
+      - name: Capture WordPress staging evidence
+        if: always()
+        run: |
+          mkdir -p tmp/wordpress-qa
+          {
+            echo "# Meta Grey Label WordPress staging QA"
+            echo
+            echo "- Commit: $GITHUB_SHA"
+            echo "- Ref: $GITHUB_REF"
+            echo "- Run: $GITHUB_RUN_ID"
+            echo "- WordPress staging: isolated wp-env Docker environment"
+            echo "- Theme: meta-grey-label"
+            echo "- Expected native routes: 52"
+            echo "- Browser viewports: 1440x900 and 390x844"
+            echo "- Evidence: screenshots, runtime inventory and wp-env logs"
+          } > tmp/wordpress-qa/summary.md
+
+          npx --yes @wordpress/env run cli wp core version > tmp/wordpress-qa/wordpress-version.txt 2>&1 || true
+          npx --yes @wordpress/env run cli wp theme status meta-grey-label > tmp/wordpress-qa/theme-status.txt 2>&1 || true
+          npx --yes @wordpress/env run cli wp post list --post_type=page --post_status=publish --fields=ID,post_name,post_title --format=csv > tmp/wordpress-qa/pages.csv 2>&1 || true
+          npx --yes @wordpress/env run cli wp option get show_on_front > tmp/wordpress-qa/show-on-front.txt 2>&1 || true
+          npx --yes @wordpress/env run cli wp option get page_on_front > tmp/wordpress-qa/page-on-front.txt 2>&1 || true
+          docker ps -a > tmp/wordpress-qa/docker-ps.txt 2>&1 || true
+          timeout 15s npx --yes @wordpress/env logs > tmp/wordpress-qa/wp-env.log 2>&1 || true
+
+          {
+            echo "## WordPress staging factory"
+            echo
+            echo "- Commit: $GITHUB_SHA"
+            echo "- 52 native block routes packaged"
+            echo "- Real WordPress + MariaDB booted in isolated Docker"
+            echo "- HTTP, Gutenberg, Site Editor and responsive browser QA executed"
+            echo "- Installable theme ZIP is available from the meta-grey-label-wordpress-theme artifact"
+            echo "- Screenshots and diagnostics are available from the wordpress-staging-qa artifact"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish WordPress staging QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordpress-staging-qa
+          path: |
+            tmp/wp-browser-screens/
+            tmp/design-parity/
+            tmp/wordpress-qa/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Shut down disposable staging
+        if: always()
+        run: |
+          if [ -f tmp/design-parity/source-server.pid ]; then
+            kill "$(cat tmp/design-parity/source-server.pid)" 2>/dev/null || true
+          fi
+          npx --yes @wordpress/env stop || true
