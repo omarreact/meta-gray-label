@@ -47,7 +47,8 @@ const sourcePaths = [
   "parts",
   "patterns",
   "styles",
-  "inc/import-pages.php"
+  "inc/import-pages.php",
+  "inc/admin-setup.php"
 ];
 for (const p of sourcePaths) if (!existsSync(safe(p))) throw new Error("Missing theme path: " + p);
 
