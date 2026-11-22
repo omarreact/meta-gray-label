@@ -17,6 +17,7 @@ Without JavaScript every group remains visible and its navigation links work. Na
 ## Visual findings and remedies
 
 - The live Services banner consumed too much vertical space and reused generic product-card styling; it also showed duplicate arrow treatments. The directory now has a compact category hero, concise summaries and one arrow per link.
+- Screenshot review found that the mobile stack panel and wrapped category chips delayed service discovery. Mobile directory heroes now prioritize a direct browse action and defer secondary ambient panels; category controls scroll horizontally. The Turnkey card title is explicitly kept in its content column.
 - Solutions and Insights previously used clipped opening-paragraph excerpts in repetitive cards. Solutions now presents operating decisions; Insights uses editorial hierarchy and reading metadata.
 - The same generic trading/CRM/execution hero diagram appeared on KYC, back-office, liquidity-bridge and admin pages. These now show contextual operational diagrams with package qualifications retained. Upgrade implementation sections use the existing journey pattern rather than another technical panel stack.
 - Native chrome previously used a plain site title, a different header flow and a one-column footer. It now uses the approved wordmark, floating header proportions, theme control, quote/WhatsApp actions, navigation icons, three footer columns, disclosure and social links.

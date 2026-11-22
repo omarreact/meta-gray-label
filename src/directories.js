@@ -11,7 +11,7 @@ const section=(cls,children,id)=>group('mgl-inner-section '+cls,[group('mgl-inne
 const filter=(name,choices)=>group('mgl-directory-filter',[label(name),group('mgl-directory-filter-links',[link('All','#directory-all'),...choices.map(([id,title])=>link(title,'#directory-'+id))])],'nav');
 const hero=(route,kicker,title,summary,visual)=>group('mgl-inner-hero-v2 mgl-directory-hero',[group('mgl-inner-container',[
  {tag:'p',cls:'mgl-inner-breadcrumb',links:[{label:'Home',href:'/'},{label:directoryEntry(route).title}]},
- group('mgl-directory-hero-layout',[group('mgl-directory-hero-copy',[label(kicker),h(title,1),p(summary,'mgl-inner-summary')]),visual])])],'section');
+ group('mgl-directory-hero-layout',[group('mgl-directory-hero-copy',[label(kicker),h(title,1),p(summary,'mgl-inner-summary'),link(route==='/services.html'?'Browse all services ↓':route==='/solutions/'?'Find your solution path ↓':'Explore the guide collection ↓','#directory-all','mgl-directory-hero-jump')]),visual])])],'section');
 const cta=()=>section('mgl-inner-final',[group('mgl-inner-final-panel',[group('mgl-inner-final-copy',[label('Make the next step clear'),h('Plan your brokerage\nwith confidence.'),p('Compare brokerage models and review the platform and operations that fit your business.')]),actions('Discuss your requirements')])]);
 function services(){
  const entry=directoryEntry('/services.html');

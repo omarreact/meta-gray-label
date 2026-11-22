@@ -93,3 +93,13 @@ html body .mgl-design .mgl-directory-status{font-size:12px!important;line-height
  html body .mgl-design .mgl-directory-article{margin-bottom:24px;padding-bottom:24px}
 }
 @media(hover:hover){html body .mgl-design .mgl-directory-service{transition:border-color 220ms var(--mi-ease)}html body .mgl-design .mgl-directory-service:hover{border-color:var(--mi-accent)}}
+html body .mgl-design .mgl-directory-hero-jump{margin-top:24px}
+html body .mgl-design .mgl-directory-hero-jump a{display:inline-flex;align-items:center;min-height:44px;color:var(--mi-accent);font-size:14px;font-weight:700;text-decoration:none}
+html body .mgl-design .mgl-directory-service--turnkey>.mgl-inner-eyebrow,html body .mgl-design .mgl-directory-service--turnkey>h2,html body .mgl-design .mgl-directory-service--turnkey>p{grid-column:1}
+html body .mgl-design .mgl-directory-service--turnkey>.mgl-directory-subservices{grid-row:1/5}
+@media(max-width:767px){
+ html body .mgl-design .mgl-directory-hero-layout>:last-child{display:none}
+ html body .mgl-design .mgl-directory-filter-links{flex-wrap:nowrap;overflow-x:auto;gap:8px;padding:4px 3px 10px;scrollbar-width:thin;scrollbar-color:var(--mi-line) transparent}
+ html body .mgl-design .mgl-directory-filter-links>p{flex:0 0 auto}
+ html body .mgl-design .mgl-directory-filter-links a{white-space:nowrap}
+}
