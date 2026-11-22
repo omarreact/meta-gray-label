@@ -108,6 +108,7 @@ jobs:
         run: node tests/architecture.mjs
       - name: Validate native Gutenberg projection
         run: |
+          node tests/directories.mjs
           node tests/inner-system.mjs
           node tests/inner-links.mjs
           node tests/fse-pages.mjs
@@ -156,7 +157,7 @@ jobs:
     name: Responsive web QA (7 breakpoints)
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -183,7 +184,7 @@ jobs:
     name: Inner page reference (8 widths, 2 themes)
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -201,6 +202,7 @@ jobs:
         run: |
           node tests/inner-browser.mjs
           node tests/inner-routes-browser.mjs
+          node tests/phase2-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -212,7 +214,7 @@ jobs:
     name: Real WordPress staging (isolated Docker)
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -246,6 +248,7 @@ jobs:
           node tests/wp-editor.mjs
           MGL_INNER_TARGET=wordpress node tests/inner-browser.mjs
           MGL_INNER_TARGET=wordpress node tests/inner-routes-browser.mjs
+          MGL_INNER_TARGET=wordpress node tests/phase2-browser.mjs
           node tests/wp-contact.mjs
       - name: Capture source HTML and WordPress visual parity
         run: |

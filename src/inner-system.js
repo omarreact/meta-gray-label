@@ -11,6 +11,7 @@ const h = (value, level = 2) => text('h' + level, value);
 const link = (label, href, cls = '') => ({ tag:'p', cls, links:[{label,href}] });
 const actions = (label = 'Discuss your setup', href = '/contact/') => group('mgl-inner-actions', [link(label + ' ↗', href, 'mgl-inner-action'), link('Compare models →', '/forex-white-label/vs-grey-label/', 'mgl-inner-action mgl-inner-action--secondary')]);
 const label = value => p(value, 'mgl-inner-eyebrow');
+export const ui = { group, p, h, link, actions, label };
 const short = (s, length = 150) => s.length > length ? s.slice(0,length).replace(/\s+\S*$/,'') + '…' : s;
 export function pageFamily(route) {
   if(route.startsWith('/insights/')) return 'article';
@@ -54,7 +55,7 @@ function contentSection(section, index, family, route) {
   else if(family==='process' && index<6) pattern='timeline';
   else if(family==='comparison') pattern='matrix';
   else if(family==='company') pattern='story';
-  else if(family==='technical') pattern='technical';
+  else if(family==='technical') pattern=/how it works|how.*upgrade|migration|implementation|process/i.test(section.title)?'timeline':'technical';
   else if(family==='pricing') pattern=/package|add-on/i.test(section.title)?'packages':'rows';
   else if(/cost|price|fees|technical|choice|integration/i.test(section.title)) pattern='rows';
   else if(!items.length) pattern='spotlight';
@@ -77,11 +78,16 @@ function contentSection(section, index, family, route) {
   ]);
   return group('mgl-inner-section mgl-inner-pattern--'+pattern,[group('mgl-inner-container',[heading,body])],'section',id);
 }
-function architecture(title='Your brokerage, connected', platform='MT5') {
-  const modules=[['Trading access','Desktop · Web · Mobile','/trading-platforms/'],['Client operations','CRM · KYC · Payments','/forex-crm/'],['Execution layer','Liquidity · Bridge · Routing','/forex-liquidity/']];
+function architecture(title='Your brokerage, connected', platform='MT5', route='') {
+  let modules=[['Trading access','Desktop · Web · Mobile','/trading-platforms/'],['Client operations','CRM · KYC · Payments','/forex-crm/'],['Execution layer','Liquidity · Bridge · Routing','/forex-liquidity/']];
+  let caption='Your brand. Your trading conditions.', type='Platform architecture';
+  if(/kyc/.test(route)){title='Onboarding, in context';platform='KYC';caption='Client records and review workflows.';type='Client operations';modules=[['Client portal','Onboarding touchpoint','/forex-crm/'],['Back office','Operational review','/forex-crm/back-office/'],['Payments','Connected workflow','/forex-crm/payments-automation/']];}
+  else if(/back-office/.test(route)){title='The operational view';platform='OPS';caption='Client records. Access. Reporting.';type='Operations workspace';modules=[['Client operations','CRM & TradeRoom','/forex-crm/'],['KYC module','Compliance workflow','/forex-crm/kyc/'],['Payments','Deposit / withdrawal','/forex-crm/payments-automation/']];}
+  else if(/liquidity-bridge/.test(route)){title='Connect the execution layer';platform='LP';caption='Review pricing, connectivity and routing.';type='Execution architecture';modules=[['Trading platform','Platform environment','/trading-platforms/'],['Liquidity','Connectivity scope','/forex-liquidity/'],['Book model','A-Book / B-Book / Hybrid','/forex-liquidity/a-book-b-book/']];}
+  else if(/admin-license|upgrade-to-admin/.test(route)){title='Define the control boundary';platform='ADM';caption='Access, infrastructure and responsibilities.';type='Administration scope';modules=[['Platform access','Trading environment','/trading-platforms/'],['Operations','Back office & reporting','/forex-crm/back-office/'],['Upgrade path','Scope & responsibilities','/forex-grey-label/upgrade-to-admin/']];}
   return group('mgl-inner-architecture',[
-    group('mgl-inner-console-top',[label('Platform architecture'),p('Illustrative configuration','mgl-inner-caption')]),
-    group('mgl-inner-core',[p(platform,'mgl-inner-platform'),h(title,3),p('Your brand. Your trading conditions.','mgl-inner-caption')]),
+    group('mgl-inner-console-top',[label(type),p('Illustrative configuration','mgl-inner-caption')]),
+    group('mgl-inner-core',[p(platform,'mgl-inner-platform'),h(title,3),p(caption,'mgl-inner-caption')]),
     group('mgl-inner-modules',modules.map(([name,desc,href])=>group('mgl-inner-module',[link(name+' ↗',href),p(desc,'mgl-inner-caption')]))),
     p('Final modules and access depend on the agreed package.','mgl-inner-caption mgl-inner-console-note')
   ]);
@@ -110,7 +116,7 @@ export function buildInnerPage(entry, entries) {
     family==='article'?p(Math.max(1,Math.ceil(blocks.map(x=>x.text).join(' ').split(/\s+/).length/220))+' min read · Meta Grey Label','mgl-inner-caption'):actions(reference?'Plan your MT5 setup':'Discuss your requirements'),
     reference?p('Desktop / Web / iOS / Android','mgl-inner-device-note'):null
   ]);
-  const heroVisual=family==='service'||family==='technical'?architecture(reference?'A platform built around you':'Connected operational scope',/mt4/i.test(route)?'MT4':/mt5/i.test(route)?'MT5':'MGL'):family==='comparison'?group('mgl-inner-decision',[label('Choose your operating model'),h('Control. Scope. Responsibility.',3),group('mgl-inner-model-pair',[group('mgl-inner-model-choice',[label(route.includes('vs-grey-label')?'White label':'A-Book'),p(route.includes('vs-grey-label')?'Provider-led platform operations.':'Route orders to liquidity providers.')]),group('mgl-inner-model-choice',[label(route.includes('vs-grey-label')?'Grey label':'B-Book / Hybrid'),p(route.includes('vs-grey-label')?'More direct manager-level control.':'Define how selected flow is managed.')])]),p('Start with what your team needs to manage directly. Confirm the commercial and technical scope before launch.'),link('Explore the decision criteria ↓','#inner-section-1','mgl-inner-action mgl-inner-action--secondary')]):null;
+  const heroVisual=family==='service'||family==='technical'?architecture(reference?'A platform built around you':'Connected operational scope',/mt4/i.test(route)?'MT4':/mt5/i.test(route)?'MT5':'MGL',route):family==='comparison'?group('mgl-inner-decision',[label('Choose your operating model'),h('Control. Scope. Responsibility.',3),group('mgl-inner-model-pair',[group('mgl-inner-model-choice',[label(route.includes('vs-grey-label')?'White label':'A-Book'),p(route.includes('vs-grey-label')?'Provider-led platform operations.':'Route orders to liquidity providers.')]),group('mgl-inner-model-choice',[label(route.includes('vs-grey-label')?'Grey label':'B-Book / Hybrid'),p(route.includes('vs-grey-label')?'More direct manager-level control.':'Define how selected flow is managed.')])]),p('Start with what your team needs to manage directly. Confirm the commercial and technical scope before launch.'),link('Explore the decision criteria ↓','#inner-section-1','mgl-inner-action mgl-inner-action--secondary')]):null;
   const children=[group('mgl-inner-hero-v2',[group('mgl-inner-container',[
     {tag:'p',cls:'mgl-inner-breadcrumb',links:crumbLinks},
     group('mgl-inner-hero-layout',[heroCopy,heroVisual])

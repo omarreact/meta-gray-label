@@ -25,7 +25,7 @@ try {
   const homeId=list[0].id;
   const pages=[
     {id:homeId,name:"homepage"},
-    ...await Promise.all(["contact","about-us","forex-grey-label","mt5-grey-label","pricing","vs-grey-label","how-it-works","mt5-admin","metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage"].map(async slug=>{
+    ...await Promise.all(["services","solutions","insights","contact","about-us","forex-grey-label","mt5-grey-label","pricing","vs-grey-label","how-it-works","mt5-admin","metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage"].map(async slug=>{
       const r=await ctx.request.get(base+"/wp-json/wp/v2/pages?slug="+slug);
       assert.equal(r.status(),200);
       const j=await r.json();

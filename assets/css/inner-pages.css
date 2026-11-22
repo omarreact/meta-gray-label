@@ -226,11 +226,6 @@ html body .mgl-native-page:has(> .mgl-design){padding:0;margin-block:0}
 html body .mgl-native-page > .mgl-design{max-width:none!important;width:100%;margin-inline:0!important}
 
 @media(max-width:767px){html body .mgl-design .mgl-inner-hero-copy .mgl-inner-actions{padding-right:44px}}
-/* Compatibility: native chrome must remain legible when an inner theme is selected. */
-html[data-bs-theme="dark"] body:has(.mgl-design) .mgl-native-site-header{background:#10282c;color:#eff8f4;border-color:#294348}
-html[data-bs-theme="dark"] body:has(.mgl-design) .mgl-native-site-header :where(a,button){color:#eff8f4}
-html[data-bs-theme="light"] body:has(.mgl-design) .mgl-native-site-header{background:#fff;color:#172e2d;border-color:#cfddd7}
-html[data-bs-theme="light"] body:has(.mgl-design) .mgl-native-site-header :where(a,button){color:#172e2d}
 /* Comparison is a labelled matrix, with the labels retained when mobile stacks. */
 html body .mgl-design .mgl-inner-model-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-block:24px}
 html body .mgl-design .mgl-inner-model-choice{padding:16px;border:1px solid var(--mi-line);border-radius:8px;background:var(--mi-bg)}

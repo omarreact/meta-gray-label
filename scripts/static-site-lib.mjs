@@ -1,3 +1,4 @@
+import { DIRECTORY_ROUTES, directoryEntry } from '../src/directories.js';
 import {
   cpSync,
   existsSync,
@@ -120,7 +121,8 @@ function specialSet() {
 function renderSpecial({ projectRoot, outRoot, publicBase, basePath, header, footer }) {
   for (const item of SPECIAL_ROUTES) {
     const source = readFileSync(safeTarget(projectRoot, item.source), "utf8");
-    let html = injectSharedParts(source, header, footer);
+    const data = JSON.parse(readFileSync(safeTarget(projectRoot, "data/content.json"), "utf8"));
+    let html = DIRECTORY_ROUTES.has(item.route) ? renderStructuredPage({route:item.route, entry:directoryEntry(item.route), routeIndex:buildRouteIndex(data), header, footer, canonicalBase:normalizePublicBase(publicBase)}) : injectSharedParts(source, header, footer);
     const canonical = normalizePublicBase(publicBase) + (item.route === "/" ? "/" : item.route);
     html = rewriteRuntimeSeo(html, canonical);
     html = rewritePlatformReferences(html, publicBase);
@@ -240,6 +242,11 @@ export function materializeGitHubPages({
     cleanStale: true
   });
 
+  for(const route of DIRECTORY_ROUTES){
+    const relative=route==='/services.html'?'services.html':route.slice(1)+'index.html';
+    const html=renderStructuredPage({route,entry:directoryEntry(route),routeIndex:buildRouteIndex(result.data),header:result.header,footer:result.footer,canonicalBase:normalizePublicBase(publicBase)});
+    writeText(root,relative,applyRelativeRootToHtml(rewritePlatformReferences(html,publicBase),relative));
+  }
   let notFound = renderSimple404({
     header: result.header,
     footer: result.footer,
