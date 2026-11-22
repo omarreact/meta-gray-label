@@ -15,7 +15,7 @@ try{
    pages.push(await p.evaluate(()=>{
     const root=document.querySelector('.mgl-design'),origin=root.getBoundingClientRect();
     return {text:root.innerText.replace(/\s+/g,' ').trim(),width:origin.width,elements:[...root.querySelectorAll('h1,h2,h3,.mgl-inner-summary,.mgl-inner-disclosure,.mgl-inner-card')].map(e=>{
-     const r=e.getBoundingClientRect(),s=getComputedStyle(e);return {text:e.textContent.trim(),x:r.x-origin.x,y:r.y-origin.y,width:r.width,height:r.height,fontSize:s.fontSize,lineHeight:s.lineHeight,color:s.color};
+     const r=e.getBoundingClientRect(),s=getComputedStyle(e);return {text:e.textContent.replace(/\s+/g,' ').trim(),x:r.x-origin.x,y:r.y-origin.y,width:r.width,height:r.height,fontSize:s.fontSize,lineHeight:s.lineHeight,color:s.color};
     })};
    }));await ctx.close();
   }
