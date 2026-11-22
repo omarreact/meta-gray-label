@@ -36,3 +36,19 @@ and codebase-save proposals still use GitHub issues. External font catalog
 and other optional third-party resources depend on network availability.
 screenshot.png currently uses the existing site icon as a placeholder, NOT a
 verified site screenshot. Full WordPress staging QA remains REQUIRED.
+
+CANVAS EDITING — CURRENT COVERAGE
+Use WordPress 7.1+ on staging for per-block responsive styles and the core
+Icon block. In Appearance > Editor, open a page or template, select a block
+in List View, use the Styles inspector, and save. The Group, Row, Stack,
+Grid, Cover, Heading, Image, Buttons and Icon blocks expose design controls
+when supported by the current WordPress version and block type.
+
+INCOMPLETE: The importer has 52 editable Gutenberg pages but currently zero
+core/image blocks, seven core/button blocks and two HTML blocks for the
+contact form. CSS backgrounds, some icons and raw form HTML cannot be
+individually selected or restyled on the canvas. Full editing requires
+migration to native Image/Cover, Icon, Buttons, Grid and form-control blocks,
+plus a block-by-block editor and responsive QA. Existing pages will not
+be overwritten by the importer; preserve and back up any manual edits.
+Do not claim full-canvas parity until real WordPress staging validation.
