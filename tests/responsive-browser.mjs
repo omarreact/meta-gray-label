@@ -122,17 +122,17 @@ async function inspectLayout(page, width, label) {
   assert(metrics.h1Visible, `${label} @ ${width}px H1 is not visible`);
   assert(metrics.headerLeft !== null && metrics.headerLeft >= -1, `${label} @ ${width}px header left clipped`);
   assert(metrics.headerRight !== null && metrics.headerRight <= width + 1, `${label} @ ${width}px header right clipped: ${metrics.headerRight}`);
-  assert(/Arial/i.test(metrics.bodyFontFamily), `${label} @ ${width}px body is not using Arial reference stack: ${metrics.bodyFontFamily}`);
+  assert(/^\"?Inter\b/i.test(metrics.bodyFontFamily), `${label} @ ${width}px body is not using Inter reference stack: ${metrics.bodyFontFamily}`);
   assert(metrics.bodyFontWeight === "400", `${label} @ ${width}px body weight is ${metrics.bodyFontWeight}, expected 400`);
   assert(metrics.bodyFontSize >= 14 && metrics.bodyFontSize <= 17.1, `${label} @ ${width}px body size ${metrics.bodyFontSize} outside 14–17px reference range`);
-  assert(Math.abs(metrics.bodyLineHeight / metrics.bodyFontSize - 1.75) < 0.03, `${label} @ ${width}px body line-height ratio differs from 1.75`);
-  assert(/Arial/i.test(metrics.h1FontFamily), `${label} @ ${width}px H1 is not using Arial reference stack`);
+  assert(Math.abs(metrics.bodyLineHeight / metrics.bodyFontSize - 1.65) < 0.03, `${label} @ ${width}px body line-height ratio differs from 1.65`);
+  assert(/^\"?Inter\b/i.test(metrics.h1FontFamily), `${label} @ ${width}px H1 is not using Inter reference stack`);
   assert(metrics.h1LetterSpacing < 0, `${label} @ ${width}px H1 reference negative tracking missing`);
-  assert(/Arial/i.test(metrics.navFontFamily), `${label} @ ${width}px nav is not using Arial reference stack`);
+  assert(/^\"?Inter\b/i.test(metrics.navFontFamily), `${label} @ ${width}px nav is not using Inter reference stack`);
   assert(Math.abs(metrics.navFontSize - 14) < 0.25, `${label} @ ${width}px nav size ${metrics.navFontSize} is not 14px`);
   assert(metrics.navFontWeight === "600", `${label} @ ${width}px nav weight is ${metrics.navFontWeight}, expected 600`);
   assert(Math.abs(metrics.navLineHeight / metrics.navFontSize - 1.5) < 0.03, `${label} @ ${width}px nav line-height ratio differs from 1.5`);
-  assert(/Arial/i.test(metrics.ctaFontFamily), `${label} @ ${width}px CTA is not using Arial reference stack`);
+  assert(/^\"?Inter\b/i.test(metrics.ctaFontFamily), `${label} @ ${width}px CTA is not using Inter reference stack`);
   assert(metrics.ctaFontWeight === "800", `${label} @ ${width}px CTA weight is ${metrics.ctaFontWeight}, expected 800`);
   assert(Math.abs(metrics.ctaFontSize - 14) < 0.25, `${label} @ ${width}px CTA size ${metrics.ctaFontSize} is not 14px`);
 
@@ -221,7 +221,7 @@ try {
     });
     assert(ctaMetrics.containerWidth > 0, `home @ ${width}px CTA container not found`);
     assert(Math.abs(ctaMetrics.width - ctaMetrics.containerWidth) <= 2, `home @ ${width}px CTA is not full container width: ${ctaMetrics.width}px vs ${ctaMetrics.containerWidth}px`);
-    assert(/Arial/i.test(ctaMetrics.headingFamily), `home @ ${width}px CTA heading is not using reference Arial stack`);
+    assert(/^\"?Inter\b/i.test(ctaMetrics.headingFamily), `home @ ${width}px CTA heading is not using reference Inter stack`);
     assert(ctaMetrics.headingWeight === "600", `home @ ${width}px CTA heading weight is ${ctaMetrics.headingWeight}, expected 600`);
     assert(Math.abs(ctaMetrics.headingLineHeight / ctaMetrics.headingFontSize - 1.04) < 0.03, `home @ ${width}px CTA heading line-height ratio differs from 1.04`);
     assert(ctaMetrics.headingLetterSpacing < 0, `home @ ${width}px CTA heading reference tracking missing`);
@@ -263,7 +263,7 @@ try {
         family: document.documentElement.dataset.mglFontFamily,
         stored: localStorage.getItem("mgl-dev-font-preference-v1")
       }));
-      assert(resetState.family === "Arial" && resetState.stored === null,
+      assert(resetState.family === "Inter" && resetState.stored === null,
         "home @ 1440px font reset did not restore project setting");
       await page.locator("[data-mgl-settings-close]").click();
       assert(await settingsPanel.getAttribute("aria-hidden") === "true", "home @ 1440px settings panel did not close");
