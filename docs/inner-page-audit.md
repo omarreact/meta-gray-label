@@ -55,3 +55,11 @@ Route: `/forex-grey-label/mt5-grey-label/`. Original structured content is retai
 Both themes use opaque surfaces and explicit contrast tokens. Keyboard focus, 44px minimum actions, native disclosure state and reduced motion are part of QA. No new frontend dependency is added. The motion curve is cubic-bezier(.22,1,.36,1).
 
 Homepage, header and footer source bytes remain unchanged. Logo viewBox and shared canonical-build corrections are narrow compatibility fixes. No main merge, production deployment, DNS edit or paid service is authorized by this PR.
+
+## Verified baseline and scope notes
+
+Webflow MT5 representative: both themes at all eight requested widths had zero root horizontal overflow in the live browser checks. Baseline H1 ranged from 36px at 360px to 76px at 1920px. The redesign reference uses 32–60px and measured hero-summary contrast ratios of 5.90:1 in light and 9.90:1 in dark in Chromium. These ratios refer to the summary against its page surface, not an exhaustive audit of every pixel.
+
+The native WordPress header retains its existing editable navigation rather than copying static header markup. A scoped compatibility rule corrects header/dropdown/overlay contrast for the new inner themes. Static/native content geometry is tested independently from this pre-existing chrome difference.
+
+Screenshot review caught the legacy preloader masking family heroes during fast route navigation. Structured redesign routes now omit that delay entirely; the approved homepage preloader is untouched. Browser QA explicitly asserts no preloader on redesigned routes.

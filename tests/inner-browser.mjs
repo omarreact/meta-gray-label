@@ -59,7 +59,7 @@ try{
    });
    await page.goto(base+route+'?theme='+theme,{waitUntil:'networkidle'});
    await page.setContent(baseline,{waitUntil:'networkidle'});
-   await page.waitForTimeout(700);
+   await page.locator('.preloader').waitFor({state:'hidden',timeout:5000});
    await page.screenshot({path:`${dir}/before-${theme}-${width}.png`,fullPage:true});
    await page.screenshot({path:`${dir}/before-${theme}-${width}-hero.png`});
    await ctx.close();

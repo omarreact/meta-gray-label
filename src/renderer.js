@@ -353,7 +353,7 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 ${redesigned ? '<link rel="stylesheet" href="/assets/css/inner-pages.css">' : ""}
 </head>
 <body>
-<div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>
+${redesigned ? "" : '<div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>'}
 ${rootifySharedMarkup(header)}
 <main class="mgl-inner-page mgl-family-${family} mgl-category-${slugify(category)}" id="main-content">
 ${redesigned ? renderInnerTree(buildInnerPage(entry, [...routeIndex.values()])) : `<section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('${heroImage}')"><div class="container mgl-hero-grid"><div>

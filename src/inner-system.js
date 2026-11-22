@@ -43,7 +43,7 @@ const copy = blocks => blocks.map(b=>b.type==='heading'?h(b.text,Math.max(3,b.le
 function panel(item, index, cls='mgl-inner-card') {
   return group(cls,[label(String(index+1).padStart(2,'0')),h(item.title,3),...copy(item.blocks)]);
 }
-function contentSection(section, index, family) {
+function contentSection(section, index, family, route) {
   const {lead,items}=chunks(section.blocks);
   const id='inner-section-'+(index+1);
   const faq=/frequently asked|questions|faq|\?$/.test(section.title.toLowerCase()) && items.some(x=>x.title.endsWith('?'));
@@ -58,6 +58,19 @@ function contentSection(section, index, family) {
   else if(family==='pricing') pattern=/package|add-on/i.test(section.title)?'packages':'rows';
   else if(/cost|price|fees|technical|choice|integration/i.test(section.title)) pattern='rows';
   else if(!items.length) pattern='spotlight';
+  if(family==='comparison' && route.includes('vs-grey-label') && index===0) {
+    return group('mgl-inner-section mgl-inner-comparison-matrix',[group('mgl-inner-container',[
+      heading,...copy(lead),group('mgl-inner-comparison-rows',items.map(item=>{
+        const paras=item.blocks.filter(b=>b.type==='paragraph');
+        return group('mgl-inner-comparison-row'+(paras.length===1?' mgl-inner-comparison-row--shared':''),[
+          h(item.title,3),
+          paras.length===1?group('mgl-inner-comparison-cell',[label('Both models / commercial scope'),...copy(paras)]):null,
+          paras.length>1?group('mgl-inner-comparison-cell',[label('White label'),...copy(paras.slice(0,1))]):null,
+          paras.length>1?group('mgl-inner-comparison-cell',[label('Grey label'),...copy(paras.slice(1))]):null
+        ]);
+      }))
+    ])],'section',id);
+  }
   const body=group('mgl-inner-section-body',[
     lead.length?group('mgl-inner-lead',copy(lead)):null,
     items.length?group('mgl-inner-items',items.map((item,i)=>panel(item,i))):null
@@ -97,7 +110,7 @@ export function buildInnerPage(entry, entries) {
     family==='article'?p(Math.max(1,Math.ceil(blocks.map(x=>x.text).join(' ').split(/\s+/).length/220))+' min read · Meta Grey Label','mgl-inner-caption'):actions(reference?'Plan your MT5 setup':'Discuss your requirements'),
     reference?p('Desktop / Web / iOS / Android','mgl-inner-device-note'):null
   ]);
-  const heroVisual=family==='service'||family==='technical'?architecture(reference?'A platform built around you':'Connected operational scope',/mt4/i.test(route)?'MT4':/mt5/i.test(route)?'MT5':'MGL'):family==='comparison'?group('mgl-inner-decision',[label('Choose your operating model'),h('Control. Scope. Responsibility.',3),p('Start with what your team needs to manage directly. Confirm the commercial and technical scope before launch.'),link('Explore the decision criteria ↓','#inner-section-1','mgl-inner-action mgl-inner-action--secondary')]):null;
+  const heroVisual=family==='service'||family==='technical'?architecture(reference?'A platform built around you':'Connected operational scope',/mt4/i.test(route)?'MT4':/mt5/i.test(route)?'MT5':'MGL'):family==='comparison'?group('mgl-inner-decision',[label('Choose your operating model'),h('Control. Scope. Responsibility.',3),group('mgl-inner-model-pair',[group('mgl-inner-model-choice',[label(route.includes('vs-grey-label')?'White label':'A-Book'),p(route.includes('vs-grey-label')?'Provider-led platform operations.':'Route orders to liquidity providers.')]),group('mgl-inner-model-choice',[label(route.includes('vs-grey-label')?'Grey label':'B-Book / Hybrid'),p(route.includes('vs-grey-label')?'More direct manager-level control.':'Define how selected flow is managed.')])]),p('Start with what your team needs to manage directly. Confirm the commercial and technical scope before launch.'),link('Explore the decision criteria ↓','#inner-section-1','mgl-inner-action mgl-inner-action--secondary')]):null;
   const children=[group('mgl-inner-hero-v2',[group('mgl-inner-container',[
     {tag:'p',cls:'mgl-inner-breadcrumb',links:crumbLinks},
     group('mgl-inner-hero-layout',[heroCopy,heroVisual])
@@ -116,7 +129,7 @@ export function buildInnerPage(entry, entries) {
     if(childrenRoutes.length) contents.push(group('mgl-inner-section mgl-inner-selector',[group('mgl-inner-container',[label('Choose your next step'),h('Explore '+entry.title),group('mgl-inner-link-grid',childrenRoutes.map(x=>group('mgl-inner-link-card',[h(x.title,3),p(short(x.document.blocks.find(b=>b.type==='paragraph')?.text||'')),link('Explore '+x.title+' ↗',x.route)])))])],'section'));
   }
   for(const [i,section] of sections.entries()) {
-    contents.push(contentSection(section,i,family));
+    contents.push(contentSection(section,i,family,route));
     if(reference && i===3) contents.push(group('mgl-inner-section mgl-inner-integration',[group('mgl-inner-container mgl-inner-split',[
       group('mgl-inner-section-heading',[label('One connected environment'),h('Fewer handoffs.\nA clearer operating picture.'),p('Define your platform and operations together. Each integration is configured and tested against the agreed launch scope.'),link('Explore CRM & client operations ↗','/forex-crm/','mgl-inner-action mgl-inner-action--secondary')]),
       group('mgl-inner-flow',[

@@ -25,6 +25,8 @@ try{
    });
    assert.ok(metrics.design&&metrics.css,'missing layout/assets '+route);assert.equal(metrics.h1,1,route);assert.equal(metrics.theme,theme,route);
    assert.ok(metrics.overflow<=2,`${route} ${theme} ${width} overflow ${metrics.overflow}`);assert.ok(metrics.text>500,route+' content missing');assert.deepEqual(errors,[],route+' browser error');
+   await page.locator('.mgl-design h1').waitFor({state:'visible'});
+   assert.equal(await page.locator('.preloader').count(),0,'new inner routes must not delay content behind a loader');
    if([390,1440].includes(width)&&representatives.get(pageFamily(route))===route){
     await page.screenshot({path:`${dir}/${pageFamily(route)}-${theme}-${width}.png`,fullPage:true});
    }
