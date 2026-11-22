@@ -40,7 +40,7 @@ try{
   await disclosure.locator('summary').press('Enter');assert.equal(await disclosure.getAttribute('open'),null);
   await page.locator('.mgl-inner-hero-copy .mgl-inner-action a').first().focus();
   const outline=await page.locator('.mgl-inner-hero-copy .mgl-inner-action a').first().evaluate(e=>getComputedStyle(e).outlineStyle);assert.notEqual(outline,'none');
-  await page.evaluate(()=>document.activeElement.blur());
+  await page.evaluate(()=>{document.activeElement.blur();window.scrollTo(0,0)});
   assert.deepEqual(errors,[],'browser errors');
   await page.screenshot({path:`${dir}/mt5-${theme}-${width}.png`,fullPage:true});
   if([390,1440].includes(width))await page.screenshot({path:`${dir}/mt5-${theme}-${width}-hero.png`});

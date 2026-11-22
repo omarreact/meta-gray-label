@@ -19,9 +19,10 @@ function esc_url( $s ) { return $s; }
 require $root . '/functions.php';
 hook( 'after_setup_theme' );
 hook( 'wp_enqueue_scripts' );
-if ( array_keys( $styles ) !== array( 'mgl-fse-native', 'mgl-site-settings' ) ||
+if ( array_keys( $styles ) !== array( 'mgl-fse-native', 'mgl-site-settings', 'mgl-inner-system' ) ||
      ! str_contains( $styles['mgl-fse-native'], 'assets/css/fse.css' ) ||
-     ! str_contains( $styles['mgl-site-settings'], 'assets/css/site-settings.css' ) ) {
+     ! str_contains( $styles['mgl-site-settings'], 'assets/css/site-settings.css' ) ||
+     ! str_contains( $styles['mgl-inner-system'], 'assets/css/inner-pages.css' ) ) {
     throw new RuntimeException( 'Native stylesheet configuration failed.' );
 }
 if ( array_keys( $scripts ) !== array( 'mgl-site-settings' ) ||
