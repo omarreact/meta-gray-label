@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 64" role="img" aria-labelledby="mgl-light-title">
+  <title id="mgl-light-title">Meta Grey Label</title>
+  <defs>
+    <linearGradient id="mgl-mark-light-v2" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#28D9A9"/>
+      <stop offset="1" stop-color="#2168E8"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="5" width="54" height="54" rx="15" fill="#071B24"/>
+  <rect x="7" y="10" width="44" height="44" rx="12" fill="url(#mgl-mark-light-v2)"/>
+  <path d="M16 42V23l9.4 9.2L32 23" fill="none" stroke="#fff" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M42.7 26.2a9.3 9.3 0 1 0 1.4 9.2H36" fill="none" stroke="#fff" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="68" y="39" font-family="Arial,Helvetica,sans-serif" font-size="25.5" font-weight="800" letter-spacing=".15">
+    <tspan fill="#102A3A">META </tspan><tspan fill="#087D64">GREY </tspan><tspan fill="#102A3A">LABEL</tspan>
+  </text>
+</svg>

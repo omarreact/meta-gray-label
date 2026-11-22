@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "meta-gray-label-dynamic",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-21",
+  "assets": {
+    "directory": "./dist/public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  // Legacy Cloudflare fallback only. Production source/canonical is GitHub main.
+  "vars": {
+    "PUBLIC_BASE_URL": "https://omarreact.github.io/meta-gray-label",
+    "STATIC_ORIGIN": "https://raw.githubusercontent.com/omarreact/meta-gray-label/main"
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 0.05
+    }
+  }
+}
