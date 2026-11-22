@@ -368,8 +368,7 @@ ${renderSections(sections)}
 ${renderToc(sections, family)}
 </div></div></section>
 ${renderRelated(route, routeIndex, family)}
-<section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Plan the operating model before the implementation.</h2><p>Review the platform, execution and client-operations layers together, then choose the structure that fits your brokerage.</p></div><div class="mgl-bottom-actions"><a class="mgl-btn mgl-btn-primary" href="/contact/">Get Started</a><a class="mgl-bottom-link" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></div></div></div></section>
-`}
+<section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Plan the operating model before the implementation.</h2><p>Review the platform, execution and client-operations layers together, then choose the structure that fits your brokerage.</p></div><div class="mgl-bottom-actions"><a class="mgl-btn mgl-btn-primary" href="/contact/">Get Started</a><a class="mgl-bottom-link" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></div></div></div></section>`}
 </main>
 ${rootifySharedMarkup(footer)}
 <a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i></a>

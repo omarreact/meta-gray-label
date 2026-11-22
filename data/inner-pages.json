@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "rollout": [
+    "/about-us/",
+    "/about-us/why-choose-us/",
+    "/forex-white-label/",
+    "/forex-white-label/mt4-white-label/",
+    "/forex-white-label/mt5-white-label/",
+    "/forex-white-label/pricing/",
+    "/forex-white-label/vs-grey-label/",
+    "/forex-grey-label/",
+    "/forex-grey-label/mt4-grey-label/",
+    "/forex-grey-label/mt5-grey-label/",
+    "/forex-grey-label/pricing/",
+    "/forex-grey-label/upgrade-to-admin/",
+    "/mt-admin-license/",
+    "/mt-admin-license/mt4-admin/",
+    "/mt-admin-license/mt5-admin/",
+    "/forex-broker-turnkey/",
+    "/forex-broker-turnkey/how-it-works/",
+    "/forex-liquidity/",
+    "/forex-liquidity/a-book-b-book/",
+    "/forex-liquidity/liquidity-bridge/",
+    "/forex-liquidity/prime-of-prime/",
+    "/forex-crm/",
+    "/forex-crm/ib-portal/",
+    "/forex-crm/back-office/",
+    "/forex-crm/kyc/",
+    "/forex-crm/payments-automation/",
+    "/trading-platforms/",
+    "/trading-platforms/web-trader/",
+    "/trading-platforms/mobile-app/",
+    "/trading-platforms/desktop/",
+    "/forex-company-license/",
+    "/forex-company-license/company-formation/",
+    "/insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/",
+    "/insights/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/",
+    "/insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/",
+    "/insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/",
+    "/insights/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/",
+    "/insights/comparing-metatrader-grey-label-providers-features-support-and-prices/",
+    "/insights/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/",
+    "/insights/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/",
+    "/insights/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/",
+    "/insights/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/",
+    "/insights/white-label-grey-label-or-turnkey-choosing-the-right-model/",
+    "/insights/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/",
+    "/insights/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/",
+    "/insights/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/",
+    "/insights/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/"
+  ],
+  "families": {
+    "service": {
+      "summary": "Connect the platform, trading conditions and client workflows around the way your brokerage operates."
+    },
+    "hub": {
+      "summary": "Find the right components for your brokerage. Explore the options, then define a connected operating model."
+    },
+    "pricing": {
+      "summary": "Understand setup, ongoing service and optional modules before choosing your scope."
+    },
+    "comparison": {
+      "summary": "Compare the operating choices, responsibilities and trade-offs before you decide."
+    },
+    "process": {
+      "summary": "A coordinated path from requirements to a tested environment and managed support."
+    },
+    "company": {
+      "summary": "The people, principles and technical work behind a connected brokerage."
+    },
+    "article": {
+      "summary": "Practical perspectives on brokerage technology and operations."
+    },
+    "technical": {
+      "summary": "Define access, infrastructure and operational responsibilities before implementation."
+    }
+  },
+  "pages": {
+    "/forex-grey-label/mt5-grey-label/": {
+      "heroTitle": "MT5 Grey Label.\nYour brand. More control.",
+      "summary": "A branded MT5 environment with manager access, flexible trading conditions and connected client operations. We manage the infrastructure. You shape the brokerage."
+    },
+    "/forex-grey-label/mt4-grey-label/": {
+      "heroTitle": "MT4 Grey Label.\nFamiliar trading.\nFlexible operations.",
+      "summary": "A branded MT4 environment with manager access and trading conditions configured around your brokerage."
+    },
+    "/forex-white-label/mt5-white-label/": {
+      "heroTitle": "MT5 White Label.\nA modern platform.\nA focused launch.",
+      "summary": "Launch a branded MT5 environment with infrastructure and configuration coordinated through your provider."
+    },
+    "/forex-white-label/mt4-white-label/": {
+      "heroTitle": "MT4 White Label.\nYour brand on a\nfamiliar platform.",
+      "summary": "Offer a branded MT4 experience with a defined setup, provider-managed infrastructure and a clear operational scope."
+    }
+  }
+}

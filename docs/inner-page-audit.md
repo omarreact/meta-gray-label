@@ -1,6 +1,6 @@
 # Inner-page architecture and design audit
 
-Baseline: `main` at `7d5568d512e21e09cdd18e57749abe5e1eb7cf49`. Review date: 23 November 2026 (Bangladesh time). Production was inspected on Webflow and the GitHub Pages mirror. This report distinguishes source inspection, live observations and automated verification.
+Baseline: `main` at `7d5568d512e21e09cdd18e57749abe5e1eb7cf49`. Review date: 22 November 2026 (Bangladesh time). Production was inspected on Webflow and the GitHub Pages mirror. This report distinguishes source inspection, live observations and automated verification.
 
 ## Architecture
 
@@ -46,7 +46,7 @@ Live representative inspection confirmed the same MT5 heading and asset structur
 | Article | Brokerage insights | Reading-width body, reading time and anchored sidebar |
 | Company | About / why choose us | Narrative split sections with principle-led content |
 
-These families are implemented as reusable composition paths. Rollout remains gated to the MT5 service reference until its actual browser/WordPress QA and screenshots have been reviewed. Presence in this table does not mean all routes have been redesigned or individually approved.
+These families are implemented as reusable composition paths. The MT5 reference passed static and real WordPress QA at all eight widths in both themes on commit 2e47f03. Its screenshots were reviewed before enabling the 47 structured routes. Each route now selects its semantic family. Bespoke homepage, directory and contact compositions remain independent. Final route-wide QA and screenshot review are recorded in the release report; no claim of individual user approval is implied.
 
 ## Reference and safeguards
 

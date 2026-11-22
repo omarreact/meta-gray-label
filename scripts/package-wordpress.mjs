@@ -31,6 +31,7 @@ const sourcePaths = [
   "assets/site-settings.json",
   "media/branding",
   "data/content.json",
+  "data/inner-pages.json",
   "templates",
   "parts",
   "patterns",

@@ -145,6 +145,13 @@
           "size": "72px"
         }
       ]
+    },
+    "custom": {
+      "mglInner": {
+        "container": "1180px",
+        "radius": "12px",
+        "motion": "cubic-bezier(.22,1,.36,1)"
+      }
     }
   },
   "styles": {

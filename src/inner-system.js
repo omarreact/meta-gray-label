@@ -1,7 +1,8 @@
+import designContent from '../data/inner-pages.json' with { type: 'json' };
 /** Shared semantic composition. Static HTML and Gutenberg serialize this same tree. */
 export const REFERENCE_ROUTE = '/forex-grey-label/mt5-grey-label/';
-// Start with the representative page. Expand only after its browser QA passes.
-export const INNER_ROLLOUT = new Set([REFERENCE_ROUTE]);
+// Family rollout follows the MT5 reference passing static and real WordPress QA.
+export const INNER_ROLLOUT = new Set(designContent.rollout);
 export const esc = (s = '') => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const text = (tag, value, cls = '') => ({ tag, text: value, cls });
 const group = (cls, children, tag = 'div', id) => ({ tag, cls, children: children.filter(Boolean), id });
@@ -45,7 +46,7 @@ function panel(item, index, cls='mgl-inner-card') {
 function contentSection(section, index, family) {
   const {lead,items}=chunks(section.blocks);
   const id='inner-section-'+(index+1);
-  const faq=/frequently asked|faq|\?$/.test(section.title.toLowerCase()) && items.some(x=>x.title.endsWith('?'));
+  const faq=/frequently asked|questions|faq|\?$/.test(section.title.toLowerCase()) && items.some(x=>x.title.endsWith('?'));
   const heading=group('mgl-inner-section-heading',[label(faq?'Answers, without the ambiguity':String(index+1).padStart(2,'0')+' / '+(family==='technical'?'Operational scope':'Explore the detail')),h(section.title)]);
   if(faq) return group('mgl-inner-section mgl-inner-faq',[group('mgl-inner-container mgl-inner-split',[heading,group('mgl-inner-faq-list',[...copy(lead),...items.map(x=>({tag:'details',cls:'mgl-inner-disclosure',summary:x.title,children:copy(x.blocks)}))])])],'section',id);
   let pattern='cards';
@@ -63,11 +64,11 @@ function contentSection(section, index, family) {
   ]);
   return group('mgl-inner-section mgl-inner-pattern--'+pattern,[group('mgl-inner-container',[heading,body])],'section',id);
 }
-function architecture(title='Your brokerage, connected') {
+function architecture(title='Your brokerage, connected', platform='MT5') {
   const modules=[['Trading access','Desktop · Web · Mobile','/trading-platforms/'],['Client operations','CRM · KYC · Payments','/forex-crm/'],['Execution layer','Liquidity · Bridge · Routing','/forex-liquidity/']];
   return group('mgl-inner-architecture',[
     group('mgl-inner-console-top',[label('Platform architecture'),p('Illustrative configuration','mgl-inner-caption')]),
-    group('mgl-inner-core',[p('MT5','mgl-inner-platform'),h(title,3),p('Your brand. Your trading conditions.','mgl-inner-caption')]),
+    group('mgl-inner-core',[p(platform,'mgl-inner-platform'),h(title,3),p('Your brand. Your trading conditions.','mgl-inner-caption')]),
     group('mgl-inner-modules',modules.map(([name,desc,href])=>group('mgl-inner-module',[link(name+' ↗',href),p(desc,'mgl-inner-caption')]))),
     p('Final modules and access depend on the agreed package.','mgl-inner-caption mgl-inner-console-note')
   ]);
@@ -85,17 +86,18 @@ export function buildInnerPage(entry, entries) {
   const route=entry.route, family=pageFamily(route), reference=route===REFERENCE_ROUTE;
   const blocks=entry.document.blocks, {intro,sections}=splitContent(blocks);
   const originalTitle=blocks.find(b=>b.type==='heading'&&b.level===1)?.text||entry.title;
-  const title=reference?'MT5 Grey Label.\nYour brand. More control.':originalTitle;
-  const summaries={service:'Connect the platform, trading conditions and client workflows around the way your brokerage operates.',hub:'Find the right components for your brokerage. Explore the options, then define a connected operating model.',pricing:'Understand setup, ongoing service and optional modules before choosing your scope.',comparison:'Compare the operating choices, responsibilities and trade-offs before you decide.',process:'A coordinated path from requirements to a tested environment and managed support.',technical:'Define access, infrastructure and operational responsibilities before implementation.',company:'The people, principles and technical work behind a connected brokerage.',article:'Practical perspectives on brokerage technology and operations.'};
+  const pageContent=designContent.pages[route]||{};
+  const title=pageContent.heroTitle||(family==='article'?originalTitle:entry.title);
+  const summary=pageContent.summary||designContent.families[family].summary;
   const parent=entries.find(x=>x.route==='/'+route.split('/')[1]+'/');
   const crumbLinks=[{label:'Home',href:'/'},...(parent&&parent.route!==route?[{label:parent.title,href:parent.route}]:[]),{label:entry.title}];
   const heroCopy=group('mgl-inner-hero-copy',[
     label(family==='article'?'Brokerage insights':'Meta Grey Label / '+(reference?'Multi-asset platform':family)),
-    h(title,1),p(reference?'A branded MT5 environment with manager access, flexible trading conditions and connected client operations. We manage the infrastructure. You shape the brokerage.':summaries[family],'mgl-inner-summary'),
+    h(title,1),p(summary,'mgl-inner-summary'),
     family==='article'?p(Math.max(1,Math.ceil(blocks.map(x=>x.text).join(' ').split(/\s+/).length/220))+' min read · Meta Grey Label','mgl-inner-caption'):actions(reference?'Plan your MT5 setup':'Discuss your requirements'),
     reference?p('Desktop / Web / iOS / Android','mgl-inner-device-note'):null
   ]);
-  const heroVisual=family==='service'||family==='technical'?architecture(reference?'A platform built around you':'Operational architecture'):family==='comparison'?group('mgl-inner-decision',[label('Choose your operating model'),h('Control. Scope. Responsibility.',3),p('Start with what your team needs to manage directly. Confirm the commercial and technical scope before launch.'),link('Explore the decision criteria ↓','#inner-section-1','mgl-inner-action mgl-inner-action--secondary')]):null;
+  const heroVisual=family==='service'||family==='technical'?architecture(reference?'A platform built around you':'Connected operational scope',/mt4/i.test(route)?'MT4':/mt5/i.test(route)?'MT5':'MGL'):family==='comparison'?group('mgl-inner-decision',[label('Choose your operating model'),h('Control. Scope. Responsibility.',3),p('Start with what your team needs to manage directly. Confirm the commercial and technical scope before launch.'),link('Explore the decision criteria ↓','#inner-section-1','mgl-inner-action mgl-inner-action--secondary')]):null;
   const children=[group('mgl-inner-hero-v2',[group('mgl-inner-container',[
     {tag:'p',cls:'mgl-inner-breadcrumb',links:crumbLinks},
     group('mgl-inner-hero-layout',[heroCopy,heroVisual])
