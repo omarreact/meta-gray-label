@@ -46,7 +46,8 @@ const assert=require('node:assert/strict');
             headerCount:document.querySelectorAll('.mgl-site-header').length,
             alternativeHeader:document.querySelectorAll('.main-header').length,
             footerCount:document.querySelectorAll('.footer').length,
-            headline:document.querySelector('h1')?{font:getComputedStyle(document.querySelector('h1')).fontSize,width:document.querySelector('h1').getBoundingClientRect().width}:null,
+            regions:[...document.querySelectorAll('.fxh-hero,.fxh-pillars,#services,.mgl-inner-hero')].map(el=>({class:el.className,id:el.id,x:el.getBoundingClientRect().x,y:el.getBoundingClientRect().y,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height})),
+            headline:document.querySelector('h1')?{family:getComputedStyle(document.querySelector('h1')).fontFamily,font:getComputedStyle(document.querySelector('h1')).fontSize,width:document.querySelector('h1').getBoundingClientRect().width}:null,
           }));
           await page.screenshot({path:'wordpress-qa/'+kind+'-'+source.replace(/\W/g,'_')+'-'+width+'.png',fullPage:true});
           assert(data.scroll<=width+2,kind+' horizontal overflow '+source+' '+width+': '+JSON.stringify(data));
@@ -60,6 +61,7 @@ const assert=require('node:assert/strict');
         assert.deepEqual(measurements[0].h1,measurements[1].h1,'Headings changed after import: '+source);
         if(measurements[0].headline&&measurements[1].headline){
           assert.equal(measurements[0].headline.font,measurements[1].headline.font,'Headline typography changed: '+source);
+          assert.equal(measurements[0].headline.family,measurements[1].headline.family,'Headline font family changed: '+source);
           assert(Math.abs(measurements[0].headline.width-measurements[1].headline.width)<=8,'Headline container width changed: '+source);
         }
         results.push({source,width,static:measurements[0],wordpress:measurements[1]});
