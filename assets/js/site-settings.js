@@ -37,9 +37,9 @@
     bodyLineHeight: 1.65,
     bodyLetterSpacingEm: 0,
     headingWeight: 600,
-    headingLineHeight: 1.04,
-    headingLetterSpacingEm: -0.055,
-    headingSizes: { h1: 93, h2: 77, h3: 36, h4: 26, h5: 22, h6: 18 },
+    headingLineHeight: 1.16,
+    headingLetterSpacingEm: -0.035,
+    headingSizes: { h1: 60, h2: 40, h3: 26, h4: 22, h5: 19, h6: 16 },
     uiSizePx: 14,
     uiWeight: 600,
     buttonSizePx: 14,
@@ -205,7 +205,25 @@
   function readLocalSetting() {
     try {
       const raw = localStorage.getItem(localKey) || localStorage.getItem(legacyLocalKey);
-      return raw ? normalizeSetting(JSON.parse(raw)) : null;
+      if (!raw) return null;
+      const stored = JSON.parse(raw);
+      // Upgrade only the original oversized defaults. Custom font choices and
+      // intentionally edited size scales remain untouched.
+      const legacySizes = { h1: 93, h2: 77, h3: 36, h4: 26, h5: 22, h6: 18 };
+      const isLegacyDefault = stored && stored.headingSizes &&
+        Object.keys(legacySizes).every(function (tag) {
+          return Number(stored.headingSizes[tag]) === legacySizes[tag];
+        }) &&
+        Number(stored.headingLineHeight) === 1.04 &&
+        Number(stored.headingLetterSpacingEm) === -0.055;
+      if (isLegacyDefault) {
+        return normalizeSetting(Object.assign({}, stored, {
+          headingSizes: Object.assign({}, defaults.headingSizes),
+          headingLineHeight: defaults.headingLineHeight,
+          headingLetterSpacingEm: defaults.headingLetterSpacingEm
+        }));
+      }
+      return normalizeSetting(stored);
     } catch (_) {
       return null;
     }

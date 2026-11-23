@@ -9,15 +9,15 @@
     "bodyLineHeight": 1.65,
     "bodyLetterSpacingEm": 0,
     "headingWeight": 600,
-    "headingLineHeight": 1.04,
-    "headingLetterSpacingEm": -0.055,
+    "headingLineHeight": 1.16,
+    "headingLetterSpacingEm": -0.035,
     "headingSizes": {
-      "h1": 93,
-      "h2": 77,
-      "h3": 36,
-      "h4": 26,
-      "h5": 22,
-      "h6": 18
+      "h1": 60,
+      "h2": 40,
+      "h3": 26,
+      "h4": 22,
+      "h5": 19,
+      "h6": 16
     },
     "uiSizePx": 14,
     "uiWeight": 600,

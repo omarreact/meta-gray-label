@@ -4,7 +4,7 @@ html body .mgl-design .mgl-directory-hero-copy h1{max-width:19ch}
 html body .mgl-design .mgl-directory-map,html body .mgl-design .mgl-directory-decision{padding:28px;border:1px solid var(--mi-line);border-radius:14px;background:var(--mi-surface)}
 html body .mgl-design .mgl-directory-map>p:not(.mgl-inner-eyebrow){padding:15px 0;border-bottom:1px solid var(--mi-line);color:var(--mi-text);font-size:14px!important}
 html body .mgl-design .mgl-directory-map>p:last-child{border:0;padding-bottom:0}
-html body .mgl-design .mgl-directory-decision h3{font-size:30px!important;margin-bottom:18px}
+html body .mgl-design .mgl-directory-decision h3{font-size:24px!important;margin-bottom:18px}
 html body .mgl-design .mgl-directory-decision>p:last-child{margin-top:18px}
 html body .mgl-design .mgl-directory-introduction{padding-bottom:30px;border:0}
 html body .mgl-design .mgl-directory-introduction>.mgl-inner-container>p:not(.mgl-inner-eyebrow){max-width:66ch;margin-top:20px}
@@ -16,8 +16,8 @@ html body .mgl-design .mgl-directory-filter-links a[aria-pressed=true]{color:var
 html body .mgl-design .mgl-directory-filter-links a:hover{border-color:var(--mi-accent)}
 html body .mgl-design .mgl-directory-catalog,html body .mgl-design .mgl-directory-pathways,html body .mgl-design .mgl-directory-library{padding-top:0}
 html body .mgl-design .mgl-directory-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-html body .mgl-design .mgl-directory-service{position:relative;padding:32px;border:1px solid var(--mi-line);border-radius:14px;background:var(--mi-surface);scroll-margin-top:110px}
-html body .mgl-design .mgl-directory-service h2{font-size:28px!important;margin-bottom:16px}
+html body .mgl-design .mgl-directory-service{position:relative;padding:26px;border:1px solid var(--mi-line);border-radius:14px;background:var(--mi-surface);scroll-margin-top:110px}
+html body .mgl-design .mgl-directory-service h2{font-size:24px!important;margin-bottom:16px}
 html body .mgl-design .mgl-directory-service>p:not(.mgl-inner-eyebrow){max-width:48ch}
 html body .mgl-design .mgl-directory-primary{margin-top:22px}
 html body .mgl-design .mgl-directory-primary a{color:var(--mi-accent);font-weight:700;text-decoration:none}
@@ -36,7 +36,7 @@ html body .mgl-design .mgl-directory-path-grid{display:grid;grid-template-column
 html body .mgl-design .mgl-directory-stage{padding:30px;border-top:2px solid var(--mi-accent);background:var(--mi-surface);scroll-margin-top:110px}
 html body .mgl-design .mgl-directory-path{padding:24px 0;border-bottom:1px solid var(--mi-line)}
 html body .mgl-design .mgl-directory-path:last-child{border-bottom:0;padding-bottom:0}
-html body .mgl-design .mgl-directory-path h2{font-size:26px!important;margin-bottom:14px}
+html body .mgl-design .mgl-directory-path h2{font-size:24px!important;margin-bottom:14px}
 html body .mgl-design .mgl-directory-path>p:last-child{margin-top:16px}
 html body .mgl-design .mgl-directory-path a{font-size:14px;font-weight:600;text-decoration:none;color:var(--mi-accent)}
 html body .mgl-design .mgl-directory-model-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:32px 0;border:1px solid var(--mi-line);border-radius:14px;overflow:hidden}
@@ -58,11 +58,11 @@ html body .mgl-design .mgl-directory-featured h2{margin-bottom:22px}
 html body .mgl-design .mgl-directory-featured>p{margin-top:16px}
 html body .mgl-design .mgl-directory-read a{color:var(--mi-accent);font-size:14px;font-weight:700;text-decoration:none}
 html body .mgl-design .mgl-directory-topic{display:grid;grid-template-columns:1fr 2fr;gap:48px;padding:38px 0;border-top:1px solid var(--mi-line);scroll-margin-top:110px}
-html body .mgl-design .mgl-directory-topic-heading h2{font-size:28px!important}
+html body .mgl-design .mgl-directory-topic-heading h2{font-size:24px!important}
 html body .mgl-design .mgl-directory-article-list{display:grid;grid-template-columns:1fr 1fr;gap:0 30px}
 html body .mgl-design .mgl-directory-article{padding:0 0 28px;margin-bottom:28px;border-bottom:1px solid var(--mi-line);display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 html body .mgl-design .mgl-directory-article>.mgl-inner-eyebrow{display:none}
-html body .mgl-design .mgl-directory-article h3{font-size:22px!important;line-height:1.35!important}
+html body .mgl-design .mgl-directory-article h3{font-size:20px!important;line-height:1.35!important}
 html body .mgl-design .mgl-directory-article .mgl-directory-read{margin-top:auto;padding-top:4px}
 html body .mgl-design [hidden]{display:none!important}
 html body .mgl-design .mgl-directory-status{font-size:12px!important;line-height:1.5!important;margin-top:14px}
