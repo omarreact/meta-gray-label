@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: omarreact/WpBlockThemeFSE
-          ref: 5a26ce714403b47ad7592103a9aaa49fb668359a
+          ref: f135c81e679372a8829ef07fff73dfad39113288
           path: converter
       - uses: actions/setup-node@v4
         with:
