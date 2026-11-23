@@ -1,15 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root{
-  --mgl-global-font-family:Arial,Helvetica,sans-serif;
-  --mgl-body-font-size:17px;
+  --mgl-global-font-family:"Inter",Arial,Helvetica,sans-serif;
+  --mgl-body-font-size:16px;
   --mgl-body-font-weight:400;
-  --mgl-body-line-height:1.75;
+  --mgl-body-line-height:1.65;
   --mgl-body-letter-spacing:0em;
   --mgl-heading-font-weight:600;
   --mgl-heading-line-height:1.04;
-  --mgl-heading-letter-spacing:-.065em;
-  --mgl-h1-size:72px;
-  --mgl-h2-size:56px;
-  --mgl-h3-size:32px;
+  --mgl-heading-letter-spacing:-.055em;
+  --mgl-h1-size:93px;
+  --mgl-h2-size:77px;
+  --mgl-h3-size:36px;
   --mgl-h4-size:26px;
   --mgl-h5-size:22px;
   --mgl-h6-size:18px;
@@ -50,8 +52,8 @@ html body :where(h1,h2,h3,h4,h5,h6,.wp-block-heading){
   line-height:var(--mgl-heading-line-height)!important;
   letter-spacing:var(--mgl-heading-letter-spacing)!important;
 }
-html body h1{font-size:clamp(28px,5vw,var(--mgl-h1-size))!important}
-html body h2{font-size:clamp(26px,4vw,var(--mgl-h2-size))!important}
+html body h1{font-size:clamp(33.6px,6.1vw,var(--mgl-h1-size))!important}
+html body h2{font-size:clamp(32px,5.2vw,var(--mgl-h2-size))!important}
 html body h3{font-size:clamp(20px,3vw,var(--mgl-h3-size))!important}
 html body h4{font-size:clamp(18px,2.5vw,var(--mgl-h4-size))!important}
 html body h5{font-size:clamp(16px,2vw,var(--mgl-h5-size))!important}
@@ -131,3 +133,8 @@ html.mgl-settings-open .mgl-dev-settings-panel{transform:translateX(0)}
 }
 @media(max-width:420px){.mgl-dev-settings-grid,.mgl-dev-heading-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.mgl-dev-settings-toggle,.mgl-dev-settings-toggle svg,.mgl-dev-settings-panel{transition:none!important}}
+
+/* Reference homepage display scale on small screens; scoped inner-page headings keep their own rules. */
+@media(max-width:640px){
+  html body h1{font-size:clamp(33.6px,9vw,46.4px)!important}
+}

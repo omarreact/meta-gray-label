@@ -63,7 +63,7 @@
         {
           "slug": "base",
           "name": "Body",
-          "size": "clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.337), 17px)"
+          "size": "16px"
         },
         {
           "slug": "medium",
@@ -99,13 +99,13 @@
       "fontFamilies": [
         {
           "slug": "body",
-          "name": "Arial / Helvetica",
-          "fontFamily": "Arial, Helvetica, sans-serif"
+          "name": "Inter",
+          "fontFamily": "\"Inter\", Arial, Helvetica, sans-serif"
         },
         {
           "slug": "display",
-          "name": "Arial / Helvetica",
-          "fontFamily": "Arial, Helvetica, sans-serif"
+          "name": "Inter",
+          "fontFamily": "\"Inter\", Arial, Helvetica, sans-serif"
         }
       ]
     },
@@ -171,7 +171,7 @@
           "fontStyle": "normal",
           "fontWeight": "600",
           "lineHeight": "1.04",
-          "letterSpacing": "-0.065em"
+          "letterSpacing": "-0.055em"
         }
       },
       "button": {
@@ -189,7 +189,7 @@
       "fontSize": "var(--wp--preset--font-size--base)",
       "fontStyle": "normal",
       "fontWeight": "400",
-      "lineHeight": "1.75"
+      "lineHeight": "1.65"
     },
     "blocks": {
       "core/navigation": {

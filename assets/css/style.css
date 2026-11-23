@@ -1233,7 +1233,7 @@ body {
   color: var(--text-color);
   font-size: 1rem;
   line-height: 1.625;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 
 h1,
@@ -1242,7 +1242,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--title-color);
   line-height: 1.25;
   font-weight: 600;
@@ -2064,7 +2064,7 @@ ol {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--title-color);
   gap: 10px;
 }
@@ -3498,7 +3498,7 @@ h6 a {
   font-size: 1rem;
   padding: 15px 22px;
   text-transform: capitalize;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--title-color);
   font-weight: 500;
 }
@@ -3563,7 +3563,7 @@ h6 a {
     font-size: 1rem;
     padding: 10px 20px;
     text-transform: capitalize;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -3668,7 +3668,7 @@ h6 a {
     width: 100%;
   }
   .menu li .submenu li a {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
     display: flex;
     justify-content: space-between;
     font-weight: 400;
@@ -4040,7 +4040,7 @@ h6 a {
 .subtitle p {
   font-size: 1.25rem;
   font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .subtitle--style2 {
   color: var(--secondary-color);
@@ -4048,7 +4048,7 @@ h6 a {
 .subtitle--style3 p {
   font-size: 1.125rem;
   font-weight: 500;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--secondary-color);
 }
 .subtitle--style4 p {
@@ -4967,7 +4967,7 @@ h6 a {
   margin-block-end: 32px;
 }
 .banner--style3 .banner__counter-item h4 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   margin-bottom: 0px;
 }
 .banner--style3 .banner__counter-item h4 span {
@@ -4978,7 +4978,7 @@ h6 a {
 .banner--style3 .banner__counter-item p {
   font-size: 1.125rem;
   line-height: 1.3;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .banner--style3 .banner__bg {
   z-index: -1;
@@ -5741,7 +5741,7 @@ textarea:focus-within {
 
 .form-label {
   font-size: 1.125rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--title-color);
 }
 
@@ -6236,7 +6236,7 @@ textarea:focus-within {
   font-size: 1rem;
   border: transparent;
   color: #0C263A;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   padding: 0.75rem 1rem;
   text-decoration: none;
   -webkit-transition: all 0.3s ease-out;
@@ -6785,7 +6785,7 @@ textarea:focus-within {
 .text-btn.text-btn--small {
   font-size: 1rem;
   color: var(--title-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .text-btn.text-btn--small span {
   -webkit-transition: all 0.3s ease-out;
@@ -6936,7 +6936,7 @@ textarea:focus-within {
 }
 .social__item h6 {
   font-size: 1.125rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .social__link {
   -webkit-transition: background-color 0.2s linear;
@@ -7278,7 +7278,7 @@ textarea:focus-within {
   }
 }
 .floating-content__item h3 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   line-height: 32px;
   color: var(--secondary-color);
 }
@@ -7394,7 +7394,7 @@ textarea:focus-within {
 }
 .floating-content__item--style6 h3 {
   color: var(--title-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   margin-block-end: -5px;
 }
 .floating-content__item--style6 p {
@@ -7741,7 +7741,7 @@ textarea:focus-within {
 .feature--style1 .feature__item-content h6 {
   font-size: 1.125rem;
   color: var(--text-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .feature--style1 .feature__image img {
   border-radius: 20px;
@@ -8247,7 +8247,7 @@ textarea:focus-within {
 }
 .pricing__item-top h3 span {
   font-size: 1.125rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--text-color-4);
 }
 .pricing__item--style2 .pricing__item-top h3 {
@@ -8655,7 +8655,7 @@ textarea:focus-within {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--title-color);
 }
 .team__item-author--style2 .team__item-authorinfo h6:hover {
@@ -8667,7 +8667,7 @@ textarea:focus-within {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--title-color);
   z-index: 2;
 }
@@ -8916,7 +8916,7 @@ textarea:focus-within {
 }
 .blog__writer-designation h6 {
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--title-color);
 }
 .blog__writer-designation p {
@@ -9767,7 +9767,7 @@ textarea:focus-within {
 .sidebar__recentpost-content p {
   font-size: 1rem;
   color: var(--title-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .sidebar__recentpost-content p a {
   -webkit-transition: all 0.3s ease-out;
@@ -9854,7 +9854,7 @@ textarea:focus-within {
 }
 .tags ul li h6 {
   font-size: 1.125rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .tags ul li a {
   -webkit-transition: all 0.3s ease-out;
@@ -9882,7 +9882,7 @@ textarea:focus-within {
 }
 .tags--style2 ul li h6 {
   font-size: 1.125rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .tags--style2 ul li a {
   -webkit-transition: all 0.3s ease-out;
@@ -10160,7 +10160,7 @@ textarea:focus-within {
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--text-color);
   font-size: 1rem;
 }
@@ -10222,7 +10222,7 @@ textarea:focus-within {
 .accordion__button {
   font-size: 1.25rem;
   color: var(--brand-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   border: none;
 }
 .accordion__button-content {
@@ -10420,7 +10420,7 @@ textarea:focus-within {
 }
 .roadmap--style1 .roadmap__item-header span {
   font-size: calc(1.325rem + 0.7714285714vw);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   color: var(--brand-color);
   margin-block-start: -5px;
 }
@@ -10927,7 +10927,7 @@ textarea:focus-within {
 .about--style3 .about__content ul li {
   font-size: 1.125rem;
   color: var(--title-color-style2);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 .about--style3 .about__content ul li span img {
   max-width: 25px;
@@ -11171,7 +11171,7 @@ section[id] {
 
 /* MGL BENCHMARK RHYTHM + RESPONSIVE HARDENING 2026-11-20 */
 :root {
-  --mgl-font-ui: Arial, Helvetica, sans-serif;
+  --mgl-font-ui: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   --mgl-type-body: 16px;
   --mgl-type-body-mobile: 15px;
   --mgl-type-h1: clamp(36px, 5.1vw, 68px);
@@ -11870,14 +11870,14 @@ textarea:focus-visible,
 .mgl-home-main input,
 .mgl-home-main select,
 .mgl-home-main textarea {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 
 .mgl-home-main h1,
 .mgl-home-main h2,
 .mgl-home-main h3,
 .mgl-home-main h4 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
 }
 
 .mgl-shell {
@@ -11946,7 +11946,7 @@ textarea:focus-visible,
   padding: 11px 16px;
   border: 1px solid transparent;
   border-radius: 12px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   font-size: .95rem;
   font-weight: 600;
   line-height: 1.2;
@@ -12134,7 +12134,7 @@ textarea:focus-visible,
 
 .mgl-home-stack__head strong {
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   font-size: 1rem;
   font-weight: 600;
 }
@@ -12214,7 +12214,7 @@ textarea:focus-visible,
   display: block;
   margin-bottom: 4px;
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   font-size: .94rem;
   font-weight: 600;
 }
@@ -12268,7 +12268,7 @@ textarea:focus-visible,
 .mgl-home-proof__item strong {
   display: block;
   color: var(--mgl-home-text);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   font-size: clamp(1rem, 1.5vw, 1.2rem);
   font-weight: 600;
   line-height: 1.35;
@@ -12734,7 +12734,7 @@ textarea:focus-visible,
   position: relative;
   padding: 17px 48px 17px 18px;
   color: var(--mgl-home-text);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   font-size: .98rem;
   font-weight: 600;
   line-height: 1.45;
@@ -12758,7 +12758,7 @@ textarea:focus-visible,
   border-radius: 8px;
   background: color-mix(in srgb, var(--mgl-home-accent) 8%, transparent);
   color: var(--mgl-home-accent);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   font-size: 1rem;
   transform: translateY(-50%);
 }
@@ -14085,7 +14085,7 @@ textarea:focus-visible,
   outline: none;
   background: var(--bg-color);
   color: var(--title-color);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   font-size: .9rem;
   transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease;
 }
@@ -14247,8 +14247,8 @@ textarea:focus-visible,
 }
 /* MGL SOURCE TYPOGRAPHY + SPACING RHYTHM / SOFT DARK THEME 2026-11-21 */
 :root {
-  --mgl-font-ui: Arial, Helvetica, sans-serif;
-  --mgl-font-display: Arial, Helvetica, sans-serif;
+  --mgl-font-ui: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
+  --mgl-font-display: var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   --mgl-type-body: clamp(14px, calc(0.875rem + ((1vw - 3.2px) * 0.337)), 17px);
   --mgl-type-body-mobile: 15px;
   --mgl-type-h1: clamp(38.682px, 4.8vw, 72px);
@@ -14370,8 +14370,8 @@ h3 { line-height: 1.22; }
 
 /* MGL EXACT REFERENCE TYPOGRAPHY — omar.akogs-fashion.com — 2026-11-21 */
 :root{
-  --mgl-font-ui:Arial,Helvetica,sans-serif;
-  --mgl-font-display:Arial,Helvetica,sans-serif;
+  --mgl-font-ui:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
+  --mgl-font-display:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif);
   --mgl-type-xs:12px;
   --mgl-type-sm:14px;
   --mgl-type-body:clamp(14px,calc(.875rem + ((1vw - 3.2px) * .337)),17px);
@@ -14384,7 +14384,7 @@ h3 { line-height: 1.22; }
   --mgl-leading-heading:1.04;
   --mgl-tracking-heading:-.065em;
 }
-html,body{font-family:Arial,Helvetica,sans-serif}
+html,body{font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)}
 body{
   font-size:var(--mgl-type-body);
   font-style:normal;
@@ -14393,9 +14393,9 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 button,input,select,textarea{font-family:inherit}
-p,li,dd,dt,td,th,address,blockquote{font-family:Arial,Helvetica,sans-serif}
+p,li,dd,dt,td,th,address,blockquote{font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)}
 h1,h2,h3,h4,h5,h6{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-style:normal;
   font-weight:600!important;
   letter-spacing:-.065em!important;
@@ -14408,7 +14408,7 @@ h4{font-size:var(--mgl-type-xl)}
 h5{font-size:var(--mgl-type-lg)}
 h6{font-size:14px}
 .banner__content-heading{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:var(--mgl-type-hero)!important;
   font-weight:500!important;
   line-height:1.01!important;
@@ -14418,7 +14418,7 @@ h6{font-size:14px}
 .mgl-hero-summary,
 .mgl-contact-hero>*>div>p,
 .mgl-contact-hero p{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:clamp(18px,2vw,23px)!important;
   font-weight:400!important;
   line-height:1.5!important;
@@ -14430,7 +14430,7 @@ h6{font-size:14px}
 .banner__content-coin+*,
 [class*="__eyebrow"],
 [class*="__kicker"]{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
 }
 .eyebrow,.mgl-kicker,.mgl-home-kicker{
   font-size:12px!important;
@@ -14442,7 +14442,7 @@ h6{font-size:14px}
 .mgl-site-header,
 .mgl-site-header a,
 .mgl-site-header button{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
 }
 .mgl-nav-link{
   font-size:14px!important;
@@ -14472,7 +14472,7 @@ button[type="submit"],
 input[type="submit"],
 .wp-element-button,
 .wp-block-button__link{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:14px!important;
   font-weight:800!important;
   line-height:1.2!important;
@@ -14480,7 +14480,7 @@ input[type="submit"],
 }
 label,
 .mgl-contact-fields label>span{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
 }
 .mgl-contact-fields label>span,
 .mgl-contact-form label{
@@ -14494,7 +14494,7 @@ input,select,textarea,
 .mgl-contact-fields input,
 .mgl-contact-fields select,
 .mgl-contact-fields textarea{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:15px!important;
   font-weight:400!important;
   line-height:1.5!important;
@@ -14503,7 +14503,7 @@ input,select,textarea,
 summary,
 .faq__item-title,
 .accordion-button{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:19px!important;
   font-weight:600!important;
   line-height:1.4!important;
@@ -14513,13 +14513,13 @@ summary,
 .blog__item-content p,
 .mgl-directory-card p,
 .mgl-contact-steps small{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:14px!important;
   font-weight:400!important;
   line-height:1.6!important;
   letter-spacing:normal!important;
 }
-.footer,.footer *{font-family:Arial,Helvetica,sans-serif}
+.footer,.footer *{font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)}
 .footer__about-moto{
   font-size:15px!important;
   font-weight:400!important;
@@ -14546,7 +14546,7 @@ summary,
   letter-spacing:normal!important;
 }
 .mgl-contact-output pre{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:13px!important;
   font-weight:400!important;
   line-height:1.65!important;
@@ -14887,7 +14887,7 @@ summary,
   --mgl-ref-display:clamp(38.682px,calc(2.418rem + ((1vw - 3.2px) * 3.744)),72px);
 }
 html,body{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
 }
 body{
   font-size:var(--mgl-ref-base)!important;
@@ -14903,7 +14903,7 @@ body td,
 body th,
 body address,
 body blockquote{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:inherit;
   font-weight:400;
   line-height:1.75;
@@ -14918,7 +14918,7 @@ body h6,
 .section-header h2,
 .cta__subscribe h2,
 .mgl-page-hero h1{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-style:normal!important;
   font-weight:600!important;
   letter-spacing:-.065em!important;
@@ -14950,7 +14950,7 @@ body h6{
 .mgl-hero-summary,
 .section-header p,
 .cta__subscribe p{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:var(--mgl-ref-lg)!important;
   font-weight:400!important;
   line-height:1.5!important;
@@ -14975,7 +14975,7 @@ body h6{
 .mgl-model-shortcuts a,
 button[type="submit"],
 input[type="submit"]{
-  font-family:Arial,Helvetica,sans-serif!important;
+  font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:14px!important;
   font-weight:800!important;
   line-height:1.2!important;
