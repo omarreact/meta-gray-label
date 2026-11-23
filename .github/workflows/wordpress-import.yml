@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   wordpress:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: omarreact/WpBlockThemeFSE
-          ref: f135c81e679372a8829ef07fff73dfad39113288
+          ref: 4d179b6795320f1515890e530b4779b79e015771
           path: converter
       - uses: actions/setup-node@v4
         with:
