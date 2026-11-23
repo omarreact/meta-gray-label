@@ -3,7 +3,7 @@
 
   const script = document.currentScript;
   const siteRoot = new URL('../../', script?.src || document.baseURI);
-  const configUrl = new URL('assets/site-settings.json', siteRoot);
+  const configUrl = new URL('assets/js/site-settings.json', siteRoot);
   const localKey = 'mgl-dev-typography-v2';
   const legacyLocalKey = 'mgl-dev-font-preference-v1';
   const repoIssueUrl = 'https://github.com/omarreact/meta-gray-label/issues/new';
