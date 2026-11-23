@@ -60,7 +60,7 @@ function updateThemeColor(themeMode = 'dark') {
     }
 
     changeImage(themeMode);
-    const assetRoot = new URL('media/branding/', mglSiteRoot).href;
+    const assetRoot = new URL('assets/media/branding/', mglSiteRoot).href;
     const headerLogo = document.querySelector('img[data-brand-logo]');
     const footerLogo = document.querySelector('img[data-brand-footer]');
     if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'logo-dark.svg' : 'logo-light.svg');
@@ -99,7 +99,7 @@ function switchThemeByUrl() {
 function changeImage(themeMode = 'light') {
     const icon = document.querySelector('#btnSwitch img');
     if (icon) {
-        icon.src = new URL(themeMode === 'dark' ? 'assets/images/icon/sun.svg' : 'assets/images/icon/moon.svg', mglSiteRoot).href;
+        icon.src = new URL(themeMode === 'dark' ? 'assets/media/images/icon/sun.svg' : 'assets/media/images/icon/moon.svg', mglSiteRoot).href;
     }
 
     // Do not fabricate -dark asset paths. Only swap when a verified alternate is configured.

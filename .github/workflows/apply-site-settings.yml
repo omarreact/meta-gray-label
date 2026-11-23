@@ -85,7 +85,7 @@ jobs:
             buttonWeight: weight(request.buttonWeight, 'Button weight')
           };
 
-          const configPath = 'assets/site-settings.json';
+          const configPath = 'assets/js/site-settings.json';
           const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
           config.version = 2;
           config.typography = normalized;
@@ -96,14 +96,14 @@ jobs:
       - name: Commit setting to main
         id: commit
         run: |
-          if git diff --quiet -- assets/site-settings.json; then
+          if git diff --quiet -- assets/js/site-settings.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/site-settings.json
+          git add assets/js/site-settings.json
           git commit -m "Apply global typography site setting"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
