@@ -27,8 +27,7 @@ markup. Complex source widgets remain Custom HTML, editable as markup. Backend
 forms, accounts, payment processing and other server integrations are not
 created by static website conversion.
 
-Home 02's template CSS, JavaScript, images and font files are bundled under
-`assets/vendor/forexy/` and copied into the generated theme. Their original
+Home 02's template CSS, JavaScript, images and font files are bundled as `assets/css/home-2.css`, `assets/js/home-2.js`, `assets/fonts/forexy-*` and `assets/media/forexy-*` and copied into the generated theme. Their original
 licenses still apply. Optional Google Fonts requests remain online dependencies.
 
 ## Runtime GitHub import
