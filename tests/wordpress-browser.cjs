@@ -33,7 +33,7 @@ const assert=require('node:assert/strict');
               assert.equal(await menu.getAttribute('aria-expanded'),'false','Mobile menu did not close');
             }
           } else if(width===390){
-            const menu=page.locator('.main-header .mobile-nav-toggler');
+            const menu=page.locator('.main-header .header-lower .mobile-nav-toggler');
             await menu.click();
             await page.waitForFunction(()=>document.body.classList.contains('mobile-menu-visible'));
             await page.locator('.mobile-menu .close-btn').click();
