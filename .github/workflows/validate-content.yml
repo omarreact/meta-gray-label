@@ -22,14 +22,14 @@ jobs:
         run: |
           node <<'NODE'
           const fs=require('node:fs'),path=require('node:path').posix,assert=require('node:assert/strict');
-          const pages=fs.readdirSync('assets/inner-pages').filter(p=>p.endsWith('.html'));
-          assert.equal(pages.length,51,'Expected 51 independent inner pages');
+          const pages=fs.readdirSync('.', {withFileTypes:true}).filter(e=>e.isDirectory()&&fs.existsSync(e.name+'/index.html')).map(e=>e.name+'/index.html');
+          assert.equal(pages.length,51,'Expected 51 post-name permalink pages');
           for(const file of ['index.html','404.html','assets/js/includes.js','assets/js/custom.js',
             'assets/js/site-settings.json','assets/css/style.css','assets/media/branding/favicon.svg']){
             assert(fs.existsSync(file),'Missing '+file);
           }
           let checked=0;
-          for(const file of ['index.html',...pages.map(p=>'assets/inner-pages/'+p)]){
+          for(const file of ['index.html',...pages]){
             const s=fs.readFileSync(file,'utf8');
             assert(/<main\b/i.test(s),'Missing main: '+file);
             assert(/<title>/i.test(s),'Missing title: '+file);
@@ -39,10 +39,19 @@ jobs:
               const local=value.split(/[?#]/)[0];
               if(!local)continue;
               const resolved=path.normalize(path.join(path.dirname(file),local));
-              assert(fs.existsSync(resolved),'Broken '+file+': '+value+' -> '+resolved);
+              const target=local.endsWith('/')?path.join(resolved,'index.html'):resolved;
+              assert(fs.existsSync(target)&&fs.statSync(target).isFile(),
+                'Broken '+file+': '+value+' -> '+target);
               checked++;
             }
             assert(!s.includes('assets/images/'),'Old media ref: '+file);
+            assert(!s.includes('assets/inner-pages/'),'Legacy route remains: '+file);
+            if(file!=='index.html'){
+              const slug=file.split('/')[0];
+              const canonical='https://mg-label.webflow.io/'+slug+'/';
+              assert(s.includes('rel="canonical" href="'+canonical+'"'),
+                'Wrong post-name canonical: '+file);
+            }
           }
           console.log('PASS:',pages.length,'pages;',checked,'local links and assets.');
           NODE
@@ -67,9 +76,7 @@ jobs:
           const {chromium}=require('playwright');
           (async()=>{
             const browser=await chromium.launch({headless:true});
-            const routes=['index.html','assets/inner-pages/services.html',
-              'assets/inner-pages/solutions.html','assets/inner-pages/insights.html',
-              'assets/inner-pages/contact.html','assets/inner-pages/forex-grey-label--mt5-grey-label.html'];
+            const routes=['index.html','services/','solutions/','insights/','contact/','mt5-grey-label/'];
             try{
               for(const route of routes)for(const width of [360,768,1440])for(const theme of ['light','dark']){
                 const page=await browser.newPage({viewport:{width,height:900}});
@@ -134,7 +141,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: flat-static-visual-qa
+          name: post-name-permalink-visual-qa
           path: tmp/static-visuals/
           if-no-files-found: ignore
           retention-days: 7
