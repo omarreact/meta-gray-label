@@ -25,13 +25,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../../media/branding/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../../media/branding/apple-touch-icon.png">
 <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="../../assets/css/aos.css">
-<link rel="stylesheet" href="../../assets/css/swiper-bundle.min.css">
+
 <link rel="stylesheet" href="../../assets/css/style.css">
 <link rel="stylesheet" href="../../assets/css/site-settings.css">
+<link rel="stylesheet" href="../../assets/css/inner-pages.css">
+
 </head>
 <body>
-<div class="preloader"><img src="../../media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>
+
 <a class="mgl-skip-link" href="#main-content">Skip to main content</a>
 <header class="mgl-site-header" data-site-header>
   <div class="mgl-header-shell">
@@ -303,19 +304,262 @@
 </style>
 
 <main class="mgl-inner-page mgl-family-article mgl-category-insights" id="main-content">
-<section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('../../assets/images/blog/3.png')"><div class="container mgl-hero-grid"><div>
-<nav class="mgl-crumb" aria-label="Breadcrumb"><ol><li><a href="../../">Home</a></li><li><a href="../../insights/">Insights</a></li><li aria-current="page">Step-by-Step Guide to Setting Up a MetaTrader Grey Label Brokerage in Under a Week</li></ol></nav>
-<h1>Step-by-Step Guide to Setting Up a MetaTrader Grey Label Brokerage in Under a Week</h1>
-<p class="mgl-hero-summary">A week sounds ambitious, and in some cases it is. But brokers who show up prepared regularly go from signed agreement to live trading in five or six days. The ones who take a month usually…</p>
-</div></div></section>
-<section class="mgl-article-wrap"><div class="container"><div class="mgl-reading-layout"><article class="mgl-copy">
-<div class="mgl-intro"><p>A week sounds ambitious, and in some cases it is. But brokers who show up prepared regularly go from signed agreement to live trading in five or six days. The ones who take a month usually aren’t held up by the technology. They’re held up by missing documents, undecided trading conditions, or a liquidity provider that hasn’t finished onboarding them.</p><p>So this guide covers two things: what happens during a MetaTrader grey label setup, and what you need sorted beforehand so the week actually stays a week.</p></div>
-<section class="mgl-copy-block mgl-copy-block--0" id="section-1-before-day-one-what-has-to-be-ready" aria-labelledby="section-1-before-day-one-what-has-to-be-ready-title"><div class="mgl-copy-heading"><span>01</span><h2 id="section-1-before-day-one-what-has-to-be-ready-title">Before Day One: What Has to Be Ready</h2></div><div class="mgl-copy-text"><p>This is the part people skip, and it’s the reason most timelines slip. A fast forex broker setup depends far more on your preparation than on your provider’s speed.</p><p>Before you sign anything, try to have these in place:</p><p>A registered company, plus a license or a clear regulatory route</p><p>A corporate bank account and at least one payment processor that will work with forex</p><p>A domain and a basic website, even a simple one</p><p>A rough idea of your target markets and client types</p><p>A liquidity provider you’ve spoken to, or are happy to take from your provider’s network</p><p>If you’re still waiting on any of these, the server can be ready long before your business is. That’s fine, but don’t count the week until these are close to done.</p></div></section><section class="mgl-copy-block mgl-copy-block--1" id="section-2-step-1-agree-on-your-server-specs-and-sign-off-day-1" aria-labelledby="section-2-step-1-agree-on-your-server-specs-and-sign-off-day-1-title"><div class="mgl-copy-heading"><span>02</span><h2 id="section-2-step-1-agree-on-your-server-specs-and-sign-off-day-1-title">Step 1: Agree on Your Server Specs and Sign Off (Day 1)</h2></div><div class="mgl-copy-text"><p>Once you’ve chosen a provider, the first conversation is about the server itself. Which platform, MT5 or MT4 where it’s still available? Where should the server be hosted? Most brokers pick a data centre close to their liquidity, often London, New York or Singapore, to keep latency down.</p><p>You’ll also confirm what’s included: admin and manager terminals, backup servers, web and mobile terminals, and any plugins bundled in the package. Get this in writing. “I thought that was included” is a surprisingly common reason for delays on day four.</p></div></section><section class="mgl-copy-block mgl-copy-block--2" id="section-3-step-2-branding-and-server-deployment-days-1-to-2" aria-labelledby="section-3-step-2-branding-and-server-deployment-days-1-to-2-title"><div class="mgl-copy-heading"><span>03</span><h2 id="section-3-step-2-branding-and-server-deployment-days-1-to-2-title">Step 2: Branding and Server Deployment (Days 1 to 2)</h2></div><div class="mgl-copy-text"><p>While the provider spins up your dedicated server, they’ll need your branding files. That usually means your company name as it should appear in the terminal, your logo in the formats they request, and the server name your clients will search for when they log in.</p><p>Choose the server name carefully. Clients will type it into a terminal, so keep it short and obvious. Something like YourBrand-Live and YourBrand-Demo works better than anything clever.</p><p>Deployment itself is often done within 24 to 48 hours. The work is mostly on the provider’s side, so this is a good time to get going on Step 3.</p></div></section><section class="mgl-copy-block mgl-copy-block--3" id="section-4-step-3-build-your-trading-conditions-days-2-to-3" aria-labelledby="section-4-step-3-build-your-trading-conditions-days-2-to-3-title"><div class="mgl-copy-heading"><span>04</span><h2 id="section-4-step-3-build-your-trading-conditions-days-2-to-3-title">Step 3: Build Your Trading Conditions (Days 2 to 3)</h2></div><div class="mgl-copy-text"><p>This is where your input matters most, and where indecision costs the most time.</p><h3>Symbols and Groups</h3><p>Decide which instruments you’re offering at launch. Starting smaller is usually smarter: major and minor FX pairs, gold, maybe a handful of indices. You can add crypto CFDs or shares later.</p><p>Then set up your account groups. Most brokers launch with two or three account types, perhaps a standard account, a raw spread account with commission, and a demo group. Each group needs its own leverage, margin call and stop-out levels, swap settings and commission rules.</p><h3>Execution Model</h3><p>Will you send everything to liquidity (A-book), keep some flow in-house (B-book), or run a hybrid? This shapes how your bridge and risk tools get configured, so decide it now, not after launch. If you’re unsure, a hybrid model with clear routing rules is a common starting point, though it does need someone watching it.</p></div></section><section class="mgl-copy-block mgl-copy-block--0" id="section-5-step-4-connect-liquidity-and-the-bridge-days-3-to-4" aria-labelledby="section-5-step-4-connect-liquidity-and-the-bridge-days-3-to-4-title"><div class="mgl-copy-heading"><span>05</span><h2 id="section-5-step-4-connect-liquidity-and-the-bridge-days-3-to-4-title">Step 4: Connect Liquidity and the Bridge (Days 3 to 4)</h2></div><div class="mgl-copy-text"><p>With a grey label, you’re not locked into one liquidity source, which is a big part of why brokers choose it. Your provider connects your server to the liquidity provider through a bridge, then maps your symbols to theirs.</p><p>Expect a bit of back and forth here. Symbol naming, contract sizes and price precision all need to match. A small mismatch, like a gold contract set to 100 ounces on one side and 1 ounce on the other, can cause real trouble once live money is involved. Test every symbol, not just EURUSD.</p></div></section><section class="mgl-copy-block mgl-copy-block--1" id="section-6-step-5-plug-in-your-crm-payments-and-client-area-days-4-to-5" aria-labelledby="section-6-step-5-plug-in-your-crm-payments-and-client-area-days-4-to-5-title"><div class="mgl-copy-heading"><span>06</span><h2 id="section-6-step-5-plug-in-your-crm-payments-and-client-area-days-4-to-5-title">Step 5: Plug In Your CRM, Payments and Client Area (Days 4 to 5)</h2></div><div class="mgl-copy-text"><p>Your traders won’t only see MetaTrader. They’ll see your client portal, where they register, upload KYC documents, deposit and withdraw. Most grey label providers either include a forex CRM or integrate one you already use.</p><p>On this step you’ll:</p><p>Connect the CRM to your MetaTrader server so accounts are created automatically</p><p>Add your payment gateways and test a few real deposits and withdrawals</p><p>Set up KYC rules that match what your regulator expects</p><p>Configure email notifications so they sound like your brand, not a template</p><p>Payments are often the slowest piece of the whole process, mostly because processors take their time approving forex merchants. If yours isn’t live yet, launch with bank wire and add cards later.</p></div></section><section class="mgl-copy-block mgl-copy-block--2" id="section-7-step-6-test-everything-then-test-it-again-days-5-to-6" aria-labelledby="section-7-step-6-test-everything-then-test-it-again-days-5-to-6-title"><div class="mgl-copy-heading"><span>07</span><h2 id="section-7-step-6-test-everything-then-test-it-again-days-5-to-6-title">Step 6: Test Everything, Then Test It Again (Days 5 to 6)</h2></div><div class="mgl-copy-text"><p>Open a few live accounts with small amounts. Place trades on different symbols. Check that swaps calculate correctly overnight. Trigger a margin call on purpose. Make a withdrawal and time how long it takes.</p><p>Have someone who wasn’t involved in the setup try to break it. They’ll find the awkward spots your team has stopped noticing.</p><h3>A Quick Pre-Launch Checklist</h3><p>Admin and manager terminals working for your team</p><p>Backup server tested</p><p>Reports exporting properly for your back office and regulator</p><p>Risk alerts going to the right people</p><p>Support team trained on how the platform works and how to answer common client questions</p></div></section><section class="mgl-copy-block mgl-copy-block--3" id="section-8-step-7-go-live-day-6-or-7" aria-labelledby="section-8-step-7-go-live-day-6-or-7-title"><div class="mgl-copy-heading"><span>08</span><h2 id="section-8-step-7-go-live-day-6-or-7-title">Step 7: Go Live (Day 6 or 7)</h2></div><div class="mgl-copy-text"><p>Launch quietly. Bring in a small group of clients first, maybe from an IB you trust or your own network, and watch how the system handles real activity for a few days before you put money into marketing.</p><p>That soft launch is your safety net. Anything you missed in testing will show up here, while volumes are still small enough to fix calmly.</p></div></section><section class="mgl-copy-block mgl-copy-block--0" id="section-9-what-usually-slows-things-down" aria-labelledby="section-9-what-usually-slows-things-down-title"><div class="mgl-copy-heading"><span>09</span><h2 id="section-9-what-usually-slows-things-down-title">What Usually Slows Things Down</h2></div><div class="mgl-copy-text"><p>To be honest, it’s rarely the server. A MetaTrader grey label setup on the technical side can be finished in a few days by an experienced provider. Delays tend to come from:</p><p>Trading conditions that keep changing after configuration has started</p><p>Liquidity providers with slow onboarding</p><p>Payment processors still reviewing your application</p><p>Missing branding files or late sign-offs</p><p>Sort those out early and a one-week launch is realistic.</p></div></section><section class="mgl-copy-block mgl-copy-block--1" id="section-10-conclusion" aria-labelledby="section-10-conclusion-title"><div class="mgl-copy-heading"><span>10</span><h2 id="section-10-conclusion-title">Conclusion</h2></div><div class="mgl-copy-text"><p>A fast forex broker setup comes down to preparation, quick decisions and a provider who has done this many times before. Get your business groundwork in order, know your trading conditions before day one, and leave enough time for proper testing.</p><p>If you’re planning your launch, MetaGreyLabel can take you through a timeline built around your markets, your liquidity and your launch date.</p></div></section>
+<div class="wp-block-group mgl-design mgl-design--article">
+<section class="wp-block-group mgl-inner-hero-v2">
+<div class="wp-block-group mgl-inner-container">
+<p class="mgl-inner-breadcrumb"><a href="../../">Home</a> <span aria-hidden="true">/</span> <span>Step-by-Step Guide to Setting Up a MetaTrader Grey Label Brokerage in Under a Week</span></p>
+<div class="wp-block-group mgl-inner-hero-layout">
+<div class="wp-block-group mgl-inner-hero-copy">
+<p class="mgl-inner-eyebrow">Brokerage insights</p>
+<h1 class="wp-block-heading">Step-by-Step Guide to Setting Up a MetaTrader Grey Label Brokerage in Under a Week</h1>
+<p class="mgl-inner-summary">Practical perspectives on brokerage technology and operations.</p>
+<p class="mgl-inner-caption">6 min read · Meta Grey Label</p>
+</div>
+</div>
+</div>
+</section>
+<div class="wp-block-group mgl-inner-editorial-layout">
+<article class="wp-block-group mgl-inner-editorial-copy">
+<section class="wp-block-group mgl-inner-section mgl-inner-intro">
+<div class="wp-block-group mgl-inner-container">
+<p class="mgl-inner-eyebrow">The context</p>
+<p>A week sounds ambitious, and in some cases it is. But brokers who show up prepared regularly go from signed agreement to live trading in five or six days. The ones who take a month usually aren’t held up by the technology. They’re held up by missing documents, undecided trading conditions, or a liquidity provider that hasn’t finished onboarding them.</p>
+<p>So this guide covers two things: what happens during a MetaTrader grey label setup, and what you need sorted beforehand so the week actually stays a week.</p>
+</div>
+</section>
+<section id="inner-section-1" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">01 / Explore the detail</p>
+<h2 class="wp-block-heading">Before Day One: What Has to Be Ready</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>This is the part people skip, and it’s the reason most timelines slip. A fast forex broker setup depends far more on your preparation than on your provider’s speed.</p>
+<p>Before you sign anything, try to have these in place:</p>
+<p>A registered company, plus a license or a clear regulatory route</p>
+<p>A corporate bank account and at least one payment processor that will work with forex</p>
+<p>A domain and a basic website, even a simple one</p>
+<p>A rough idea of your target markets and client types</p>
+<p>A liquidity provider you’ve spoken to, or are happy to take from your provider’s network</p>
+<p>If you’re still waiting on any of these, the server can be ready long before your business is. That’s fine, but don’t count the week until these are close to done.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-2" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">02 / Explore the detail</p>
+<h2 class="wp-block-heading">Step 1: Agree on Your Server Specs and Sign Off (Day 1)</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>Once you’ve chosen a provider, the first conversation is about the server itself. Which platform, MT5 or MT4 where it’s still available? Where should the server be hosted? Most brokers pick a data centre close to their liquidity, often London, New York or Singapore, to keep latency down.</p>
+<p>You’ll also confirm what’s included: admin and manager terminals, backup servers, web and mobile terminals, and any plugins bundled in the package. Get this in writing. “I thought that was included” is a surprisingly common reason for delays on day four.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-3" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">03 / Explore the detail</p>
+<h2 class="wp-block-heading">Step 2: Branding and Server Deployment (Days 1 to 2)</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>While the provider spins up your dedicated server, they’ll need your branding files. That usually means your company name as it should appear in the terminal, your logo in the formats they request, and the server name your clients will search for when they log in.</p>
+<p>Choose the server name carefully. Clients will type it into a terminal, so keep it short and obvious. Something like YourBrand-Live and YourBrand-Demo works better than anything clever.</p>
+<p>Deployment itself is often done within 24 to 48 hours. The work is mostly on the provider’s side, so this is a good time to get going on Step 3.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-4" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">04 / Explore the detail</p>
+<h2 class="wp-block-heading">Step 3: Build Your Trading Conditions (Days 2 to 3)</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>This is where your input matters most, and where indecision costs the most time.</p>
+</div>
+<div class="wp-block-group mgl-inner-items">
+<div class="wp-block-group mgl-inner-card">
+<p class="mgl-inner-eyebrow">01</p>
+<h3 class="wp-block-heading">Symbols and Groups</h3>
+<p>Decide which instruments you’re offering at launch. Starting smaller is usually smarter: major and minor FX pairs, gold, maybe a handful of indices. You can add crypto CFDs or shares later.</p>
+<p>Then set up your account groups. Most brokers launch with two or three account types, perhaps a standard account, a raw spread account with commission, and a demo group. Each group needs its own leverage, margin call and stop-out levels, swap settings and commission rules.</p>
+</div>
+<div class="wp-block-group mgl-inner-card">
+<p class="mgl-inner-eyebrow">02</p>
+<h3 class="wp-block-heading">Execution Model</h3>
+<p>Will you send everything to liquidity (A-book), keep some flow in-house (B-book), or run a hybrid? This shapes how your bridge and risk tools get configured, so decide it now, not after launch. If you’re unsure, a hybrid model with clear routing rules is a common starting point, though it does need someone watching it.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-5" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">05 / Explore the detail</p>
+<h2 class="wp-block-heading">Step 4: Connect Liquidity and the Bridge (Days 3 to 4)</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>With a grey label, you’re not locked into one liquidity source, which is a big part of why brokers choose it. Your provider connects your server to the liquidity provider through a bridge, then maps your symbols to theirs.</p>
+<p>Expect a bit of back and forth here. Symbol naming, contract sizes and price precision all need to match. A small mismatch, like a gold contract set to 100 ounces on one side and 1 ounce on the other, can cause real trouble once live money is involved. Test every symbol, not just EURUSD.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-6" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">06 / Explore the detail</p>
+<h2 class="wp-block-heading">Step 5: Plug In Your CRM, Payments and Client Area (Days 4 to 5)</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>Your traders won’t only see MetaTrader. They’ll see your client portal, where they register, upload KYC documents, deposit and withdraw. Most grey label providers either include a forex CRM or integrate one you already use.</p>
+<p>On this step you’ll:</p>
+<p>Connect the CRM to your MetaTrader server so accounts are created automatically</p>
+<p>Add your payment gateways and test a few real deposits and withdrawals</p>
+<p>Set up KYC rules that match what your regulator expects</p>
+<p>Configure email notifications so they sound like your brand, not a template</p>
+<p>Payments are often the slowest piece of the whole process, mostly because processors take their time approving forex merchants. If yours isn’t live yet, launch with bank wire and add cards later.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-7" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">07 / Explore the detail</p>
+<h2 class="wp-block-heading">Step 6: Test Everything, Then Test It Again (Days 5 to 6)</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>Open a few live accounts with small amounts. Place trades on different symbols. Check that swaps calculate correctly overnight. Trigger a margin call on purpose. Make a withdrawal and time how long it takes.</p>
+<p>Have someone who wasn’t involved in the setup try to break it. They’ll find the awkward spots your team has stopped noticing.</p>
+</div>
+<div class="wp-block-group mgl-inner-items">
+<div class="wp-block-group mgl-inner-card">
+<p class="mgl-inner-eyebrow">01</p>
+<h3 class="wp-block-heading">A Quick Pre-Launch Checklist</h3>
+<p>Admin and manager terminals working for your team</p>
+<p>Backup server tested</p>
+<p>Reports exporting properly for your back office and regulator</p>
+<p>Risk alerts going to the right people</p>
+<p>Support team trained on how the platform works and how to answer common client questions</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-8" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">08 / Explore the detail</p>
+<h2 class="wp-block-heading">Step 7: Go Live (Day 6 or 7)</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>Launch quietly. Bring in a small group of clients first, maybe from an IB you trust or your own network, and watch how the system handles real activity for a few days before you put money into marketing.</p>
+<p>That soft launch is your safety net. Anything you missed in testing will show up here, while volumes are still small enough to fix calmly.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-9" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">09 / Explore the detail</p>
+<h2 class="wp-block-heading">What Usually Slows Things Down</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>To be honest, it’s rarely the server. A MetaTrader grey label setup on the technical side can be finished in a few days by an experienced provider. Delays tend to come from:</p>
+<p>Trading conditions that keep changing after configuration has started</p>
+<p>Liquidity providers with slow onboarding</p>
+<p>Payment processors still reviewing your application</p>
+<p>Missing branding files or late sign-offs</p>
+<p>Sort those out early and a one-week launch is realistic.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-section-10" class="wp-block-group mgl-inner-section mgl-inner-pattern--editorial">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-section-heading">
+<p class="mgl-inner-eyebrow">10 / Explore the detail</p>
+<h2 class="wp-block-heading">Conclusion</h2>
+</div>
+<div class="wp-block-group mgl-inner-section-body">
+<div class="wp-block-group mgl-inner-lead">
+<p>A fast forex broker setup comes down to preparation, quick decisions and a provider who has done this many times before. Get your business groundwork in order, know your trading conditions before day one, and leave enough time for proper testing.</p>
+<p>If you’re planning your launch, MetaGreyLabel can take you through a timeline built around your markets, your liquidity and your launch date.</p>
+</div>
+</div>
+</div>
+</section>
 </article>
-<aside class="mgl-toc"><div class="mgl-toc-inner"><span>ON THIS PAGE</span><ol><li><a href="#section-1-before-day-one-what-has-to-be-ready">Before Day One: What Has to Be Ready</a></li><li><a href="#section-2-step-1-agree-on-your-server-specs-and-sign-off-day-1">Step 1: Agree on Your Server Specs and Sign Off (Day 1)</a></li><li><a href="#section-3-step-2-branding-and-server-deployment-days-1-to-2">Step 2: Branding and Server Deployment (Days 1 to 2)</a></li><li><a href="#section-4-step-3-build-your-trading-conditions-days-2-to-3">Step 3: Build Your Trading Conditions (Days 2 to 3)</a></li><li><a href="#section-5-step-4-connect-liquidity-and-the-bridge-days-3-to-4">Step 4: Connect Liquidity and the Bridge (Days 3 to 4)</a></li><li><a href="#section-6-step-5-plug-in-your-crm-payments-and-client-area-days-4-to-5">Step 5: Plug In Your CRM, Payments and Client Area (Days 4 to 5)</a></li><li><a href="#section-7-step-6-test-everything-then-test-it-again-days-5-to-6">Step 6: Test Everything, Then Test It Again (Days 5 to 6)</a></li><li><a href="#section-8-step-7-go-live-day-6-or-7">Step 7: Go Live (Day 6 or 7)</a></li><li><a href="#section-9-what-usually-slows-things-down">What Usually Slows Things Down</a></li><li><a href="#section-10-conclusion">Conclusion</a></li></ol><a class="mgl-toc-back" href="../../insights/">All insights <span>→</span></a></div></aside>
-</div></div></section>
-<section class="mgl-related" aria-labelledby="related-title"><div class="container"><div class="mgl-section-label">KEEP EXPLORING</div><h2 id="related-title">Related insights</h2><div class="mgl-related-grid"><a class="mgl-related-card" href="../../insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/"><span>Brokerage insights</span><h3>MetaTrader Grey Label vs White Label: Which Is Best for Your Forex Brokerage?</h3><b>Explore <span aria-hidden="true">→</span></b></a><a class="mgl-related-card" href="../../insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/"><span>Brokerage insights</span><h3>Essential Tools and Plugins for a MetaTrader Grey Label Brokerage</h3><b>Explore <span aria-hidden="true">→</span></b></a><a class="mgl-related-card" href="../../insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/"><span>Brokerage insights</span><h3>MetaTrader Grey Label Licensing: What It Includes and Why It Matters</h3><b>Explore <span aria-hidden="true">→</span></b></a></div></div></section>
-<section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Plan the operating model before the implementation.</h2><p>Review the platform, execution and client-operations layers together, then choose the structure that fits your brokerage.</p></div><div class="mgl-bottom-actions"><a class="mgl-btn mgl-btn-primary" href="../../contact/">Get Started</a><a class="mgl-bottom-link" href="../../solutions/">All solutions <span aria-hidden="true">→</span></a></div></div></div></section>
+<aside class="wp-block-group mgl-inner-toc">
+<p class="mgl-inner-eyebrow">In this guide</p>
+<p><a href="#inner-section-1">Before Day One: What Has to Be Ready</a></p>
+<p><a href="#inner-section-2">Step 1: Agree on Your Server Specs and Sign Off (Day 1)</a></p>
+<p><a href="#inner-section-3">Step 2: Branding and Server Deployment (Days 1 to 2)</a></p>
+<p><a href="#inner-section-4">Step 3: Build Your Trading Conditions (Days 2 to 3)</a></p>
+<p><a href="#inner-section-5">Step 4: Connect Liquidity and the Bridge (Days 3 to 4)</a></p>
+<p><a href="#inner-section-6">Step 5: Plug In Your CRM, Payments and Client Area (Days 4 to 5)</a></p>
+<p><a href="#inner-section-7">Step 6: Test Everything, Then Test It Again (Days 5 to 6)</a></p>
+<p><a href="#inner-section-8">Step 7: Go Live (Day 6 or 7)</a></p>
+<p><a href="#inner-section-9">What Usually Slows Things Down</a></p>
+<p><a href="#inner-section-10">Conclusion</a></p>
+</aside>
+</div>
+<section class="wp-block-group mgl-inner-section mgl-inner-related">
+<div class="wp-block-group mgl-inner-container">
+<p class="mgl-inner-eyebrow">Keep exploring</p>
+<h2 class="wp-block-heading">More brokerage perspectives</h2>
+<div class="wp-block-group mgl-inner-link-grid">
+<div class="wp-block-group mgl-inner-link-card">
+<p class="mgl-inner-eyebrow">Insight</p>
+<h3 class="wp-block-heading">MetaTrader Grey Label vs White Label: Which Is Best for Your Forex Brokerage?</h3>
+<p><a href="../../insights/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/">Explore MetaTrader Grey Label vs White Label: Which Is Best for Your Forex Brokerage? ↗</a></p>
+</div>
+<div class="wp-block-group mgl-inner-link-card">
+<p class="mgl-inner-eyebrow">Insight</p>
+<h3 class="wp-block-heading">Essential Tools and Plugins for a MetaTrader Grey Label Brokerage</h3>
+<p><a href="../../insights/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/">Explore Essential Tools and Plugins for a MetaTrader Grey Label Brokerage ↗</a></p>
+</div>
+<div class="wp-block-group mgl-inner-link-card">
+<p class="mgl-inner-eyebrow">Insight</p>
+<h3 class="wp-block-heading">MetaTrader Grey Label Licensing: What It Includes and Why It Matters</h3>
+<p><a href="../../insights/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/">Explore MetaTrader Grey Label Licensing: What It Includes and Why It Matters ↗</a></p>
+</div>
+</div>
+</div>
+</section>
+<section class="wp-block-group mgl-inner-section mgl-inner-final">
+<div class="wp-block-group mgl-inner-container">
+<div class="wp-block-group mgl-inner-final-panel">
+<div class="wp-block-group mgl-inner-final-copy">
+<p class="mgl-inner-eyebrow">Your next move</p>
+<h2 class="wp-block-heading">Let’s define your next step.</h2>
+<p>Bring your platform, market and operational requirements. We’ll help turn them into a clear implementation scope.</p>
+</div>
+<div class="wp-block-group mgl-inner-actions">
+<p class="mgl-inner-action"><a href="../../contact/">Talk to our team ↗</a></p>
+<p class="mgl-inner-action mgl-inner-action--secondary"><a href="../../forex-white-label/vs-grey-label/">Compare models →</a></p>
+</div>
+</div>
+</div>
+</section>
+</div>
 </main>
 <footer class="footer ">
     <div class="container">
@@ -398,12 +642,10 @@
     </div>
 </footer>
 
-<a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i></a>
+<a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><span aria-hidden="true">↑</span></a>
 <script src="../../assets/js/bootstrap.bundle.min.js"></script>
-<script src="../../assets/js/all.min.js"></script>
-<script src="../../assets/js/swiper-bundle.min.js"></script>
-<script src="../../assets/js/aos.js"></script>
-<script src="../../assets/js/purecounter_vanilla.js"></script>
+
 <script src="../../assets/js/site-settings.js"></script>
 <script src="../../assets/js/custom.js"></script>
+
 </body></html>

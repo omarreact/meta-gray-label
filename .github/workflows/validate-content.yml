@@ -76,7 +76,7 @@ jobs:
           test -f dist/public/about-us/index.html
           test -f dist/public/forex-grey-label/mt5-grey-label/index.html
           test -f dist/public/404.html
-          grep -q 'https://omarreact.github.io/meta-gray-label/about-us/' dist/public/about-us/index.html
+          grep -q 'https://mg-label.webflow.io/about-us/' dist/public/about-us/index.html
           grep -q '/meta-gray-label/assets/css/style.css' dist/public/about-us/index.html
           ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
       - name: Validate Webflow root-host static build
@@ -105,9 +105,14 @@ jobs:
           ! grep -R -q '/meta-gray-label/assets/' about-us forex-grey-label
           ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' about-us forex-grey-label
       - name: Validate compact WordPress architecture
-        run: node tests/architecture.mjs
+        run: |
+          node tests/architecture.mjs
+          node scripts/audit-assets.mjs
       - name: Validate native Gutenberg projection
         run: |
+          node tests/directories.mjs
+          node tests/inner-system.mjs
+          node tests/inner-links.mjs
           node tests/fse-pages.mjs
           node scripts/generate-fse.mjs --check
       - name: Verify WordPress package
@@ -116,8 +121,10 @@ jobs:
         run: |
           php -l functions.php
           php -l inc/import-pages.php
+          php -l inc/admin-setup.php
           php -l patterns/brokerage-hero.php
           php -l patterns/brokerage-cta.php
+          php -l patterns/inner-service.php
           php -l tests/wordpress-assets-smoke.php
       - name: Smoke-test WordPress assets
         run: php tests/wordpress-assets-smoke.php
@@ -125,6 +132,7 @@ jobs:
         run: |
           node scripts/package-wordpress.mjs --write
           test -f dist/wordpress/meta-grey-label/functions.php
+          test -f dist/wordpress/meta-grey-label/inc/admin-setup.php
           test -f dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
           test -f dist/wordpress/meta-grey-label/parts/header.html
           test -f dist/wordpress/meta-grey-label/parts/footer.html
@@ -153,7 +161,7 @@ jobs:
     name: Responsive web QA (7 breakpoints)
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -176,11 +184,41 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+  inner-page-reference:
+    name: Inner page reference (8 widths, 2 themes)
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build static inner pages
+        run: PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/build-static.mjs
+      - name: Install Chromium QA
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install chromium
+      - name: Test both themes at all eight requested widths
+        run: |
+          node tests/inner-browser.mjs
+          node tests/inner-routes-browser.mjs
+          node tests/phase2-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inner-page-static-evidence
+          path: tmp/inner-static/
+          retention-days: 14
+
   wordpress-integration:
     name: Real WordPress staging (isolated Docker)
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -212,9 +250,14 @@ jobs:
           npx playwright install chromium
           node tests/wp-browser.mjs
           node tests/wp-editor.mjs
+          MGL_INNER_TARGET=wordpress node tests/inner-browser.mjs
+          MGL_INNER_TARGET=wordpress node tests/inner-routes-browser.mjs
+          MGL_INNER_TARGET=wordpress node tests/phase2-browser.mjs
+          node tests/wp-contact.mjs
       - name: Capture source HTML and WordPress visual parity
         run: |
           mkdir -p tmp/design-parity
+          PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/materialize-pages.mjs
           python3 -m http.server 4173 --bind 127.0.0.1 > tmp/design-parity/source-server.log 2>&1 &
           echo $! > tmp/design-parity/source-server.pid
           for attempt in {1..20}; do
@@ -225,6 +268,7 @@ jobs:
           done
           curl -fsS http://127.0.0.1:4173/ >/dev/null
           node tests/visual-parity.mjs
+          node tests/inner-parity.mjs
       - name: Capture WordPress staging evidence
         if: always()
         run: |
@@ -237,7 +281,7 @@ jobs:
             echo "- Run: $GITHUB_RUN_ID"
             echo "- WordPress staging: isolated wp-env Docker environment"
             echo "- Theme: meta-grey-label"
-            echo "- Expected native routes: 52"
+            echo "- Expected native routes: 53"
             echo "- Browser viewports: 1440x900 and 390x844"
             echo "- Evidence: screenshots, runtime inventory and wp-env logs"
           } > tmp/wordpress-qa/summary.md
@@ -254,7 +298,7 @@ jobs:
             echo "## WordPress staging factory"
             echo
             echo "- Commit: $GITHUB_SHA"
-            echo "- 52 native block routes packaged"
+            echo "- 53 native block routes packaged"
             echo "- Real WordPress + MariaDB booted in isolated Docker"
             echo "- HTTP, Gutenberg, Site Editor and responsive browser QA executed"
             echo "- Installable theme ZIP is available from the meta-grey-label-wordpress-theme artifact"
@@ -268,6 +312,7 @@ jobs:
           name: wordpress-staging-qa
           path: |
             tmp/wp-browser-screens/
+            tmp/inner-wordpress/
             tmp/design-parity/
             tmp/wordpress-qa/
           if-no-files-found: warn

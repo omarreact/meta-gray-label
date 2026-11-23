@@ -8,6 +8,7 @@ const dir = "tmp/design-parity";
 mkdirSync(dir, { recursive: true });
 
 const routes = [
+  { slug: "mt5-grey-label", source: "/forex-grey-label/mt5-grey-label/", wordpress: "/forex-grey-label/mt5-grey-label/" },
   { slug: "home", source: "/", wordpress: "/" },
   { slug: "services", source: "/services.html", wordpress: "/services/" },
   { slug: "solutions", source: "/solutions/", wordpress: "/solutions/" },
@@ -120,4 +121,4 @@ try {
 }
 
 writeFileSync(dir + "/metrics.json", JSON.stringify(report, null, 2) + "\n");
-console.log("VISUAL PARITY EVIDENCE PASS: 16 full-page screenshots + layout metrics.");
+console.log("VISUAL PARITY EVIDENCE PASS: 20 full-page screenshots + layout metrics.");

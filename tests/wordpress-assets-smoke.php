@@ -5,6 +5,7 @@ $hooks = array();
 $styles = array();
 $scripts = array();
 $site_icon = false;
+function add_filter( $name, $callback, $priority = 10, $args = 1 ) {}
 function add_action( $name, $callback, $priority = 10 ) { global $hooks; $hooks[$name][]=$callback; }
 function hook( $name ) { global $hooks; foreach ( $hooks[$name] ?? array() as $cb ) { $cb(); } }
 function get_theme_file_path( $p = '' ) { global $root; return $root . '/' . $p; }
@@ -19,12 +20,13 @@ function esc_url( $s ) { return $s; }
 require $root . '/functions.php';
 hook( 'after_setup_theme' );
 hook( 'wp_enqueue_scripts' );
-if ( array_keys( $styles ) !== array( 'mgl-fse-native', 'mgl-site-settings' ) ||
+if ( array_keys( $styles ) !== array( 'mgl-fse-native', 'mgl-site-settings', 'mgl-inner-system', 'mgl-directories', 'mgl-native-chrome' ) ||
      ! str_contains( $styles['mgl-fse-native'], 'assets/css/fse.css' ) ||
-     ! str_contains( $styles['mgl-site-settings'], 'assets/css/site-settings.css' ) ) {
+     ! str_contains( $styles['mgl-site-settings'], 'assets/css/site-settings.css' ) ||
+     ! str_contains( $styles['mgl-inner-system'], 'assets/css/inner-pages.css' ) ) {
     throw new RuntimeException( 'Native stylesheet configuration failed.' );
 }
-if ( array_keys( $scripts ) !== array( 'mgl-site-settings' ) ||
+if ( array_keys( $scripts ) !== array( 'mgl-native-chrome', 'mgl-site-settings' ) ||
      ! str_contains( $scripts['mgl-site-settings'], 'assets/js/site-settings.js' ) ) {
     throw new RuntimeException( 'Site settings script configuration failed.' );
 }

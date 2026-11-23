@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/build-webflow-branch.yml"
-      - "data/content.json"
+      - "data/**"
       - "header.html"
       - "footer.html"
       - "index.html"
@@ -15,7 +15,7 @@ on:
       - "contact/**"
       - "assets/**"
       - "media/**"
-      - "src/renderer.js"
+      - "src/**"
       - "scripts/static-site-lib.mjs"
       - "scripts/build-static.mjs"
       - "package.json"

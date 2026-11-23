@@ -1,0 +1,105 @@
+/* Directory compositions extend the shared inner-page tokens and native block tree. */
+html body .mgl-design .mgl-directory-hero-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:64px;align-items:center}
+html body .mgl-design .mgl-directory-hero-copy h1{max-width:19ch}
+html body .mgl-design .mgl-directory-map,html body .mgl-design .mgl-directory-decision{padding:28px;border:1px solid var(--mi-line);border-radius:14px;background:var(--mi-surface)}
+html body .mgl-design .mgl-directory-map>p:not(.mgl-inner-eyebrow){padding:15px 0;border-bottom:1px solid var(--mi-line);color:var(--mi-text);font-size:14px!important}
+html body .mgl-design .mgl-directory-map>p:last-child{border:0;padding-bottom:0}
+html body .mgl-design .mgl-directory-decision h3{font-size:30px!important;margin-bottom:18px}
+html body .mgl-design .mgl-directory-decision>p:last-child{margin-top:18px}
+html body .mgl-design .mgl-directory-introduction{padding-bottom:30px;border:0}
+html body .mgl-design .mgl-directory-introduction>.mgl-inner-container>p:not(.mgl-inner-eyebrow){max-width:66ch;margin-top:20px}
+html body .mgl-design .mgl-directory-filter{margin-top:34px}
+html body .mgl-design .mgl-directory-filter .mgl-inner-eyebrow{margin-bottom:12px}
+html body .mgl-design .mgl-directory-filter-links{display:flex;flex-wrap:wrap;gap:8px}
+html body .mgl-design .mgl-directory-filter-links a{display:flex;align-items:center;min-height:44px;padding:9px 15px;border:1px solid var(--mi-line);border-radius:24px;font-size:13px;font-weight:600;text-decoration:none;color:var(--mi-text);background:var(--mi-surface)}
+html body .mgl-design .mgl-directory-filter-links a[aria-pressed=true]{color:var(--mi-bg);background:var(--mi-accent);border-color:var(--mi-accent)}
+html body .mgl-design .mgl-directory-filter-links a:hover{border-color:var(--mi-accent)}
+html body .mgl-design .mgl-directory-catalog,html body .mgl-design .mgl-directory-pathways,html body .mgl-design .mgl-directory-library{padding-top:0}
+html body .mgl-design .mgl-directory-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+html body .mgl-design .mgl-directory-service{position:relative;padding:32px;border:1px solid var(--mi-line);border-radius:14px;background:var(--mi-surface);scroll-margin-top:110px}
+html body .mgl-design .mgl-directory-service h2{font-size:28px!important;margin-bottom:16px}
+html body .mgl-design .mgl-directory-service>p:not(.mgl-inner-eyebrow){max-width:48ch}
+html body .mgl-design .mgl-directory-primary{margin-top:22px}
+html body .mgl-design .mgl-directory-primary a{color:var(--mi-accent);font-weight:700;text-decoration:none}
+html body .mgl-design .mgl-directory-subservices{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:24px;padding-top:20px;border-top:1px solid var(--mi-line)}
+html body .mgl-design .mgl-directory-subservices a{font-size:13px;text-decoration:none;color:var(--mi-muted)}
+html body .mgl-design .mgl-directory-service--grey,html body .mgl-design .mgl-directory-service--white{background:linear-gradient(150deg,var(--mi-tint),var(--mi-surface) 65%)}
+html body .mgl-design .mgl-directory-service--turnkey{grid-column:1/-1;display:grid;grid-template-columns:1.2fr 1fr;gap:0 48px}
+html body .mgl-design .mgl-directory-service--turnkey>.mgl-directory-subservices{grid-column:2;grid-row:2/5;border-top:0;border-left:1px solid var(--mi-line);padding:0 0 0 32px;align-content:center;margin:0}
+html body .mgl-design .mgl-directory-service--company{border-radius:0;background:transparent;border-width:1px 0}
+html body .mgl-design .mgl-directory-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px;margin:30px 0}
+html body .mgl-design .mgl-directory-step{border-top:2px solid var(--mi-accent);padding-top:24px}
+html body .mgl-design .mgl-directory-step h3{margin-bottom:14px}
+html body .mgl-design .mgl-directory-guidance{background:var(--mi-surface)}
+html body .mgl-design .mgl-directory-guidance .mgl-inner-link-grid{margin-top:30px}
+html body .mgl-design .mgl-directory-path-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+html body .mgl-design .mgl-directory-stage{padding:30px;border-top:2px solid var(--mi-accent);background:var(--mi-surface);scroll-margin-top:110px}
+html body .mgl-design .mgl-directory-path{padding:24px 0;border-bottom:1px solid var(--mi-line)}
+html body .mgl-design .mgl-directory-path:last-child{border-bottom:0;padding-bottom:0}
+html body .mgl-design .mgl-directory-path h2{font-size:26px!important;margin-bottom:14px}
+html body .mgl-design .mgl-directory-path>p:last-child{margin-top:16px}
+html body .mgl-design .mgl-directory-path a{font-size:14px;font-weight:600;text-decoration:none;color:var(--mi-accent)}
+html body .mgl-design .mgl-directory-model-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:32px 0;border:1px solid var(--mi-line);border-radius:14px;overflow:hidden}
+html body .mgl-design .mgl-directory-model{padding:24px;background:var(--mi-surface);display:flex;flex-direction:column;gap:16px}
+html body .mgl-design .mgl-directory-model+.mgl-directory-model{border-left:1px solid var(--mi-line)}
+html body .mgl-design .mgl-directory-model>.mgl-inner-eyebrow{margin-bottom:0}
+html body .mgl-design .mgl-directory-model p{font-size:14px!important;line-height:1.7!important}
+html body .mgl-design .mgl-directory-model .mgl-directory-model-scope{color:var(--mi-text);font-weight:600!important}
+html body .mgl-design .mgl-directory-model>p:last-child{margin-top:auto}
+html body .mgl-design .mgl-directory-requirements{margin:30px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+html body .mgl-design .mgl-directory-requirement{border-left:2px solid var(--mi-accent);padding-left:24px}
+html body .mgl-design .mgl-directory-requirement h3{margin-bottom:14px}
+html body .mgl-design .mgl-directory-editor-note{border-left:1px solid var(--mi-line);padding-left:32px}
+html body .mgl-design .mgl-directory-editor-note>p:nth-child(2){font-size:24px!important;color:var(--mi-text);line-height:1.5!important;margin-bottom:24px}
+html body .mgl-design .mgl-directory-feature{background:var(--mi-surface)}
+html body .mgl-design .mgl-directory-feature-layout{display:grid;grid-template-columns:1fr 2fr;gap:48px}
+html body .mgl-design .mgl-directory-featured{border-left:3px solid var(--mi-accent);padding-left:36px}
+html body .mgl-design .mgl-directory-featured h2{margin-bottom:22px}
+html body .mgl-design .mgl-directory-featured>p{margin-top:16px}
+html body .mgl-design .mgl-directory-read a{color:var(--mi-accent);font-size:14px;font-weight:700;text-decoration:none}
+html body .mgl-design .mgl-directory-topic{display:grid;grid-template-columns:1fr 2fr;gap:48px;padding:38px 0;border-top:1px solid var(--mi-line);scroll-margin-top:110px}
+html body .mgl-design .mgl-directory-topic-heading h2{font-size:28px!important}
+html body .mgl-design .mgl-directory-article-list{display:grid;grid-template-columns:1fr 1fr;gap:0 30px}
+html body .mgl-design .mgl-directory-article{padding:0 0 28px;margin-bottom:28px;border-bottom:1px solid var(--mi-line);display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+html body .mgl-design .mgl-directory-article>.mgl-inner-eyebrow{display:none}
+html body .mgl-design .mgl-directory-article h3{font-size:22px!important;line-height:1.35!important}
+html body .mgl-design .mgl-directory-article .mgl-directory-read{margin-top:auto;padding-top:4px}
+html body .mgl-design [hidden]{display:none!important}
+html body .mgl-design .mgl-directory-status{font-size:12px!important;line-height:1.5!important;margin-top:14px}
+@media(max-width:1023px){
+ html body .mgl-design .mgl-directory-hero-layout{gap:32px;grid-template-columns:1.3fr 1fr}
+ html body .mgl-design .mgl-directory-model-grid{grid-template-columns:1fr 1fr}
+ html body .mgl-design .mgl-directory-model:nth-child(3){border-left:0}
+ html body .mgl-design .mgl-directory-model:nth-child(n+3){border-top:1px solid var(--mi-line)}
+ html body .mgl-design .mgl-directory-topic{grid-template-columns:1fr;gap:24px}
+}
+@media(max-width:767px){
+ html body .mgl-design .mgl-directory-hero-layout,html body .mgl-design .mgl-directory-service-grid,html body .mgl-design .mgl-directory-path-grid,html body .mgl-design .mgl-directory-steps,html body .mgl-design .mgl-directory-requirements,html body .mgl-design .mgl-directory-feature-layout{grid-template-columns:1fr;gap:26px}
+ html body .mgl-design .mgl-directory-map{padding:20px}
+ html body .mgl-design .mgl-directory-map>p:not(.mgl-inner-eyebrow){padding:10px 0}
+ html body .mgl-design .mgl-directory-hero-v2{padding-bottom:36px}
+ html body .mgl-design .mgl-directory-editor-note{padding-left:20px}
+ html body .mgl-design .mgl-directory-editor-note>p:nth-child(2){font-size:19px!important}
+ html body .mgl-design .mgl-directory-service{padding:24px}
+ html body .mgl-design .mgl-directory-service--turnkey{display:block}
+ html body .mgl-design .mgl-directory-service--turnkey>.mgl-directory-subservices{border:0;border-top:1px solid var(--mi-line);padding:20px 0 0;margin-top:24px}
+ html body .mgl-design .mgl-directory-stage{padding:24px}
+ html body .mgl-design .mgl-directory-model{padding:20px}
+ html body .mgl-design .mgl-directory-model h3{font-size:20px!important}
+ html body .mgl-design .mgl-directory-model-grid,html body .mgl-design .mgl-directory-article-list{grid-template-columns:1fr}
+ html body .mgl-design .mgl-directory-model+.mgl-directory-model{border-left:0;border-top:1px solid var(--mi-line)}
+ html body .mgl-design .mgl-directory-featured{padding-left:22px}
+ html body .mgl-design .mgl-directory-feature-label>p:last-child{display:none}
+ html body .mgl-design .mgl-directory-article{margin-bottom:24px;padding-bottom:24px}
+}
+@media(hover:hover){html body .mgl-design .mgl-directory-service{transition:border-color 220ms var(--mi-ease)}html body .mgl-design .mgl-directory-service:hover{border-color:var(--mi-accent)}}
+html body .mgl-design .mgl-directory-hero-jump{margin-top:24px}
+html body .mgl-design .mgl-directory-hero-jump a{display:inline-flex;align-items:center;min-height:44px;color:var(--mi-accent);font-size:14px;font-weight:700;text-decoration:none}
+html body .mgl-design .mgl-directory-service--turnkey>.mgl-inner-eyebrow,html body .mgl-design .mgl-directory-service--turnkey>h2,html body .mgl-design .mgl-directory-service--turnkey>p{grid-column:1}
+html body .mgl-design .mgl-directory-service--turnkey>.mgl-directory-subservices{grid-row:1/5}
+@media(max-width:767px){
+ html body .mgl-design .mgl-directory-hero-layout>:last-child{display:none}
+ html body .mgl-design .mgl-directory-filter-links{flex-wrap:nowrap;overflow-x:auto;gap:8px;padding:4px 3px 10px;scrollbar-width:thin;scrollbar-color:var(--mi-line) transparent}
+ html body .mgl-design .mgl-directory-filter-links>p{flex:0 0 auto}
+ html body .mgl-design .mgl-directory-filter-links a{white-space:nowrap}
+}

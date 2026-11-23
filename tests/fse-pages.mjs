@@ -1,13 +1,14 @@
+import { INNER_ROLLOUT, esc } from '../src/inner-system.js';
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { buildNativePages, buildNativeParts, nativePreview } from "../scripts/fse-pages.mjs";
 const data = JSON.parse(readFileSync(new URL("../data/content.json", import.meta.url), "utf8"));
 const { pages, excluded, special } = buildNativePages(data,
   readFileSync(new URL("../index.html",import.meta.url),"utf8"));
-assert.equal(pages.length, 52);
+assert.equal(pages.length, 53);
 assert.deepEqual(excluded, []);
-assert.deepEqual(special, ["404.html", "insights/index.html", "services.html", "solutions/index.html"]);
-assert.equal(new Set(pages.map(p => p.path)).size, 52);
+assert.deepEqual(special, ["404.html", "contact/index.html", "insights/index.html", "services.html", "solutions/index.html"]);
+assert.equal(new Set(pages.map(p => p.path)).size, 53);
 let blocks = 0;
 for (const page of pages) {
   const doc = data.content.documents[page.documentId];
@@ -29,7 +30,14 @@ for (const page of pages) {
     assert.ok(page.markup.includes("mgl-native-home-capabilities"));
     assert.ok(page.markup.includes("mgl-native-home-why"));
   } else if (doc) {
-    assert.equal(sourceTextCount, doc.blocks.length + 1, "content loss: " + page.path);
+    if (INNER_ROLLOUT.has(page.route)) {
+      for (const block of doc.blocks) {
+        if (block.type === "paragraph" || block.level === 2 || block.level === 3) {
+          assert.ok(page.markup.includes(esc(block.text)), "source copy lost: " + page.path + " / " + block.text);
+        }
+      }
+      assert.ok(!page.markup.includes("wp:html"), "inner sections must stay natively editable");
+    } else assert.equal(sourceTextCount, doc.blocks.length + 1, "content loss: " + page.path);
   } else {
     assert.ok(sourceTextCount >= 3, "incomplete directory/404 content: " + page.path);
   }

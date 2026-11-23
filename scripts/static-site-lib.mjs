@@ -1,3 +1,4 @@
+import { DIRECTORY_ROUTES, directoryEntry } from '../src/directories.js';
 import {
   cpSync,
   existsSync,
@@ -82,6 +83,9 @@ export function rewritePlatformReferences(html, publicBase) {
   for (const base of LEGACY_BASES) {
     output = output.split(base).join(target);
   }
+  // Hosting paths may differ; search identity always belongs to Webflow production.
+  output = output.replace(/<head\b[^>]*>[\s\S]*?<\/head>/i, (head) =>
+    head.split(target).join("https://mg-label.webflow.io"));
   return output;
 }
 
@@ -117,7 +121,8 @@ function specialSet() {
 function renderSpecial({ projectRoot, outRoot, publicBase, basePath, header, footer }) {
   for (const item of SPECIAL_ROUTES) {
     const source = readFileSync(safeTarget(projectRoot, item.source), "utf8");
-    let html = injectSharedParts(source, header, footer);
+    const data = JSON.parse(readFileSync(safeTarget(projectRoot, "data/content.json"), "utf8"));
+    let html = DIRECTORY_ROUTES.has(item.route) ? renderStructuredPage({route:item.route, entry:directoryEntry(item.route), routeIndex:buildRouteIndex(data), header, footer, canonicalBase:normalizePublicBase(publicBase)}) : injectSharedParts(source, header, footer);
     const canonical = normalizePublicBase(publicBase) + (item.route === "/" ? "/" : item.route);
     html = rewriteRuntimeSeo(html, canonical);
     html = rewritePlatformReferences(html, publicBase);
@@ -212,8 +217,8 @@ export function buildStaticSite({
   notFound = rewritePlatformReferences(notFound, publicBase);
   notFound = applyBasePathToHtml(notFound, basePath);
   writeText(out, "404.html", notFound);
-  writeText(out, "sitemap.xml", renderDynamicSitemap(data, normalizePublicBase(publicBase)));
-  writeText(out, "robots.txt", `User-agent: *\nAllow: /\nSitemap: ${normalizePublicBase(publicBase)}/sitemap.xml\n`);
+  writeText(out, "sitemap.xml", renderDynamicSitemap(data, "https://mg-label.webflow.io"));
+  writeText(out, "robots.txt", `User-agent: *\nAllow: /\nSitemap: https://mg-label.webflow.io/sitemap.xml\n`);
   writeText(out, ".nojekyll", "");
 
   return {
@@ -237,6 +242,11 @@ export function materializeGitHubPages({
     cleanStale: true
   });
 
+  for(const route of DIRECTORY_ROUTES){
+    const relative=route==='/services.html'?'services.html':route.slice(1)+'index.html';
+    const html=renderStructuredPage({route,entry:directoryEntry(route),routeIndex:buildRouteIndex(result.data),header:result.header,footer:result.footer,canonicalBase:normalizePublicBase(publicBase)});
+    writeText(root,relative,applyRelativeRootToHtml(rewritePlatformReferences(html,publicBase),relative));
+  }
   let notFound = renderSimple404({
     header: result.header,
     footer: result.footer,
@@ -251,7 +261,7 @@ export function materializeGitHubPages({
     .replace(/src=(["'])\/media\//gi, 'src=$1./media/');
   writeText(root, "404.html", notFound);
   writeText(root, "sitemap.xml", renderDynamicSitemap(result.data, normalizePublicBase(publicBase)));
-  writeText(root, "robots.txt", `User-agent: *\nAllow: /\nSitemap: ${normalizePublicBase(publicBase)}/sitemap.xml\n`);
+  writeText(root, "robots.txt", `User-agent: *\nAllow: /\nSitemap: https://mg-label.webflow.io/sitemap.xml\n`);
 
   const manifest = {
     generatedAt: new Date().toISOString(),

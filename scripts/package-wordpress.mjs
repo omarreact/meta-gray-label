@@ -25,20 +25,37 @@ const sourcePaths = [
   "functions.php",
   "theme.json",
   "assets/css/fse.css",
+  "assets/css/inner-pages.css",
+  "assets/css/directories.css",
+  "assets/css/native-chrome.css",
+  "assets/js/directories.js",
+  "assets/js/native-chrome.js",
+  "assets/css/site-settings.css",
+  "assets/js/site-settings.js",
+  "assets/js/contact-brief.js",
+  "assets/site-settings.json",
   "media/branding",
+  "assets/images/about/1.png",
+  "assets/images/banner/home1/bg.png",
+  "assets/images/service",
+  "assets/images/icon/moon.svg",
+  "assets/images/icon/sun.svg",
   "data/content.json",
+  "data/inner-pages.json",
+  "data/directories.json",
   "templates",
   "parts",
   "patterns",
   "styles",
-  "inc/import-pages.php"
+  "inc/import-pages.php",
+  "inc/admin-setup.php"
 ];
 for (const p of sourcePaths) if (!existsSync(safe(p))) throw new Error("Missing theme path: " + p);
 
 const config = JSON.parse(readFileSync(safe("data/content.json"), "utf8"));
 const native = buildNativePages(config, readFileSync(safe("index.html"), "utf8"));
 const nativeParts = buildNativeParts(config);
-if (native.pages.length !== 52 || native.excluded.length !== 0) throw new Error("Unexpected native page coverage");
+if (native.pages.length !== 53 || native.excluded.length !== 0) throw new Error("Unexpected native page coverage");
 
 for (const name of ["index","front-page","page","404","single","archive","search"]) {
   const contents = readFileSync(safe("templates/" + name + ".html"), "utf8");
@@ -48,7 +65,7 @@ const theme = JSON.parse(readFileSync(safe("theme.json"), "utf8"));
 if (theme.version !== 3 || theme.templateParts?.length !== 2) throw new Error("Invalid compact theme.json");
 
 if (flags.has("--check")) {
-  console.log("WORDPRESS PACKAGE CHECK PASS: 52 native block pages; no legacy HTML renderer or framework bundle.");
+  console.log("WORDPRESS PACKAGE CHECK PASS: 53 native block pages; no legacy HTML renderer or framework bundle.");
   process.exit(0);
 }
 
@@ -74,4 +91,12 @@ for (const page of native.pages) {
 }
 writeFileSync(join(output, "manifest.json"),
   JSON.stringify({ pages: manifest, excluded: native.excluded, special: native.special }, null, 2) + "\n");
+// Verify every native stylesheet dependency also exists in the installable theme.
+for(const name of ['fse.css','native-chrome.css','directories.css','inner-pages.css','site-settings.css']){
+ const path=join(wpDir,'assets/css',name);
+ for(const [,url] of readFileSync(path,'utf8').matchAll(/url\(["']?([^"')]+)["']?\)/g)){
+  if(/^(data:|https?:|#)/.test(url))continue;
+  if(!existsSync(resolve(dirname(path),url)))throw new Error('Missing packaged CSS dependency: '+url);
+ }
+}
 console.log("WORDPRESS PACKAGE BUILT: " + wpDir + " (" + native.pages.length + " native pages)");

@@ -1,132 +1,57 @@
 # Meta Grey Label
 
-Meta Grey Label is a **data-driven dynamic HTML application** with a compact
-native WordPress block-theme conversion path.
+GitHub main is the source of truth. Review production at https://mg-label.webflow.io/ and its mirror at https://omarreact.github.io/meta-gray-label/. Do not deploy to Vercel or change DNS as part of the inner-page redesign.
 
-## Runtime architecture
+## Content and build flow
 
-```text
-Request URL
-   ↓
-worker.js
-   ↓
-src/renderer.js
-   ↓
-data/content.json
-   ↓
-shared header/footer + reusable layout sections
-   ↓
-server-rendered HTML
-```
+- `data/content.json`: canonical structured documents and route map.
+- `data/inner-pages.json`: inner-page rollout, family summaries and product hero copy.
+- `src/inner-system.js`: one semantic composition serialized as static HTML or native Gutenberg blocks. Eight page families: service, hub, pricing, comparison, process, technical, article and company.
+- `src/renderer.js`: metadata, shared chrome and structured page rendering.
+- `scripts/static-site-lib.mjs`: root-host Webflow output, GitHub Pages base paths, host-neutral materialized routes and production canonical identity.
+- `scripts/fse-pages.mjs`: native Gutenberg/FSE projection; independent approved homepage and directory compositions are retained.
+- `assets/css/inner-pages.css`: the shared static/native inner-page stylesheet. It is scoped and does not restyle the homepage.
 
-## Live review URLs
+The bespoke sources are `index.html`, `services.html`, `solutions/index.html`, `insights/index.html` and `contact/index.html`. Header/footer sources remain shared. Structured per-route `index.html` files are generated build products committed for GitHub Pages compatibility. Do not hand-edit those files.
 
-Use only these two public URLs when reviewing UI changes:
+Main-only Actions materialize the Pages files and generate the `webflow` deployment branch. The legacy Worker remains a fallback renderer. Branch/PR QA does not deploy to the production hosts.
 
-- GitHub Pages: `https://omarreact.github.io/meta-gray-label/`
-- Webflow: `https://mg-label.webflow.io/`
-
-Do not use Netlify for this project. The Cloudflare Worker remains part of the runtime architecture, but it is not used as the live UI-review URL.
-
-The dynamic runtime renders 47 structured inner routes from one JSON source.
-Only four complex HTML design sources remain for layouts that intentionally
-keep their bespoke markup:
-
-- `index.html`
-- `services.html`
-- `solutions/index.html`
-- `insights/index.html`
-
-`header.html` and `footer.html` are shared site chrome. The old nested
-per-route `index.html` copies have been removed.
-
-## Compact repository model
-
-```text
-assets/                 frontend CSS/JS/images
-media/                  branding media
-data/content.json       canonical content and route data
-src/renderer.js         reusable dynamic HTML renderer
-worker.js               Cloudflare edge router
-header.html             shared dynamic header
-footer.html             shared dynamic footer
-index.html              bespoke homepage design source
-services.html           bespoke services design source
-solutions/index.html    bespoke solutions design source
-insights/index.html     bespoke insights index design source
-templates/              native WordPress block templates
-parts/                  native WordPress header/footer
-patterns/               WordPress patterns
-styles/                 WordPress style variations
-scripts/                build/QA/package tooling
-tests/                  automated QA
-functions.php           compact WordPress theme bootstrap
-theme.json              WordPress design tokens/settings
-```
-
-The old legacy WordPress renderer, custom fallback blocks, duplicate native
-template parts, and 47 static inner-route HTML files are removed.
-
-## Dynamic QA
+## Build and check
 
 ```bash
 node scripts/audit-seo.mjs --check
 node tests/dynamic-renderer.mjs
-node scripts/build-dynamic.mjs
-```
-
-The compact dynamic build contains shared assets/data plus the four bespoke
-templates. Structured inner pages are generated at request time and are not
-stored as individual HTML files.
-
-## WordPress conversion
-
-The WordPress target is now native Gutenberg/FSE only:
-
-```bash
 node tests/architecture.mjs
 node tests/fse-pages.mjs
+node tests/inner-system.mjs
 node scripts/generate-fse.mjs --check
 node scripts/package-wordpress.mjs --check
-node scripts/package-wordpress.mjs --write
+PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/build-static.mjs
+PUBLIC_BASE_URL=https://omarreact.github.io/meta-gray-label BASE_PATH=/meta-gray-label node scripts/build-static.mjs
+PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/materialize-pages.mjs
+node scripts/inventory-pages.mjs
 ```
 
-The generated theme package is written to
-`dist/wordpress/meta-grey-label/`. It contains 52 native block page sources,
-one scoped native stylesheet, native header/footer parts and no Bootstrap,
-AOS, Swiper or legacy custom JavaScript frontend bundle.
+After updating composition, regenerate native patterns with `node scripts/generate-fse.mjs --write`. Package the installable native block theme with `node scripts/package-wordpress.mjs --write`.
 
-GitHub Actions also validates the theme in an isolated real WordPress
-installation using wp-env, WP-CLI, HTTP route checks and Playwright
-desktop/mobile browser tests.
+## Manual WordPress install
 
-## Hosting
+The packaged theme is designed to be testable without WP-CLI:
 
-Cloudflare Workers is the dynamic runtime. GitHub Pages remains a lightweight
-legacy compatibility surface for the few retained static design sources.
-No custom-domain DNS is changed by this repository migration.
+1. Upload and activate `meta-grey-label.zip` from **Appearance → Themes → Add New → Upload Theme**.
+2. Open **Appearance → Meta Grey Label Setup**.
+3. Click **Import Missing Pages & Set Homepage**.
+4. The setup creates only missing native Gutenberg pages, does not overwrite existing pages, and configures the packaged Home page as the static front page.
+5. Review the site in **Appearance → Editor** and on the frontend.
 
+The WP-CLI command remains available for automated environments: `wp mgl import-pages --apply --set-homepage`.
 
-## GitHub Codespaces WordPress staging
+## Real WordPress staging and browser QA
 
-The repository includes a Codespaces development container that starts an
-isolated WordPress + database environment and installs the generated native
-Meta Grey Label block theme.
+GitHub Actions starts disposable wp-env Docker staging, activates the packaged theme, imports native pages, checks all native frontend routes, opens Gutenberg and Site Editor, and captures static/native evidence. The inner reference and route-family checks cover 360, 390, 430, 768, 1024, 1180, 1440 and 1920px in both themes. No test publishes to a production WordPress server.
 
-Open the repository in Codespaces:
+For Codespaces, `.devcontainer/setup-wordpress.sh` provisions local WordPress on port 8888 with wp-env development credentials. Keep that forwarded port private.
 
-`https://codespaces.new/omarreact/meta-gray-label?quickstart=1`
+## Audit and release scope
 
-During first creation, `.devcontainer/setup-wordpress.sh` automatically:
-
-1. waits for Docker,
-2. packages `dist/wordpress/meta-grey-label/`,
-3. starts WordPress with `@wordpress/env`,
-4. activates the `meta-grey-label` theme,
-5. enables pretty permalinks,
-6. imports the native Gutenberg/FSE pages and sets the homepage, and
-7. updates WordPress to the Codespaces forwarded port URL.
-
-Open forwarded port `8888` after setup. The local development credentials
-provided by `wp-env` are `admin` / `password`. Keep this port **Private**;
-this environment is for development/staging, not production hosting.
+See [route inventory](docs/route-inventory.md) and [architecture/design audit](docs/inner-page-audit.md). The contact route is included in the canonical inventory and has a native WordPress projection. Its existing form and prepared-output widgets use two HTML blocks with a small standalone script; surrounding content uses core blocks. Article publication dates are absent from the source and are not fabricated.

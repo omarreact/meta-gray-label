@@ -64,7 +64,7 @@ for(const [path,record] of pages){
     problem(path,"404 must be noindex");
   }
 }
-if(pages.length!==52) problem("inventory","expected 52 page records");
+if(pages.length!==53) problem("inventory","expected 53 page records");
 console.log("DYNAMIC SEO AUDIT: "+pages.length+" pages; "+problems.length+" technical errors.");
 if(mode==="--report") for(const p of problems) console.log(" - "+p);
 else for(const p of problems) console.error("ERROR "+p);

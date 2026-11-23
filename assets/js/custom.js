@@ -693,7 +693,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
         var header = document.querySelector('.mgl-site-header');
         var offset = (header ? header.getBoundingClientRect().height : 78) + 40;
         var targetTop = window.scrollY + target.getBoundingClientRect().top - offset;
-        window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
         window.history.replaceState(null, '', hash);
     });
 });

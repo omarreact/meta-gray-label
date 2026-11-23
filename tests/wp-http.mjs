@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 const site = process.env.MGL_WP_BASE || "http://localhost:8888";
 const data = JSON.parse(readFileSync(new URL("../data/content.json", import.meta.url),"utf8"));
 const routes = Object.values(data.pages).filter(p=>p.role==="page").map(p=>p.route);
-assert.equal(routes.length,52);
+assert.equal(routes.length,53);
 const results=[];
 for (const path of routes) {
   const route=path==="/services.html"?"/services/":path;
@@ -24,7 +24,7 @@ for (const path of routes) {
   assert.equal(h1,1,route+" needs one semantic H1");
   results.push(route);
 }
-assert.equal(results.length,51);
+assert.equal(results.length,52);
 const notFound=await fetch(site+"/does-not-exist-meta-grey-label-404/",{redirect:"manual"});
 assert.equal(notFound.status,404,"Missing route must return actual HTTP 404");
-console.log("REAL WORDPRESS HTTP PASS: 51 native routes + HTTP 404. No legacy framework asset leaks.");
+console.log("REAL WORDPRESS HTTP PASS: 52 native routes + HTTP 404. No legacy framework asset leaks.");

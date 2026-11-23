@@ -36,7 +36,7 @@ try {
         h1s:document.querySelectorAll("h1").length,
         h1Visible:[...document.querySelectorAll("h1")].some(x=>x.getBoundingClientRect().height>0),
         navLinks:document.querySelectorAll(".mgl-native-site-header a").length,
-        cards:document.querySelectorAll(".mgl-native-section").length,
+        cards:document.querySelectorAll(".mgl-native-section,.mgl-design section").length,
         cssLoaded:[...document.styleSheets].some(s=>(s.href||"").includes("/assets/css/fse.css"))
       }));
       assert.equal(metrics.h1s,1,entry.slug+" H1 count "+size.name);

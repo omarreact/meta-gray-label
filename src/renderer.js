@@ -1,3 +1,6 @@
+import { DIRECTORY_ROUTES, directoryEntry, buildDirectoryPage } from './directories.js';
+import { INNER_ROLLOUT, buildInnerPage, renderInnerTree } from './inner-system.js';
+
 const SPECIAL_ROUTES = new Map([
   ["/", "/index.html"],
   ["/index.html", "/index.html"],
@@ -234,14 +237,14 @@ function structuredDataForPage({ route, title, description, canonical, canonical
       sameAs: ["https://t.me/forexbrokertech"]
     },
     {
-      "@type": family === "article" ? "Article" : "Service",
+      "@type": family === "article" ? "Article" : family === "directory" ? "CollectionPage" : "Service",
       "@id": canonical + "#primary",
       name: title,
       headline: family === "article" ? title : undefined,
       description,
       url: canonical,
       mainEntityOfPage: canonical,
-      provider: family === "article" ? undefined : { "@id": organizationId },
+      provider: family === "article" || family === "directory" ? undefined : { "@id": organizationId },
       publisher: family === "article" ? { "@id": organizationId } : undefined
     },
     {
@@ -316,6 +319,8 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
   const category = routeCategory(route);
   const heroImage = heroImageForRoute(route, family);
 
+  const directory = DIRECTORY_ROUTES.has(route);
+  const redesigned = INNER_ROLLOUT.has(route) || directory;
   const page = `<!doctype html>
 <html lang="en" data-bs-theme="dark">
 <head><script id="mgl-theme-boot">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script>
@@ -343,16 +348,17 @@ export function renderStructuredPage({ route, entry, routeIndex, header = "", fo
 <link rel="icon" type="image/png" sizes="32x32" href="/media/branding/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/media/branding/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="/assets/css/aos.css">
-<link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
+${redesigned ? "" : '<link rel="stylesheet" href="/assets/css/aos.css"><link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">'}
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="stylesheet" href="/assets/css/site-settings.css">
+${redesigned ? '<link rel="stylesheet" href="/assets/css/inner-pages.css">' : ""}
+${directory ? '<link rel="stylesheet" href="/assets/css/directories.css">' : ""}
 </head>
 <body>
-<div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>
+${redesigned ? "" : '<div class="preloader"><img src="/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90"></div>'}
 ${rootifySharedMarkup(header)}
 <main class="mgl-inner-page mgl-family-${family} mgl-category-${slugify(category)}" id="main-content">
-<section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('${heroImage}')"><div class="container mgl-hero-grid"><div>
+${redesigned ? renderInnerTree(directory ? buildDirectoryPage(route,[...routeIndex.values()]) : buildInnerPage(entry, [...routeIndex.values()])) : `<section class="mgl-inner-hero" style="--mgl-inner-hero-image:url('${heroImage}')"><div class="container mgl-hero-grid"><div>
 ${renderBreadcrumbs(route, entry, routeIndex)}
 <h1>${escapeHtml(title)}</h1>
 ${summary ? `<p class="mgl-hero-summary">${escapeHtml(summary)}</p>` : ""}
@@ -364,19 +370,17 @@ ${renderSections(sections)}
 ${renderToc(sections, family)}
 </div></div></section>
 ${renderRelated(route, routeIndex, family)}
-<section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Plan the operating model before the implementation.</h2><p>Review the platform, execution and client-operations layers together, then choose the structure that fits your brokerage.</p></div><div class="mgl-bottom-actions"><a class="mgl-btn mgl-btn-primary" href="/contact/">Get Started</a><a class="mgl-bottom-link" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></div></div></div></section>
+<section class="mgl-bottom-cta"><div class="container"><div class="mgl-bottom-inner"><div><span>YOUR NEXT STEP</span><h2>Plan the operating model before the implementation.</h2><p>Review the platform, execution and client-operations layers together, then choose the structure that fits your brokerage.</p></div><div class="mgl-bottom-actions"><a class="mgl-btn mgl-btn-primary" href="/contact/">Get Started</a><a class="mgl-bottom-link" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></div></div></div></section>`}
 </main>
 ${rootifySharedMarkup(footer)}
-<a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i></a>
+<a href="#" class="scrollToTop scrollToTop--style1" aria-label="Scroll to top"><span aria-hidden="true">↑</span></a>
 <script src="/assets/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/all.min.js"></script>
-<script src="/assets/js/swiper-bundle.min.js"></script>
-<script src="/assets/js/aos.js"></script>
-<script src="/assets/js/purecounter_vanilla.js"></script>
+${redesigned ? "" : '<script src="/assets/js/all.min.js"></script><script src="/assets/js/swiper-bundle.min.js"></script><script src="/assets/js/aos.js"></script><script src="/assets/js/purecounter_vanilla.js"></script>'}
 <script src="/assets/js/site-settings.js"></script>
 <script src="/assets/js/custom.js"></script>
+${directory ? '<script src="/assets/js/directories.js"></script>' : ""}
 </body></html>`;
-  return page;
+  return directory ? page.replace(/\r\n/g,"\n").replace(/[ \t]+\n/g,"\n") : page;
 }
 
 export function renderDynamicSitemap(data, canonicalBase) {

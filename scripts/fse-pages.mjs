@@ -1,9 +1,12 @@
+import { DIRECTORY_ROUTES, directoryEntry, buildDirectoryPage, directoryEntries } from '../src/directories.js';
+import { readFileSync } from 'node:fs';
+import { INNER_ROLLOUT, buildInnerPage, renderInnerTree, ui } from '../src/inner-system.js';
 /**
  * Block-first projection of the canonical JSON content.
  *
  * The 48 routes with authoritative structured documents have native,
  * independently editable core/heading and core/paragraph block content.
- * Unmapped directory/index routes retain their existing HTML renderer.
+ * Directories extend the shared semantic composition; contact retains its form widgets.
  * This module never mutates data/content.json or production HTML.
  */
 const safeText = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -101,8 +104,40 @@ function nativePageMarkup(entry, document, sequence) {
   return { path: entry.path, slug: slugOf(entry.path), route: entry.route, title: entry.title,
     documentId: entry.id, family, sections: sectionIndex, blocks: blocks.length, sequence, markup };
 }
+function contactPageMarkup(sequence) {
+  const html = readFileSync(new URL('../contact/index.html', import.meta.url), 'utf8');
+  const form = html.match(/<form id="mgl-enquiry-form"[\s\S]*?<\/form>/)[0];
+  const output = html.match(/<section id="mgl-enquiry-output"[\s\S]*?<\/section>/)[0];
+  const title = htmlText(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]);
+  const hero = htmlText(html.match(/<h1[^>]*>[\s\S]*?<\/h1>\s*<p>([\s\S]*?)<\/p>/)[1]);
+  const out = [openGroup('mgl-native-page mgl-native-route--contact', 'main'),
+    openGroup('mgl-design mgl-design--contact'),
+    openGroup('mgl-inner-hero-v2', 'section'), openGroup('mgl-inner-container'),
+    paragraph('Get started', 'mgl-inner-eyebrow'), heading(title,1), paragraph(hero,'mgl-inner-summary'),
+    paragraph('Before implementation: company / brand details, target markets, MT4 / MT5 preference, White / Grey / Turnkey model and intended launch window.'),
+    closeGroup(),closeGroup('section'),
+    openGroup('mgl-inner-section', 'section'),openGroup('mgl-inner-container'),
+    heading('A concise qualification workflow for the launch team.'),
+    paragraph('Complete only what you know. You can refine the brief later as licensing, liquidity or payment decisions become clearer.'),
+    paragraph('01 Business — Who is launching and where? / 02 Platform — What stack should be configured? / 03 Timeline — What needs to be ready, and when?'),
+    '<!-- wp:html -->\n'+form+'\n<!-- /wp:html -->',
+    '<!-- wp:html -->\n'+output+'\n<!-- /wp:html -->',
+    closeGroup(),closeGroup('section'),
+    openGroup('mgl-inner-section', 'section'),openGroup('mgl-inner-container'),
+    heading('Review the operating models before you commit to the implementation.'),
+    '<!-- wp:paragraph --><p><a href="/forex-white-label/vs-grey-label/">Compare models</a> · <a href="/solutions/">All solutions</a></p><!-- /wp:paragraph -->',
+    closeGroup(),closeGroup('section'),closeGroup(),closeGroup('main')];
+  return {path:'contact/index.html',slug:'contact',route:'/contact/',title:'Get Started',documentId:null,family:'contact',sections:3,blocks:12,sequence,markup:out.join('\n')};
+}
+
 function directoryPageMarkup(config, source, sequence) {
+  if (source === 'contact/index.html') return contactPageMarkup(sequence);
   const rec = config.pages[source];
+  const route=source==='services.html'?'/services.html':rec.route;
+  if(DIRECTORY_ROUTES.has(route)){
+    const tree=buildDirectoryPage(route,directoryEntries(config));
+    return {path:source,slug:slugOf(source),route:rec.route,title:directoryEntry(route).title,documentId:null,family:'directory',sections:tree.children.length,blocks:0,sequence,markup:openGroup('mgl-native-page mgl-native-route--'+routeClass(rec.route),'main')+'\n'+renderInnerTree(tree,true).replaceAll('href="/services.html"','href="/services/"')+'\n'+closeGroup('main')+'\n'};
+  }
   const is404 = source === "404.html";
   const f = rec.fields;
   const get = (number) => f["__MGL_CONTENT_" + String(number).padStart(5, "0") + "__"] || "";
@@ -340,7 +375,13 @@ export function buildNativePages(config, homepageTemplate) {
     }
     const page = entry.path === "index.html" ?
       homePageMarkup(entry, config, homepageTemplate, index++) :
-      nativePageMarkup(entry, document, index++);
+      INNER_ROLLOUT.has(entry.route) ? {
+        path:entry.path, slug:slugOf(entry.path), route:entry.route, title:entry.title,
+        documentId:entry.id, family:familyOf(entry.route), sections:document.blocks.filter(b=>b.level===2).length,
+        blocks:document.blocks.length, sequence:index++,
+        markup: openGroup("mgl-native-page mgl-native-route--"+routeClass(entry.route), "main") + "\n" +
+          renderInnerTree(buildInnerPage({...entry,document}, config.pageMap.pages.map(x=>({...x,document:config.content.documents[x.id]}))), true) + "\n"+closeGroup("main")
+      } : nativePageMarkup(entry, document, index++);
     results.push(page);
     seen.add(entry.path);
   }
@@ -351,7 +392,7 @@ export function buildNativePages(config, homepageTemplate) {
     results.push(directoryPageMarkup(config, source, index++));
     seen.add(source);
   }
-  if (results.length !== 52 || seen.size !== 52) {
+  if (results.length !== 53 || seen.size !== 53) {
     throw new Error("Native page inventory differs from canonical JSON");
   }
   return { pages: results, special, excluded: [] };
@@ -388,8 +429,8 @@ export function buildNativeParts(config) {
       ["Grey Label Pricing", "/forex-grey-label/pricing/"],
       ["MT4 / MT5 Admin License", "/mt-admin-license/"],
       ["Forex Broker Turnkey", "/forex-broker-turnkey/"],
-      ["Launch in 2 Days", "/forex-broker-turnkey/how-it-works/"],
-      ["Pricing / Packages", "/solutions/"]
+      ["How Turnkey Works", "/forex-broker-turnkey/how-it-works/"],
+      ["Compare Models", "/solutions/"]
     ]},
     { label: "Technology", route: "/services/", children: [
       ["Forex Liquidity", "/forex-liquidity/"],
@@ -431,43 +472,43 @@ export function buildNativeParts(config) {
     ? navSubmenu(item.label, item.route, item.children.map(([label, route]) => navLink(label, route)), true)
     : navLink(item.label, item.route)
   ).join("\n");
+  const logo='<!-- wp:site-logo {"width":218,"shouldSyncIcon":false,"className":"mgl-native-logo"} /-->';
+  const nativeButton=(name,url,cls)=>'<!-- wp:button {"className":"'+cls+'"} --><div class="wp-block-button '+cls+'"><a class="wp-block-button__link wp-element-button" href="'+safeText(url)+'">'+safeText(name)+'</a></div><!-- /wp:button -->';
   const header = [
     '<!-- wp:group {"align":"full","className":"mgl-native-site-header","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"}} -->',
     '<div class="wp-block-group alignfull mgl-native-site-header">',
     '<!-- wp:group {"className":"mgl-native-brand","layout":{"type":"flex","flexWrap":"nowrap"}} -->',
-    '<div class="wp-block-group mgl-native-brand">',
-    '<!-- wp:site-logo {"width":60,"shouldSyncIcon":false} /-->',
-    '<!-- wp:site-title {"level":0} /-->',
+    '<div class="wp-block-group mgl-native-brand">',logo,
+    '<!-- wp:site-title {"level":0,"className":"mgl-native-brand-title"} /-->',
     '</div><!-- /wp:group -->',
     '<!-- wp:navigation {"overlayMenu":"mobile","className":"mgl-native-navigation","layout":{"type":"flex","justifyContent":"right","flexWrap":"nowrap"}} -->',
-    navMarkup,
-    '<!-- /wp:navigation -->',
+    navMarkup,'<!-- /wp:navigation -->',
+    '<!-- wp:buttons {"className":"mgl-native-header-actions"} --><div class="wp-block-buttons mgl-native-header-actions">',
+    nativeButton('WhatsApp','https://wa.me/447988028424','mgl-native-whatsapp'),
+    nativeButton('Switch theme','#theme','mgl-native-theme-toggle'),
+    nativeButton('Get a Quote →','/contact/','mgl-native-quote'),
+    '</div><!-- /wp:buttons -->',
     '</div><!-- /wp:group -->'
   ].join("\n") + "\n";
-  const ff = config.pages["footer.html"].fields;
-  const getFooter = (n) => ff["__MGL_CONTENT_" + String(n).padStart(5, "0") + "__"];
-  const links = [[3,21],[4,22],[5,23],[8,25],[9,26],[10,27],[13,29]].map(([t,h]) => {
-    const name = getFooter(t)?.replace(/&amp;/g, "&");
-    const path = getFooter(h);
-    if (!name || !path) throw new Error("Missing footer link " + t);
-    const url = nativeUrl(path);
-    return '<!-- wp:paragraph --><p><a href="' + safeText(url) + '">' + safeText(name) +
-      '</a></p><!-- /wp:paragraph -->';
-  }).join("\n");
-  const footer = [
-    '<!-- wp:group {"align":"full","className":"mgl-native-site-footer","layout":{"type":"constrained"}} -->',
-    '<div class="wp-block-group alignfull mgl-native-site-footer">',
-    '<!-- wp:site-title {"level":0} /-->',
-    '<!-- wp:paragraph --><p>' + safeText(getFooter(1)) + '</p><!-- /wp:paragraph -->',
-    '<!-- wp:columns --><div class="wp-block-columns">',
-    '<!-- wp:column --><div class="wp-block-column">',
-    '<!-- wp:heading {"level":3} --><h3 class="wp-block-heading">Explore</h3><!-- /wp:heading -->',
-    links,
-    '</div><!-- /wp:column -->',
-    '</div><!-- /wp:columns -->',
-    '<!-- wp:paragraph {"className":"mgl-native-provider-disclosure"} --><p class="mgl-native-provider-disclosure">Technology provider only — not a broker, does not hold client funds, and does not provide investment, legal or regulatory advice.</p><!-- /wp:paragraph -->',
-    '</div><!-- /wp:group -->'
-  ].join("\n") + "\n";
+  const footLinks=[
+    ['Explore',[['All Solutions','/solutions/'],['Services','/services/'],['Brokerage Insights','/insights/'],['FAQs','/#faq']]],
+    ['Brokerage',[['White Label','/forex-white-label/'],['Grey Label','/forex-grey-label/'],['Turnkey','/forex-broker-turnkey/'],['Liquidity','/forex-liquidity/']]],
+    ['Company',[['About Us','/about-us/'],['Why Choose Us','/about-us/why-choose-us/'],['Company & Licensing','/forex-company-license/'],['Launch Process','/forex-broker-turnkey/how-it-works/']]]
+  ];
+  const {group,p,h,link}=ui;
+  const footerTree=group('mgl-native-footer-content',[
+    group('mgl-native-footer-top',[
+      group('mgl-native-footer-about',[p('Meta Grey Label connects MT4/MT5 platform configuration, hosting, liquidity, CRM, KYC and payments for white label, grey label and turnkey brokerage operations.')]),
+      ...footLinks.map(([name,links])=>group('mgl-native-footer-links',[h(name,3),...links.map(([name,href])=>link(name,href))]))
+    ]),
+    group('mgl-native-footer-bottom',[
+      p('© 2026 Meta Grey Label. Technology provider only — not a broker, does not hold client funds, and does not provide investment, legal or regulatory advice.','mgl-native-provider-disclosure'),
+      group('mgl-native-footer-social',[link('WhatsApp','https://wa.me/447988028424','mgl-native-social-whatsapp'),link('Telegram','https://t.me/forexbrokertech','mgl-native-social-telegram')])
+    ])
+  ]);
+  let footerMarkup=renderInnerTree(footerTree,true);
+  footerMarkup=footerMarkup.replace('<div class="wp-block-group mgl-native-footer-about">','<div class="wp-block-group mgl-native-footer-about">\n'+logo+'\n<!-- wp:site-title {"level":0,"className":"mgl-native-brand-title"} /-->');
+  const footer='<!-- wp:group {"align":"full","className":"mgl-native-site-footer","layout":{"type":"default"}} -->\n<div class="wp-block-group alignfull mgl-native-site-footer">\n'+footerMarkup+'\n</div><!-- /wp:group -->\n';
   return { header, footer };
 }
 export function nativePreview(page, styleLink = "../../../assets/css/fse.css") {

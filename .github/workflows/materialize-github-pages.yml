@@ -4,10 +4,10 @@ on:
   push:
     branches: [main]
     paths:
-      - "data/content.json"
+      - "data/**"
       - "header.html"
       - "footer.html"
-      - "src/renderer.js"
+      - "src/**"
       - "scripts/static-site-lib.mjs"
       - "scripts/materialize-pages.mjs"
   workflow_dispatch:
