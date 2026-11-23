@@ -32,6 +32,12 @@ const assert=require('node:assert/strict');
               await menu.click();
               assert.equal(await menu.getAttribute('aria-expanded'),'false','Mobile menu did not close');
             }
+          } else if(width===390){
+            const menu=page.locator('.main-header .mobile-nav-toggler');
+            await menu.click();
+            await page.waitForFunction(()=>document.body.classList.contains('mobile-menu-visible'));
+            await page.locator('.mobile-menu .close-btn').click();
+            await page.waitForFunction(()=>!document.body.classList.contains('mobile-menu-visible'));
           }
           const data=await page.evaluate(()=>({
             width:innerWidth,scroll:document.documentElement.scrollWidth,
@@ -42,12 +48,12 @@ const assert=require('node:assert/strict');
             footerCount:document.querySelectorAll('.footer').length,
             headline:document.querySelector('h1')?{font:getComputedStyle(document.querySelector('h1')).fontSize,width:document.querySelector('h1').getBoundingClientRect().width}:null,
           }));
-          assert(data.scroll<=width+2,kind+' horizontal overflow '+source+' '+width);
+          await page.screenshot({path:'wordpress-qa/'+kind+'-'+source.replace(/\W/g,'_')+'-'+width+'.png',fullPage:true});
+          assert(data.scroll<=width+2,kind+' horizontal overflow '+source+' '+width+': '+JSON.stringify(data));
           if(alternate){assert.equal(data.headerCount,0,'Primary header leaked onto Home 02');assert.equal(data.alternativeHeader,1);}
           else assert.equal(data.headerCount,1);
           assert.equal(data.images.length,0,kind+' broken images: '+JSON.stringify(data.images));
           assert.equal(errors.length,0,kind+' JS errors: '+errors.join(';'));
-          await page.screenshot({path:'wordpress-qa/'+kind+'-'+source.replace(/\W/g,'_')+'-'+width+'.png',fullPage:true});
           measurements.push(data);
           await page.close();
         }
