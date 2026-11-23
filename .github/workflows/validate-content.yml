@@ -1,151 +1,90 @@
-name: Validate HTML and JavaScript website
-
+name: Validate standalone HTML website
 on:
   push:
     branches: [main]
   pull_request:
-    paths:
-      - "data/**"
-      - "assets/**"
-      - "media/**"
-      - "scripts/**"
-      - "src/**"
-      - "worker.js"
-      - "wrangler.jsonc"
-      - "tests/**"
-      - "**/*.html"
-      - "style.css"
-      - "package.json"
-      - ".github/workflows/validate-content.yml"
-      - ".github/workflows/apply-site-settings.yml"
-      - ".devcontainer/**"
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
-  verify:
-    name: Static build and JavaScript checks
+  static-check:
+    name: Check JS, routes and local assets
     runs-on: ubuntu-latest
-    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Validate JavaScript source syntax
+      - name: JavaScript syntax
         run: |
-          for file in worker.js src/*.js assets/js/site-settings.js assets/js/directories.js assets/js/contact-brief.js scripts/*.mjs tests/architecture.mjs tests/dynamic-renderer.mjs tests/directories.mjs tests/inner-system.mjs tests/inner-links.mjs tests/responsive-browser.mjs tests/inner-browser.mjs tests/inner-routes-browser.mjs tests/phase2-browser.mjs; do
-            node --check "$file"
-          done
-      - name: Audit HTML architecture, content, SEO and assets
+          for file in assets/js/*.js; do node --check "$file"; done
+      - name: Verify all inner pages and local references
         run: |
-          node tests/architecture.mjs
-          node scripts/audit-seo.mjs --check
-          node scripts/audit-assets.mjs
-          node tests/dynamic-renderer.mjs
-          node tests/directories.mjs
-          node tests/inner-system.mjs
-          node tests/inner-links.mjs
-      - name: Validate optional JavaScript edge renderer assets
-        run: |
-          node scripts/build-dynamic.mjs
-          test -f dist/public/index.html
-          test -f dist/public/services.html
-          test ! -e dist/public/about-us/index.html
-      - name: Validate GitHub Pages static HTML build
-        env:
-          PUBLIC_BASE_URL: https://omarreact.github.io/meta-gray-label
-          BASE_PATH: /meta-gray-label
-        run: |
-          npm run build
-          test -f dist/public/index.html
-          test -f dist/public/about-us/index.html
-          test -f dist/public/forex-grey-label/mt5-grey-label/index.html
-          test -f dist/public/404.html
-          grep -q 'https://mg-label.webflow.io/about-us/' dist/public/about-us/index.html
-          grep -q '/meta-gray-label/assets/css/style.css' dist/public/about-us/index.html
-          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
-      - name: Validate root-host static HTML build
-        env:
-          PUBLIC_BASE_URL: https://mg-label.webflow.io
-          BASE_PATH: ""
-        run: |
-          npm run build
-          test -f dist/public/index.html
-          test -f dist/public/services.html
-          test -f dist/public/solutions/index.html
-          test -f dist/public/insights/index.html
-          test -f dist/public/contact/index.html
-          test -f dist/public/forex-grey-label/mt5-grey-label/index.html
-          grep -q 'https://mg-label.webflow.io/about-us/' dist/public/about-us/index.html
-          grep -q 'href="/assets/css/style.css"' dist/public/about-us/index.html
-          ! grep -R -q '/meta-gray-label/assets/' dist/public
-      - name: Validate host-neutral generated HTML routes
-        run: |
-          tmpdir="$(mktemp -d)"
-          cp -a . "$tmpdir/site"
-          cd "$tmpdir/site"
-          PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/materialize-pages.mjs
-          grep -q 'https://mg-label.webflow.io/about-us/' about-us/index.html
-          grep -q 'href="../assets/css/style.css"' about-us/index.html
-          grep -q 'href="../../assets/css/style.css"' forex-grey-label/mt5-grey-label/index.html
-          grep -q 'href="../"' about-us/index.html
-          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' about-us forex-grey-label
-
-  responsive-web:
-    name: Responsive HTML/JavaScript QA (desktop and mobile)
-    needs: verify
+          node <<'NODE'
+          const fs=require('node:fs'),path=require('node:path').posix,assert=require('node:assert/strict');
+          const pages=fs.readdirSync('assets/inner-pages').filter(p=>p.endsWith('.html'));
+          assert.equal(pages.length,51,'Expected 51 independent inner pages');
+          for(const file of ['index.html','404.html','assets/js/includes.js','assets/js/custom.js',
+            'assets/js/site-settings.json','assets/css/style.css','assets/media/branding/favicon.svg']){
+            assert(fs.existsSync(file),'Missing '+file);
+          }
+          let checked=0;
+          for(const file of ['index.html',...pages.map(p=>'assets/inner-pages/'+p)]){
+            const s=fs.readFileSync(file,'utf8');
+            assert(/<main\b/i.test(s),'Missing main: '+file);
+            assert(/<title>/i.test(s),'Missing title: '+file);
+            for(const match of s.matchAll(/\b(?:href|src|poster)=(["'])(.*?)\1/gi)){
+              const value=match[2].trim();
+              if(!value||value[0]==='#'||/^(?:https?:|data:|mailto:|tel:|javascript:|\/\/)/i.test(value))continue;
+              const local=value.split(/[?#]/)[0];
+              if(!local)continue;
+              const resolved=path.normalize(path.join(path.dirname(file),local));
+              assert(fs.existsSync(resolved),'Broken '+file+': '+value+' -> '+resolved);
+              checked++;
+            }
+            assert(!s.includes('assets/images/'),'Old media ref: '+file);
+          }
+          console.log('PASS:',pages.length,'pages;',checked,'local links and assets.');
+          NODE
+  browser-smoke:
+    name: Browser smoke — mobile/desktop, light/dark
+    needs: static-check
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Build browser fixtures
-        run: node scripts/build-dynamic.mjs
-      - name: Install Chromium QA
+      - name: Install browser tests
         run: |
           npm install --no-save --no-package-lock playwright@1.58.2
           npx playwright install chromium
-      - name: Validate homepage, settings and contact interactions
-        run: node tests/responsive-browser.mjs
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: responsive-html-screenshots
-          path: tmp/responsive-browser-screens/
-          if-no-files-found: ignore
-          retention-days: 7
-
-  inner-page-reference:
-    name: Static HTML pages (8 widths, 2 themes)
-    needs: verify
-    runs-on: ubuntu-24.04
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-      - name: Build all HTML routes
-        run: PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/build-static.mjs
-      - name: Install Chromium QA
+      - name: Check key pages and interactions
         run: |
-          npm install --no-save --no-package-lock playwright@1.58.2
-          npx playwright install chromium
-      - name: Test responsive layouts, directories and browser interactions
-        run: |
-          node tests/inner-browser.mjs
-          node tests/inner-routes-browser.mjs
-          node tests/phase2-browser.mjs
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: static-html-visual-evidence
-          path: tmp/inner-static/
-          retention-days: 14
+          python3 -m http.server 4173 >/tmp/mgl-static-server.log 2>&1 &
+          node <<'NODE'
+          const {chromium}=require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const routes=['index.html','assets/inner-pages/services.html',
+              'assets/inner-pages/solutions.html','assets/inner-pages/insights.html',
+              'assets/inner-pages/contact.html','assets/inner-pages/forex-grey-label--mt5-grey-label.html'];
+            try{
+              for(const route of routes)for(const width of [360,768,1440])for(const theme of ['light','dark']){
+                const page=await browser.newPage({viewport:{width,height:900}});
+                const errors=[];
+                page.on('pageerror',err=>errors.push(err.message));
+                const response=await page.goto('http://127.0.0.1:4173/'+route+'?theme='+theme,{waitUntil:'networkidle'});
+                if(!response || response.status()!==200)throw Error('HTTP failure: '+route);
+                await page.locator('main').waitFor();
+                await page.locator('.mgl-site-header').waitFor();
+                const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
+                if(size.scroll>size.client+2)throw Error('Horizontal overflow '+route+' at '+width+': '+JSON.stringify(size));
+                if(errors.length)throw Error('Browser errors '+route+': '+errors.join('; '));
+                await page.close();
+              }
+              console.log('PASS 36 viewport/theme/browser checks');
+            }finally{await browser.close();}
+          })().catch(e=>{console.error(e);process.exitCode=1});
+          NODE
