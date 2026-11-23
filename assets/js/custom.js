@@ -304,7 +304,7 @@ const Partner = window.Swiper && new window.Swiper('.partner__slider', {
         576: { slidesPerView: 3 },
         768: { slidesPerView: 4 },
         992: { slidesPerView: 5, spaceBetween: 15 },
-        1200: { slidesPerView: 6, spaceBetween: 25 },
+        1200: { slidesPerView: 5, spaceBetween: 20 },
     },
     autoplay: {
         delay: 1,
