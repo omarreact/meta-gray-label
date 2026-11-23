@@ -82,9 +82,24 @@ jobs:
                 const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
                 if(size.scroll>size.client+2)throw Error('Horizontal overflow '+route+' at '+width+': '+JSON.stringify(size));
                 if(errors.length)throw Error('Browser errors '+route+': '+errors.join('; '));
+                if ((width===360&&theme==='dark')||(width===1440&&theme==='light')){
+                  const fs=require('node:fs');
+                  fs.mkdirSync('tmp/static-visuals',{recursive:true});
+                  await page.waitForTimeout(1600);
+                  const filename=route.replace(/\//g,'__')+'--'+width+'--'+theme+'.png';
+                  await page.screenshot({path:'tmp/static-visuals/'+filename,fullPage:true});
+                }
                 await page.close();
               }
               console.log('PASS 36 viewport/theme/browser checks');
             }finally{await browser.close();}
           })().catch(e=>{console.error(e);process.exitCode=1});
           NODE
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: flat-static-visual-qa
+          path: tmp/static-visuals/
+          if-no-files-found: ignore
+          retention-days: 7
