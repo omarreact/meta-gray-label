@@ -12,7 +12,7 @@ const inventory=assets.map(path=>{
  return{path,bytes:statSync(path).size,references:refs,disposition:refs.length?'retain: source/generated/CSS/runtime reference':'retain: no literal reference; dynamic or editor usage requires manual review'};
 });
 const cssDependencies=[];
-for(const path of ['assets/css/style.css','assets/css/inner-pages.css','assets/css/directories.css','assets/css/site-settings.css']){
+for(const path of ['assets/css/inner-pages.css','assets/css/directories.css','assets/css/site-settings.css']){
  for(const [,url] of readFileSync(path,'utf8').matchAll(/url\(["']?([^"')]+)["']?\)/g)){
   if(/^(data:|https?:|#)/.test(url))continue;
   const relative=resolve(dirname(path),url).slice(process.cwd().length+1);
