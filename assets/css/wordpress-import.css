@@ -1,0 +1,9 @@
+/* WordPress layout adapters; canonical standalone pages do not load this file. */
+body.mgl-wordpress-import { margin: 0; padding: 0; }
+body.mgl-wordpress-import .wp-site-blocks { padding: 0; }
+body.mgl-wordpress-import .wp-site-blocks > * { margin-block-start: 0; margin-block-end: 0; }
+body.mgl-wordpress-import .wp-block-post-content,
+body.mgl-wordpress-import .wp-block-template-part { max-width: none; margin: 0; padding: 0; }
+body.mgl-wordpress-import .wp-block-post-content > main { max-width: none; }
+body.mgl-wordpress-import .wp-block-group { box-sizing: border-box; }
+body.mgl-wordpress-import .wp-block-image img { vertical-align: middle; }
