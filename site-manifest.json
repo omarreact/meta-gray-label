@@ -1,0 +1,564 @@
+{
+  "version": 1,
+  "importer": "PIN Universal FSE / PIN Site Importer",
+  "site": {
+    "name": "Meta Grey Label",
+    "language": "en",
+    "sourceUrl": "https://mg-label.webflow.io/",
+    "repository": "https://github.com/omarreact/meta-gray-label"
+  },
+  "header": {
+    "file": "pin-import/header.html"
+  },
+  "footer": {
+    "file": "pin-import/footer.html"
+  },
+  "navigation": [
+    {
+      "label": "Home",
+      "path": "/"
+    },
+    {
+      "label": "Solutions",
+      "path": "/solutions/"
+    },
+    {
+      "label": "Technology",
+      "path": "/services/"
+    },
+    {
+      "label": "Company",
+      "path": "/about-us/"
+    },
+    {
+      "label": "Resources",
+      "path": "/insights/"
+    },
+    {
+      "label": "Contact",
+      "path": "/contact/"
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "file": "index.html",
+      "title": "Meta Grey Label",
+      "status": "publish",
+      "order": 0,
+      "seo": {
+        "title": "Meta Grey Label | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/a-book-b-book-hybrid/",
+      "file": "a-book-b-book-hybrid/index.html",
+      "title": "A-Book / B-Book / Hybrid",
+      "status": "publish",
+      "order": 1,
+      "seo": {
+        "title": "A-Book / B-Book / Hybrid | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/about-us/",
+      "file": "about-us/index.html",
+      "title": "About Us",
+      "status": "publish",
+      "order": 2,
+      "seo": {
+        "title": "About Us | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/back-office/",
+      "file": "back-office/index.html",
+      "title": "Back Office & Admin Panel",
+      "status": "publish",
+      "order": 3,
+      "seo": {
+        "title": "Back Office & Admin Panel | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/brokerage-launch-process/",
+      "file": "brokerage-launch-process/index.html",
+      "title": "Brokerage Launch Process",
+      "status": "publish",
+      "order": 4,
+      "seo": {
+        "title": "Brokerage Launch Process | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/",
+      "file": "common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/index.html",
+      "title": "Common Mistakes to Avoid When Choosing a MetaTrader Grey Label Provider",
+      "status": "publish",
+      "order": 5,
+      "seo": {
+        "title": "Common Mistakes to Avoid When Choosing a MetaTrader Grey Label Provider | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/comparing-metatrader-grey-label-providers-features-support-and-prices/",
+      "file": "comparing-metatrader-grey-label-providers-features-support-and-prices/index.html",
+      "title": "Comparing MetaTrader Grey Label Providers: Features, Support and Prices",
+      "status": "publish",
+      "order": 6,
+      "seo": {
+        "title": "Comparing MetaTrader Grey Label Providers: Features, Support and Prices | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/",
+      "file": "compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/index.html",
+      "title": "Compliance and KYC Basics for MetaTrader Grey Label Brokerages",
+      "status": "publish",
+      "order": 7,
+      "seo": {
+        "title": "Compliance and KYC Basics for MetaTrader Grey Label Brokerages | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/contact/",
+      "file": "contact/index.html",
+      "title": "Define the brokerage first. Then configure the technology around it.",
+      "status": "publish",
+      "order": 8,
+      "seo": {
+        "title": "Define the brokerage first. Then configure the technology around it. | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/",
+      "file": "copy-trading-and-social-trading-for-metatrader-grey-label-brokers/index.html",
+      "title": "Copy Trading and Social Trading for MetaTrader Grey Label Brokers",
+      "status": "publish",
+      "order": 9,
+      "seo": {
+        "title": "Copy Trading and Social Trading for MetaTrader Grey Label Brokers | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/desktop-platform/",
+      "file": "desktop-platform/index.html",
+      "title": "Desktop Platform",
+      "status": "publish",
+      "order": 10,
+      "seo": {
+        "title": "Desktop Platform | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/",
+      "file": "essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/index.html",
+      "title": "Essential Tools and Plugins for a MetaTrader Grey Label Brokerage",
+      "status": "publish",
+      "order": 11,
+      "seo": {
+        "title": "Essential Tools and Plugins for a MetaTrader Grey Label Brokerage | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/forex-broker-turnkey/",
+      "file": "forex-broker-turnkey/index.html",
+      "title": "Forex Broker Turnkey",
+      "status": "publish",
+      "order": 12,
+      "seo": {
+        "title": "Forex Broker Turnkey | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/forex-company-license/",
+      "file": "forex-company-license/index.html",
+      "title": "Fx Company & License",
+      "status": "publish",
+      "order": 13,
+      "seo": {
+        "title": "Fx Company & License | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/forex-crm/",
+      "file": "forex-crm/index.html",
+      "title": "Fx CRM | TradeRoom",
+      "status": "publish",
+      "order": 14,
+      "seo": {
+        "title": "Fx CRM | TradeRoom | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/forex-grey-label/",
+      "file": "forex-grey-label/index.html",
+      "title": "Forex Grey Label",
+      "status": "publish",
+      "order": 15,
+      "seo": {
+        "title": "Forex Grey Label | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/forex-liquidity/",
+      "file": "forex-liquidity/index.html",
+      "title": "Forex Liquidity",
+      "status": "publish",
+      "order": 16,
+      "seo": {
+        "title": "Forex Liquidity | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/forex-white-label/",
+      "file": "forex-white-label/index.html",
+      "title": "Forex White Label",
+      "status": "publish",
+      "order": 17,
+      "seo": {
+        "title": "Forex White Label | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/grey-label-pricing/",
+      "file": "grey-label-pricing/index.html",
+      "title": "Grey Label Pricing",
+      "status": "publish",
+      "order": 18,
+      "seo": {
+        "title": "Grey Label Pricing | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/",
+      "file": "how-metatrader-grey-label-can-help-you-attract-more-forex-traders/index.html",
+      "title": "How MetaTrader Grey Label Can Help You Attract More Forex Traders",
+      "status": "publish",
+      "order": 19,
+      "seo": {
+        "title": "How MetaTrader Grey Label Can Help You Attract More Forex Traders | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/",
+      "file": "how-much-capital-do-you-need-to-start-with-metatrader-grey-label/index.html",
+      "title": "How Much Capital Do You Need to Start With MetaTrader Grey Label?",
+      "status": "publish",
+      "order": 20,
+      "seo": {
+        "title": "How Much Capital Do You Need to Start With MetaTrader Grey Label? | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/ib-portal/",
+      "file": "ib-portal/index.html",
+      "title": "IB / Affiliate Portal",
+      "status": "publish",
+      "order": 21,
+      "seo": {
+        "title": "IB / Affiliate Portal | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/insights/",
+      "file": "insights/index.html",
+      "title": "Perspective before your next decision.",
+      "status": "publish",
+      "order": 22,
+      "seo": {
+        "title": "Perspective before your next decision. | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/",
+      "file": "introducing-broker-ib-programs-for-metatrader-grey-label-businesses/index.html",
+      "title": "Introducing Broker (IB) Programs for MetaTrader Grey Label Businesses",
+      "status": "publish",
+      "order": 23,
+      "seo": {
+        "title": "Introducing Broker (IB) Programs for MetaTrader Grey Label Businesses | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/kyc-compliance/",
+      "file": "kyc-compliance/index.html",
+      "title": "KYC & Compliance Module",
+      "status": "publish",
+      "order": 24,
+      "seo": {
+        "title": "KYC & Compliance Module | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/liquidity-bridge/",
+      "file": "liquidity-bridge/index.html",
+      "title": "Liquidity Bridge",
+      "status": "publish",
+      "order": 25,
+      "seo": {
+        "title": "Liquidity Bridge | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/",
+      "file": "metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/index.html",
+      "title": "MetaTrader Grey Label + CRM Integration: Boosting Client Onboarding and Retention",
+      "status": "publish",
+      "order": 26,
+      "seo": {
+        "title": "MetaTrader Grey Label + CRM Integration: Boosting Client Onboarding and Retention | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/",
+      "file": "metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/index.html",
+      "title": "MetaTrader Grey Label Licensing: What It Includes and Why It Matters",
+      "status": "publish",
+      "order": 27,
+      "seo": {
+        "title": "MetaTrader Grey Label Licensing: What It Includes and Why It Matters | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/",
+      "file": "metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/index.html",
+      "title": "MetaTrader Grey Label vs White Label: Which Is Best for Your Forex Brokerage?",
+      "status": "publish",
+      "order": 28,
+      "seo": {
+        "title": "MetaTrader Grey Label vs White Label: Which Is Best for Your Forex Brokerage? | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/mobile-trading-app/",
+      "file": "mobile-trading-app/index.html",
+      "title": "Mobile Trading App (iOS / Android)",
+      "status": "publish",
+      "order": 29,
+      "seo": {
+        "title": "Mobile Trading App (iOS / Android) | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/mt-admin-license/",
+      "file": "mt-admin-license/index.html",
+      "title": "MT4 / MT5 Admin License",
+      "status": "publish",
+      "order": 30,
+      "seo": {
+        "title": "MT4 / MT5 Admin License | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/mt4-admin-license/",
+      "file": "mt4-admin-license/index.html",
+      "title": "MT4 Admin License",
+      "status": "publish",
+      "order": 31,
+      "seo": {
+        "title": "MT4 Admin License | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/mt4-grey-label/",
+      "file": "mt4-grey-label/index.html",
+      "title": "MT4 Grey Label. Familiar trading. Flexible operations.",
+      "status": "publish",
+      "order": 32,
+      "seo": {
+        "title": "MT4 Grey Label. Familiar trading. Flexible operations. | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/mt4-white-label/",
+      "file": "mt4-white-label/index.html",
+      "title": "MT4 White Label. Your brand on a familiar platform.",
+      "status": "publish",
+      "order": 33,
+      "seo": {
+        "title": "MT4 White Label. Your brand on a familiar platform. | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/mt5-admin-license/",
+      "file": "mt5-admin-license/index.html",
+      "title": "MT5 Admin License",
+      "status": "publish",
+      "order": 34,
+      "seo": {
+        "title": "MT5 Admin License | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/mt5-grey-label/",
+      "file": "mt5-grey-label/index.html",
+      "title": "MT5 Grey Label. Your brand. More control.",
+      "status": "publish",
+      "order": 35,
+      "seo": {
+        "title": "MT5 Grey Label. Your brand. More control. | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/mt5-white-label/",
+      "file": "mt5-white-label/index.html",
+      "title": "MT5 White Label. A modern platform. A focused launch.",
+      "status": "publish",
+      "order": 36,
+      "seo": {
+        "title": "MT5 White Label. A modern platform. A focused launch. | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/offshore-company-formation/",
+      "file": "offshore-company-formation/index.html",
+      "title": "Offshore Company Formation",
+      "status": "publish",
+      "order": 37,
+      "seo": {
+        "title": "Offshore Company Formation | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/payments-automation/",
+      "file": "payments-automation/index.html",
+      "title": "Deposit / Withdrawal Automation",
+      "status": "publish",
+      "order": 38,
+      "seo": {
+        "title": "Deposit / Withdrawal Automation | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/prime-of-prime/",
+      "file": "prime-of-prime/index.html",
+      "title": "Prime of Prime (PoP)",
+      "status": "publish",
+      "order": 39,
+      "seo": {
+        "title": "Prime of Prime (PoP) | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/",
+      "file": "revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/index.html",
+      "title": "Revenue Streams of a MetaTrader Grey Label Brokerage: Spreads, Commissions and More",
+      "status": "publish",
+      "order": 40,
+      "seo": {
+        "title": "Revenue Streams of a MetaTrader Grey Label Brokerage: Spreads, Commissions and More | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/services/",
+      "file": "services/index.html",
+      "title": "Brokerage Services",
+      "status": "publish",
+      "order": 41,
+      "seo": {
+        "title": "Brokerage Services | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/solutions/",
+      "file": "solutions/index.html",
+      "title": "What does your next stage need?",
+      "status": "publish",
+      "order": 42,
+      "seo": {
+        "title": "What does your next stage need? | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/",
+      "file": "step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/index.html",
+      "title": "Step-by-Step Guide to Setting Up a MetaTrader Grey Label Brokerage in Under a Week",
+      "status": "publish",
+      "order": 43,
+      "seo": {
+        "title": "Step-by-Step Guide to Setting Up a MetaTrader Grey Label Brokerage in Under a Week | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/",
+      "file": "traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/index.html",
+      "title": "Trader’s Room and Client Portal Features in a MetaTrader Grey Label Setup",
+      "status": "publish",
+      "order": 44,
+      "seo": {
+        "title": "Trader’s Room and Client Portal Features in a MetaTrader Grey Label Setup | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/trading-platforms/",
+      "file": "trading-platforms/index.html",
+      "title": "Trading Platforms (Main Room)",
+      "status": "publish",
+      "order": 45,
+      "seo": {
+        "title": "Trading Platforms (Main Room) | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/upgrade-to-admin/",
+      "file": "upgrade-to-admin/index.html",
+      "title": "Upgrade Grey Label to Admin License",
+      "status": "publish",
+      "order": 46,
+      "seo": {
+        "title": "Upgrade Grey Label to Admin License | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/web-trader/",
+      "file": "web-trader/index.html",
+      "title": "Web Trader",
+      "status": "publish",
+      "order": 47,
+      "seo": {
+        "title": "Web Trader | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/white-label-grey-label-or-turnkey-choosing-the-right-model/",
+      "file": "white-label-grey-label-or-turnkey-choosing-the-right-model/index.html",
+      "title": "White Label, Grey Label or Turnkey? Choosing the Right Model",
+      "status": "publish",
+      "order": 48,
+      "seo": {
+        "title": "White Label, Grey Label or Turnkey? Choosing the Right Model | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/white-label-pricing/",
+      "file": "white-label-pricing/index.html",
+      "title": "White Label Pricing",
+      "status": "publish",
+      "order": 49,
+      "seo": {
+        "title": "White Label Pricing | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/white-label-vs-grey-label/",
+      "file": "white-label-vs-grey-label/index.html",
+      "title": "White Label vs Grey Label",
+      "status": "publish",
+      "order": 50,
+      "seo": {
+        "title": "White Label vs Grey Label | Meta Grey Label"
+      }
+    },
+    {
+      "path": "/why-choose-us/",
+      "file": "why-choose-us/index.html",
+      "title": "Why Choose Us",
+      "status": "publish",
+      "order": 51,
+      "seo": {
+        "title": "Why Choose Us | Meta Grey Label"
+      }
+    }
+  ]
+}
