@@ -218,7 +218,10 @@ html[data-bs-theme="light"] .mgl-solution-card:hover { box-shadow: 0 19px 44px r
   .mgl-solution-card { min-height: 282px; }
 }
 @media (max-width: 575.98px) {
-  .mgl-solutions-shell { padding-inline: max(20px, env(safe-area-inset-left)); }
+  .mgl-solutions-shell {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
   .mgl-solutions-heading { align-items: flex-start; gap: 13px; }
   .mgl-solutions-heading h2 { font-size: clamp(32px, 9vw, 42px); }
   .mgl-solutions-all { padding-block: 4px; }

@@ -115,7 +115,7 @@ jobs:
                     const grid=section?.querySelector('.mgl-solutions-grid');
                     if(!grid)return null;
                     const links=Array.from(grid.querySelectorAll('.mgl-solution-card__link'));
-                    const columns=getComputedStyle(grid).gridTemplateColumns.trim().split(/\\s+/).length;
+                    const columns=getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length;
                     const rect=section.getBoundingClientRect();
                     const cs=getComputedStyle(section);
                     const cards=Array.from(grid.querySelectorAll('.mgl-solution-card'));
