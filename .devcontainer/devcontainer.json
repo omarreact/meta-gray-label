@@ -1,17 +1,15 @@
 {
-  "name": "Meta Grey Label WordPress",
+  "name": "Meta Grey Label — HTML & JavaScript",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
-  },
-  "forwardPorts": [8888],
+  "forwardPorts": [
+    4173
+  ],
   "portsAttributes": {
-    "8888": {
-      "label": "Meta Grey Label WordPress",
+    "4173": {
+      "label": "Static HTML Preview",
       "onAutoForward": "notify",
       "protocol": "http"
     }
   },
-  "postCreateCommand": "bash .devcontainer/setup-wordpress.sh",
   "remoteUser": "node"
 }

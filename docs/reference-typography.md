@@ -7,7 +7,7 @@ Source component reference: https://github.com/omarreact/mt4-grey-label-kickgent
 - `styles/pintheme-tailwind.css`: `--pt-heading-font` and `--pt-body-font` both use Inter
 
 These are **declared source styles**, not a computed-style capture of every element
-on the deployed WordPress website. Its active WordPress theme may apply additional
+on the deployed static HTML website. Its active static HTML theme may apply additional
 user customizations.
 
 ## Extracted reference specimens
@@ -40,5 +40,5 @@ The implementation is synchronized across `assets/site-settings.json`,
 For release validation, compare browser-computed font family, loaded font
 network request, line wraps, button widths and navbar overflow at
 360/390/768/1024/1180/1440/1920px. Check homepage, an inner content page,
-directory, and WordPress Site Editor in both color themes. A code review
+directory, and static HTML Site Editor in both color themes. A code review
 alone cannot establish visual parity.

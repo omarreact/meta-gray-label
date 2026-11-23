@@ -1,57 +1,69 @@
-# Meta Grey Label
+# Meta Grey Label — HTML, CSS and JavaScript
 
-GitHub main is the source of truth. Review production at https://mg-label.webflow.io/ and its mirror at https://omarreact.github.io/meta-gray-label/. Do not deploy to Vercel or change DNS as part of the inner-page redesign.
+This repository is the **standalone HTML website** for Meta Grey Label. It does not contain or generate a WordPress theme, PHP application, Gutenberg/FSE template, or installable theme ZIP.
 
-## Content and build flow
+Source of truth: the `main` branch.
+Public reference: https://mg-label.webflow.io/
+GitHub Pages mirror: https://omarreact.github.io/meta-gray-label/
 
-- `data/content.json`: canonical structured documents and route map.
-- `data/inner-pages.json`: inner-page rollout, family summaries and product hero copy.
-- `src/inner-system.js`: one semantic composition serialized as static HTML or native Gutenberg blocks. Eight page families: service, hub, pricing, comparison, process, technical, article and company.
-- `src/renderer.js`: metadata, shared chrome and structured page rendering.
-- `scripts/static-site-lib.mjs`: root-host Webflow output, GitHub Pages base paths, host-neutral materialized routes and production canonical identity.
-- `scripts/fse-pages.mjs`: native Gutenberg/FSE projection; independent approved homepage and directory compositions are retained.
-- `assets/css/inner-pages.css`: the shared static/native inner-page stylesheet. It is scoped and does not restyle the homepage.
+## Architecture
 
-The bespoke sources are `index.html`, `services.html`, `solutions/index.html`, `insights/index.html` and `contact/index.html`. Header/footer sources remain shared. Structured per-route `index.html` files are generated build products committed for GitHub Pages compatibility. Do not hand-edit those files.
+- **HTML:** `index.html`, `services.html`, `solutions/index.html`, `insights/index.html`, `contact/index.html`, and generated inner-page `index.html` routes.
+- **CSS:** `assets/css/style.css` is the existing main design; `assets/css/inner-pages.css`, `directories.css`, and `site-settings.css` extend the approved layouts.
+- **Browser JavaScript:** `assets/js/custom.js`, `site-settings.js`, `directories.js`, `contact-brief.js`, and other existing page assets manage menus, theme switching, filters, forms, and typography.
+- **Structured content:** `data/content.json`, `data/inner-pages.json`, and `data/directories.json` provide source content and route configuration.
+- **Build-time JavaScript:** `src/renderer.js`, `src/inner-system.js`, `src/directories.js`, and `scripts/static-site-lib.mjs` render structured pages into standalone HTML files.
+- **Optional edge JavaScript:** `worker.js` can render the same content for a Cloudflare Worker deployment; it is not required by the static HTML build.
 
-Main-only Actions materialize the Pages files and generate the `webflow` deployment branch. The legacy Worker remains a fallback renderer. Branch/PR QA does not deploy to the production hosts.
+The custom homepage, header, footer, and independent directory/contact layouts are preserved. The existing responsive styling and interactions remain in their JavaScript and CSS files.
 
-## Build and check
+## Build and preview
+
+Node.js 24 or newer:
+
+```bash
+npm run build
+# Output: dist/public/
+cd dist/public && python3 -m http.server 4173
+```
+
+Open http://localhost:4173/. The finished `dist/public/` directory is a static site; no Node.js, PHP, database, or CMS is required on the hosting server.
+
+To build with a canonical production origin:
+
+```bash
+PUBLIC_BASE_URL=https://mg-label.webflow.io BASE_PATH="" npm run build
+```
+
+To build for the GitHub Pages project path:
+
+```bash
+PUBLIC_BASE_URL=https://omarreact.github.io/meta-gray-label BASE_PATH=/meta-gray-label npm run build
+```
+
+The committed route files are generated for GitHub Pages compatibility. **Edit structured content and JavaScript renderer sources, not generated route HTML**. `npm run materialize:pages` regenerates the tracked routes and SEO files.
+
+## JavaScript site controls
+
+The floating settings panel in `assets/js/site-settings.js` manages typography, including font family, sizes, weights and spacing. Preview changes apply immediately in the browser. The saved local preview uses browser storage; resetting restores `assets/site-settings.json` defaults.
+
+The panel's **Save to website** action creates a GitHub issue with a validated settings payload. The repository-owner-only workflow in `.github/workflows/apply-site-settings.yml` then updates **only** `assets/site-settings.json` on `main`, triggering standard static validation and publishing workflows. Site visitors do not receive repository write permissions, and a browser alone cannot commit code changes.
+
+Dark/light theme switching, mobile navigation, service filters, internal navigation, and the contact-brief interface remain browser JavaScript features. A static site has no built-in authentication, database or server-side form processing; those require an independently configured API/service.
+
+## Quality checks
 
 ```bash
 node scripts/audit-seo.mjs --check
-node tests/dynamic-renderer.mjs
 node tests/architecture.mjs
-node tests/fse-pages.mjs
+node tests/dynamic-renderer.mjs
+node tests/directories.mjs
 node tests/inner-system.mjs
-node scripts/generate-fse.mjs --check
-node scripts/package-wordpress.mjs --check
-PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/build-static.mjs
-PUBLIC_BASE_URL=https://omarreact.github.io/meta-gray-label BASE_PATH=/meta-gray-label node scripts/build-static.mjs
-PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/materialize-pages.mjs
-node scripts/inventory-pages.mjs
+node tests/inner-links.mjs
+node scripts/audit-assets.mjs
+npm run build
 ```
 
-After updating composition, regenerate native patterns with `node scripts/generate-fse.mjs --write`. Package the installable native block theme with `node scripts/package-wordpress.mjs --write`.
+GitHub Actions also runs Playwright responsive UI and interaction tests at desktop and mobile widths. The **Materialize GitHub Pages routes** and **Build Webflow deployment branch** workflows continue to publish static output after authorized merges to `main`.
 
-## Manual WordPress install
-
-The packaged theme is designed to be testable without WP-CLI:
-
-1. Upload and activate `meta-grey-label.zip` from **Appearance → Themes → Add New → Upload Theme**.
-2. Open **Appearance → Meta Grey Label Setup**.
-3. Click **Import Missing Pages & Set Homepage**.
-4. The setup creates only missing native Gutenberg pages, does not overwrite existing pages, and configures the packaged Home page as the static front page.
-5. Review the site in **Appearance → Editor** and on the frontend.
-
-The WP-CLI command remains available for automated environments: `wp mgl import-pages --apply --set-homepage`.
-
-## Real WordPress staging and browser QA
-
-GitHub Actions starts disposable wp-env Docker staging, activates the packaged theme, imports native pages, checks all native frontend routes, opens Gutenberg and Site Editor, and captures static/native evidence. The inner reference and route-family checks cover 360, 390, 430, 768, 1024, 1180, 1440 and 1920px in both themes. No test publishes to a production WordPress server.
-
-For Codespaces, `.devcontainer/setup-wordpress.sh` provisions local WordPress on port 8888 with wp-env development credentials. Keep that forwarded port private.
-
-## Audit and release scope
-
-See [route inventory](docs/route-inventory.md) and [architecture/design audit](docs/inner-page-audit.md). The contact route is included in the canonical inventory and has a native WordPress projection. Its existing form and prepared-output widgets use two HTML blocks with a small standalone script; surrounding content uses core blocks. Article publication dates are absent from the source and are not fabricated.
+Do not deploy to Vercel or modify DNS as part of routine site maintenance.

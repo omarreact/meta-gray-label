@@ -1,8 +1,8 @@
 # Current route inventory
 
-Base: main 7d5568d512e21e09cdd18e57749abe5e1eb7cf49. Generated from canonical data plus the bespoke contact source.
+Generated from canonical content data and the independent contact source.
 
-52 public routes and one 404 utility. Aliases /index.html and /services/ resolve to / and /services.html. Contact is now included in the canonical SEO/FSE inventory. Its static composition remains independent.
+52 public routes and one 404 utility. Aliases /index.html and /services/ resolve to / and /services.html. Contact is now included in the canonical SEO/HTML inventory. Its static composition remains independent.
 
 | Route | Page | Semantic family | Redesign state |
 |---|---|---|---|
