@@ -27,17 +27,16 @@ markup. Complex source widgets remain Custom HTML, editable as markup. Backend
 forms, accounts, payment processing and other server integrations are not
 created by static website conversion.
 
-Home 02 retains the external Kodesolution CSS, JavaScript, images and fonts used
-by the canonical source. Their availability and usage rights remain requirements;
-this is not an offline redistribution of that vendor's template package.
+Home 02's template CSS, JavaScript, images and font files are bundled under
+`assets/vendor/forexy/` and copied into the generated theme. Their original
+licenses still apply. Optional Google Fonts requests remain online dependencies.
 
 ## Runtime GitHub import
 
 Use PIN Universal FSE / PIN Site Importer **0.4.1 or later**. Enter repository
 `https://github.com/omarreact/meta-gray-label`, branch `main`, source format Auto.
 Leave the build folder empty. Import drafts into staging first. Enable referenced
-CSS, JavaScript and static asset mirroring. Home 02 also requires the explicit
-**trusted external/CDN JavaScript** option. The complete-site build above is the
+CSS, JavaScript and static asset mirroring. The complete-site build above is the
 recommended path for repeatable fidelity and per-page assets.
 
 Re-importing changes page content; use a fresh staging site or back up edited
