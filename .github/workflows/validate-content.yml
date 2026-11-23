@@ -182,7 +182,12 @@ jobs:
                 if ((width===360&&theme==='dark')||(width===1440&&theme==='light')){
                   const fs=require('node:fs');
                   fs.mkdirSync('tmp/static-visuals',{recursive:true});
-                  await page.waitForTimeout(1600);
+                  // Load lazy content before full-page visual capture.
+                  await page.locator('main img[loading="lazy"]').evaluateAll(async images=>{
+                    images.forEach(img=>img.loading='eager');
+                    await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+                  });
+                  await page.waitForTimeout(450);
                   const filename=route.replace(/\//g,'__')+'--'+width+'--'+theme+'.png';
                   await page.screenshot({path:'tmp/static-visuals/'+filename,fullPage:true});
                 }

@@ -610,3 +610,15 @@ html[data-bs-theme="dark"] .fxh-partner-list span{color:#b1c9bd;border-color:#3a
  .fxh-market-row strong{font-size:.7rem}
  .fxh-market-row a{font-size:.62rem}
 }
+
+/* Screenshot-led contrast fixes, scoped to homepage only. */
+html[data-bs-theme="light"] body.fxh-page .mgl-header-brand img{
+  filter:brightness(0) invert(1);opacity:1;
+}
+html[data-bs-theme="dark"] body.fxh-page :is(.fxh-about,.fxh-solutions,.fxh-steps,.fxh-faq,.fxh-insights) h2,
+html[data-bs-theme="dark"] body.fxh-page .fxh-about .fxh-section-copy h2{color:#133a3e!important;}
+html[data-bs-theme="dark"] body.fxh-page :is(.fxh-about,.fxh-solutions,.fxh-steps,.fxh-faq,.fxh-insights) p:not(.fxh-kicker),
+html[data-bs-theme="dark"] body.fxh-page .fxh-about-list>div{color:#526f71!important;}
+html[data-bs-theme="dark"] body.fxh-page .fxh-solutions .fxh-service-card p{color:#647b7c!important;}
+html[data-bs-theme="dark"] body.fxh-page .fxh-solutions .fxh-service-card h3,
+html[data-bs-theme="dark"] body.fxh-page .fxh-insights .fxh-insight-card h3{color:#163b3d!important;}
