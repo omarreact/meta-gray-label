@@ -26,7 +26,7 @@ jobs:
           assert.equal(pages.length,51,'Expected 51 post-name permalink pages');
           for(const file of ['index.html','404.html','assets/js/includes.js','assets/js/custom.js',
             'assets/js/site-settings.json','assets/css/style.css','assets/media/branding/favicon.svg',
-            'site-manifest.json','design-tokens.json','pin-import/header.html','pin-import/footer.html']){
+            'site-manifest.json','design-tokens.json','header.html','footer.html']){
             assert(fs.existsSync(file),'Missing '+file);
           }
           const manifest=JSON.parse(fs.readFileSync('site-manifest.json','utf8'));

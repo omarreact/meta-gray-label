@@ -66,14 +66,14 @@ function transform(source,file,{snapshot=false,standalone=false}={}){
   }
   return out;
 }
-for(const part of ['header','footer'])outputs.set('pin-import/'+part+'.html',transform(shared[part],'index.html'));
+for(const part of ['header','footer'])outputs.set(part+'.html',transform(shared[part],'index.html'));
 const pages=manifest.pages.map(page=>({...page}));
 if(!pages.some(p=>p.sourceFile==='index-2.html'||p.file==='index-2.html'))pages.push({path:'/index-2/',file:'index-2.html',title:'Home 02 — Brokerage Technology',status:'publish',order:52,template:'standalone',seo:{title:'Meta Grey Label | Home 02 — Brokerage Technology'}});
 for(const page of pages){
   const source=page.sourceFile||page.file.replace(/^pin-import\/pages\//,'');
   if(!fs.existsSync(path.join(root,source)))throw Error('Missing canonical source '+source);
   page.sourceFile=source;
-  page.file='pin-import/pages/'+source;
+  page.file='pin-import/pages/'+(source.endsWith('/index.html')?source.slice(0,-'/index.html'.length)+'.html':source);
   outputs.set(page.file,transform(read(source),source,{snapshot:true,standalone:page.template==='standalone'}));
 }
 manifest.pages=pages;
