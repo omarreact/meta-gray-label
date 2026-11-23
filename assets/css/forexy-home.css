@@ -530,7 +530,7 @@ html[data-bs-theme="dark"] .fxh-partner-list span{color:#b1c9bd;border-color:#3a
 }
 @media(max-width:1020px){
  body.fxh-page .mgl-site-header{position:absolute;top:34px}
- body.fxh-page .mgl-header-shell{width:min(100% - 48px,1300px)}
+ body.fxh-page .mgl-header-shell{width:min(calc(100% - 48px),1300px)}
  body.fxh-page .fxh-hero{padding-top:128px}
  body.fxh-page .fxh-hero-grid{min-height:0}
  body.fxh-page .fxh-hero-art{transform:none}
