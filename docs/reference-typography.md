@@ -7,8 +7,8 @@ Source component reference: https://github.com/omarreact/mt4-grey-label-kickgent
 - `styles/pintheme-tailwind.css`: `--pt-heading-font` and `--pt-body-font` both use Inter
 
 These are **declared source styles**, not a computed-style capture of every element
-on the deployed WordPress website. Its active WordPress theme may apply additional
-user customizations.
+on the deployed benchmark site. Its active theme may apply additional
+customizations.
 
 ## Extracted reference specimens
 
@@ -33,12 +33,12 @@ The shared h1 max is 93px and h2 max is 77px, with fluid viewports.
 The dedicated inner-page design-system rules deliberately retain their own
 font-size, line-height and responsive clamps to preserve approved layouts.
 
-The implementation is synchronized across `assets/site-settings.json`,
-`assets/css/site-settings.css`, `assets/js/site-settings.js`, `theme.json`,
-`assets/css/fse.css`, native/inner-page CSS, and the static header.
+The standalone HTML implementation uses `assets/site-settings.json`,
+`assets/css/site-settings.css`, `assets/js/site-settings.js`, and
+`assets/css/inner-pages.css`. It has no WordPress or FSE outputs.
 
 For release validation, compare browser-computed font family, loaded font
 network request, line wraps, button widths and navbar overflow at
 360/390/768/1024/1180/1440/1920px. Check homepage, an inner content page,
-directory, and WordPress Site Editor in both color themes. A code review
+directory, and the JavaScript typography settings panel in both color themes. A code review
 alone cannot establish visual parity.

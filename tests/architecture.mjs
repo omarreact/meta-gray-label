@@ -1,28 +1,34 @@
-import assert from "node:assert/strict";
-import { readFileSync, existsSync } from "node:fs";
-const read=(file)=>readFileSync(new URL("../"+file,import.meta.url),"utf8");
-const css=read("assets/css/fse.css");
-const func=read("functions.php");
-const theme=JSON.parse(read("theme.json"));
-assert.equal(theme.version,3);
-assert.equal(theme.templateParts.length,2);
-assert.deepEqual(theme.templateParts.map(x=>x.name).sort(),["footer","header"]);
-assert.doesNotMatch(css,/(?:^|[{},]\s*)\s*(?:\.container|\.row|\.btn|\.col-|body\b|h[1-6]\b|p\b)/m);
-assert.match(css,/\.mgl-native-page/);
-assert.match(func,/mgl-fse-native/);
-assert.match(func,/mgl-site-settings/);
-assert.equal(existsSync(new URL("../assets/site-settings.json",import.meta.url)),true);
-assert.equal(existsSync(new URL("../assets/js/site-settings.js",import.meta.url)),true);
-assert.equal(existsSync(new URL("../assets/css/site-settings.css",import.meta.url)),true);
-assert.doesNotMatch(func,/bootstrap\.min\.css|custom\.js|register_block_type|mgl_render_page/);
-assert.equal(existsSync(new URL("../blocks",import.meta.url)),false);
-assert.equal(existsSync(new URL("../inc/renderer.php",import.meta.url)),false);
-assert.equal(existsSync(new URL("../inc/import-pages.php",import.meta.url)),true);
-assert.equal(existsSync(new URL("../inc/admin-setup.php",import.meta.url)),true);
-assert.match(func,/inc\/import-pages\.php/);
-assert.match(func,/inc\/admin-setup\.php/);
-assert.match(read("templates/page.html"),/wp:post-content/);
-assert.match(read("templates/front-page.html"),/wp:post-content/);
-assert.match(read("parts/header.html"),/wp:navigation/);
-assert.match(read("parts/footer.html"),/mgl-native-site-footer/);
-console.log("ARCHITECTURE PASS: dynamic HTML source + native-only compact WordPress block theme.");
+import assert from 'node:assert/strict';
+import { readFileSync, existsSync } from 'node:fs';
+import { buildRouteIndex, renderStructuredPage } from '../src/renderer.js';
+const at = (path) => new URL('../' + path, import.meta.url);
+const read = (path) => readFileSync(at(path), 'utf8');
+for (const path of [
+  'index.html', 'header.html', 'footer.html', 'services.html',
+  'assets/css/style.css', 'assets/css/inner-pages.css',
+  'assets/css/site-settings.css', 'assets/js/site-settings.js',
+  'assets/js/custom.js', 'assets/site-settings.json',
+  'scripts/build-static.mjs', 'scripts/static-site-lib.mjs',
+  'src/renderer.js', 'src/inner-system.js', 'data/content.json'
+]) assert.ok(existsSync(at(path)), 'Missing HTML/JavaScript source: ' + path);
+for (const path of [
+  'theme.json', 'functions.php', 'style.css', '.wp-env.json',
+  'scripts/generate-fse.mjs', 'scripts/fse-pages.mjs',
+  'scripts/package-wordpress.mjs', 'inc/admin-setup.php',
+  'inc/import-pages.php', 'assets/css/fse.css',
+  'assets/css/native-chrome.css', 'assets/js/native-chrome.js',
+  'templates/front-page.html', 'parts/header.html'
+]) assert.equal(existsSync(at(path)), false, 'WordPress dependency remains: ' + path);
+const settings = JSON.parse(read('assets/site-settings.json'));
+assert.ok(settings.typography?.globalFontFamily, 'JavaScript typography settings missing');
+const routes = buildRouteIndex(JSON.parse(read('data/content.json')));
+const page = routes.get('/forex-grey-label/mt5-grey-label/');
+assert.ok(page, 'Structured HTML route missing');
+const html = renderStructuredPage({
+  route: page.route, entry: page, routeIndex: routes, canonicalBase: 'https://mg-label.webflow.io'
+});
+assert.match(html, /<main\b/);
+assert.match(html, /assets\/js\/site-settings\.js/);
+assert.match(html, /assets\/css\/inner-pages\.css/);
+assert.doesNotMatch(html, /<!--\s*wp:|\bwp-block-/);
+console.log('ARCHITECTURE PASS: static HTML + JavaScript renderer and settings, no WordPress/theme runtime.');

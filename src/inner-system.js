@@ -1,7 +1,7 @@
 import designContent from '../data/inner-pages.json' with { type: 'json' };
-/** Shared semantic composition. Static HTML and Gutenberg serialize this same tree. */
+/** Shared semantic composition serialized exclusively to semantic HTML. */
 export const REFERENCE_ROUTE = '/forex-grey-label/mt5-grey-label/';
-// Family rollout follows the MT5 reference passing static and real WordPress QA.
+// Family rollout preserves the MT5 reference and responsive HTML QA.
 export const INNER_ROLLOUT = new Set(designContent.rollout);
 export const esc = (s = '') => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const text = (tag, value, cls = '') => ({ tag, text: value, cls });
@@ -154,26 +154,21 @@ export function buildInnerPage(entry, entries) {
   return group('mgl-design mgl-design--'+family,children);
 }
 
-/** Native core blocks throughout; no raw HTML blocks, scripts or custom blocks. */
-export function renderInnerTree(node, gutenberg=false) {
-  const children=()=> (node.children||[]).map(n=>renderInnerTree(n,gutenberg)).join('\n');
-  const rich=()=>node.links?node.links.map(x=>x.href?`<a href="${esc(x.href)}">${esc(x.label)}</a>`:`<span>${esc(x.label)}</span>`).join(' <span aria-hidden="true">/</span> '):esc(node.text).replace(/\n/g,'<br>');
-  const cls=node.cls||'';
-  const anchor=node.id?` id="${esc(node.id)}"`:'';
-  const attr={...(cls?{className:cls}:{}),...(node.id?{anchor:node.id}:{})};
-  let name,html;
-  if(node.tag==='details') {
-    name='details';attr.summary=node.summary;
-    html=`<details class="wp-block-details${cls?' '+cls:''}"><summary>${esc(node.summary)}</summary>\n${children()}</details>`;
-  } else if(/^h[1-6]$/.test(node.tag)) {
-    name='heading'; if(node.tag!=='h2')attr.level=Number(node.tag[1]);
-    html=`<${node.tag} class="wp-block-heading${cls?' '+cls:''}">${rich()}</${node.tag}>`;
-  } else if(node.tag==='p') {
-    name='paragraph';html=`<p${cls?` class="${cls}"`:''}>${rich()}</p>`;
-  } else {
-    name='group'; if(node.tag!=='div')attr.tagName=node.tag;
-    attr.layout={type:'default'};
-    html=`<${node.tag}${anchor} class="wp-block-group${cls?' '+cls:''}">\n${children()}\n</${node.tag}>`;
+/** Serialize the data-driven page tree to plain semantic HTML. */
+export function renderInnerTree(node) {
+  const children = () => (node.children || []).map(renderInnerTree).join('\n');
+  const rich = () => node.links
+    ? node.links.map(x => x.href
+      ? `<a href="${esc(x.href)}">${esc(x.label)}</a>`
+      : `<span>${esc(x.label)}</span>`).join(' <span aria-hidden="true">/</span> ')
+    : esc(node.text).replace(/\n/g, '<br>');
+  const cls = node.cls ? ` class="${esc(node.cls)}"` : '';
+  const anchor = node.id ? ` id="${esc(node.id)}"` : '';
+  if (node.tag === 'details') {
+    return `<details${anchor}${cls}><summary>${esc(node.summary)}</summary>\n${children()}</details>`;
   }
-  return gutenberg?`<!-- wp:${name}${Object.keys(attr).length?' '+JSON.stringify(attr).replace(/--/g,'\\u002d\\u002d').replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026'):''} -->\n${html}\n<!-- /wp:${name} -->`:html;
+  if (/^h[1-6]$/.test(node.tag) || node.tag === 'p') {
+    return `<${node.tag}${anchor}${cls}>${rich()}</${node.tag}>`;
+  }
+  return `<${node.tag}${anchor}${cls}>\n${children()}\n</${node.tag}>`;
 }

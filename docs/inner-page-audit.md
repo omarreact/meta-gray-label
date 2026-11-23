@@ -1,5 +1,7 @@
 # Inner-page architecture and design audit
 
+> **Historical audit (pre-HTML-only refactor).** This document records the earlier dual static/WordPress implementation and its original QA evidence. The WordPress generator, PHP and FSE pipeline have been removed. For the current standalone HTML/JavaScript architecture and commands, see [README](../README.md).
+
 Baseline: `main` at `7d5568d512e21e09cdd18e57749abe5e1eb7cf49`. Review date: 22 November 2026 (Bangladesh time). Production was inspected on Webflow and the GitHub Pages mirror. This report distinguishes source inspection, live observations and automated verification.
 
 ## Architecture

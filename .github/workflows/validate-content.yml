@@ -1,4 +1,4 @@
-name: Validate dynamic HTML and compact WordPress theme
+name: Validate HTML and JavaScript website
 
 on:
   push:
@@ -6,11 +6,6 @@ on:
   pull_request:
     paths:
       - "data/**"
-      - "templates/**"
-      - "parts/**"
-      - "patterns/**"
-      - "styles/**"
-      - "inc/**"
       - "assets/**"
       - "media/**"
       - "scripts/**"
@@ -19,11 +14,10 @@ on:
       - "wrangler.jsonc"
       - "tests/**"
       - "**/*.html"
-      - "functions.php"
       - "style.css"
-      - "theme.json"
+      - "package.json"
       - ".github/workflows/validate-content.yml"
-      - ".wp-env.json"
+      - ".github/workflows/apply-site-settings.yml"
       - ".devcontainer/**"
   workflow_dispatch:
 
@@ -32,46 +26,40 @@ permissions:
 
 jobs:
   verify:
+    name: Static build and JavaScript checks
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Validate source syntax
+      - name: Validate JavaScript source syntax
         run: |
-          node --check worker.js
-          node --check src/renderer.js
-          node --check assets/js/site-settings.js
-          node --check scripts/audit-seo.mjs
-          node --check scripts/build-dynamic.mjs
-          node --check scripts/static-site-lib.mjs
-          node --check scripts/build-static.mjs
-          node --check scripts/materialize-pages.mjs
-          node --check scripts/package-wordpress.mjs
-          node --check scripts/fse-pages.mjs
-          node --check scripts/generate-fse.mjs
-          node --check tests/dynamic-renderer.mjs
-          node --check tests/architecture.mjs
-          node --check tests/responsive-browser.mjs
-          node --check tests/visual-parity.mjs
-      - name: Audit dynamic SEO and route inventory
-        run: node scripts/audit-seo.mjs --check
-      - name: Validate dynamic renderer and compact asset build
+          for file in worker.js src/*.js assets/js/site-settings.js assets/js/directories.js assets/js/contact-brief.js scripts/*.mjs tests/architecture.mjs tests/dynamic-renderer.mjs tests/directories.mjs tests/inner-system.mjs tests/inner-links.mjs tests/responsive-browser.mjs tests/inner-browser.mjs tests/inner-routes-browser.mjs tests/phase2-browser.mjs; do
+            node --check "$file"
+          done
+      - name: Audit HTML architecture, content, SEO and assets
         run: |
+          node tests/architecture.mjs
+          node scripts/audit-seo.mjs --check
+          node scripts/audit-assets.mjs
           node tests/dynamic-renderer.mjs
+          node tests/directories.mjs
+          node tests/inner-system.mjs
+          node tests/inner-links.mjs
+      - name: Validate optional JavaScript edge renderer assets
+        run: |
           node scripts/build-dynamic.mjs
           test -f dist/public/index.html
           test -f dist/public/services.html
           test ! -e dist/public/about-us/index.html
-          test ! -e dist/public/forex-grey-label/mt5-grey-label/index.html
-      - name: Validate GitHub/Webflow static build
+      - name: Validate GitHub Pages static HTML build
         env:
           PUBLIC_BASE_URL: https://omarreact.github.io/meta-gray-label
           BASE_PATH: /meta-gray-label
         run: |
-          node scripts/build-static.mjs
+          npm run build
           test -f dist/public/index.html
           test -f dist/public/about-us/index.html
           test -f dist/public/forex-grey-label/mt5-grey-label/index.html
@@ -79,20 +67,22 @@ jobs:
           grep -q 'https://mg-label.webflow.io/about-us/' dist/public/about-us/index.html
           grep -q '/meta-gray-label/assets/css/style.css' dist/public/about-us/index.html
           ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
-      - name: Validate Webflow root-host static build
+      - name: Validate root-host static HTML build
         env:
           PUBLIC_BASE_URL: https://mg-label.webflow.io
           BASE_PATH: ""
         run: |
-          node scripts/build-static.mjs
+          npm run build
           test -f dist/public/index.html
-          test -f dist/public/about-us/index.html
+          test -f dist/public/services.html
+          test -f dist/public/solutions/index.html
+          test -f dist/public/insights/index.html
+          test -f dist/public/contact/index.html
           test -f dist/public/forex-grey-label/mt5-grey-label/index.html
           grep -q 'https://mg-label.webflow.io/about-us/' dist/public/about-us/index.html
           grep -q 'href="/assets/css/style.css"' dist/public/about-us/index.html
           ! grep -R -q '/meta-gray-label/assets/' dist/public
-          ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' dist/public
-      - name: Validate shared-main host-neutral materialization
+      - name: Validate host-neutral generated HTML routes
         run: |
           tmpdir="$(mktemp -d)"
           cp -a . "$tmpdir/site"
@@ -102,63 +92,10 @@ jobs:
           grep -q 'href="../assets/css/style.css"' about-us/index.html
           grep -q 'href="../../assets/css/style.css"' forex-grey-label/mt5-grey-label/index.html
           grep -q 'href="../"' about-us/index.html
-          ! grep -R -q '/meta-gray-label/assets/' about-us forex-grey-label
           ! grep -R -q 'meta-gray-label-dynamic.farukkhanone.workers.dev' about-us forex-grey-label
-      - name: Validate compact WordPress architecture
-        run: |
-          node tests/architecture.mjs
-          node scripts/audit-assets.mjs
-      - name: Validate native Gutenberg projection
-        run: |
-          node tests/directories.mjs
-          node tests/inner-system.mjs
-          node tests/inner-links.mjs
-          node tests/fse-pages.mjs
-          node scripts/generate-fse.mjs --check
-      - name: Verify WordPress package
-        run: node scripts/package-wordpress.mjs --check
-      - name: Lint WordPress PHP
-        run: |
-          php -l functions.php
-          php -l inc/import-pages.php
-          php -l inc/admin-setup.php
-          php -l patterns/brokerage-hero.php
-          php -l patterns/brokerage-cta.php
-          php -l patterns/inner-service.php
-          php -l tests/wordpress-assets-smoke.php
-      - name: Smoke-test WordPress assets
-        run: php tests/wordpress-assets-smoke.php
-      - name: Build installable WordPress theme package
-        run: |
-          node scripts/package-wordpress.mjs --write
-          test -f dist/wordpress/meta-grey-label/functions.php
-          test -f dist/wordpress/meta-grey-label/inc/admin-setup.php
-          test -f dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
-          test -f dist/wordpress/meta-grey-label/parts/header.html
-          test -f dist/wordpress/meta-grey-label/parts/footer.html
-          test -f dist/wordpress/meta-grey-label/assets/css/fse.css
-          test ! -e dist/wordpress/meta-grey-label/assets/css/bootstrap.min.css
-          test ! -d dist/wordpress/meta-grey-label/blocks
-          (
-            cd dist/wordpress
-            zip -qr meta-grey-label.zip meta-grey-label
-          )
-          unzip -t dist/wordpress/meta-grey-label.zip
-          sha256sum dist/wordpress/meta-grey-label.zip > dist/wordpress/meta-grey-label.zip.sha256
-
-      - name: Publish installable theme artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: meta-grey-label-wordpress-theme
-          path: |
-            dist/wordpress/meta-grey-label.zip
-            dist/wordpress/meta-grey-label.zip.sha256
-            dist/wordpress/meta-grey-label/data/fse-pages/manifest.json
-          if-no-files-found: error
-          retention-days: 14
 
   responsive-web:
-    name: Responsive web QA (7 breakpoints)
+    name: Responsive HTML/JavaScript QA (desktop and mobile)
     needs: verify
     runs-on: ubuntu-24.04
     timeout-minutes: 25
@@ -167,25 +104,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Build static runtime fixtures
+      - name: Build browser fixtures
         run: node scripts/build-dynamic.mjs
-      - name: Install Chromium QA runtime
+      - name: Install Chromium QA
         run: |
           npm install --no-save --no-package-lock playwright@1.58.2
           npx playwright install chromium
-      - name: Validate homepage and Get Started across responsive breakpoints
+      - name: Validate homepage, settings and contact interactions
         run: node tests/responsive-browser.mjs
-      - name: Publish responsive screenshots
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: responsive-web-screenshots
+          name: responsive-html-screenshots
           path: tmp/responsive-browser-screens/
           if-no-files-found: ignore
           retention-days: 7
 
   inner-page-reference:
-    name: Inner page reference (8 widths, 2 themes)
+    name: Static HTML pages (8 widths, 2 themes)
     needs: verify
     runs-on: ubuntu-24.04
     timeout-minutes: 25
@@ -196,13 +132,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Build static inner pages
+      - name: Build all HTML routes
         run: PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/build-static.mjs
       - name: Install Chromium QA
         run: |
           npm install --no-save --no-package-lock playwright@1.58.2
           npx playwright install chromium
-      - name: Test both themes at all eight requested widths
+      - name: Test responsive layouts, directories and browser interactions
         run: |
           node tests/inner-browser.mjs
           node tests/inner-routes-browser.mjs
@@ -210,117 +146,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: inner-page-static-evidence
+          name: static-html-visual-evidence
           path: tmp/inner-static/
           retention-days: 14
-
-  wordpress-integration:
-    name: Real WordPress staging (isolated Docker)
-    needs: verify
-    runs-on: ubuntu-24.04
-    timeout-minutes: 35
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-      - name: Build installable WordPress theme
-        run: |
-          node scripts/package-wordpress.mjs --write
-          cp tests/wp-runtime.php dist/wordpress/meta-grey-label/qa-runtime.php
-      - name: Start isolated WordPress and MariaDB
-        run: npx --yes @wordpress/env start
-      - name: Activate theme and pretty permalinks
-        run: |
-          npx --yes @wordpress/env run cli wp theme activate meta-grey-label
-          npx --yes @wordpress/env run cli wp option update blogname 'Meta Grey Label'
-          npx --yes @wordpress/env run cli wp option update permalink_structure '/%postname%/'
-          npx --yes @wordpress/env run cli wp rewrite flush
-      - name: Import native pages
-        run: |
-          npx --yes @wordpress/env run cli wp mgl import-pages
-          npx --yes @wordpress/env run cli wp mgl import-pages --apply --set-homepage
-      - name: Assert WordPress parsing and navigation
-        run: npx --yes @wordpress/env run cli wp eval-file wp-content/themes/meta-grey-label/qa-runtime.php
-      - name: Assert HTTP pages and frontend assets
-        run: node tests/wp-http.mjs
-      - name: Browser validation and desktop/mobile screenshots
-        run: |
-          npm install --no-save --no-package-lock playwright@1.58.2
-          npx playwright install chromium
-          node tests/wp-browser.mjs
-          node tests/wp-editor.mjs
-          MGL_INNER_TARGET=wordpress node tests/inner-browser.mjs
-          MGL_INNER_TARGET=wordpress node tests/inner-routes-browser.mjs
-          MGL_INNER_TARGET=wordpress node tests/phase2-browser.mjs
-          node tests/wp-contact.mjs
-      - name: Capture source HTML and WordPress visual parity
-        run: |
-          mkdir -p tmp/design-parity
-          PUBLIC_BASE_URL=https://mg-label.webflow.io node scripts/materialize-pages.mjs
-          python3 -m http.server 4173 --bind 127.0.0.1 > tmp/design-parity/source-server.log 2>&1 &
-          echo $! > tmp/design-parity/source-server.pid
-          for attempt in {1..20}; do
-            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
-              break
-            fi
-            sleep 1
-          done
-          curl -fsS http://127.0.0.1:4173/ >/dev/null
-          node tests/visual-parity.mjs
-          node tests/inner-parity.mjs
-      - name: Capture WordPress staging evidence
-        if: always()
-        run: |
-          mkdir -p tmp/wordpress-qa
-          {
-            echo "# Meta Grey Label WordPress staging QA"
-            echo
-            echo "- Commit: $GITHUB_SHA"
-            echo "- Ref: $GITHUB_REF"
-            echo "- Run: $GITHUB_RUN_ID"
-            echo "- WordPress staging: isolated wp-env Docker environment"
-            echo "- Theme: meta-grey-label"
-            echo "- Expected native routes: 53"
-            echo "- Browser viewports: 1440x900 and 390x844"
-            echo "- Evidence: screenshots, runtime inventory and wp-env logs"
-          } > tmp/wordpress-qa/summary.md
-
-          npx --yes @wordpress/env run cli wp core version > tmp/wordpress-qa/wordpress-version.txt 2>&1 || true
-          npx --yes @wordpress/env run cli wp theme status meta-grey-label > tmp/wordpress-qa/theme-status.txt 2>&1 || true
-          npx --yes @wordpress/env run cli wp post list --post_type=page --post_status=publish --fields=ID,post_name,post_title --format=csv > tmp/wordpress-qa/pages.csv 2>&1 || true
-          npx --yes @wordpress/env run cli wp option get show_on_front > tmp/wordpress-qa/show-on-front.txt 2>&1 || true
-          npx --yes @wordpress/env run cli wp option get page_on_front > tmp/wordpress-qa/page-on-front.txt 2>&1 || true
-          docker ps -a > tmp/wordpress-qa/docker-ps.txt 2>&1 || true
-          timeout 15s npx --yes @wordpress/env logs > tmp/wordpress-qa/wp-env.log 2>&1 || true
-
-          {
-            echo "## WordPress staging factory"
-            echo
-            echo "- Commit: $GITHUB_SHA"
-            echo "- 53 native block routes packaged"
-            echo "- Real WordPress + MariaDB booted in isolated Docker"
-            echo "- HTTP, Gutenberg, Site Editor and responsive browser QA executed"
-            echo "- Installable theme ZIP is available from the meta-grey-label-wordpress-theme artifact"
-            echo "- Screenshots and diagnostics are available from the wordpress-staging-qa artifact"
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Publish WordPress staging QA evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wordpress-staging-qa
-          path: |
-            tmp/wp-browser-screens/
-            tmp/inner-wordpress/
-            tmp/design-parity/
-            tmp/wordpress-qa/
-          if-no-files-found: warn
-          retention-days: 14
-      - name: Shut down disposable staging
-        if: always()
-        run: |
-          if [ -f tmp/design-parity/source-server.pid ]; then
-            kill "$(cat tmp/design-parity/source-server.pid)" 2>/dev/null || true
-          fi
-          npx --yes @wordpress/env stop || true

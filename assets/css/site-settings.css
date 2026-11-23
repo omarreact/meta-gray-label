@@ -28,7 +28,6 @@ html body :where(
   a,button,input,select,textarea,label,summary,
   small,strong,b,em,
   .mgl-site-header,.mgl-site-footer,
-  .mgl-native-page,.mgl-native-site-header,.mgl-native-site-footer,
   .banner__content-heading,.banner__content-moto,
   .section-header,.cta__subscribe,
   .mgl-nav-link,.mgl-dropdown-link,.mgl-header-cta,
@@ -47,7 +46,7 @@ html body :where(p,li,dd,dt,td,th,address,blockquote){
   line-height:var(--mgl-body-line-height)!important;
   letter-spacing:var(--mgl-body-letter-spacing)!important;
 }
-html body :where(h1,h2,h3,h4,h5,h6,.wp-block-heading){
+html body :where(h1,h2,h3,h4,h5,h6){
   font-weight:var(--mgl-heading-font-weight)!important;
   line-height:var(--mgl-heading-line-height)!important;
   letter-spacing:var(--mgl-heading-letter-spacing)!important;
@@ -58,11 +57,11 @@ html body h3{font-size:clamp(20px,3vw,var(--mgl-h3-size))!important}
 html body h4{font-size:clamp(18px,2.5vw,var(--mgl-h4-size))!important}
 html body h5{font-size:clamp(16px,2vw,var(--mgl-h5-size))!important}
 html body h6{font-size:clamp(14px,1.7vw,var(--mgl-h6-size))!important}
-html body :where(.mgl-nav-link,.mgl-dropdown-link,.mgl-mobile-utility,.mgl-native-navigation,.mgl-native-navigation .wp-block-navigation-item__content,input,select,textarea,label,summary){
+html body :where(.mgl-nav-link,.mgl-dropdown-link,.mgl-mobile-utility,input,select,textarea,label,summary){
   font-size:var(--mgl-ui-font-size)!important;
   font-weight:var(--mgl-ui-font-weight)!important;
 }
-html body :where(button,.trk-btn,.mgl-btn,.mgl-home-btn,.mgl-header-cta,.wp-block-button__link,.wp-element-button){
+html body :where(button,.trk-btn,.mgl-btn,.mgl-home-btn,.mgl-header-cta){
   font-size:var(--mgl-button-font-size)!important;
   font-weight:var(--mgl-button-font-weight)!important;
 }

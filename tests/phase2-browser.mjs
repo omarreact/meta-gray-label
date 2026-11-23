@@ -6,14 +6,13 @@ import {writeFileSync} from 'node:fs';
 import {createServer} from 'node:http';
 import {resolve,extname} from 'node:path';
 import {execFileSync} from 'node:child_process';
-const wp=process.env.MGL_INNER_TARGET==='wordpress';
-const base=wp?'http://localhost:8888':'http://127.0.0.1:4180';
-const dir=wp?'tmp/inner-wordpress/phase2':'tmp/inner-static/phase2';await mkdir(dir,{recursive:true});
+const base='http://127.0.0.1:4180';
+const dir='tmp/inner-static/phase2';await mkdir(dir,{recursive:true});
 const types={'.html':'text/html','.css':'text/css','.js':'application/javascript','.svg':'image/svg+xml','.json':'application/json','.png':'image/png'};
 let server;
-if(!wp){server=createServer(async(req,res)=>{try{let path=new URL(req.url,base).pathname;if(path.endsWith('/'))path+='index.html';const file=resolve('dist/public','.'+path);if(!file.startsWith(resolve('dist/public')+'/'))throw Error();res.setHeader('Content-Type',types[extname(file)]||'application/octet-stream');res.end(await readFile(file));}catch{res.statusCode=404;res.end('Not found');}});await new Promise(r=>server.listen(4180,'127.0.0.1',r));}
+server=createServer(async(req,res)=>{try{let path=new URL(req.url,base).pathname;if(path.endsWith('/'))path+='index.html';const file=resolve('dist/public','.'+path);if(!file.startsWith(resolve('dist/public')+'/'))throw Error();res.setHeader('Content-Type',types[extname(file)]||'application/octet-stream');res.end(await readFile(file));}catch{res.statusCode=404;res.end('Not found');}});await new Promise(r=>server.listen(4180,'127.0.0.1',r));
 const pages=[
- ['services',wp?'/services/':'/services.html'],['solutions','/solutions/'],['insights','/insights/'],
+ ['services','/services.html'],['solutions','/solutions/'],['insights','/insights/'],
  ['mt5-grey','/forex-grey-label/mt5-grey-label/'],['mt5-white','/forex-white-label/mt5-white-label/'],['kyc','/forex-crm/kyc/'],
  ['grey-hub','/forex-grey-label/'],['crm-hub','/forex-crm/'],['platform-hub','/trading-platforms/'],
  ['grey-pricing','/forex-grey-label/pricing/'],['white-pricing','/forex-white-label/pricing/'],
@@ -33,10 +32,10 @@ try{
   await page.goto(base+route+'?theme='+theme,{waitUntil:'load'});
   const metrics=await page.evaluate(()=>{
    const q=s=>document.querySelector(s),box=e=>{const r=e.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}};
-   return{overflow:document.documentElement.scrollWidth-innerWidth,h1:document.querySelectorAll('h1').length,theme:document.documentElement.dataset.bsTheme,header:box(q('.mgl-native-site-header,.mgl-header-shell')),logo:box([...document.querySelectorAll('.mgl-native-brand img,.mgl-header-brand img')].find(e=>e.getBoundingClientRect().width>0)||q('header img')),footer:box(q('.mgl-native-site-footer,.footer')),footerHeadingFont:getComputedStyle(q('.mgl-native-footer-links h3,.footer__links h6')).fontSize,footerBodyFont:getComputedStyle(q('.mgl-native-footer-about>p,.footer__about-moto')).fontSize,contentTop:q('.mgl-design').getBoundingClientRect().y,preloader:!!q('.preloader'),text:q('.mgl-design').innerText.length};
+   return{overflow:document.documentElement.scrollWidth-innerWidth,h1:document.querySelectorAll('h1').length,theme:document.documentElement.dataset.bsTheme,header:box(q('.mgl-header-shell')),logo:box([...document.querySelectorAll('.mgl-header-brand img')].find(e=>e.getBoundingClientRect().width>0)||q('header img')),footer:box(q('.footer')),footerHeadingFont:getComputedStyle(q('.footer__links h6')).fontSize,footerBodyFont:getComputedStyle(q('.footer__about-moto')).fontSize,contentTop:q('.mgl-design').getBoundingClientRect().y,preloader:!!q('.preloader'),text:q('.mgl-design').innerText.length};
   });
   assert.ok(metrics.overflow<=2,`${name} ${theme} ${width} overflow ${metrics.overflow}`);assert.equal(metrics.h1,1);assert.equal(metrics.footerHeadingFont,'13px','footer heading hierarchy');assert.equal(metrics.footerBodyFont,'15px','footer body hierarchy');assert.equal(metrics.contentTop,0,'unexpected template gap');assert.equal(metrics.theme,theme);assert.equal(metrics.preloader,false);assert.deepEqual(errors,[],name);
-  const controls=await page.evaluate(()=>[...document.querySelectorAll('.mgl-native-site-header a,.mgl-native-site-header button,.mgl-header-shell a,.mgl-header-shell button')].filter(e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return r.width&&r.height&&s.visibility!=='hidden';}).map(e=>{const r=e.getBoundingClientRect();return{label:e.getAttribute('aria-label')||e.textContent.trim(),x:r.x,right:r.right,y:r.y};}));
+  const controls=await page.evaluate(()=>[...document.querySelectorAll('.mgl-header-shell a,.mgl-header-shell button')].filter(e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return r.width&&r.height&&s.visibility!=='hidden';}).map(e=>{const r=e.getBoundingClientRect();return{label:e.getAttribute('aria-label')||e.textContent.trim(),x:r.x,right:r.right,y:r.y};}));
   for(const control of controls)assert.ok(control.x>=0&&control.right<=width+1,`${name} ${width} header control outside viewport: ${JSON.stringify(control)}`);
   metrics.controls=controls;
   if(['services','solutions','insights'].includes(name)){
@@ -51,19 +50,15 @@ try{
   if([390,1440].includes(width)){
    await page.screenshot({path:`${dir}/${name}-${theme}-${width}.png`,fullPage:true});
    if(['services','solutions','insights'].includes(name)){
-    await page.locator('.mgl-native-site-footer,.footer').scrollIntoViewIfNeeded();await page.screenshot({path:`${dir}/${name}-${theme}-${width}-footer.png`});
+    await page.locator('.footer').scrollIntoViewIfNeeded();await page.screenshot({path:`${dir}/${name}-${theme}-${width}-footer.png`});
    }
   }
   // The visible control must switch theme and remain keyboard operable.
-  const toggle=page.locator(wp?'.mgl-native-theme-toggle a':'#btnSwitch');await toggle.click();assert.equal(await page.locator('html').getAttribute('data-bs-theme'),theme==='dark'?'light':'dark');
+  const toggle=page.locator('#btnSwitch');await toggle.click();assert.equal(await page.locator('html').getAttribute('data-bs-theme'),theme==='dark'?'light':'dark');
   await toggle.click();assert.equal(await page.locator('html').getAttribute('data-bs-theme'),theme);
-  if(wp&&['services','solutions','insights'].includes(name)){
-   if(width<1200){const open=page.locator('.wp-block-navigation__responsive-container-open');await open.click();await page.locator('.wp-block-navigation__responsive-container.is-menu-open').waitFor();if(name==='services')await page.screenshot({path:`${dir}/native-menu-${theme}-${width}.png`});await page.locator('.wp-block-navigation__responsive-container-close').click();}
-   else{await page.locator('.mgl-native-navigation .wp-block-navigation-submenu').first().hover();await page.locator('.mgl-native-navigation .wp-block-navigation__submenu-container').first().waitFor({state:'visible'});if(name==='services')await page.screenshot({path:`${dir}/native-dropdown-${theme}-${width}.png`});}
-  }
   report.push({name,route,theme,width,...metrics});await ctx.close();
  }
- if(!wp){
+ {
   for(const theme of ['dark','light'])for(const width of [390,1440])for(const [name,route]of pages.slice(0,3)){
    const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'}),page=await ctx.newPage();
    const path=route==='/services.html'?'services.html':route.slice(1)+'index.html';
