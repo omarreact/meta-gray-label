@@ -1,11 +1,24 @@
-<div class="mgl-header-shell">
+<a class="mgl-skip-link" href="#main-content">Skip to main content</a>
+<header class="mgl-site-header" data-site-header>
+  <div class="mgl-header-shell">
     <a class="mgl-header-brand" href="/index.html" aria-label="Meta Grey Label home">
       <img data-brand-logo src="/assets/media/branding/logo-dark.svg" alt="Meta Grey Label" width="264" height="56">
     </a>
 
     <nav class="mgl-primary-nav" aria-label="Primary navigation">
       <ul class="mgl-nav-list" id="primary-navigation">
-        <li class="mgl-nav-item"><a class="mgl-nav-link" href="/index.html"><svg class="mgl-nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>Home</span></a></li>
+        <li class="mgl-nav-item mgl-nav-item--has-panel">
+          <div class="mgl-nav-trigger">
+            <a class="mgl-nav-link" href="/index.html"><svg class="mgl-nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>Home</span></a>
+            <button class="mgl-nav-disclosure" type="button" data-nav-disclosure aria-controls="mgl-nav-home" aria-expanded="false" aria-label="Toggle Home submenu">
+              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg>
+            </button>
+          </div>
+          <div class="mgl-nav-panel mgl-simple-panel mgl-home-panel" id="mgl-nav-home">
+            <a class="mgl-dropdown-link" href="/index.html">Home 01</a>
+            <a class="mgl-dropdown-link" href="/index-2.html">Home 02</a>
+          </div>
+        </li>
 
         <li class="mgl-nav-item mgl-nav-item--has-panel">
           <div class="mgl-nav-trigger">
@@ -130,6 +143,7 @@
       </button>
     </div>
   </div>
+</header>
 <style>
 /* Meta Grey Label navigation: professional one-line desktop menu + single-column dropdowns, never a mega menu. */
 .mgl-site-header {
@@ -193,6 +207,7 @@
   transition:opacity .16s ease,visibility .16s ease,transform .16s ease;
 }
 .mgl-simple-panel{width:320px;max-height:min(68vh,520px);margin-top:0;padding:8px;overflow:auto;border-radius:14px;transform:none;scrollbar-width:thin}
+.mgl-home-panel{width:208px;max-height:none}
 .mgl-nav-item:nth-last-child(-n+3)>.mgl-simple-panel{left:auto;right:0}
 .mgl-dropdown-link{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;color:var(--mgl-header-text);font-size:13px;font-weight:500;line-height:1.5;text-decoration:none;transition:color .16s ease,background-color .16s ease,transform .16s ease}.mgl-dropdown-link::before{content:"";width:6px;height:6px;flex:0 0 6px;border:1.5px solid currentColor;border-radius:999px;opacity:.46}.mgl-dropdown-group{display:block;margin:6px 10px 3px;padding-top:7px;border-top:1px solid var(--mgl-header-border);color:var(--mgl-header-muted);font-size:11px;font-weight:800;line-height:1.4;letter-spacing:.08em;text-transform:uppercase}.mgl-dropdown-group:first-child{margin-top:1px;padding-top:2px;border-top:0}.mgl-nav-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .mgl-dropdown-link:hover{color:var(--mgl-header-accent);background:var(--mgl-header-accent-soft);transform:translateX(2px)}

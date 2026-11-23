@@ -5099,7 +5099,7 @@ h6 a {
   content: "";
   width: 100%;
   height: 100%;
-  background-image: url(../media/images/banner/home5/bg.svg);
+  background-image: none; /* Unused legacy layout: original asset is absent. */
   background-position: center;
   background-repeat: no-repeat;
 }

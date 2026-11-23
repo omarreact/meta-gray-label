@@ -1,0 +1,333 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "path": "/",
+      "source": "index.html",
+      "import": "pin-import/pages/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/a-book-b-book-hybrid/",
+      "source": "a-book-b-book-hybrid/index.html",
+      "import": "pin-import/pages/a-book-b-book-hybrid/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/about-us/",
+      "source": "about-us/index.html",
+      "import": "pin-import/pages/about-us/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/back-office/",
+      "source": "back-office/index.html",
+      "import": "pin-import/pages/back-office/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/brokerage-launch-process/",
+      "source": "brokerage-launch-process/index.html",
+      "import": "pin-import/pages/brokerage-launch-process/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/",
+      "source": "common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/index.html",
+      "import": "pin-import/pages/common-mistakes-to-avoid-when-choosing-a-metatrader-grey-label-provider/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/comparing-metatrader-grey-label-providers-features-support-and-prices/",
+      "source": "comparing-metatrader-grey-label-providers-features-support-and-prices/index.html",
+      "import": "pin-import/pages/comparing-metatrader-grey-label-providers-features-support-and-prices/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/",
+      "source": "compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/index.html",
+      "import": "pin-import/pages/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/contact/",
+      "source": "contact/index.html",
+      "import": "pin-import/pages/contact/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/",
+      "source": "copy-trading-and-social-trading-for-metatrader-grey-label-brokers/index.html",
+      "import": "pin-import/pages/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/desktop-platform/",
+      "source": "desktop-platform/index.html",
+      "import": "pin-import/pages/desktop-platform/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/",
+      "source": "essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/index.html",
+      "import": "pin-import/pages/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/forex-broker-turnkey/",
+      "source": "forex-broker-turnkey/index.html",
+      "import": "pin-import/pages/forex-broker-turnkey/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/forex-company-license/",
+      "source": "forex-company-license/index.html",
+      "import": "pin-import/pages/forex-company-license/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/forex-crm/",
+      "source": "forex-crm/index.html",
+      "import": "pin-import/pages/forex-crm/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/forex-grey-label/",
+      "source": "forex-grey-label/index.html",
+      "import": "pin-import/pages/forex-grey-label/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/forex-liquidity/",
+      "source": "forex-liquidity/index.html",
+      "import": "pin-import/pages/forex-liquidity/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/forex-white-label/",
+      "source": "forex-white-label/index.html",
+      "import": "pin-import/pages/forex-white-label/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/grey-label-pricing/",
+      "source": "grey-label-pricing/index.html",
+      "import": "pin-import/pages/grey-label-pricing/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/",
+      "source": "how-metatrader-grey-label-can-help-you-attract-more-forex-traders/index.html",
+      "import": "pin-import/pages/how-metatrader-grey-label-can-help-you-attract-more-forex-traders/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/",
+      "source": "how-much-capital-do-you-need-to-start-with-metatrader-grey-label/index.html",
+      "import": "pin-import/pages/how-much-capital-do-you-need-to-start-with-metatrader-grey-label/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/ib-portal/",
+      "source": "ib-portal/index.html",
+      "import": "pin-import/pages/ib-portal/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/insights/",
+      "source": "insights/index.html",
+      "import": "pin-import/pages/insights/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/",
+      "source": "introducing-broker-ib-programs-for-metatrader-grey-label-businesses/index.html",
+      "import": "pin-import/pages/introducing-broker-ib-programs-for-metatrader-grey-label-businesses/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/kyc-compliance/",
+      "source": "kyc-compliance/index.html",
+      "import": "pin-import/pages/kyc-compliance/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/liquidity-bridge/",
+      "source": "liquidity-bridge/index.html",
+      "import": "pin-import/pages/liquidity-bridge/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/",
+      "source": "metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/index.html",
+      "import": "pin-import/pages/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/",
+      "source": "metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/index.html",
+      "import": "pin-import/pages/metatrader-grey-label-licensing-what-it-includes-and-why-it-matters/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/",
+      "source": "metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/index.html",
+      "import": "pin-import/pages/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/mobile-trading-app/",
+      "source": "mobile-trading-app/index.html",
+      "import": "pin-import/pages/mobile-trading-app/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/mt-admin-license/",
+      "source": "mt-admin-license/index.html",
+      "import": "pin-import/pages/mt-admin-license/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/mt4-admin-license/",
+      "source": "mt4-admin-license/index.html",
+      "import": "pin-import/pages/mt4-admin-license/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/mt4-grey-label/",
+      "source": "mt4-grey-label/index.html",
+      "import": "pin-import/pages/mt4-grey-label/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/mt4-white-label/",
+      "source": "mt4-white-label/index.html",
+      "import": "pin-import/pages/mt4-white-label/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/mt5-admin-license/",
+      "source": "mt5-admin-license/index.html",
+      "import": "pin-import/pages/mt5-admin-license/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/mt5-grey-label/",
+      "source": "mt5-grey-label/index.html",
+      "import": "pin-import/pages/mt5-grey-label/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/mt5-white-label/",
+      "source": "mt5-white-label/index.html",
+      "import": "pin-import/pages/mt5-white-label/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/offshore-company-formation/",
+      "source": "offshore-company-formation/index.html",
+      "import": "pin-import/pages/offshore-company-formation/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/payments-automation/",
+      "source": "payments-automation/index.html",
+      "import": "pin-import/pages/payments-automation/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/prime-of-prime/",
+      "source": "prime-of-prime/index.html",
+      "import": "pin-import/pages/prime-of-prime/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/",
+      "source": "revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/index.html",
+      "import": "pin-import/pages/revenue-streams-of-a-metatrader-grey-label-brokerage-spreads-commissions-and-more/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/services/",
+      "source": "services/index.html",
+      "import": "pin-import/pages/services/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/solutions/",
+      "source": "solutions/index.html",
+      "import": "pin-import/pages/solutions/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/",
+      "source": "step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/index.html",
+      "import": "pin-import/pages/step-by-step-guide-to-setting-up-a-metatrader-grey-label-brokerage-in-under-a-week/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/",
+      "source": "traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/index.html",
+      "import": "pin-import/pages/traders-room-and-client-portal-features-in-a-metatrader-grey-label-setup/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/trading-platforms/",
+      "source": "trading-platforms/index.html",
+      "import": "pin-import/pages/trading-platforms/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/upgrade-to-admin/",
+      "source": "upgrade-to-admin/index.html",
+      "import": "pin-import/pages/upgrade-to-admin/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/web-trader/",
+      "source": "web-trader/index.html",
+      "import": "pin-import/pages/web-trader/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/white-label-grey-label-or-turnkey-choosing-the-right-model/",
+      "source": "white-label-grey-label-or-turnkey-choosing-the-right-model/index.html",
+      "import": "pin-import/pages/white-label-grey-label-or-turnkey-choosing-the-right-model/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/white-label-pricing/",
+      "source": "white-label-pricing/index.html",
+      "import": "pin-import/pages/white-label-pricing/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/white-label-vs-grey-label/",
+      "source": "white-label-vs-grey-label/index.html",
+      "import": "pin-import/pages/white-label-vs-grey-label/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/why-choose-us/",
+      "source": "why-choose-us/index.html",
+      "import": "pin-import/pages/why-choose-us/index.html",
+      "template": "default"
+    },
+    {
+      "path": "/index-2/",
+      "source": "index-2.html",
+      "import": "pin-import/pages/index-2.html",
+      "template": "standalone"
+    }
+  ],
+  "externalHosts": [
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "mg-label.webflow.io",
+    "omarreact.github.io",
+    "schema.org",
+    "t.me",
+    "wa.me",
+    "www.w3.org"
+  ]
+}

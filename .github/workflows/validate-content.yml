@@ -32,7 +32,7 @@ jobs:
           const manifest=JSON.parse(fs.readFileSync('site-manifest.json','utf8'));
           const tokens=JSON.parse(fs.readFileSync('design-tokens.json','utf8'));
           assert.equal(manifest.version,1,'Unsupported PIN import manifest version');
-          assert.equal(manifest.pages.length,52,'Expected 52 importable website pages (404 is a theme template, not a Page)');
+          assert.equal(manifest.pages.length,53,'Expected 53 importable website pages (404 is a theme template, not a Page)');
           assert.equal(new Set(manifest.pages.map(p=>p.path)).size,manifest.pages.length,'Duplicate manifest routes');
           assert.equal(new Set(manifest.pages.map(p=>p.file)).size,manifest.pages.length,'Duplicate manifest source files');
           assert(!manifest.pages.some(p=>p.file==='404.html'),'404.html must not import as a WordPress Page');
