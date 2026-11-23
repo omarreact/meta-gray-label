@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <!-- Second homepage: independently stored Forexy Home 01 reference layout. -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en" data-bs-theme="dark"><head>
+<script id="mgl-theme-boot">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Meta Grey Label | Home 02 — Brokerage Technology</title><meta name="description" content="Meta Grey Label brokerage technology: MT4/MT5, liquidity, CRM, KYC, payments and White Label, Grey Label and Turnkey solutions."><link rel="canonical" href="https://omarreact.github.io/meta-gray-label/index-2.html">
 <!-- Stylesheets -->
-<link href="/assets/vendor/forexy/css/bootstrap.min.css" rel="stylesheet">
-<link href="/assets/vendor/forexy/css/style.css" rel="stylesheet">
+<!-- Bootstrap and Forexy component CSS are combined into the local stylesheet below. -->
+<link href="/assets/css/home-2.css" rel="stylesheet">
 
 
 
@@ -13,163 +14,323 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-<link rel="icon" href="/assets/media/branding/favicon.svg" type="image/svg+xml"><style id="home-2-branding">.mobile-menu{overflow-x:clip}.main-header .logo img,.sticky-header .logo img,.mobile-menu .nav-logo img,.main-footer .footer-logo img{width:100%;max-width:205px;height:auto;object-fit:contain}.client-block .tech-label{font-size:20px;font-weight:700;display:inline-block;padding:14px}</style><link rel="stylesheet" href="/assets/css/wordpress-import.css">
+<link rel="icon" href="/assets/media/branding/favicon.svg" type="image/svg+xml"><style id="home-2-branding">
+/* Home 02 uses the canonical shared header, outside the old template's clipped page wrapper. */
+.home2-shared-header .mgl-site-header{z-index:99999}
+.home2-shared-header .page-wrapper{padding-top:100px}
+.home2-shared-header .page-wrapper .banner-section{scroll-margin-top:100px}
+.home2-shared-header .client-block .tech-label{font-size:20px;font-weight:700;display:inline-block;padding:14px}
+.home2-shared-header .main-footer .footer-logo img{width:100%;max-width:205px;height:auto;object-fit:contain}
+/* Always render locally bundled Forexy pictogram glyphs, even in generic icon containers. */
+.home2-shared-header [class*="flaticon-forex-"]::before{font-family:"flaticon-forex"!important;font-weight:normal!important;font-style:normal}
+.home2-shared-header img{max-width:100%}
+.home2-shared-header img.mgl-home2-feature-icon{width:72px;height:72px;object-fit:contain}
+@media(max-width:1199.98px){.home2-shared-header .page-wrapper{padding-top:82px}}
+@media(max-width:767.98px){.home2-shared-header .page-wrapper{padding-top:80px}.home2-shared-header .client-block .tech-label{font-size:16px;padding:8px}}
+</style><link rel="stylesheet" href="/assets/css/wordpress-import.css">
 </head>
 
-<body style="" class="mgl-wordpress-import mgl-wordpress-standalone">
+<body class="home2-shared-header mgl-wordpress-import mgl-wordpress-standalone">
+<a class="mgl-skip-link" href="#main-content">Skip to main content</a>
+<header class="mgl-site-header" data-site-header>
+  <div class="mgl-header-shell">
+    <a class="mgl-header-brand" href="/index.html" aria-label="Meta Grey Label home">
+      <img data-brand-logo src="/assets/media/branding/logo-dark.svg" alt="Meta Grey Label" width="264" height="56">
+    </a>
+
+    <nav class="mgl-primary-nav" aria-label="Primary navigation">
+      <ul class="mgl-nav-list" id="primary-navigation">
+        <li class="mgl-nav-item mgl-nav-item--has-panel">
+          <div class="mgl-nav-trigger">
+            <a class="mgl-nav-link" href="/index.html"><svg class="mgl-nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>Home</span></a>
+            <button class="mgl-nav-disclosure" type="button" data-nav-disclosure aria-controls="mgl-nav-home" aria-expanded="false" aria-label="Toggle Home submenu">
+              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg>
+            </button>
+          </div>
+          <div class="mgl-nav-panel mgl-simple-panel mgl-home-panel" id="mgl-nav-home">
+            <a class="mgl-dropdown-link" href="/index.html">Home 01</a>
+            <a class="mgl-dropdown-link" href="/index-2.html">Home 02</a>
+          </div>
+        </li>
+
+        <li class="mgl-nav-item mgl-nav-item--has-panel">
+          <div class="mgl-nav-trigger">
+            <a class="mgl-nav-link" href="/solutions/"><svg class="mgl-nav-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="15" width="7" height="6" rx="1.5"/><rect x="14" y="15" width="7" height="6" rx="1.5"/></svg><span>Solutions</span></a>
+            <button class="mgl-nav-disclosure" type="button" data-nav-disclosure aria-controls="mgl-nav-solutions" aria-expanded="false" aria-label="Toggle Solutions submenu">
+              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg>
+            </button>
+          </div>
+          <div class="mgl-nav-panel mgl-simple-panel" id="mgl-nav-solutions">
+            <span class="mgl-dropdown-group" role="presentation">White Label</span>
+            <a class="mgl-dropdown-link" href="/forex-white-label/">Forex White Label</a>
+            <a class="mgl-dropdown-link" href="/mt4-white-label/">MT4 White Label</a>
+            <a class="mgl-dropdown-link" href="/mt5-white-label/">MT5 White Label</a>
+            <a class="mgl-dropdown-link" href="/white-label-pricing/">White Label Pricing</a>
+            <span class="mgl-dropdown-group" role="presentation">Grey Label</span>
+            <a class="mgl-dropdown-link" href="/forex-grey-label/">Forex Grey Label</a>
+            <a class="mgl-dropdown-link" href="/mt4-grey-label/">MT4 Grey Label</a>
+            <a class="mgl-dropdown-link" href="/mt5-grey-label/">MT5 Grey Label</a>
+            <a class="mgl-dropdown-link" href="/grey-label-pricing/">Grey Label Pricing</a>
+            <span class="mgl-dropdown-group" role="presentation">Admin & Turnkey</span>
+            <a class="mgl-dropdown-link" href="/mt-admin-license/">MT4 / MT5 Admin License</a>
+            <a class="mgl-dropdown-link" href="/forex-broker-turnkey/">Forex Broker Turnkey</a>
+            <a class="mgl-dropdown-link" href="/brokerage-launch-process/">Launch in 2 Days</a>
+            <a class="mgl-dropdown-link" href="/solutions/">Pricing / Packages</a>
+          </div>
+        </li>
+
+        <li class="mgl-nav-item mgl-nav-item--has-panel">
+          <div class="mgl-nav-trigger">
+            <a class="mgl-nav-link" href="/services/"><svg class="mgl-nav-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2.5"/><path d="M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg><span>Technology</span></a>
+            <button class="mgl-nav-disclosure" type="button" data-nav-disclosure aria-controls="mgl-nav-technology" aria-expanded="false" aria-label="Toggle Technology submenu">
+              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg>
+            </button>
+          </div>
+          <div class="mgl-nav-panel mgl-simple-panel" id="mgl-nav-technology">
+            <span class="mgl-dropdown-group" role="presentation">Liquidity</span>
+            <a class="mgl-dropdown-link" href="/forex-liquidity/">Forex Liquidity</a>
+            <a class="mgl-dropdown-link" href="/a-book-b-book-hybrid/">A-Book / B-Book / Hybrid</a>
+            <a class="mgl-dropdown-link" href="/liquidity-bridge/">Liquidity Bridge</a>
+            <a class="mgl-dropdown-link" href="/prime-of-prime/">Prime of Prime (PoP)</a>
+            <span class="mgl-dropdown-group" role="presentation">CRM & Platforms</span>
+            <a class="mgl-dropdown-link" href="/forex-crm/">Fx CRM | TradeRoom</a>
+            <a class="mgl-dropdown-link" href="/back-office/">Back Office & Admin Panel</a>
+            <a class="mgl-dropdown-link" href="/kyc-compliance/">KYC & Compliance</a>
+            <a class="mgl-dropdown-link" href="/payments-automation/">Deposit / Withdrawal Automation</a>
+            <a class="mgl-dropdown-link" href="/trading-platforms/">Trading Platforms</a>
+            <a class="mgl-dropdown-link" href="/web-trader/">Web Trader</a>
+            <a class="mgl-dropdown-link" href="/mobile-trading-app/">Mobile Trading App</a>
+            <a class="mgl-dropdown-link" href="/desktop-platform/">Desktop Platform</a>
+            <span class="mgl-dropdown-group" role="presentation">Broker Tools</span>
+            <a class="mgl-dropdown-link" href="/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage/">MT4 / MT5 Plugins</a>
+            <a class="mgl-dropdown-link" href="/copy-trading-and-social-trading-for-metatrader-grey-label-brokers/">Copy Trading / PAMM / MAM</a>
+          </div>
+        </li>
+
+        <li class="mgl-nav-item mgl-nav-item--has-panel">
+          <div class="mgl-nav-trigger">
+            <a class="mgl-nav-link" href="/about-us/"><svg class="mgl-nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 21V7l8-4 8 4v14"/><path d="M8 10h2M14 10h2M8 14h2M14 14h2M10 21v-3h4v3"/></svg><span>Company</span></a>
+            <button class="mgl-nav-disclosure" type="button" data-nav-disclosure aria-controls="mgl-nav-company" aria-expanded="false" aria-label="Toggle Company submenu">
+              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg>
+            </button>
+          </div>
+          <div class="mgl-nav-panel mgl-simple-panel" id="mgl-nav-company">
+            <span class="mgl-dropdown-group" role="presentation">Company</span>
+            <a class="mgl-dropdown-link" href="/about-us/">About Us</a>
+            <a class="mgl-dropdown-link" href="/why-choose-us/">Why Choose Us</a>
+            <a class="mgl-dropdown-link" href="/forex-company-license/">Fx Company & License</a>
+            <a class="mgl-dropdown-link" href="/offshore-company-formation/">Offshore Company Formation</a>
+            <span class="mgl-dropdown-group" role="presentation">Brand & Growth</span>
+            <a class="mgl-dropdown-link" href="/services/">Branding & Marketing</a>
+            <a class="mgl-dropdown-link" href="/services/">Forex Website Design</a>
+            <a class="mgl-dropdown-link" href="/services/">Logo & Brand Identity</a>
+            <a class="mgl-dropdown-link" href="/insights/">Forex SEO & Marketing</a>
+            <a class="mgl-dropdown-link" href="/ib-portal/">IB & Affiliate Marketing</a>
+          </div>
+        </li>
+
+        <li class="mgl-nav-item mgl-nav-item--has-panel">
+          <div class="mgl-nav-trigger">
+            <a class="mgl-nav-link" href="/insights/"><svg class="mgl-nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg><span>Resources</span></a>
+            <button class="mgl-nav-disclosure" type="button" data-nav-disclosure aria-controls="mgl-nav-resources" aria-expanded="false" aria-label="Toggle Resources submenu">
+              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg>
+            </button>
+          </div>
+          <div class="mgl-nav-panel mgl-simple-panel" id="mgl-nav-resources">
+            <a class="mgl-dropdown-link" href="/insights/">Blogs & News</a>
+            <a class="mgl-dropdown-link" href="/index.html#faq">FAQ</a>
+            <a class="mgl-dropdown-link" href="/a-book-b-book-hybrid/">Risk Management Tools</a>
+            <a class="mgl-dropdown-link" href="/payments-automation/">Payment Gateways (PSPs)</a>
+            <a class="mgl-dropdown-link" href="/back-office/">Reports & Analytics</a>
+          </div>
+        </li>
+
+        <li class="mgl-nav-item"><a class="mgl-nav-link" href="/contact/"><svg class="mgl-nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5.5h16v11H9l-5 4v-15Z"/><path d="M8 9h8M8 13h5"/></svg><span>Contact</span></a></li>
+      </ul>
+
+      <div class="mgl-mobile-utilities" aria-label="Quick actions">
+        <a class="mgl-mobile-utility" href="https://wa.me/447988028424?text=Hello%20Meta%20Grey%20Label%2C%20I%27d%20like%20to%20discuss%20a%20brokerage%20technology%20setup." target="_blank" rel="noopener noreferrer">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.2 11.5a8.3 8.3 0 0 1-12.4 7.2L3 20l1.3-4.6A8.3 8.3 0 1 1 20.2 11.5Z"/><path d="M8.6 8.1c-.5.2-.9.9-.8 1.5.4 2.4 3 5.1 5.5 5.8.8.2 1.6-.2 1.9-.8l.4-1-2.1-1-.9 1a8.8 8.8 0 0 1-2.5-2.5l.9-.8-1.1-2.2H8.6Z"/></svg>
+          WhatsApp
+        </a>
+        <a class="mgl-mobile-utility mgl-mobile-utility--primary" href="/contact/">
+          Get a Quote
+          <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 6l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </nav>
+
+    <div class="mgl-header-actions">
+      <a class="mgl-header-action mgl-header-social" href="https://wa.me/447988028424?text=Hello%20Meta%20Grey%20Label%2C%20I%27d%20like%20to%20discuss%20a%20brokerage%20technology%20setup." target="_blank" rel="noopener noreferrer" aria-label="Chat with Meta Grey Label on WhatsApp" title="WhatsApp">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.2 11.5a8.3 8.3 0 0 1-12.4 7.2L3 20l1.3-4.6A8.3 8.3 0 1 1 20.2 11.5Z"/><path d="M8.6 8.1c-.5.2-.9.9-.8 1.5.4 2.4 3 5.1 5.5 5.8.8.2 1.6-.2 1.9-.8l.4-1-2.1-1-.9 1a8.8 8.8 0 0 1-2.5-2.5l.9-.8-1.1-2.2H8.6Z"/></svg>
+      </a>
+      <button class="mgl-header-action mgl-theme-toggle" id="btnSwitch" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle light and dark theme">
+        <img src="/assets/media/images/icon/moon.svg" alt="" width="20" height="20">
+      </button>
+      <a class="mgl-header-cta" href="/contact/">
+        Get a Quote
+        <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 6l4 4-4 4"/></svg>
+      </a>
+      <button class="mgl-header-action mgl-menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<style>
+/* Meta Grey Label navigation: professional one-line desktop menu + single-column dropdowns, never a mega menu. */
+.mgl-site-header {
+  --mgl-header-bg: rgba(255,255,255,.95);
+  --mgl-header-bg-strong: rgba(255,255,255,.99);
+  --mgl-header-border: rgba(18,64,72,.12);
+  --mgl-header-text: #0d2733;
+  --mgl-header-muted: #59717a;
+  --mgl-header-accent: #00a982;
+  --mgl-header-accent-soft: rgba(0,169,130,.09);
+  --mgl-header-shadow: 0 18px 50px rgba(6,31,43,.10),0 2px 8px rgba(6,31,43,.04);
+  position: fixed;
+  top: max(10px,env(safe-area-inset-top));
+  left: 50%;
+  z-index: 10000;
+  width: min(1540px,calc(100% - 24px));
+  transform: translateX(-50%);
+  color: var(--mgl-header-text);
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.mgl-site-header *{box-sizing:border-box}
+.mgl-site-header a,.mgl-site-header button{font-family:inherit}
+.mgl-header-shell{
+  position:relative;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  grid-template-areas:"brand nav actions";
+  align-items:center;
+  gap:10px 16px;
+  padding:8px 10px 8px 18px;
+  border:1px solid var(--mgl-header-border);
+  border-radius:20px;
+  background:var(--mgl-header-bg);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  backdrop-filter:blur(20px) saturate(150%);
+  box-shadow:0 10px 32px rgba(6,31,43,.065);
+  transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.mgl-site-header.is-scrolled .mgl-header-shell{background:var(--mgl-header-bg-strong);box-shadow:var(--mgl-header-shadow)}
+.mgl-header-brand{grid-area:brand;display:inline-flex;align-items:center;min-width:0}
+.mgl-header-brand img{display:block;width:clamp(196px,16vw,238px);height:auto;max-height:48px;object-fit:contain}
+.mgl-primary-nav{grid-area:nav;justify-self:end;min-width:0;padding:0;border:0}
+.mgl-nav-list{display:flex;flex-wrap:nowrap;align-items:center;justify-content:flex-end;gap:2px;margin:0;padding:0;list-style:none}
+.mgl-nav-item{position:relative;margin:0;padding:0}
+.mgl-nav-trigger{display:flex;align-items:center}
+.mgl-nav-link{
+  position:relative;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:8px 9px;border-radius:10px;
+  color:var(--mgl-header-text);font-size:14px;font-weight:600;line-height:1.5;letter-spacing:normal;text-decoration:none;white-space:nowrap;
+  transition:color .18s ease,background-color .18s ease;
+}
+.mgl-nav-link:hover,.mgl-nav-item:focus-within>.mgl-nav-trigger .mgl-nav-link,.mgl-nav-item:focus-within>.mgl-nav-link{color:var(--mgl-header-accent);background:var(--mgl-header-accent-soft)}
+.mgl-nav-link--disabled,.mgl-dropdown-link--disabled{cursor:default;opacity:.62}
+.mgl-nav-link--disabled:hover,.mgl-dropdown-link--disabled:hover{color:var(--mgl-header-muted);background:transparent}
+.mgl-nav-disclosure{display:none;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:8px;background:transparent;color:var(--mgl-header-muted);cursor:pointer}
+.mgl-nav-disclosure svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s ease}
+.mgl-nav-panel{
+  position:absolute;top:100%;left:0;z-index:30;opacity:0;visibility:hidden;pointer-events:none;
+  border:1px solid var(--mgl-header-border);background:var(--mgl-header-bg-strong);box-shadow:var(--mgl-header-shadow);
+  transition:opacity .16s ease,visibility .16s ease,transform .16s ease;
+}
+.mgl-simple-panel{width:320px;max-height:min(68vh,520px);margin-top:0;padding:8px;overflow:auto;border-radius:14px;transform:none;scrollbar-width:thin}
+.mgl-home-panel{width:208px;max-height:none}
+.mgl-nav-item:nth-last-child(-n+3)>.mgl-simple-panel{left:auto;right:0}
+.mgl-dropdown-link{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;color:var(--mgl-header-text);font-size:13px;font-weight:500;line-height:1.5;text-decoration:none;transition:color .16s ease,background-color .16s ease,transform .16s ease}.mgl-dropdown-link::before{content:"";width:6px;height:6px;flex:0 0 6px;border:1.5px solid currentColor;border-radius:999px;opacity:.46}.mgl-dropdown-group{display:block;margin:6px 10px 3px;padding-top:7px;border-top:1px solid var(--mgl-header-border);color:var(--mgl-header-muted);font-size:11px;font-weight:800;line-height:1.4;letter-spacing:.08em;text-transform:uppercase}.mgl-dropdown-group:first-child{margin-top:1px;padding-top:2px;border-top:0}.mgl-nav-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.mgl-dropdown-link:hover{color:var(--mgl-header-accent);background:var(--mgl-header-accent-soft);transform:translateX(2px)}
+.mgl-nav-item:hover>.mgl-nav-panel,.mgl-nav-item:focus-within>.mgl-nav-panel,.mgl-nav-item.is-touch-open>.mgl-nav-panel{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+.mgl-nav-link:focus-visible,.mgl-nav-disclosure:focus-visible,.mgl-header-action:focus-visible,.mgl-dropdown-link:focus-visible{outline:2px solid var(--mgl-header-accent);outline-offset:2px}
+.mgl-header-actions{grid-area:actions;display:flex;align-items:center;justify-content:flex-end;gap:6px}
+.mgl-header-action{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 40px;padding:0;border:1px solid var(--mgl-header-border);border-radius:11px;background:rgba(255,255,255,.56);color:var(--mgl-header-text);cursor:pointer;text-decoration:none;transition:color .28s cubic-bezier(.22,1,.36,1),background-color .28s cubic-bezier(.22,1,.36,1),border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s cubic-bezier(.22,1,.36,1)}
+.mgl-header-action:hover{color:var(--mgl-header-accent);border-color:rgba(0,169,130,.28);background:var(--mgl-header-accent-soft);transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,169,130,.12)}
+.mgl-header-action svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mgl-theme-toggle img{width:19px;height:19px;object-fit:contain;transition:filter .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1)}
+[data-bs-theme="light"] .mgl-theme-toggle img{filter:brightness(0) saturate(100%)}
+[data-bs-theme="dark"] .mgl-theme-toggle img{filter:brightness(0) invert(1)}
+.mgl-theme-toggle:hover img{transform:rotate(12deg) scale(1.04)}
+.mgl-header-social{color:#25D366!important;border-color:rgba(37,211,102,.28)!important;background:rgba(37,211,102,.08)!important}
+.mgl-header-social:hover{color:#25D366!important;border-color:rgba(37,211,102,.50)!important;background:rgba(37,211,102,.14)!important;box-shadow:0 8px 24px rgba(37,211,102,.18)!important}
+.mgl-header-cta{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:9px 14px;border:1px solid rgba(0,169,130,.28);border-radius:11px;background:linear-gradient(135deg,#00b98e,#009f7d);color:#fff;font-size:14px;font-weight:800;line-height:1.2;text-decoration:none;white-space:nowrap;box-shadow:0 8px 20px rgba(0,169,130,.18)}
+.mgl-header-cta:hover{color:#fff;transform:translateY(-1px);box-shadow:0 12px 24px rgba(0,169,130,.24)}
+.mgl-header-cta svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mgl-menu-toggle{display:none;position:relative}
+.mgl-menu-toggle span{position:absolute;left:10px;width:18px;height:2px;border-radius:999px;background:currentColor;transform-origin:center;transition:transform .18s ease,opacity .18s ease}
+.mgl-menu-toggle span:nth-child(1){transform:translateY(-6px)}.mgl-menu-toggle span:nth-child(2){transform:translateY(0)}.mgl-menu-toggle span:nth-child(3){transform:translateY(6px)}
+.mgl-menu-toggle.is-active span:nth-child(1){transform:rotate(45deg)}.mgl-menu-toggle.is-active span:nth-child(2){opacity:0}.mgl-menu-toggle.is-active span:nth-child(3){transform:rotate(-45deg)}
+.mgl-mobile-utilities{display:none}
+[data-bs-theme="dark"] .mgl-site-header{
+  --mgl-header-bg:rgba(19,48,54,.95);
+  --mgl-header-bg-strong:rgba(18,45,51,.99);
+  --mgl-header-border:rgba(223,239,236,.13);
+  --mgl-header-text:#eef7f5;
+  --mgl-header-muted:#b2c7c4;
+  --mgl-header-accent:#68e7c5;
+  --mgl-header-accent-soft:rgba(104,231,197,.10);
+  --mgl-header-shadow:0 20px 54px rgba(3,18,22,.22),0 2px 8px rgba(3,18,22,.14);
+}
+[data-bs-theme="dark"] .mgl-header-action{background:rgba(255,255,255,.07)}
+[data-bs-theme="dark"] .mgl-header-cta{background:linear-gradient(135deg,#22caa3,#10a887);box-shadow:0 10px 24px rgba(3,18,22,.16)}
+@media(max-width:1199.98px){
+  .mgl-site-header{width:min(100% - 20px,1180px)}
+  .mgl-header-shell{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand actions";min-height:64px;padding:7px 8px 7px 15px;border-radius:17px}
+  .mgl-header-brand img{width:clamp(184px,26vw,224px);max-height:46px}
+  .mgl-primary-nav{justify-self:stretch;position:absolute;top:calc(100% + 9px);left:0;right:0;display:block;max-height:calc(100dvh - 96px);padding:9px;overflow:auto;border:1px solid var(--mgl-header-border);border-radius:17px;background:var(--mgl-header-bg-strong);box-shadow:var(--mgl-header-shadow);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-7px);transition:opacity .18s ease,visibility .18s ease,transform .18s ease;overscroll-behavior:contain}
+  .mgl-primary-nav.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+  .mgl-nav-list{display:block}
+  .mgl-nav-item+.mgl-nav-item{margin-top:2px}
+  .mgl-nav-trigger{display:grid;grid-template-columns:minmax(0,1fr) 40px;gap:4px;align-items:center}
+  .mgl-nav-link{display:flex;width:100%;min-height:44px;padding:11px 12px;font-size:14px;font-weight:600;line-height:1.5}.mgl-nav-icon{width:17px;height:17px;flex-basis:17px}
+  .mgl-nav-disclosure{display:inline-flex;width:40px;height:40px}
+  .mgl-nav-item.is-open>.mgl-nav-trigger .mgl-nav-disclosure svg{transform:rotate(180deg)}
+  .mgl-nav-panel,.mgl-simple-panel{position:static;width:100%;max-height:none;margin:0 0 8px;padding:7px;overflow:visible;border:1px solid var(--mgl-header-border);border-radius:12px;background:var(--mgl-header-accent-soft);box-shadow:none;opacity:1;visibility:visible;pointer-events:auto;transform:none;display:none}
+  .mgl-nav-item.is-open>.mgl-nav-panel{display:block}
+  .mgl-dropdown-link{padding:9px 10px;font-size:13px;font-weight:500;line-height:1.5}
+  .mgl-header-social,.mgl-header-cta{display:none}
+  .mgl-menu-toggle{display:inline-flex}
+  html.mgl-nav-open{overflow:hidden}
+}
+@media(max-width:700px){
+  .mgl-site-header{left:8px;right:8px;width:auto;max-width:none;transform:none;top:max(8px,env(safe-area-inset-top))}
+  .mgl-header-shell{width:100%;grid-template-columns:minmax(0,1fr) auto;gap:4px;padding:7px 7px 7px 11px;border-radius:15px}
+  .mgl-header-brand{min-width:0;max-width:100%;overflow:hidden}
+  .mgl-header-brand img{width:min(186px,48vw);max-width:100%}
+  .mgl-header-actions{display:grid;grid-auto-flow:column;grid-auto-columns:36px;gap:4px;min-width:max-content}
+  .mgl-theme-toggle,.mgl-menu-toggle{display:inline-flex;width:36px;height:36px;min-width:36px;flex:0 0 36px}
+  .mgl-menu-toggle span{left:9px}
+  .mgl-mobile-utilities{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px;padding-top:8px;border-top:1px solid var(--mgl-header-border)}
+  .mgl-mobile-utility{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:8px 10px;border:1px solid var(--mgl-header-border);border-radius:10px;color:var(--mgl-header-text);background:rgba(255,255,255,.35);font-size:14px;font-weight:800;line-height:1.2;text-decoration:none}
+  [data-bs-theme="dark"] .mgl-mobile-utility{background:rgba(255,255,255,.06)}
+  .mgl-mobile-utility--primary,[data-bs-theme="dark"] .mgl-mobile-utility--primary{border-color:rgba(0,169,130,.30);background:linear-gradient(135deg,#00b98e,#009f7d);color:#fff}
+  .mgl-mobile-utility svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+}
+@media(max-width:380px){.mgl-header-brand img{width:min(164px,46vw)}}
+@media(prefers-reduced-motion:reduce){.mgl-site-header *,.mgl-site-header *::before,.mgl-site-header *::after{transition:none!important;animation:none!important}}
+</style>
 
 <div class="page-wrapper">
 
   <!-- Preloader -->
   <div class="preloader" style="display: none;"></div>
 
-  <!-- Main Header -->
-  <header class="main-header header-style-one">
-    <!-- Header Top -->
-    <div class="header-top">
-      <div class="auto-container">
-        <div class="inner-container">
-          <div class="top-left">
-            <ul class="list-style-one">
-              <li><i class="fa fa-phone"></i> <a href="tel:+447988028424"><strong>+44 7988 028424</strong> or Request a <span>consultation</span></a></li>
-            </ul>
-          </div>
-          <div class="top-right">
-            <div class="inner">
-              <ul class="nav-list">
-                <li><a href="/">Trading Guide</a></li>
-                <li><a href="/">Support</a></li>
-                <li><a href="/">English</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Header Top -->
+  <!-- Main Header: loaded from the same shared component as Home 01 -->
 
-    <div class="header-lower">
-      <div class="auto-container">
-        <!-- Main box -->
-        <div class="main-box">
-          <div class="logo-box">
-            <div class="logo"><a href="/"><img src="/assets/media/branding/logo-dark.svg" alt="Logo"></a></div>
-          </div>
-          <!--Nav Box-->
-          <div class="nav-outer">
-            <nav class="nav main-menu"><ul class="navigation"><li class="dropdown"><a href="/">Home</a><ul><li><a href="/">Home 01</a></li><li><a href="/index-2.html" aria-current="page">Home 02</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li><a href="/about-us/">About</a></li><li class="dropdown"><a href="/services/">Services</a><ul><li><a href="/trading-platforms/">Trading Platforms</a></li><li><a href="/forex-liquidity/">Liquidity</a></li><li><a href="/forex-crm/">Forex CRM</a></li><li><a href="/kyc-compliance/">Compliance</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li class="dropdown"><a href="/solutions/">Solutions</a><ul><li><a href="/forex-white-label/">White Label</a></li><li><a href="/forex-grey-label/">Grey Label</a></li><li><a href="/forex-broker-turnkey/">Turnkey</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li><a href="/insights/">Insights</a></li><li><a href="/contact/">Contact</a></li></ul></nav>
-          </div>
-          <!-- Main Menu End-->
-
-          <!-- Outer Box -->
-          <div class="outer-box">
-            <div class="ui-btn-box">
-              <button class="ui-btn search-btn">
-                <span class="icon lnr lnr-icon-search"></span>
-              </button>
-            </div>
-            <a href="/contact/" class="theme-btn btn-style-six d-none d-xl-inline-flex">
-              <i class="icon-left fa fa-arrow-right"></i>
-              <span class="btn-title">Brokerage Services</span>
-              <i class="icon-right fa fa-arrow-right"></i>
-            </a>
-            <!-- Btn Box -->
-            <div class="btn-box">
-              <a href="/contact/" class="theme-btn btn-style-one">
-                <i class="icon-left fa fa-arrow-right"></i>
-                <span class="btn-title">Contact Our Team</span>
-                <i class="icon-right fa fa-arrow-right"></i>
-              </a>
-            </div>
-            <!-- Mobile Nav toggler -->
-            <div class="mobile-nav-toggler"><span class="icon lnr-icon-bars"></span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile Menu  -->
-    <div class="mobile-menu">
-      <div class="menu-backdrop"></div>
-      <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-      <nav class="menu-box">
-        <div class="upper-box">
-          <div class="nav-logo"><a href="/"><img src="/assets/media/branding/logo-light.svg" alt="" title=""></a></div>
-          <div class="close-btn"><i class="icon fa fa-times"></i></div>
-        </div>
-        <ul class="navigation clearfix"><li class="dropdown"><a href="/">Home</a><ul><li><a href="/">Home 01</a></li><li><a href="/index-2.html" aria-current="page">Home 02</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li><a href="/about-us/">About</a></li><li class="dropdown"><a href="/services/">Services</a><ul><li><a href="/trading-platforms/">Trading Platforms</a></li><li><a href="/forex-liquidity/">Liquidity</a></li><li><a href="/forex-crm/">Forex CRM</a></li><li><a href="/kyc-compliance/">Compliance</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li class="dropdown"><a href="/solutions/">Solutions</a><ul><li><a href="/forex-white-label/">White Label</a></li><li><a href="/forex-grey-label/">Grey Label</a></li><li><a href="/forex-broker-turnkey/">Turnkey</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li><a href="/insights/">Insights</a></li><li><a href="/contact/">Contact</a></li></ul>
-        <ul class="contact-list-one">
-          <li>
-            <i class="icon lnr-icon-phone-handset"></i>
-            <span class="title">Call Now</span>
-            <div class="text"><a href="tel:+447988028424">+44 7988 028424</a></div>
-          </li>
-          <li>
-            <i class="icon lnr-icon-envelope1"></i>
-            <span class="title">Send Email</span>
-            <div class="text"><a href="https://t.me/forexbrokertech">Message our team</a></div>
-          </li>
-          <li>
-            <i class="icon lnr-icon-map-marker"></i>
-            <span class="title">Address</span>
-            <div class="text">Online brokerage technology consultation</div>
-          </li>
-        </ul>
-        <ul class="social-links">
-          <li><a href="/"><i class="fa-brands fa-x-twitter"></i></a></li>
-          <li><a href="/"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="/"><i class="fab fa-pinterest"></i></a></li>
-          <li><a href="/"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </nav>
-    </div><!-- End Mobile Menu -->
-
-    <!-- Header Search -->
-    <div class="search-popup">
-      <span class="search-back-drop"></span>
-      <button class="close-search"><span class="fa fa-times"></span></button>
-      <div class="search-inner">
-        <form method="post" action="/insights/">
-          <div class="form-group">
-            <input type="search" name="search-field" value="" placeholder="Search..." required="">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!-- End Header Search -->
-
-    <!-- Sticky Header  -->
-    <div class="sticky-header">
-      <div class="auto-container">
-        <div class="inner-container">
-          <!--Logo-->
-          <div class="logo">
-            <a href="/" title=""><img src="/assets/media/branding/logo-light.svg" alt="" title=""></a>
-          </div>
-          <!--Right Col-->
-          <div class="nav-outer">
-            <!-- Main Menu -->
-            <nav class="main-menu"><div class="navbar-collapse show collapse clearfix"><ul class="navigation clearfix"><li class="dropdown"><a href="/">Home</a><ul><li><a href="/">Home 01</a></li><li><a href="/index-2.html" aria-current="page">Home 02</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li><a href="/about-us/">About</a></li><li class="dropdown"><a href="/services/">Services</a><ul><li><a href="/trading-platforms/">Trading Platforms</a></li><li><a href="/forex-liquidity/">Liquidity</a></li><li><a href="/forex-crm/">Forex CRM</a></li><li><a href="/kyc-compliance/">Compliance</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li class="dropdown"><a href="/solutions/">Solutions</a><ul><li><a href="/forex-white-label/">White Label</a></li><li><a href="/forex-grey-label/">Grey Label</a></li><li><a href="/forex-broker-turnkey/">Turnkey</a></li></ul><div class="dropdown-btn"><i class="fa fa-angle-down"></i></div></li><li><a href="/insights/">Insights</a></li><li><a href="/contact/">Contact</a></li></ul></div></nav><!-- Main Menu End-->
-            <!--Mobile Navigation Toggler-->
-            <div class="mobile-nav-toggler"><span class="icon lnr-icon-bars"></span></div>
-          </div>
-        </div>
-      </div>
-    </div><!-- End Sticky Menu -->
-  </header>
-  <!-- End Main Header -->
-
+  <main id="main-content">
   <!-- Banner Section -->
   <section class="banner-section">
-    <div class="shadow-1" style="background-image:url(/assets/vendor/forexy/images/banner/shadow-1.png)"></div>
-    <div class="shadow-2" style="background-image:url(/assets/vendor/forexy/images/banner/shadow-2.png)"></div>
+    <div class="shadow-1" style="background-image:url(/assets/media/forexy-banner-shadow-1.png)"></div>
+    <div class="shadow-2" style="background-image:url(/assets/media/forexy-banner-shadow-2.png)"></div>
     <div class="auto-container">
       <div class="inner-container">
         <div class="banner-info">
           <div class="banner-info_inner">
             <div class="left-box">
-              <div class="text"><i><img src="/assets/vendor/forexy/images/banner/vector-3.svg" alt=""> </i> BROKERAGE TECHNOLOGY &amp; OPERATIONS</div>
+              <div class="text"><i><img src="/assets/media/forexy-banner-vector-3.svg" alt="" loading="lazy" decoding="async"> </i> BROKERAGE TECHNOLOGY &amp; OPERATIONS</div>
             </div>
             <div class="right-box">
               MT4 / MT5
@@ -304,7 +465,7 @@
           <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-7350329a5f8daba9"><span class="icon fa fa-angle-right "></span></div>
         </div>
         <div class="bottom-box">
-          <div class="vector-icon"><img src="/assets/vendor/forexy/images/banner/vector-2.svg" alt="Image"></div>
+          <div class="vector-icon"><img src="/assets/media/forexy-banner-vector-2.svg" alt="Image" loading="lazy" decoding="async"></div>
           <div class="text">Technology <br> foundation</div>
           <div class="totals">One Connected Stack</div>
         </div>
@@ -314,9 +475,9 @@
   <!-- End Banner Section -->
 
   <!-- About Section -->
-  <section class="about-section" style="background-image:url(/assets/vendor/forexy/images/resource/about-1_bg.png)">
-    <div class="about-shadow-1" style="background-image:url(/assets/vendor/forexy/images/resource/about-shadow.png)"></div>
-    <div class="about-shadow-2" style="background-image:url(/assets/vendor/forexy/images/resource/about-shadow_1.png)"></div>
+  <section class="about-section" style="background-image:url(/assets/media/forexy-resource-about-1_bg.png)">
+    <div class="about-shadow-1" style="background-image:url(/assets/media/forexy-resource-about-shadow.png)"></div>
+    <div class="about-shadow-2" style="background-image:url(/assets/media/forexy-resource-about-shadow_1.png)"></div>
     <div class="title_box">
       <div class="auto-container">
         <!-- Sec Title -->
@@ -338,7 +499,7 @@
                   <div class="inner-column">
                     <div class="image-box">
                       <div class="circle-border"></div>
-                      <figure class="image"><img src="/assets/vendor/forexy/images/resource/about-1.jpg" alt="Image"></figure>
+                      <figure class="image"><img src="/assets/media/forexy-resource-about-1.jpg" alt="Brokerage technology overview illustration" loading="lazy" decoding="async"></figure>
                     </div>
                   </div>
                 </div>
@@ -408,11 +569,11 @@
             <!-- End List Style Three -->
 
             <div class="image-box_two">
-              <img src="/assets/vendor/forexy/images/resource/about-2.jpg" alt="Image">
+              <img src="/assets/media/forexy-resource-about-2.jpg" alt="Trading platform infrastructure illustration" loading="lazy" decoding="async">
             </div>
 
             <div class="about-one_stats">
-              <img src="/assets/vendor/forexy/images/resource/about-stats.png" alt="Image">
+              <img src="/assets/media/forexy-resource-about-stats.png" alt="Brokerage technology statistics illustration" loading="lazy" decoding="async">
             </div>
           </div>
         </div>
@@ -615,7 +776,7 @@
 
   <!-- Trading Section -->
   <section class="trading-section">
-    <div class="trading-one_bg bg" style="background-image:url(/assets/vendor/forexy/images/background/trading-one_bg.png)"></div>
+    <div class="trading-one_bg bg" style="background-image:url(/assets/media/forexy-background-trading-one_bg.png)"></div>
     <div class="sec-title text-center">
       <div class="sub-title mb-2">Brokerage Operating Models</div>
       <h2 class="tx-split-text split-in-left" >Choose the right brokerage model.</h2>
@@ -627,7 +788,7 @@
           <div class="trading-block_one">
             <div class="trading-block_one-inner wow fadeInUp animated" data-wow-delay="150ms">
               <div class="upper-box">
-                <div class="bg bg-img"><img src="/assets/vendor/forexy/images/background/trading-bg.png" alt=""></div>
+                <div class="bg bg-img"><img src="/assets/media/forexy-background-trading-bg.png" alt="" loading="lazy" decoding="async"></div>
                 <div class="icon"><span class="flaticon-forex-Layer_1-16"></span></div>
                 <h4 class="trading-block_one-title">White Label</h4>
                 <div class="trading-block_one-text">A branded route to market with streamlined technology and infrastructure.</div>
@@ -652,7 +813,7 @@
           <div class="trading-block_one">
             <div class="trading-block_one-inner wow fadeInUp animated" data-wow-delay="300ms">
               <div class="upper-box">
-                <div class="bg bg-img"><img src="/assets/vendor/forexy/images/background/trading-bg.png" alt=""></div>
+                <div class="bg bg-img"><img src="/assets/media/forexy-background-trading-bg.png" alt="" loading="lazy" decoding="async"></div>
                 <div class="icon"><span class="flaticon-forex-Layer_1-17"></span></div>
                 <h4 class="trading-block_one-title">Grey Label</h4>
                 <div class="trading-block_one-text">A flexible brokerage structure balancing customization and technology responsibilities.</div>
@@ -677,7 +838,7 @@
           <div class="trading-block_one">
             <div class="trading-block_one-inner wow fadeInUp animated" data-wow-delay="450ms">
               <div class="upper-box">
-                <div class="bg bg-img"><img src="/assets/vendor/forexy/images/background/trading-bg.png" alt=""></div>
+                <div class="bg bg-img"><img src="/assets/media/forexy-background-trading-bg.png" alt="" loading="lazy" decoding="async"></div>
                 <div class="icon"><span class="flaticon-forex-Layer_1-18"></span></div>
                 <h4 class="trading-block_one-title">Turnkey</h4>
                 <div class="trading-block_one-text">Coordinate platform, liquidity, client operations and launch planning under one project.</div>
@@ -704,9 +865,9 @@
 
   <!-- Platform Section -->
   <section class="platform-section">
-    <div class="platform-one_bg bg" style="background-image:url(/assets/vendor/forexy/images/background/platform-1.png)"></div>
-    <div class="platform-one_bg-2 bg" style="background-image:url(/assets/vendor/forexy/images/background/platform-2.png)"></div>
-    <div class="platform-one_bg-3 bg" style="background-image:url(/assets/vendor/forexy/images/background/platform-3.jpg)"></div>
+    <div class="platform-one_bg bg" style="background-image:url(/assets/media/forexy-background-platform-1.png)"></div>
+    <div class="platform-one_bg-2 bg" style="background-image:url(/assets/media/forexy-background-platform-2.png)"></div>
+    <div class="platform-one_bg-3 bg" style="background-image:url(/assets/media/forexy-background-platform-3.jpg)"></div>
     <div class="auto-container">
       <!-- Sec Title -->
       <div class="sec-title light">
@@ -730,12 +891,12 @@
         <div class="col-lg-7">
           <div class="image-column">
             <div class="image w-100 wow fadeInUp" data-wow-delay="150ms">
-              <img src="/assets/vendor/forexy/images/resource/forex.jpg" alt="">
+              <img src="/assets/media/forexy-resource-forex.jpg" alt="Forex platform technology illustration" loading="lazy" decoding="async">
               <div class="guide-outer">
                 <div class="inner">
                   <h4>A connected <br> brokerage <br> operating stack</h4>
                   <div class="text-right">
-                    <span class="icon"><img src="/assets/vendor/forexy/images/icons/eye.svg" alt=""></span>
+                    <span class="icon"><img src="/assets/media/forexy-icons-eye.svg" alt="" loading="lazy" decoding="async"></span>
                   </div>
                 </div>
               </div>
@@ -789,7 +950,7 @@
 
   <!-- Steps Section -->
   <section class="steps-section">
-    <div class="steps-one_bg bg" style="background-image:url(/assets/vendor/forexy/images/background/step-bg.png)"></div>
+    <div class="steps-one_bg bg" style="background-image:url(/assets/media/forexy-background-step-bg.png)"></div>
     <div class="auto-container">
       <div class="row clearfix">
         <!-- Title Column -->
@@ -802,7 +963,7 @@
                 <div class="text">A structured technical process with regulatory, liquidity and payment dependencies assessed before go-live.</div>
               </div>
               <div class="steps-play-box">
-                <div class="arrow d-none d-xl-block"><img src="/assets/vendor/forexy/images/icons/arrow-1.svg" alt=""></div>
+                <div class="arrow d-none d-xl-block"><img src="/assets/media/forexy-icons-arrow-1.svg" alt="" loading="lazy" decoding="async"></div>
                 <a class="play-now-two" href="/trading-platforms/">
                   <i class="icon fa-solid fa-play"></i>
                   <span class="ripple"></span>
@@ -819,7 +980,7 @@
               <!-- Step Block One -->
               <div class="step-block_one">
                 <div class="inner-box">
-                  <div class="steps-block_one-bg bg" style="background-image:url(/assets/vendor/forexy/images/background/step-bg-1.png)"></div>
+                  <div class="steps-block_one-bg bg" style="background-image:url(/assets/media/forexy-background-step-bg-1.png)"></div>
                   <div class="content-box">
                     <div class="post-number">
                       <span>01</span>
@@ -845,7 +1006,7 @@
               <!-- Step Block One -->
               <div class="step-block_one active">
                 <div class="inner-box">
-                  <div class="steps-block_one-bg bg" style="background-image:url(/assets/vendor/forexy/images/background/step-bg-1.png)"></div>
+                  <div class="steps-block_one-bg bg" style="background-image:url(/assets/media/forexy-background-step-bg-1.png)"></div>
                   <div class="content-box">
                     <div class="post-number">
                       <span>02</span>
@@ -871,7 +1032,7 @@
               <!-- Step Block One -->
               <div class="step-block_one">
                 <div class="inner-box">
-                  <div class="steps-block_one-bg bg" style="background-image:url(/assets/vendor/forexy/images/background/step-bg-1.png)"></div>
+                  <div class="steps-block_one-bg bg" style="background-image:url(/assets/media/forexy-background-step-bg-1.png)"></div>
                   <div class="content-box">
                     <div class="post-number">
                       <span>03</span>
@@ -905,7 +1066,7 @@
   <!-- Testimonial Section -->
   <section class="testimonial-section">
     <div class="testimonial-bg_color bg"></div>
-    <div class="testimonial_bg" style="background-image:url(/assets/vendor/forexy/images/background/testimonial-bg.png)"></div>
+    <div class="testimonial_bg" style="background-image:url(/assets/media/forexy-background-testimonial-bg.png)"></div>
     <div class="auto-container">
       <div class="sec-title centered">
         <div class="sub-title mb-2">Delivery Priorities</div>
@@ -919,13 +1080,13 @@
           <div class="swiper-slide " style="width: 370px; margin-right: 30px;" role="group" aria-label="2 / 4" data-swiper-slide-index="1">
             <div class="testimonial-block">
               <div class="icon-quote"><span class="flaticon-forex-Vector-1"></span></div>
-              <div class="inner-box" style="background-image:url(/assets/vendor/forexy/images/background/testimonial-graph.png)">
+              <div class="inner-box" style="background-image:url(/assets/media/forexy-background-testimonial-graph.png)">
                 <div class="rating" aria-label="Delivery principle"><span class="fa fa-check" aria-hidden="true"></span></div>
                 <div class="icon-quote2"><span class="flaticon-forex-Vector-1"></span></div>
                 <div class="text">Technology should connect—not create more moving parts. Platform, liquidity and client operations need a coherent implementation plan.</div>
                 <div class="author-box">
                   <div class="author-image">
-                    <img src="/assets/media/branding/logo-symbol.svg" alt="Meta Grey Label">
+                    <img src="/assets/media/branding/logo-symbol.svg" alt="Meta Grey Label" loading="lazy" decoding="async">
                   </div>
                   <h5 class="name">Connected technology</h5>
                   <div class="designation">Delivery principle</div>
@@ -937,13 +1098,13 @@
           <div class="swiper-slide " style="width: 370px; margin-right: 30px;" role="group" aria-label="3 / 4" data-swiper-slide-index="2">
             <div class="testimonial-block">
               <div class="icon-quote"><span class="flaticon-forex-Vector-1"></span></div>
-              <div class="inner-box" style="background-image:url(/assets/vendor/forexy/images/background/testimonial-graph.png)">
+              <div class="inner-box" style="background-image:url(/assets/media/forexy-background-testimonial-graph.png)">
                 <div class="rating" aria-label="Delivery principle"><span class="fa fa-check" aria-hidden="true"></span></div>
                 <div class="icon-quote2"><span class="flaticon-forex-Vector-1"></span></div>
                 <div class="text">Define the model and requirements before deployment so the technology supports how the brokerage will actually operate.</div>
                 <div class="author-box">
                   <div class="author-image">
-                    <img src="/assets/media/branding/logo-symbol.svg" alt="Meta Grey Label">
+                    <img src="/assets/media/branding/logo-symbol.svg" alt="Meta Grey Label" loading="lazy" decoding="async">
                   </div>
                   <h5 class="name">Operational clarity</h5>
                   <div class="designation">Delivery principle</div>
@@ -955,13 +1116,13 @@
           <div class="swiper-slide " role="group" aria-label="4 / 4" data-swiper-slide-index="3" style="width: 370px; margin-right: 30px;">
             <div class="testimonial-block">
               <div class="icon-quote"><span class="flaticon-forex-Vector-1"></span></div>
-              <div class="inner-box" style="background-image:url(/assets/vendor/forexy/images/background/testimonial-graph.png)">
+              <div class="inner-box" style="background-image:url(/assets/media/forexy-background-testimonial-graph.png)">
                 <div class="rating" aria-label="Delivery principle"><span class="fa fa-check" aria-hidden="true"></span></div>
                 <div class="icon-quote2"><span class="flaticon-forex-Vector-1"></span></div>
                 <div class="text">Think beyond launch day: access, continuity and integrations need to remain maintainable as your brokerage evolves.</div>
                 <div class="author-box">
                   <div class="author-image">
-                    <img src="/assets/media/branding/logo-symbol.svg" alt="Meta Grey Label">
+                    <img src="/assets/media/branding/logo-symbol.svg" alt="Meta Grey Label" loading="lazy" decoding="async">
                   </div>
                   <h5 class="name">Long-term readiness</h5>
                   <div class="designation">Delivery principle</div>
@@ -972,13 +1133,13 @@
         <div class="swiper-slide" style="width: 370px; margin-right: 30px;" role="group" aria-label="1 / 4" data-swiper-slide-index="0">
             <div class="testimonial-block">
               <div class="icon-quote"><span class="flaticon-forex-Vector-1"></span></div>
-              <div class="inner-box" style="background-image:url(/assets/vendor/forexy/images/background/testimonial-graph.png)">
+              <div class="inner-box" style="background-image:url(/assets/media/forexy-background-testimonial-graph.png)">
                 <div class="rating" aria-label="Delivery principle"><span class="fa fa-check" aria-hidden="true"></span></div>
                 <div class="icon-quote2"><span class="flaticon-forex-Vector-1"></span></div>
                 <div class="text">Coordinate the trading platform, execution, CRM and payments as one scoped implementation plan.</div>
                 <div class="author-box">
                   <div class="author-image">
-                    <img src="/assets/media/branding/logo-symbol.svg" alt="Meta Grey Label">
+                    <img src="/assets/media/branding/logo-symbol.svg" alt="Meta Grey Label" loading="lazy" decoding="async">
                   </div>
                   <h5 class="name">Integration planning</h5>
                   <div class="designation">Delivery principle</div>
@@ -1000,8 +1161,8 @@
 
   <!-- Faq Section -->
   <section class="faq-section" id="faq">
-    <div class="faq_bg-1" data-parallax="{&quot;x&quot; : 50}" style="background-image:url(/assets/vendor/forexy/images/background/faq-1.png)"></div>
-    <div class="faq_bg-2" data-parallax="{&quot;x&quot; : -50}" style="background-image:url(/assets/vendor/forexy/images/background/faq-2.png)"></div>
+    <div class="faq_bg-1" data-parallax="{&quot;x&quot; : 50}" style="background-image:url(/assets/media/forexy-background-faq-1.png)"></div>
+    <div class="faq_bg-2" data-parallax="{&quot;x&quot; : -50}" style="background-image:url(/assets/media/forexy-background-faq-2.png)"></div>
     <div class="auto-container">
       <div class="sec-title centered">
         <div class="sub-title mb-2">Frequently Asked Questions</div>
@@ -1054,14 +1215,14 @@
 
   <!-- Trading Two -->
   <section class="trading-two">
-    <div class="trading-two_bg bg" style="background-image:url(/assets/vendor/forexy/images/background/trading-bg-1.png)"></div>
+    <div class="trading-two_bg bg" style="background-image:url(/assets/media/forexy-background-trading-bg-1.png)"></div>
     <div class="auto-container">
       <div class="row clearfix">
         <div class="col-lg-6">
           <div class="image-column">
             <div class="inner-column">
               <div class="image wow fadeInLeft" data-wow-delay="300ms">
-                <img src="/assets/vendor/forexy/images/resource/app.png" alt="">
+                <img src="/assets/media/forexy-resource-app.png" alt="Brokerage technology platform application mockup" loading="lazy" decoding="async">
               </div>
             </div>
           </div>
@@ -1196,8 +1357,8 @@
             <div class="inner-box wow fadeInUp" data-wow-delay="150ms">
               <div class="image-box">
                 <a href="/metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/">
-                  <img src="/assets/media/images/blog/1.png" alt="Grey Label vs White Label: which is right for you?">
-                  <img src="/assets/media/images/blog/1.png" alt="Grey Label vs White Label: which is right for you?">
+                  <img src="/assets/media/images/blog/1.png" alt="Grey Label vs White Label: which is right for you?" loading="lazy" decoding="async">
+                  <img src="/assets/media/images/blog/1.png" alt="Grey Label vs White Label: which is right for you?" loading="lazy" decoding="async">
                 </a>
               </div>
               <div class="content-box">
@@ -1222,8 +1383,8 @@
             <div class="inner-box wow fadeInUp" data-wow-delay="300ms">
               <div class="image-box">
                 <a href="/metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/">
-                  <img src="/assets/media/images/blog/2.png" alt="Why CRM integration matters for your brokerage">
-                  <img src="/assets/media/images/blog/2.png" alt="Why CRM integration matters for your brokerage">
+                  <img src="/assets/media/images/blog/2.png" alt="Why CRM integration matters for your brokerage" loading="lazy" decoding="async">
+                  <img src="/assets/media/images/blog/2.png" alt="Why CRM integration matters for your brokerage" loading="lazy" decoding="async">
                 </a>
               </div>
               <div class="content-box">
@@ -1248,8 +1409,8 @@
             <div class="inner-box wow fadeInUp" data-wow-delay="450ms">
               <div class="image-box">
                 <a href="/compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/">
-                  <img src="/assets/media/images/blog/3.png" alt="KYC and compliance basics for brokerage teams">
-                  <img src="/assets/media/images/blog/3.png" alt="KYC and compliance basics for brokerage teams">
+                  <img src="/assets/media/images/blog/3.png" alt="KYC and compliance basics for brokerage teams" loading="lazy" decoding="async">
+                  <img src="/assets/media/images/blog/3.png" alt="KYC and compliance basics for brokerage teams" loading="lazy" decoding="async">
                 </a>
               </div>
               <div class="content-box">
@@ -1274,8 +1435,8 @@
   <!-- End News Section -->
 
   <!-- CTA Section -->
-  <section class="cta-section" style="background-image:url(/assets/vendor/forexy/images/background/cta-bg.jpg)">
-    <div class="cta-pattern" style="background-image:url(/assets/vendor/forexy/images/background/cta-1.png)"></div>
+  <section class="cta-section" style="background-image:url(/assets/media/forexy-background-cta-bg.jpg)">
+    <div class="cta-pattern" style="background-image:url(/assets/media/forexy-background-cta-1.png)"></div>
     <div class="auto-container">
       <div class="row clearfix">
         <!-- Column -->
@@ -1295,14 +1456,14 @@
         <div class="col-lg-5">
           <div class="image-column">
             <div class="inner-column">
-              <div class="cta-shadow" style="background-image:url(/assets/vendor/forexy/images/background/cta-shadow.png)"></div>
+              <div class="cta-shadow" style="background-image:url(/assets/media/forexy-background-cta-shadow.png)"></div>
               <div class="circle"></div>
               <div class="free icon-bounce">MT4 <br> MT5 <br> WEB</div>
               <div class="image wow fadeInRight" data-wow-delay="300ms">
-                <img src="/assets/vendor/forexy/images/resource/app-1.png" alt="">
+                <img src="/assets/media/forexy-resource-app-1.png" alt="Mobile trading technology interface illustration" loading="lazy" decoding="async">
               </div>
               <div class="bar-code icon-bounce">
-                <img src="/assets/vendor/forexy/images/icons/bar-code.png" alt="">
+                <img src="/assets/media/capabilities/trading-platforms.svg" class="mgl-home2-feature-icon" alt="" loading="lazy" decoding="async">
               </div>
             </div>
           </div>
@@ -1311,10 +1472,11 @@
     </div>
   </section>
   <!-- End CTA Section -->
+</main>
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <div class="main-footer_pattern bg" style="background-image:url(/assets/vendor/forexy/images/background/footer-bg.png)"></div>
+    <div class="main-footer_pattern bg" style="background-image:url(/assets/media/forexy-background-footer-bg.png)"></div>
     <div class="auto-container">
       <div class="upper-box">
         <div class="newsltr-content-box">
@@ -1415,23 +1577,12 @@
 
 </div>
 
-<script src="/assets/vendor/forexy/js/jquery.js"></script>
-<script src="/assets/vendor/forexy/js/popper.min.js"></script>
-<script src="/assets/vendor/forexy/js/bootstrap.min.js"></script>
-<script src="/assets/vendor/forexy/js/jquery.fancybox.js"></script>
-<script src="/assets/vendor/forexy/js/wow.js"></script>
-<script src="/assets/vendor/forexy/js/appear.js"></script>
-<script src="/assets/vendor/forexy/js/swiper.min.js"></script>
-<script src="/assets/vendor/forexy/js/gsap.min.js"></script>
-<script src="/assets/vendor/forexy/js/ScrollTrigger.min.js"></script>
-<script src="/assets/vendor/forexy/js/SplitText.min.js"></script>
-<script src="/assets/vendor/forexy/js/splitType.js"></script>
-<script src="/assets/vendor/forexy/js/parallax-scroll.js"></script>
-<script src="/assets/vendor/forexy/js/element-in-view.js"></script>
-<script src="/assets/vendor/forexy/js/script.js"></script>
+<!-- Bundled Forexy JavaScript: original script order preserved. -->
+<script src="/assets/js/home-2.js"></script>
 
 
 
 
 
+<script src="/assets/js/wordpress.js"></script>
 </body></html>

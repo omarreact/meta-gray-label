@@ -7,10 +7,10 @@ assert.equal(new Set(manifest.pages.map(p=>p.path)).size,53);
 assert.equal(new Set(manifest.pages.map(p=>p.sourceFile)).size,53);
 assert(manifest.pages.some(p=>p.sourceFile==='index-2.html'&&p.template==='standalone'));
 for(const part of ['header','footer']){
-  const html=fs.readFileSync('pin-import/'+part+'.html','utf8');
+  const html=fs.readFileSync(part+'.html','utf8');
   assert(html.includes('<'+part),'Missing full '+part+' wrapper');
 }
-assert(fs.readFileSync('pin-import/header.html','utf8').includes('data-site-header'));
+assert(fs.readFileSync('header.html','utf8').includes('data-site-header'));
 for(const page of manifest.pages){
   const source=fs.readFileSync(page.sourceFile,'utf8');
   const imported=fs.readFileSync(page.file,'utf8');

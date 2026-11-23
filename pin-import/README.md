@@ -1,14 +1,14 @@
 # Import the complete Meta Grey Label website into WordPress
 
 This repository remains the canonical HTML/JavaScript website. `pin-import/`
-contains reproducible import sources, not a WordPress theme or a theme generator.
+contains reproducible, **flat HTML snapshots** (`pages/<slug>.html`), not a WordPress theme or a theme generator.
 The generator and universal importer belong to
 [WpBlockThemeFSE](https://github.com/omarreact/WpBlockThemeFSE).
 
 The manifest includes **53 pages**: Home 01, 51 inner pages and the independently
-designed Home 02 (`index-2.html` → `/index-2/` in WordPress). Home 02 uses its own
-header, footer, CSS and scripts. The primary header/footer are complete FSE
-fragments, including the source wrappers needed by menus and styling.
+designed Home 02 (`index-2.html` → `/index-2/` in WordPress). Home 02 preserves its independent layout and bundled media but uses the same
+shared Meta Grey Label header as Home 01. Root `header.html` and `footer.html`
+provide the canonical import fragments.
 
 ## Recommended complete-site installation
 
@@ -27,8 +27,7 @@ markup. Complex source widgets remain Custom HTML, editable as markup. Backend
 forms, accounts, payment processing and other server integrations are not
 created by static website conversion.
 
-Home 02's template CSS, JavaScript, images and font files are bundled under
-`assets/vendor/forexy/` and copied into the generated theme. Their original
+Home 02's template CSS, JavaScript, images and font files are bundled as `assets/css/home-2.css`, `assets/js/home-2.js`, `assets/fonts/forexy-*` and `assets/media/forexy-*` and copied into the generated theme. Their original
 licenses still apply. Optional Google Fonts requests remain online dependencies.
 
 ## Runtime GitHub import
