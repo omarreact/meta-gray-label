@@ -81,6 +81,24 @@ jobs:
                 await page.locator('.mgl-site-header').waitFor();
                 const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
                 if(size.scroll>size.client+2)throw Error('Horizontal overflow '+route+' at '+width+': '+JSON.stringify(size));
+                if(route==='index.html'){
+                  const capability=await page.evaluate(()=>{
+                    const section=document.querySelector('.mgl-capability-strip');
+                    const wrapper=section?.querySelector(':scope > .container');
+                    if(!section||!wrapper)return null;
+                    const outer=section.getBoundingClientRect();
+                    const inner=wrapper.getBoundingClientRect();
+                    const styles=getComputedStyle(wrapper);
+                    return {outerWidth:outer.width,clientWidth:document.documentElement.clientWidth,
+                      containerWidth:inner.width,paddingLeft:parseFloat(styles.paddingLeft),
+                      paddingRight:parseFloat(styles.paddingRight)};
+                  });
+                  if(!capability || Math.abs(capability.outerWidth-capability.clientWidth)>3 ||
+                    Math.abs(capability.containerWidth-capability.clientWidth)>3 ||
+                    capability.paddingLeft<19 || capability.paddingRight<19){
+                    throw Error('Capability ribbon width/gutters regression at '+width+': '+JSON.stringify(capability));
+                  }
+                }
                 if(errors.length)throw Error('Browser errors '+route+': '+errors.join('; '));
                 if ((width===360&&theme==='dark')||(width===1440&&theme==='light')){
                   const fs=require('node:fs');

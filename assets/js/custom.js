@@ -299,12 +299,12 @@ const Partner = window.Swiper && new window.Swiper('.partner__slider', {
     spaceBetween: 24,
     grabCursor: true,
     loop: true,
-    slidesPerView: 2,
+    slidesPerView: 1.25,
     breakpoints: {
-        576: { slidesPerView: 3 },
-        768: { slidesPerView: 4 },
-        992: { slidesPerView: 5, spaceBetween: 15 },
-        1200: { slidesPerView: 5, spaceBetween: 20 },
+        576: { slidesPerView: 2, spaceBetween: 18 },
+        768: { slidesPerView: 3, spaceBetween: 20 },
+        992: { slidesPerView: 4, spaceBetween: 20 },
+        1200: { slidesPerView: 5, spaceBetween: 24 },
     },
     autoplay: {
         delay: 1,
