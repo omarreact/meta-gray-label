@@ -1,5 +1,7 @@
 # Phase 2: directory composition and release hardening
 
+> **Historical audit (pre-HTML-only refactor).** This document records the earlier dual static/WordPress implementation and its original QA evidence. The WordPress generator, PHP and FSE pipeline have been removed. For the current standalone HTML/JavaScript architecture and commands, see [README](../README.md).
+
 Baseline: PR #36 at `ba882fa14430eaa9cd12665ae012eccd87c326fe`; production main at `7d5568d512e21e09cdd18e57749abe5e1eb7cf49`. Continued on `feat/inner-page-design-system`. Release evidence is pinned to the tested commit and Actions run in the PR description. No production deployment or merge is part of this change.
 
 ## Architecture and content
