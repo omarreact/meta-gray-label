@@ -74,7 +74,11 @@ for(const page of pages){
   if(!fs.existsSync(path.join(root,source)))throw Error('Missing canonical source '+source);
   page.sourceFile=source;
   page.file='pin-import/pages/'+(source.endsWith('/index.html')?source.slice(0,-'/index.html'.length)+'.html':source);
-  outputs.set(page.file,transform(read(source),source,{snapshot:true,standalone:page.template==='standalone'}));
+  const sourceHtml=read(source);
+  const isStandalone=page.template==='standalone';
+  const importHtml=isStandalone?sourceHtml.replace('<template data-shared-part="header"></template>',shared.header):sourceHtml;
+  if(isStandalone&&importHtml===sourceHtml)throw Error('Independent homepage missing the shared header placeholder: '+source);
+  outputs.set(page.file,transform(importHtml,source,{snapshot:true,standalone:isStandalone}));
 }
 manifest.pages=pages;
 manifest.wordpress={profile:'full-width-static-v1',pages:pages.length,home:'/',independentHome:'/index-2/',notes:'Generated import HTML preserves the canonical standalone website. Build the theme/WXR with WpBlockThemeFSE.'};

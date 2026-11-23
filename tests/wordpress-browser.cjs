@@ -16,7 +16,7 @@ const assert=require('node:assert/strict');
           const response=await page.goto(url+'?theme=dark',{waitUntil:'networkidle'});
           assert.equal(response.status(),200,url);
           const alternate=source==='index-2.html';
-          await page.locator(alternate?'.main-header':'.mgl-site-header').waitFor();
+          await page.locator('.mgl-site-header').waitFor();
           await page.locator(alternate?'.main-footer':'.footer').waitFor();
           await page.locator('body').evaluate(async()=>{await document.fonts.ready;document.querySelectorAll('img[loading="lazy"]').forEach(img=>img.loading='eager');});
           if(!alternate){
@@ -34,11 +34,11 @@ const assert=require('node:assert/strict');
               assert.equal(await menu.getAttribute('aria-expanded'),'false','Mobile menu did not close');
             }
           } else if(width===390){
-            const menu=page.locator('.main-header .header-lower .mobile-nav-toggler');
+            const menu=page.locator('.mgl-menu-toggle');
             await menu.click();
-            await page.waitForFunction(()=>document.body.classList.contains('mobile-menu-visible'));
-            await page.locator('.mobile-menu .close-btn').click();
-            await page.waitForFunction(()=>!document.body.classList.contains('mobile-menu-visible'));
+            assert.equal(await menu.getAttribute('aria-expanded'),'true','Home 02 mobile menu did not open');
+            await menu.click();
+            assert.equal(await menu.getAttribute('aria-expanded'),'false','Home 02 mobile menu did not close');
           }
           // Reveal scroll-triggered source animations before comparing the full page.
           await page.evaluate(async()=>{
@@ -61,8 +61,8 @@ const assert=require('node:assert/strict');
           }));
           await page.screenshot({path:'wordpress-qa/'+kind+'-'+source.replace(/\W/g,'_')+'-'+width+'.png',fullPage:true});
           assert(data.scroll<=width+2,kind+' horizontal overflow '+source+' '+width+': '+JSON.stringify(data));
-          if(alternate){assert.equal(data.headerCount,0,'Primary header leaked onto Home 02');assert.equal(data.alternativeHeader,1);}
-          else assert.equal(data.headerCount,1);
+          assert.equal(data.headerCount,1,'Shared Meta Grey Label header missing: '+source);
+          assert.equal(data.alternativeHeader,0,'Legacy Forexy header leaked: '+source);
           assert.equal(data.images.length,0,kind+' broken images: '+JSON.stringify(data.images));
           assert.equal(missing.length,0,kind+' missing local resources: '+missing.join(';'));
           if(alternate)assert(await page.locator('.page-wrapper .main-footer').count(),'Home 02 sections escaped the page wrapper');
