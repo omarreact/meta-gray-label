@@ -11,13 +11,13 @@
 .fxh a:focus-visible,.fxh summary:focus-visible{outline:3px solid #0aae88;outline-offset:4px}
 .fxh h1,.fxh h2,.fxh h3,.fxh p{margin:0}
 .fxh h1,.fxh h2,.fxh h3{font-family:inherit;letter-spacing:-.035em}
-.fxh h1{font-size:clamp(2.85rem,5.1vw,5.4rem);font-weight:750;line-height:1.075}
-.fxh h2{font-size:clamp(2rem,3.45vw,3.35rem);font-weight:750;line-height:1.17}
+.fxh h1{font-size:clamp(2.25rem,4vw,3.8rem);font-weight:750;line-height:1.075}
+.fxh h2{font-size:clamp(1.875rem,3vw,2.55rem);font-weight:750;line-height:1.17}
 .fxh h3{font-size:clamp(1.08rem,1.6vw,1.4rem);font-weight:720;line-height:1.32}
 .fxh em{font-style:normal;color:var(--fxh-green)}
 .fxh p{font-size:clamp(.94rem,1.12vw,1.03rem);line-height:1.77}
 .fxh-wrap{width:min(1300px,calc(100% - 72px));margin:0 auto}
-.fxh-section{padding:clamp(76px,8vw,118px) 0}
+.fxh-section{padding:clamp(62px,5.3vw,76px) 0}
 .fxh-kicker{display:flex;align-items:center;gap:10px;margin-bottom:21px!important;font-size:.75rem!important;line-height:1.3!important;font-weight:800;letter-spacing:.16em;color:#087d68}
 .fxh-kicker>span{width:21px;height:2px;flex:none;background:currentColor}
 .fxh-kicker--light{color:var(--fxh-mint)}
@@ -128,7 +128,7 @@
 .fxh-service-symbol{display:grid;place-items:center;width:58px;height:58px;margin:26px 0 23px;border:1px solid #ccefe0;border-radius:12px;background:#eaf9f2;color:#039774;font-size:2rem}
 .fxh-service-card h3{color:#193b40}
 .fxh-service-card>p{margin-top:13px;color:#647b7c;font-size:.86rem;line-height:1.7}
-.fxh-service-card>a{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:23px;color:#078267!important;font-size:.79rem;font-weight:800}
+.fxh-service-card>a{min-height:50px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:23px;color:#078267!important;font-size:.79rem;font-weight:800}
 .fxh-service-card>a span{font-size:1.2rem}
 /* Models: Forexy-style account cards, adapted to B2B products. */
 .fxh-models{background:var(--fxh-paper)}
@@ -226,7 +226,7 @@ html[data-bs-theme="dark"] .fxh-model-card:not(.fxh-model-card--featured) .fxh-b
 html[data-bs-theme="dark"] .fxh-model-note{color:#aec8c2}
 /* Fluid desktop/tablet/mobile; touch targets and gutter spacing. */
 @media(max-width:1250px){
- .fxh-hero h1{font-size:clamp(2.6rem,5vw,4.7rem)}
+ .fxh-hero h1{font-size:clamp(2.25rem,4vw,3.8rem)}
  .fxh-floating-card--left{left:-8px}.fxh-floating-card--right{right:-10px}
  .fxh-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .fxh-service-card{min-height:280px}
@@ -235,7 +235,7 @@ html[data-bs-theme="dark"] .fxh-model-note{color:#aec8c2}
  .fxh-pillar-arrow{display:none}
 }
 @media(max-width:1020px){
- .fxh-wrap{width:min(100% - 48px,1300px)}
+ .fxh-wrap{width:min(calc(100% - 48px),1300px)}
  .fxh-hero{padding-top:114px}
  .fxh-hero-grid{grid-template-columns:1fr;gap:12px;padding:45px 0 30px}
  .fxh-hero-copy{padding:0}.fxh-hero h1{max-width:780px}
@@ -250,7 +250,7 @@ html[data-bs-theme="dark"] .fxh-model-note{color:#aec8c2}
  .fxh-model-card h3{font-size:1.55rem}
 }
 @media(max-width:780px){
- .fxh-section{padding:70px 0}
+ .fxh-section{padding:65px 0}
  .fxh-two-col,.fxh-why-grid,.fxh-faq-grid{grid-template-columns:1fr}
  .fxh-about-media{max-width:600px;margin:0 auto 15px;width:100%}
  .fxh-section-copy{max-width:660px}
@@ -263,9 +263,10 @@ html[data-bs-theme="dark"] .fxh-model-note{color:#aec8c2}
  .fxh-cta-content{align-items:start;flex-direction:column}
 }
 @media(max-width:600px){
- .fxh-wrap{width:calc(100% - 36px)}
- .fxh h1{font-size:clamp(2.5rem,10.7vw,3.6rem)}
- .fxh h2{font-size:clamp(1.9rem,8vw,2.65rem)}
+ .fxh-section{padding:56px 0}
+ .fxh-wrap{width:calc(100% - 44px)}
+ .fxh h1{font-size:clamp(2.15rem,9.8vw,2.4rem)}
+ .fxh h2{font-size:clamp(1.8rem,7.8vw,1.93rem)}
  .fxh-hero{padding-top:104px}
  .fxh-topline{padding:12px 0}
  .fxh-topline-label{font-size:.59rem;letter-spacing:.09em}
@@ -321,3 +322,5 @@ html[data-bs-theme="dark"] .fxh-model-note{color:#aec8c2}
 @media(prefers-reduced-motion:reduce){
  .fxh *,.fxh *::before,.fxh *::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
+
+.fxh-anchor{display:block;position:relative;top:-95px;height:0;visibility:hidden;pointer-events:none}

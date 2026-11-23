@@ -106,21 +106,18 @@ jobs:
                 const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
                 if(size.scroll>size.client+2)throw Error('Horizontal overflow '+route+' at '+width+': '+JSON.stringify(size));
                 if(route==='index.html'){
-                  const capability=await page.evaluate(()=>{
-                    const section=document.querySelector('.mgl-capability-strip');
-                    const wrapper=section?.querySelector(':scope > .container');
+                  const ribbon=await page.evaluate(()=>{
+                    const section=document.querySelector('.fxh-pillars');
+                    const wrapper=section?.querySelector('.fxh-pillars-grid');
                     if(!section||!wrapper)return null;
                     const outer=section.getBoundingClientRect();
                     const inner=wrapper.getBoundingClientRect();
-                    const styles=getComputedStyle(wrapper);
                     return {outerWidth:outer.width,clientWidth:document.documentElement.clientWidth,
-                      containerWidth:inner.width,paddingLeft:parseFloat(styles.paddingLeft),
-                      paddingRight:parseFloat(styles.paddingRight)};
+                      gutterLeft:inner.left,gutterRight:document.documentElement.clientWidth-inner.right};
                   });
-                  if(!capability || Math.abs(capability.outerWidth-capability.clientWidth)>3 ||
-                    Math.abs(capability.containerWidth-capability.clientWidth)>3 ||
-                    capability.paddingLeft<19 || capability.paddingRight<19){
-                    throw Error('Capability ribbon width/gutters regression at '+width+': '+JSON.stringify(capability));
+                  if(!ribbon || Math.abs(ribbon.outerWidth-ribbon.clientWidth)>3 ||
+                    ribbon.gutterLeft<19 || ribbon.gutterRight<19){
+                    throw Error('Homepage technology ribbon width/gutters regression at '+width+': '+JSON.stringify(ribbon));
                   }
                 }
                 if(errors.length)throw Error('Browser errors '+route+': '+errors.join('; '));
@@ -129,7 +126,7 @@ jobs:
                   const h1=root?.querySelector('h1');
                   const h2=root?.querySelector('#services h2, .mgl-inner-section h2, .section-header h2, h2');
                   const px=e=>e?parseFloat(getComputedStyle(e).fontSize):null;
-                  const service=document.querySelector('#services.mgl-solutions-section');
+                  const service=document.querySelector('#services.fxh-solutions');
                   const inner=document.querySelector('.mgl-design .mgl-inner-section');
                   const top=e=>e?parseFloat(getComputedStyle(e).paddingTop):null;
                   return {h1:px(h1),h2:px(h2),serviceSpace:top(service),innerSpace:top(inner)};
@@ -143,28 +140,26 @@ jobs:
                   throw Error('Oversized typography/spacing '+route+' '+width+'px: '+JSON.stringify(typography));
                 }
                 if(route==='index.html'){
-                  const cards=page.locator('#services .mgl-solution-card');
-                  if(await cards.count()!==6)throw Error('Expected six redesigned brokerage cards');
+                  const cards=page.locator('#services .fxh-service-card');
+                  if(await cards.count()!==4)throw Error('Expected four Forexy-inspired brokerage service cards');
                   const result=await page.evaluate(()=>{
-                    const section=document.querySelector('#services.mgl-solutions-section');
-                    const grid=section?.querySelector('.mgl-solutions-grid');
+                    const section=document.querySelector('#services.fxh-solutions');
+                    const grid=section?.querySelector('.fxh-service-grid');
                     if(!grid)return null;
-                    const links=Array.from(grid.querySelectorAll('.mgl-solution-card__link'));
+                    const links=Array.from(grid.querySelectorAll('.fxh-service-card > a'));
                     const columns=getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length;
                     const rect=section.getBoundingClientRect();
-                    const cs=getComputedStyle(section);
-                    const cards=Array.from(grid.querySelectorAll('.mgl-solution-card'));
+                    const cards=Array.from(grid.querySelectorAll('.fxh-service-card'));
                     return {columns,cardCount:cards.length,links:links.length,
                       hasTitles:cards.every(c=>c.querySelector('h3')?.textContent?.trim()),
                       minLinkHeight:Math.min(...links.map(link=>link.getBoundingClientRect().height)),
-                      horizontalBounds:rect.left>=-2&&rect.right<=document.documentElement.clientWidth+2,
-                      background:cs.backgroundImage};
+                      horizontalBounds:rect.left>=-2&&rect.right<=document.documentElement.clientWidth+2};
                   });
-                  const expectedCols=width<576?1:width<992?2:3;
-                  if(!result||result.columns!==expectedCols||result.cardCount!==6||
-                    result.links!==6||!result.hasTitles||result.minLinkHeight<44||
+                  const expectedCols=width<=600?1:width<=1250?2:4;
+                  if(!result||result.columns!==expectedCols||result.cardCount!==4||
+                    result.links!==4||!result.hasTitles||result.minLinkHeight<44||
                     !result.horizontalBounds){
-                    throw Error('Brokerage solutions regression at '+width+'px: '+JSON.stringify(result));
+                    throw Error('Homepage service cards regression at '+width+'px: '+JSON.stringify(result));
                   }
                 }
                 if(route==='index.html'){
