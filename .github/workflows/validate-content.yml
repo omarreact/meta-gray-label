@@ -25,9 +25,26 @@ jobs:
           const pages=fs.readdirSync('.', {withFileTypes:true}).filter(e=>e.isDirectory()&&fs.existsSync(e.name+'/index.html')).map(e=>e.name+'/index.html');
           assert.equal(pages.length,51,'Expected 51 post-name permalink pages');
           for(const file of ['index.html','404.html','assets/js/includes.js','assets/js/custom.js',
-            'assets/js/site-settings.json','assets/css/style.css','assets/media/branding/favicon.svg']){
+            'assets/js/site-settings.json','assets/css/style.css','assets/media/branding/favicon.svg',
+            'site-manifest.json','design-tokens.json','pin-import/header.html','pin-import/footer.html']){
             assert(fs.existsSync(file),'Missing '+file);
           }
+          const manifest=JSON.parse(fs.readFileSync('site-manifest.json','utf8'));
+          const tokens=JSON.parse(fs.readFileSync('design-tokens.json','utf8'));
+          assert.equal(manifest.version,1,'Unsupported PIN import manifest version');
+          assert.equal(manifest.pages.length,52,'Expected 52 importable website pages (404 is a theme template, not a Page)');
+          assert.equal(new Set(manifest.pages.map(p=>p.path)).size,manifest.pages.length,'Duplicate manifest routes');
+          assert.equal(new Set(manifest.pages.map(p=>p.file)).size,manifest.pages.length,'Duplicate manifest source files');
+          assert(!manifest.pages.some(p=>p.file==='404.html'),'404.html must not import as a WordPress Page');
+          for(const entry of manifest.pages){
+            assert(entry.path&&entry.file&&entry.title,'Incomplete manifest page entry: '+JSON.stringify(entry));
+            assert(fs.existsSync(entry.file)&&fs.statSync(entry.file).isFile(),'Manifest source missing: '+entry.file);
+          }
+          for(const fragment of [manifest.header?.file,manifest.footer?.file]){
+            assert(fragment&&fs.existsSync(fragment)&&fs.statSync(fragment).isFile(),'Missing manifest template fragment: '+fragment);
+          }
+          assert(tokens.colors&&tokens.typography&&tokens.layout,'Incomplete PIN design tokens');
+
           let checked=0;
           for(const file of ['index.html',...pages]){
             const s=fs.readFileSync(file,'utf8');
