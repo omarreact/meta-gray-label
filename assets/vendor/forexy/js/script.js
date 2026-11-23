@@ -7,7 +7,7 @@ var THEMEMASCOT = {};
 	/* ---------------------------------------------------------------------- */
 	/* --------------------------- Start Demo Switcher  --------------------- */
 	/* ---------------------------------------------------------------------- */
-	var showSwitcher = true;
+	var showSwitcher = false; // Template demo UI is absent from this website.
 	var $body = $('body');
 	var $style_switcher = $('#style-switcher');
 	if( !$style_switcher.length && showSwitcher ) {

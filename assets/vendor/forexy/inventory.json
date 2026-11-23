@@ -678,8 +678,8 @@
       "source": "https://html.kodesolution.com/2025/forexy-html/js/script.js",
       "bytes": 25794,
       "sha256": "5eba1264f830fcf6be1777aa09fd2beec1588fef78cea601af312c399b0294ca",
-      "bundledSha256": "5eba1264f830fcf6be1777aa09fd2beec1588fef78cea601af312c399b0294ca",
-      "bundledBytes": 25794
+      "bundledSha256": "7026138609ff0a53cc451226c2a7e2f5eb046ad227c2f428d996506dc4031691",
+      "bundledBytes": 25844
     },
     {
       "path": "js/splitType.js",
@@ -742,6 +742,7 @@
   ],
   "adjustments": [
     "CSS uses the first available modern font format per face; redundant legacy fallback files are omitted.",
-    "Eight upstream 404 background URLs are replaced with none, preserving their existing absence."
+    "Eight upstream 404 background URLs are replaced with none, preserving their existing absence.",
+    "Disabled the vendor demo color-switcher AJAX request, whose demo HTML is absent from this website."
   ]
 }
