@@ -612,8 +612,10 @@ html[data-bs-theme="dark"] .fxh-partner-list span{color:#b1c9bd;border-color:#3a
 }
 
 /* Screenshot-led contrast fixes, scoped to homepage only. */
+/* Preserve the actual brand SVG artwork in either theme. Forcing the
+   logo to solid white turns its light background tile into an opaque block. */
 html[data-bs-theme="light"] body.fxh-page .mgl-header-brand img{
-  filter:brightness(0) invert(1);opacity:1;
+  filter:none;opacity:1;
 }
 html[data-bs-theme="dark"] body.fxh-page :is(.fxh-about,.fxh-solutions,.fxh-steps,.fxh-faq,.fxh-insights) h2,
 html[data-bs-theme="dark"] body.fxh-page .fxh-about .fxh-section-copy h2{color:#133a3e!important;}
