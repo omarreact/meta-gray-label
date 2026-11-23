@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
-
 <head>
 <script id="mgl-theme-boot">(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=localStorage.getItem('theme');var t=q==='light'||q==='dark'?q:s==='light'||s==='dark'?s:'dark';document.documentElement.setAttribute('data-bs-theme',t)}catch(e){document.documentElement.setAttribute('data-bs-theme','dark')}})();</script>
   <title>Meta Grey Label | MT4/MT5 Brokerage Technology, Liquidity &amp; CRM</title>
@@ -73,1608 +72,303 @@
 
   <!-- Meta Grey Label global stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/capabilities.css">
-  <link rel="stylesheet" href="assets/css/brokerage-solutions.css">
-
-  <style id="mgl-targeted-fixes">
-    /* Original global style.css remains unchanged. */
-    #why .testimonial__wrapper { opacity:1 !important; visibility:visible !important; transform:none !important; }
-    #why .testimonial__slider { overscroll-behavior-x: contain; }
-    @media (prefers-reduced-motion:reduce) { .mgl-stack-link,.mgl-stack-row {transition:none !important;} }
-
-    /* Compact interactive brokerage control stack */
-    #capabilities.mgl-stack-section {
-      position:relative;
-      isolation:isolate;
-      overflow:hidden;
-      padding:clamp(42px,5vw,68px) 0 !important;
-      background:#061a22;
-      color:#fff;
-    }
-    #capabilities.mgl-stack-section::before {
-      content:"";
-      position:absolute;
-      inset:-3%;
-      z-index:-3;
-      background:url("assets/media/images/blog/1.png") center 36% / cover no-repeat;
-      filter:saturate(.68) contrast(1.08);
-      transform:scale(1.04);
-    }
-    #capabilities.mgl-stack-section::after {
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:-2;
-      background:
-        linear-gradient(112deg,rgba(3,17,24,.97),rgba(4,34,39,.92) 48%,rgba(5,22,37,.95)),
-        radial-gradient(circle at 82% 18%,rgba(0,208,148,.20),transparent 30%);
-    }
-    #capabilities .mgl-stack-grid-lines {
-      position:absolute;
-      inset:0;
-      z-index:-1;
-      opacity:.26;
-      pointer-events:none;
-      background-image:
-        linear-gradient(rgba(105,240,201,.12) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(105,240,201,.12) 1px,transparent 1px);
-      background-size:46px 46px;
-      mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 82%,transparent 100%);
-      -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 82%,transparent 100%);
-    }
-    #capabilities > .container {
-      position:relative;
-      z-index:1;
-    }
-    #capabilities .mgl-stack-top {
-      display:grid;
-      grid-template-columns:minmax(0,1fr) auto;
-      gap:22px;
-      align-items:end;
-      margin-bottom:22px;
-    }
-    #capabilities .section-header {
-      max-width:760px;
-      margin:0;
-      text-align:left;
-    }
-    #capabilities .section-header h2 {
-      margin:0 0 8px;
-      color:#fff !important;
-      font-size:clamp(2rem,3.3vw,3.25rem);
-      line-height:1.08;
-      letter-spacing:-.035em;
-    }
-    #capabilities .section-header h2 span {
-      color:#58e3bd !important;
-    }
-    #capabilities .section-header p {
-      max-width:690px;
-      margin:0;
-      color:#c6d9d6 !important;
-      font-size:clamp(.96rem,1.15vw,1.08rem);
-      line-height:1.65;
-    }
-    #capabilities .mgl-stack-status {
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      gap:8px;
-      padding-bottom:3px;
-    }
-    #capabilities .mgl-stack-status span {
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      min-height:32px;
-      padding:6px 10px;
-      border:1px solid rgba(88,227,189,.20);
-      border-radius:999px;
-      background:rgba(8,43,46,.56);
-      color:#cfe8e2;
-      font-size:.78rem;
-      font-weight:750;
-      letter-spacing:.02em;
-      -webkit-backdrop-filter:blur(12px);
-      backdrop-filter:blur(12px);
-    }
-    #capabilities .mgl-stack-status span::before {
-      content:"";
-      width:7px;
-      height:7px;
-      border-radius:50%;
-      background:#58e3bd;
-      box-shadow:0 0 0 4px rgba(88,227,189,.09),0 0 14px rgba(88,227,189,.65);
-    }
-    #capabilities .mgl-stack-shell {
-      position:relative;
-      display:block;
-    }
-    #capabilities .mgl-stack-list {
-      position:relative;
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-    }
-    #capabilities .mgl-stack-list::before {
-      content:"";
-      position:absolute;
-      left:8%;
-      right:8%;
-      top:50%;
-      height:1px;
-      z-index:0;
-      background:linear-gradient(90deg,transparent,rgba(88,227,189,.38),rgba(86,143,255,.28),transparent);
-      pointer-events:none;
-    }
-    #capabilities .mgl-stack-row {
-      position:relative;
-      z-index:1;
-      display:grid;
-      grid-template-columns:42px minmax(0,1fr);
-      grid-template-rows:auto 1fr auto;
-      gap:8px 12px;
-      min-height:154px;
-      padding:17px 18px 16px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      background:
-        linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.045));
-      color:#fff;
-      -webkit-backdrop-filter:blur(16px) saturate(125%);
-      backdrop-filter:blur(16px) saturate(125%);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
-      transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease;
-    }
-    #capabilities .mgl-stack-row::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:-1;
-      background:linear-gradient(115deg,rgba(88,227,189,.08),transparent 34%,rgba(76,132,255,.06));
-      opacity:0;
-      transition:opacity .22s ease;
-    }
-    #capabilities .mgl-stack-row::after {
-      content:"";
-      position:absolute;
-      width:82px;
-      height:82px;
-      right:-38px;
-      bottom:-42px;
-      border-radius:50%;
-      background:radial-gradient(circle,rgba(88,227,189,.22),transparent 70%);
-      opacity:.75;
-      pointer-events:none;
-    }
-    #capabilities .mgl-stack-row:hover {
-      transform:translateY(-4px);
-      border-color:rgba(88,227,189,.34);
-      background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.065));
-      box-shadow:0 16px 34px rgba(0,0,0,.18),0 0 0 1px rgba(88,227,189,.04);
-    }
-    #capabilities .mgl-stack-row:hover::before {
-      opacity:1;
-    }
-    #capabilities .mgl-stack-icon {
-      grid-row:1 / 3;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:42px;
-      height:42px;
-      border:1px solid rgba(88,227,189,.28);
-      border-radius:12px;
-      background:linear-gradient(145deg,rgba(0,208,148,.16),rgba(44,98,166,.16));
-      color:#72eac8;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 22px rgba(0,0,0,.12);
-    }
-    #capabilities .mgl-stack-icon i {
-      font-size:1rem;
-      line-height:1;
-    }
-    #capabilities .mgl-stack-copy {
-      min-width:0;
-      padding:0 !important;
-    }
-    #capabilities .mgl-stack-copy h4 {
-      margin:0 0 5px;
-      color:#fff !important;
-      font-size:1.01rem;
-      line-height:1.28;
-      letter-spacing:-.01em;
-    }
-    #capabilities .mgl-stack-copy p {
-      display:-webkit-box;
-      margin:0;
-      overflow:hidden;
-      color:#bcd0cd !important;
-      font-size:.84rem;
-      line-height:1.55;
-      -webkit-line-clamp:3;
-      -webkit-box-orient:vertical;
-    }
-    #capabilities .mgl-stack-row > a {
-      grid-column:2;
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      width:max-content;
-      margin-top:2px;
-      padding:0 !important;
-      border:0 !important;
-      background:transparent !important;
-      color:#58e3bd !important;
-      font-size:.82rem;
-      font-weight:800;
-      text-decoration:none;
-      transition:gap .18s ease,color .18s ease;
-    }
-    #capabilities .mgl-stack-row > a:hover {
-      gap:9px;
-      color:#8ef1d3 !important;
-    }
-    #capabilities .mgl-stack-row > a i {
-      font-size:.72rem;
-    }
-    #capabilities .mgl-stack-bottom {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-top:14px;
-      padding:13px 15px;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:14px;
-      background:rgba(5,31,38,.50);
-      -webkit-backdrop-filter:blur(14px);
-      backdrop-filter:blur(14px);
-    }
-    #capabilities .mgl-stack-bottom p {
-      margin:0;
-      color:#c5d8d5 !important;
-      font-size:.86rem;
-      line-height:1.45;
-    }
-    #capabilities .mgl-stack-actions {
-      display:flex;
-      flex:0 0 auto;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    #capabilities .mgl-stack-link {
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      min-height:34px;
-      padding:7px 11px;
-      border:1px solid rgba(88,227,189,.22);
-      border-radius:10px;
-      background:rgba(0,208,148,.08);
-      color:#eaf9f5 !important;
-      font-size:.8rem;
-      font-weight:800;
-      text-decoration:none;
-      transition:background .18s ease,border-color .18s ease,transform .18s ease;
-    }
-    #capabilities .mgl-stack-link:hover {
-      transform:translateY(-2px);
-      border-color:rgba(88,227,189,.40);
-      background:rgba(0,208,148,.14);
-      color:#fff !important;
-    }
-    #capabilities .mgl-stack-link i {
-      color:#58e3bd;
-      font-size:.75rem;
-    }
-
-    @media(max-width:1199px) {
-      #capabilities .mgl-stack-list {
-        grid-template-columns:repeat(2,minmax(0,1fr));
-      }
-      #capabilities .mgl-stack-list::before {
-        display:none;
-      }
-    }
-    @media(max-width:767px) {
-      #capabilities.mgl-stack-section {
-        padding:36px 0 !important;
-      }
-      #capabilities .mgl-stack-top {
-        grid-template-columns:1fr;
-        gap:14px;
-        margin-bottom:16px;
-      }
-      #capabilities .mgl-stack-status {
-        justify-content:flex-start;
-      }
-      #capabilities .mgl-stack-list {
-        grid-template-columns:1fr;
-        gap:10px;
-      }
-      #capabilities .mgl-stack-row {
-        min-height:0;
-        padding:15px 15px 14px;
-      }
-      #capabilities .mgl-stack-bottom {
-        align-items:flex-start;
-        flex-direction:column;
-      }
-    }
-    @media(max-width:575px) {
-      #capabilities .mgl-stack-status span:nth-child(3) {
-        display:none;
-      }
-      #capabilities .mgl-stack-copy p {
-        -webkit-line-clamp:2;
-      }
-      #capabilities .mgl-stack-bottom {
-        margin-top:10px;
-        padding:12px;
-      }
-      #capabilities .mgl-stack-actions {
-        width:100%;
-      }
-      #capabilities .mgl-stack-link {
-        flex:1 1 auto;
-        justify-content:center;
-      }
-    }
-
-</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/forexy-home.css">
 </head>
-
-<body>
-
-  <!-- ===============>> Preloader start here <<================= -->
-  <div class="preloader">
-    <img src="assets/media/branding/logo-symbol.svg" alt="Meta Grey Label loading" width="90" height="90">
+<body class="fxh-page">
+  <div class="fxh-utility-bar" aria-label="Quick contact">
+    <div class="fxh-wrap">
+      <span>Brokerage technology enquiries <a href="contact/">Request a consultation</a></span>
+      <div><a href="brokerage-launch-process/">Launch guide</a><a href="contact/">Support</a><span>English</span></div>
+    </div>
   </div>
-  <!-- ===============>> Preloader end here <<================= -->
-<!-- ===============>> Header section start here <<================= -->
+  <div class="preloader" aria-hidden="true"><img src="assets/media/branding/logo-symbol.svg" alt="" width="72" height="72"></div>
   <template data-shared-part="header"></template>
 
-<main id="main-content">
-
-
-
-
-
-  <!-- ===============>> Banner section start here <<================= -->
-  <section id="home" class="banner banner--style1">
-    <div class="banner__bg">
-      <div class="banner__bg-element">
-        <img src="assets/media/images/banner/home1/bg.png" alt="Meta Grey Label brokerage technology illustration" class="dark d-none d-lg-block">
-        <span class="bg-color d-lg-none"></span>
-      </div>
-    </div>
-    <div class="container">
-      <div class="banner__wrapper">
-        <div class="row gy-5 gx-4">
-          <div class="col-lg-6 col-md-7">
-            <div class="banner__content" data-aos="fade-right" data-aos-duration="1000">
-              <div class="banner__content-coin">
-                <img src="assets/media/images/banner/home1/3.png" alt="Meta Grey Label brokerage technology illustration">
-              </div>
-              <h1 class="banner__content-heading">Connect your brokerage for <span>launch &amp; scale.</span></h1>
-              <p class="banner__content-moto">MT4/MT5 platform, liquidity, CRM and payments coordinated as one operating stack — so your team spends less time chasing vendors.
-              </p>
-              <div class="banner__btn-group btn-group">
-                <a href="solutions/" class="trk-btn trk-btn--primary trk-btn--arrow">Explore Solutions
-                  <span><i class="fa-solid fa-arrow-right"></i></span> </a>
-
-                <a href="#roadmap"
-                  class="trk-btn trk-btn--outline22">
-                  <span class="style1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                      viewBox="0 0 24 24" fill="none">
-                      <g clip-path="url(#clip0_1397_814)">
-                        <path
-                          d="M10.5547 7.03647C9.89015 6.59343 9 7.06982 9 7.86852V16.1315C9 16.9302 9.89015 17.4066 10.5547 16.9635L16.7519 12.8321C17.3457 12.4362 17.3457 11.5638 16.7519 11.1679L10.5547 7.03647Z"
-                          stroke="#00b98e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      </g>
-                      <rect x="-0.75" y="0.75" width="22.5" height="22.5" rx="11.25" transform="matrix(-1 0 0 1 22.5 0)"
-                        stroke="#00b98e" stroke-width="1.5" />
-                      <defs>
-                        <clipPath id="clip0_1397_814">
-                          <rect width="24" height="24" fill="white" />
-                        </clipPath>
-                      </defs>
-                    </svg></span> Launch Process
-                </a>
-              </div>
-              
+  <main id="main-content" class="fxh">
+    <!-- Forexy-inspired composition, original markup and Meta Grey Label content. -->
+    <section id="home" class="fxh-hero" aria-labelledby="fxh-hero-title">
+      <div class="fxh-hero-glow" aria-hidden="true"></div>
+      <div class="fxh-wrap">
+        <div class="fxh-topline">
+          <span class="fxh-topline-label"><span class="fxh-pulse" aria-hidden="true"></span> BROKERAGE TECHNOLOGY &amp; OPERATIONS</span>
+          <a href="contact/">Let's discuss your brokerage <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="fxh-hero-grid">
+          <div class="fxh-hero-copy">
+            <div class="fxh-kicker fxh-kicker--light"><span></span> WHITE LABEL • GREY LABEL • TURNKEY</div>
+            <h1 id="fxh-hero-title">Build the best tools for <em>brokerage success.</em></h1>
+            <p>Purpose-built MT4/MT5 environments, liquidity, CRM and payments—connected into one technology foundation for your brokerage.</p>
+            <div class="fxh-actions">
+              <a href="contact/" class="fxh-btn fxh-btn--primary">Discuss Your Setup <span aria-hidden="true">↗</span></a>
+              <a href="solutions/" class="fxh-btn fxh-btn--ghost">Explore Technology <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="fxh-hero-facts" aria-label="Key technology services">
+              <span><i aria-hidden="true">✓</i> MT4 / MT5 setup</span>
+              <span><i aria-hidden="true">✓</i> Liquidity bridges</span>
+              <span><i aria-hidden="true">✓</i> Client operations</span>
             </div>
           </div>
-          <div class="col-lg-6 col-md-5">
-            <div class="banner__thumb" data-aos="fade-left" data-aos-duration="1000">
-              <img src="assets/media/images/banner/home1/1.png" alt="Meta Grey Label trading infrastructure dashboard illustration" class="dark">
+          <div class="fxh-hero-art" aria-label="Illustration of a connected brokerage technology dashboard">
+            <div class="fxh-orbit fxh-orbit--one" aria-hidden="true"></div>
+            <div class="fxh-orbit fxh-orbit--two" aria-hidden="true"></div>
+            <div class="fxh-terminal">
+              <div class="fxh-terminal-head">
+                <div><span class="fxh-terminal-mark"></span> BROKERAGE OPERATIONS</div>
+                <span class="fxh-terminal-status"><span></span> Technology stack</span>
+              </div>
+              <div class="fxh-terminal-body">
+                <div class="fxh-chart-meta">
+                  <div><small>Infrastructure overview</small><strong>Built to connect.</strong></div>
+                  <span class="fxh-chart-tag">Illustrative view</span>
+                </div>
+                <svg class="fxh-chart" viewBox="0 0 490 180" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                  <defs><linearGradient id="fxh-chart-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#24c49f" stop-opacity=".26"/><stop offset="100%" stop-color="#24c49f" stop-opacity="0"/></linearGradient></defs>
+                  <g stroke="#31515a" stroke-width="1" stroke-opacity=".6"><path d="M0 30H490 M0 75H490 M0 120H490 M0 165H490 M80 0V180 M180 0V180 M280 0V180 M380 0V180"/></g>
+                  <path d="M0 145 42 133 78 141 113 102 147 115 183 88 218 105 255 76 286 86 319 50 358 63 399 35 438 47 490 13V180H0Z" fill="url(#fxh-chart-fill)"/>
+                  <path d="M0 145 42 133 78 141 113 102 147 115 183 88 218 105 255 76 286 86 319 50 358 63 399 35 438 47 490 13" fill="none" stroke="#2ce0b1" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+                  <circle cx="490" cy="13" r="5" fill="#2ce0b1" stroke="#103941" stroke-width="4"/>
+                </svg>
+                <div class="fxh-terminal-modules">
+                  <div><span class="fxh-module-icon">01</span><span><strong>MT4 / MT5</strong><small>Trading environment</small></span></div>
+                  <div><span class="fxh-module-icon">02</span><span><strong>Liquidity</strong><small>Routing & bridges</small></span></div>
+                  <div><span class="fxh-module-icon">03</span><span><strong>Forex CRM</strong><small>Client lifecycle</small></span></div>
+                </div>
+              </div>
             </div>
+            <div class="fxh-floating-card fxh-floating-card--left"><span class="fxh-floating-icon" aria-hidden="true">◎</span><span><strong>One connected stack</strong><small>Platform to back office</small></span></div>
+            <div class="fxh-floating-card fxh-floating-card--right"><span class="fxh-floating-icon fxh-floating-icon--gold" aria-hidden="true">↗</span><span><strong>Build for growth</strong><small>Modular infrastructure</small></span></div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="banner__shape">
-      <span class="banner__shape-item banner__shape-item--1"><img src="assets/media/images/banner/home1/4.png"
-          alt=""></span>
-    </div>
-
-  </section>
-  <!-- ===============>> Banner section end here <<================= -->
-
-
-
-
-
-  <!-- ===============>> partner section start here <<================= -->
-  <div class="partner partner--gradient mgl-capability-strip" role="region" aria-label="Meta Grey Label brokerage capabilities">
-    <div class="container">
-      <div class="partner__wrapper">
-        <div class="partner__slider swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="partner__item">
-                <div class="partner__item-inner">
-                  <a class="mgl-capability" href="trading-platforms/" aria-label="Explore MT4 / MT5: Trading platforms">
-                    <img class="mgl-capability__icon" src="assets/media/capabilities/trading-platforms.svg" alt="" width="56" height="56" loading="lazy" decoding="async">
-                    <span class="mgl-capability__copy">
-                      <span class="mgl-capability__name">MT4 / MT5</span>
-                      <span class="mgl-capability__detail">Trading platforms</span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="partner__item">
-                <div class="partner__item-inner">
-                  <a class="mgl-capability" href="liquidity-bridge/" aria-label="Explore Liquidity: Bridges & execution">
-                    <img class="mgl-capability__icon" src="assets/media/capabilities/liquidity-bridge.svg" alt="" width="56" height="56" loading="lazy" decoding="async">
-                    <span class="mgl-capability__copy">
-                      <span class="mgl-capability__name">Liquidity</span>
-                      <span class="mgl-capability__detail">Bridges & execution</span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="partner__item">
-                <div class="partner__item-inner">
-                  <a class="mgl-capability" href="forex-crm/" aria-label="Explore Forex CRM: Client operations">
-                    <img class="mgl-capability__icon" src="assets/media/capabilities/forex-crm.svg" alt="" width="56" height="56" loading="lazy" decoding="async">
-                    <span class="mgl-capability__copy">
-                      <span class="mgl-capability__name">Forex CRM</span>
-                      <span class="mgl-capability__detail">Client operations</span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="partner__item">
-                <div class="partner__item-inner">
-                  <a class="mgl-capability" href="kyc-compliance/" aria-label="Explore KYC & Trust: Client onboarding">
-                    <img class="mgl-capability__icon" src="assets/media/capabilities/kyc-compliance.svg" alt="" width="56" height="56" loading="lazy" decoding="async">
-                    <span class="mgl-capability__copy">
-                      <span class="mgl-capability__name">KYC & Trust</span>
-                      <span class="mgl-capability__detail">Client onboarding</span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="partner__item">
-                <div class="partner__item-inner">
-                  <a class="mgl-capability" href="payments-automation/" aria-label="Explore Payments: Workflow automation">
-                    <img class="mgl-capability__icon" src="assets/media/capabilities/payment-automation.svg" alt="" width="56" height="56" loading="lazy" decoding="async">
-                    <span class="mgl-capability__copy">
-                      <span class="mgl-capability__name">Payments</span>
-                      <span class="mgl-capability__detail">Workflow automation</span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="fxh-hero-footer">
+          <span>TRADING PLATFORMS <b>•</b> LIQUIDITY <b>•</b> BROKER TECHNOLOGY</span>
+          <a href="#about" aria-label="Scroll to about Meta Grey Label">DISCOVER MORE <span aria-hidden="true">↓</span></a>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- ===============>> partner section end here <<================= -->
+    </section>
+
+<section class="fxh-pillars" aria-label="Our core technology areas">
+      <div class="fxh-wrap fxh-pillars-grid">
+        <a href="trading-platforms/" class="fxh-pillar"><span class="fxh-pillar-icon" aria-hidden="true">▥</span><span><strong>MT4 / MT5</strong><small>Trading platforms</small></span><span class="fxh-pillar-arrow" aria-hidden="true">↗</span></a>
+        <a href="forex-liquidity/" class="fxh-pillar"><span class="fxh-pillar-icon" aria-hidden="true">⌁</span><span><strong>Liquidity &amp; bridges</strong><small>Execution connectivity</small></span><span class="fxh-pillar-arrow" aria-hidden="true">↗</span></a>
+        <a href="forex-crm/" class="fxh-pillar"><span class="fxh-pillar-icon" aria-hidden="true">◎</span><span><strong>Forex CRM</strong><small>Client operations</small></span><span class="fxh-pillar-arrow" aria-hidden="true">↗</span></a>
+        <a href="kyc-compliance/" class="fxh-pillar"><span class="fxh-pillar-icon" aria-hidden="true">◇</span><span><strong>Compliance tools</strong><small>Onboarding &amp; controls</small></span><span class="fxh-pillar-arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </section>
 
 
-
-
-
-  <!-- ===============>> About section start here <<================= -->
-  <section id="about" class="about about--style1 ">
-    <div class="container">
-      <div class="about__wrapper">
-        <div class="row gx-5  gy-4 gy-sm-0  align-items-center">
-          <div class="col-lg-6">
-            <div class="about__thumb pe-lg-5" data-aos="fade-right" data-aos-duration="800">
-              <div class="about__thumb-inner">
-                <div class="about__thumb-image floating-content">
-                  <img class="dark" src="assets/media/images/about/1.png" alt="Meta Grey Label brokerage technology operations illustration">
-                  <div class="floating-content__top-left" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="floating-content__item">
-                      <h3> <span class="purecounter" data-purecounter-start="0" data-purecounter-end="6">6</span>
-                        Steps
-                      </h3>
-                      <p>Discovery to managed support</p>
-                    </div>
-                  </div>
-                  <div class="floating-content__bottom-right" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="floating-content__item">
-                      <h3> <span class="purecounter" data-purecounter-start="0" data-purecounter-end="4">4</span>Layers
-                      </h3>
-                      <p>Connected brokerage stack</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<span id="benefits" class="fxh-anchor" aria-hidden="true"></span><span id="capabilities" class="fxh-anchor" aria-hidden="true"></span>
+<section id="about" class="fxh-section fxh-about" aria-labelledby="fxh-about-title">
+      <div class="fxh-wrap fxh-two-col">
+        <div class="fxh-about-media">
+          <div class="fxh-about-image"><img src="assets/media/images/about/1.png" loading="lazy" decoding="async" width="620" height="540" alt="Visual representation of brokerage platforms and technology integration"></div>
+          <div class="fxh-about-secondary"><img src="assets/media/images/feature/1.png" loading="lazy" decoding="async" alt="Trading technology interface illustration"></div>
+          <div class="fxh-about-stamp"><span>ONE</span><strong>Connected<br>Operating Stack</strong></div>
+          <span class="fxh-outline-label" aria-hidden="true">TECHNOLOGY</span>
+        </div>
+        <div class="fxh-section-copy">
+          <p class="fxh-kicker"><span></span> ABOUT US</p>
+          <h2 id="fxh-about-title">Fast markets demand <em>steady partners.</em></h2>
+          <p class="fxh-lead">The best brokerage technology is the technology that works together. We align trading platforms, hosting, execution, client onboarding and back-office workflows around your operating model.</p>
+          <div class="fxh-about-list">
+            <div><span aria-hidden="true">✓</span><span>Platform configuration, branding and hosting</span></div>
+            <div><span aria-hidden="true">✓</span><span>Liquidity integration and execution workflows</span></div>
+            <div><span aria-hidden="true">✓</span><span>CRM, KYC and payment-system connectivity</span></div>
           </div>
-          <div class="col-lg-6">
-            <div class="about__content" data-aos="fade-left" data-aos-duration="800">
-              <div class="about__content-inner">
-                <h2>Brokerage technology planned as <span>one connected stack.</span></h2>
-
-                <p class="mb-0">Meta Grey Label coordinates platform configuration, hosting, liquidity connectivity and client operations as one system. Scope is defined around your business model first, then configured, integrated and tested before go-live.</p>
-                <a href="#models" class="trk-btn trk-btn--border trk-btn--primary">Explore Models </a>
-              </div>
-            </div>
-          </div>
+          <a href="about-us/" class="fxh-btn fxh-btn--dark">More About Us <span aria-hidden="true">↗</span></a>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- ===============>> About section start here <<================= -->
+    </section>
 
-
-
-
-  <!-- ===============>> feature section start here <<================= -->
-  <section id="benefits" class="feature feature--style1 padding-bottom padding-top bg-color">
-    <div class="container">
-      <div class="feature__wrapper">
-        <div class="row g-5 align-items-center justify-content-between">
-          <div class="col-md-6 col-lg-5">
-            <div class="feature__content" data-aos="fade-right" data-aos-duration="800">
-              <div class="feature__content-inner">
-                <div class="section-header">
-                  <h2 class="mb-10 mt-minus-5"> <span>Brokerage </span>benefits</h2>
-                  <p class="mb-0">
-                    Platform, execution and operations designed to work together.
-                  </p>
-                </div>
-
-                <div class="feature__nav">
-                  <div class="nav nav--feature flex-column nav-pills" id="feat-pills-tab" role="tablist"
-                    aria-orientation="vertical">
-                    <div class="nav-link active" id="feat-pills-one-tab" data-bs-toggle="pill"
-                      data-bs-target="#feat-pills-one" role="tab" aria-controls="feat-pills-one" aria-selected="true">
-                      <div class="feature__item">
-                        <div class="feature__item-inner">
-                          <div class="feature__item-content">
-                            <h6>MT4 and MT5 trading environments</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="nav-link" id="feat-pills-two-tab" data-bs-toggle="pill" data-bs-target="#feat-pills-two"
-                      role="tab" aria-controls="feat-pills-two" aria-selected="false">
-                      <div class="feature__item">
-                        <div class="feature__item-inner">
-                          <div class="feature__item-content">
-                            <h6>Liquidity and bridge connectivity</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="nav-link" id="feat-pills-three-tab" data-bs-toggle="pill"
-                      data-bs-target="#feat-pills-three" role="tab" aria-controls="feat-pills-three"
-                      aria-selected="false">
-                      <div class="feature__item">
-                        <div class="feature__item-inner">
-                          <div class="feature__item-content">
-                            <h6>Connected CRM and client portal</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="nav-link" id="feat-pills-four-tab" data-bs-toggle="pill"
-                      data-bs-target="#feat-pills-four" role="tab" aria-controls="feat-pills-four"
-                      aria-selected="false">
-                      <div class="feature__item">
-                        <div class="feature__item-inner">
-                          <div class="feature__item-content">
-                            <h6>Risk controls and reporting workflows</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-6">
-            <div class="feature__thumb pt-5 pt-md-0" data-aos="fade-left" data-aos-duration="800">
-              <div class="feature__thumb-inner">
-                <div class="tab-content" id="feat-pills-tabContent">
-                  <div class="tab-pane fade show active" id="feat-pills-one" role="tabpanel"
-                    aria-labelledby="feat-pills-one-tab" tabindex="0">
-                    <div class="feature__image floating-content">
-                      <img src="assets/media/images/feature/1.png" alt="">
-                      <div class="floating-content__top-right floating-content__top-right--style2" data-aos="fade-left"
-                        data-aos-duration="1000">
-                        <div class="floating-content__item floating-content__item--style2 text-center">
-                          <img src="assets/media/images/feature/5.png" alt="">
-                          <p class="style2">Platform setup</p>
-                        </div>
-                      </div>
-                      <div class="floating-content__bottom-left floating-content__bottom-left--style2"
-                        data-aos="fade-left" data-aos-duration="1000">
-                        <div class="floating-content__item floating-content__item--style3  d-flex align-items-center">
-                          <h3 class="style2"> <span class="purecounter" data-purecounter-start="0"
-                              data-purecounter-end="2">2</span>Platforms
-                          </h3>
-                          <p class="ms-3 style2">MT4 and MT5</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="feat-pills-two" role="tabpanel" aria-labelledby="feat-pills-two-tab"
-                    tabindex="0">
-                    <div class="feature__image floating-content">
-                      <img src="assets/media/images/feature/2.png" alt="">
-                      <div class="floating-content__top-right floating-content__top-right--style2" data-aos="fade-left"
-                        data-aos-duration="1000">
-                        <div class="floating-content__item floating-content__item--style2 text-center">
-                          <img src="assets/media/images/feature/6.png" alt="">
-                          <p class="style2">Execution options</p>
-                        </div>
-                      </div>
-                      <div class="floating-content__bottom-left floating-content__bottom-left--style2"
-                        data-aos="fade-left" data-aos-duration="1000">
-                        <div class="floating-content__item floating-content__item--style3  d-flex align-items-center">
-                          <h3 class="style2"> <span class="purecounter" data-purecounter-start="0"
-                              data-purecounter-end="3">3</span>Models
-                          </h3>
-                          <p class="ms-3 style2">A-Book, B-Book and Hybrid</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="feat-pills-three" role="tabpanel"
-                    aria-labelledby="feat-pills-three-tab" tabindex="0">
-                    <div class="feature__image floating-content">
-                      <img src="assets/media/images/feature/1.png" alt="">
-                      <div class="floating-content__top-right floating-content__top-right--style2" data-aos="fade-left"
-                        data-aos-duration="1000">
-                        <div class="floating-content__item floating-content__item--style2 text-center">
-                          <img src="assets/media/images/feature/7.png" alt="">
-                          <p class="style2">Client operations</p>
-                        </div>
-                      </div>
-                      <div class="floating-content__bottom-left floating-content__bottom-left--style2"
-                        data-aos="fade-left" data-aos-duration="1000">
-                        <div class="floating-content__item floating-content__item--style3  d-flex align-items-center">
-                          <h3 class="style2"> <span class="purecounter" data-purecounter-start="0"
-                              data-purecounter-end="4">4</span>Tools
-                          </h3>
-                          <p class="ms-3 style2">CRM, KYC, portal, payments</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="feat-pills-four" role="tabpanel" aria-labelledby="feat-pills-four-tab"
-                    tabindex="0">
-                    <div class="feature__image floating-content">
-                      <img src="assets/media/images/feature/2.png" alt="">
-                      <div class="floating-content__top-right floating-content__top-right--style2" data-aos="fade-left"
-                        data-aos-duration="1000">
-                        <div class="floating-content__item floating-content__item--style2 text-center">
-                          <img src="assets/media/images/feature/8.png" alt="">
-                          <p class="style2">Risk operations</p>
-                        </div>
-                      </div>
-                      <div class="floating-content__bottom-left floating-content__bottom-left--style2"
-                        data-aos="fade-left" data-aos-duration="1000">
-                        <div class="floating-content__item floating-content__item--style3  d-flex align-items-center">
-                          <h3 class="style2"> <span class="purecounter" data-purecounter-start="0"
-                              data-purecounter-end="1">1</span>Stack
-                          </h3>
-                          <p class="ms-3 style2">Connected reporting</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<section id="achievements" class="fxh-achievements" aria-labelledby="fxh-achievements-title">
+      <div class="fxh-wrap">
+        <p class="fxh-kicker"><span></span> BUILT AROUND YOUR BROKERAGE</p>
+        <h2 id="fxh-achievements-title" class="fxh-stat-heading">A complete technology <em>approach.</em></h2>
+        <div class="fxh-stat-grid">
+          <div><strong>MT4<span>+</span>MT5</strong><span>Trading platform options</span></div>
+          <div><strong>03</strong><span>Brokerage operating models</span></div>
+          <div><strong>06</strong><span>Core technology areas</span></div>
+          <div><strong>01</strong><span>Connected operating vision</span></div>
         </div>
       </div>
-    </div>
-    <div class="feature__shape">
-      <span class="feature__shape-item feature__shape-item--1"><img src="assets/media/images/feature/shape/1.png"
-          alt=""></span>
-      <span class="feature__shape-item feature__shape-item--2"> <span></span> </span>
-    </div>
-  </section>
-  <!-- ===============>> feature section end here <<================= -->
+    </section>
 
-
-
-
-  <!-- Brokerage solutions: streamlined six-card system -->
-  <section id="services" class="mgl-solutions-section" aria-labelledby="mgl-solutions-title">
-    <div class="mgl-solutions-shell">
-      <div class="mgl-solutions-heading">
-        <div class="mgl-solutions-heading__copy">
-          <p class="mgl-solutions-kicker"><span aria-hidden="true"></span> THE BROKERAGE STACK</p>
-          <h2 id="mgl-solutions-title">Brokerage <span>solutions</span></h2>
-          <p class="mgl-solutions-intro">Choose the trading, execution and client operations components that fit your launch model.</p>
+<section id="market" class="fxh-section fxh-market" aria-labelledby="fxh-market-title">
+      <div class="fxh-wrap">
+        <div class="fxh-section-head">
+          <div><p class="fxh-kicker"><span></span> POPULAR TECHNOLOGY SOLUTIONS</p><h2 id="fxh-market-title">Infrastructure for <em>modern markets.</em></h2></div>
+          <a class="fxh-text-link" href="services/">View all services <span aria-hidden="true">↗</span></a>
         </div>
-        <a class="mgl-solutions-all" href="solutions/">Explore all solutions <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5"/></svg></a>
-      </div>
-      <div class="mgl-solutions-grid">
-        <article class="mgl-solution-card mgl-solution-card--1">
-          <div class="mgl-solution-card__top">
-            <span class="mgl-solution-card__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="6" width="23" height="16" rx="3"/><path d="M12 26h8M16 22v4M8 17l5-5 4 3 6-6"/></svg></span>
-            <span class="mgl-solution-card__number">01 <span aria-hidden="true">/</span> 06</span>
-          </div>
-          <div class="mgl-solution-card__content">
-            <p class="mgl-solution-card__label">TRADING PLATFORM</p>
-            <h3>MT4 & MT5 Setup</h3>
-            <p class="mgl-solution-card__description">Trading environments configured around your brand, symbols, groups and access.</p>
-          </div>
-          <a class="mgl-solution-card__link" href="trading-platforms/" aria-label="Explore MT4 and MT5 Setup">
-            <span>Explore solution</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5"/></svg>
-          </a>
-        </article>
-        <article class="mgl-solution-card mgl-solution-card--2">
-          <div class="mgl-solution-card__top">
-            <span class="mgl-solution-card__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="16" r="2.5"/><circle cx="25" cy="7" r="2.5"/><circle cx="25" cy="25" r="2.5"/><path d="M8.5 15l14-7M8.5 17l14 7M14 16h11"/></svg></span>
-            <span class="mgl-solution-card__number">02 <span aria-hidden="true">/</span> 06</span>
-          </div>
-          <div class="mgl-solution-card__content">
-            <p class="mgl-solution-card__label">MARKET CONNECTIVITY</p>
-            <h3>Liquidity & Bridge</h3>
-            <p class="mgl-solution-card__description">Pricing, routing and execution connectivity for your selected book model.</p>
-          </div>
-          <a class="mgl-solution-card__link" href="liquidity-bridge/" aria-label="Explore Liquidity and Bridge">
-            <span>Explore solution</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5"/></svg>
-          </a>
-        </article>
-        <article class="mgl-solution-card mgl-solution-card--3">
-          <div class="mgl-solution-card__top">
-            <span class="mgl-solution-card__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="4"/><path d="M4.5 26v-2a7.5 7.5 0 0 1 15 0v2H4.5ZM22 12h6M22 17h6M22 22h6"/></svg></span>
-            <span class="mgl-solution-card__number">03 <span aria-hidden="true">/</span> 06</span>
-          </div>
-          <div class="mgl-solution-card__content">
-            <p class="mgl-solution-card__label">CLIENT OPERATIONS</p>
-            <h3>Forex CRM & Portal</h3>
-            <p class="mgl-solution-card__description">Connected onboarding, client management, KYC and the trader’s room.</p>
-          </div>
-          <a class="mgl-solution-card__link" href="forex-crm/" aria-label="Explore Forex CRM and Portal">
-            <span>Explore solution</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5"/></svg>
-          </a>
-        </article>
-        <article class="mgl-solution-card mgl-solution-card--4">
-          <div class="mgl-solution-card__top">
-            <span class="mgl-solution-card__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6v20h23M10 20l5-6 4 3 7-9"/><circle cx="26" cy="8" r="1.5"/></svg></span>
-            <span class="mgl-solution-card__number">04 <span aria-hidden="true">/</span> 06</span>
-          </div>
-          <div class="mgl-solution-card__content">
-            <p class="mgl-solution-card__label">RISK & INSIGHT</p>
-            <h3>Risk & Reporting</h3>
-            <p class="mgl-solution-card__description">Operational tools to monitor exposure, activity and reporting.</p>
-          </div>
-          <a class="mgl-solution-card__link" href="a-book-b-book-hybrid/" aria-label="Explore Risk and Reporting">
-            <span>Explore solution</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5"/></svg>
-          </a>
-        </article>
-        <article class="mgl-solution-card mgl-solution-card--5">
-          <div class="mgl-solution-card__top">
-            <span class="mgl-solution-card__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="7" width="17" height="17" rx="3"/><path d="M10 4h15a3 3 0 0 1 3 3v15M8 14h10M8 19h7"/></svg></span>
-            <span class="mgl-solution-card__number">05 <span aria-hidden="true">/</span> 06</span>
-          </div>
-          <div class="mgl-solution-card__content">
-            <p class="mgl-solution-card__label">BROKERAGE MODELS</p>
-            <h3>White & Grey Label</h3>
-            <p class="mgl-solution-card__description">Launch under your brand with the control that fits your brokerage.</p>
-          </div>
-          <a class="mgl-solution-card__link" href="white-label-vs-grey-label/" aria-label="Explore White and Grey Label">
-            <span>Explore solution</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5"/></svg>
-          </a>
-        </article>
-        <article class="mgl-solution-card mgl-solution-card--6">
-          <div class="mgl-solution-card__top">
-            <span class="mgl-solution-card__icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24 4 28l5-2M8 21l3-9c2-4 6-6 14-7-1 8-3 12-7 14l-9 3-1-1ZM17 15l4-4"/><path d="M10 25l-2 3M4 22l4-2"/></svg></span>
-            <span class="mgl-solution-card__number">06 <span aria-hidden="true">/</span> 06</span>
-          </div>
-          <div class="mgl-solution-card__content">
-            <p class="mgl-solution-card__label">END-TO-END LAUNCH</p>
-            <h3>Turnkey Brokerage</h3>
-            <p class="mgl-solution-card__description">Platform, CRM, portal, payments and liquidity in one coordinated launch path.</p>
-          </div>
-          <a class="mgl-solution-card__link" href="forex-broker-turnkey/" aria-label="Explore Turnkey Brokerage">
-            <span>Explore solution</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13m-5-5 5 5-5 5"/></svg>
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
-  <!-- End brokerage solutions -->
-
-  <!-- ========== Roadmap Section start Here========== -->
-  <section class="roadmap roadmap--style1 padding-top  padding-bottom bg-color" id="roadmap">
-    <div class="container">
-      <div class="section-header section-header--max50">
-        <h2 class="mb-10 mt-minus-5">Launch <span> roadmap</span></h2>
-        <p>Technical configuration can move quickly once requirements and documents are ready; licensing, liquidity, payment and compliance dependencies can extend the full launch timeline.</p>
-      </div>
-      <div class="roadmap__wrapper">
-        <div class="row gy-4 gy-md-0 gx-5">
-          <div class="col-md-6 offset-md-6">
-            <div class="roadmap__item ms-md-4" data-aos="fade-left" data-aos-duration="800">
-              <div class="roadmap__item-inner">
-                <div class="roadmap__item-content">
-                  <div class="roadmap__item-header">
-                    <h3>Requirements</h3>
-                    <span>P1</span>
-                  </div>
-                  <p>Confirm company details, preferred platform and target markets.</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="roadmap__item roadmap__item--style2 ms-auto me-md-4" data-aos="fade-right"
-              data-aos-duration="800">
-              <div class="roadmap__item-inner">
-                <div class="roadmap__item-content">
-                  <div class="roadmap__item-header">
-                    <h3>Choose the model</h3>
-                    <span>P2</span>
-                  </div>
-                  <p>Select white label, grey label or turnkey for your operating needs.</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div class="col-md-6 offset-md-6">
-            <div class="roadmap__item ms-md-4" data-aos="fade-left" data-aos-duration="800">
-              <div class="roadmap__item-inner">
-                <div class="roadmap__item-content">
-                  <div class="roadmap__item-header">
-                    <h3>Platform configuration</h3>
-                    <span>P3</span>
-                  </div>
-                  <p>Configure MT4 or MT5 access, trading groups, symbols and branding.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="roadmap__item roadmap__item--style2 ms-auto me-md-4" data-aos="fade-right"
-              data-aos-duration="800">
-              <div class="roadmap__item-inner">
-                <div class="roadmap__item-content">
-                  <div class="roadmap__item-header">
-                    <h3>Connect operations</h3>
-                    <span>P4</span>
-                  </div>
-                  <p>Align CRM, portal, payments, liquidity and routing as your package requires.</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div class="col-md-6 offset-md-6">
-            <div class="roadmap__item ms-md-4" data-aos="fade-left" data-aos-duration="800">
-              <div class="roadmap__item-inner">
-                <div class="roadmap__item-content">
-                  <div class="roadmap__item-header">
-                    <h3>Test the environment</h3>
-                    <span>P5</span>
-                  </div>
-                  <p>Place test trades and review execution, reporting and client workflows.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="roadmap__item roadmap__item--style2 ms-auto me-md-4" data-aos="fade-right"
-              data-aos-duration="800">
-              <div class="roadmap__item-inner">
-                <div class="roadmap__item-content">
-                  <div class="roadmap__item-header">
-                    <h3>Go-live &amp; managed support</h3>
-                    <span>P6</span>
-                  </div>
-                  <p>Launch with monitoring in place, then continue with updates, configuration changes and incident support.</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
+        <div class="fxh-market-table" role="table" aria-label="Brokerage technology solution categories">
+          <div class="fxh-market-header" role="row"><span role="columnheader">Technology</span><span role="columnheader">Core function</span><span role="columnheader">Scope</span><span role="columnheader">Explore</span></div>
+          <div class="fxh-market-row" role="row"><strong role="cell"><span class="fxh-market-symbol">MT</span> MT4 / MT5</strong><span role="cell">Trading platform infrastructure</span><span role="cell" class="fxh-market-tag">Platform</span><a role="cell" href="trading-platforms/">Details ↗</a></div>
+          <div class="fxh-market-row" role="row"><strong role="cell"><span class="fxh-market-symbol">LP</span> Forex Liquidity</strong><span role="cell">Execution and liquidity connectivity</span><span role="cell" class="fxh-market-tag">Liquidity</span><a role="cell" href="forex-liquidity/">Details ↗</a></div>
+          <div class="fxh-market-row" role="row"><strong role="cell"><span class="fxh-market-symbol">CM</span> Forex CRM</strong><span role="cell">Client lifecycle and back office</span><span role="cell" class="fxh-market-tag">Operations</span><a role="cell" href="forex-crm/">Details ↗</a></div>
+          <div class="fxh-market-row" role="row"><strong role="cell"><span class="fxh-market-symbol">RK</span> Risk Controls</strong><span role="cell">A-Book, B-Book and hybrid models</span><span role="cell" class="fxh-market-tag">Risk</span><a role="cell" href="a-book-b-book-hybrid/">Details ↗</a></div>
+          <div class="fxh-market-row" role="row"><strong role="cell"><span class="fxh-market-symbol">KY</span> Compliance</strong><span role="cell">KYC and onboarding workflows</span><span role="cell" class="fxh-market-tag">Compliance</span><a role="cell" href="kyc-compliance/">Details ↗</a></div>
         </div>
       </div>
-    </div>
-    <div class="roadmap__shape">
-      <span class="roadmap__shape-item roadmap__shape-item--1"> <span></span> </span>
-      <span class="roadmap__shape-item roadmap__shape-item--2"> <img src="assets/media/images/icon/1.png" alt="">
-      </span>
-    </div>
-  </section>
-  <!-- ========== Roadmap Section Ends Here========== -->
+    </section>
 
-
-
-  <!-- ===============>> Pricing section start here <<================= -->
-  <section id="models" class="pricing padding-top padding-bottom">
-    <div class="section-header section-header--max50">
-      <h2 class="mb-10 mt-minus-5">Brokerage <span>launch </span>models</h2>
-      <p>Compare white label, grey label and turnkey. Commercial scope depends on the selected setup.</p>
-    </div>
-    <div class="container">
-      <div class="pricing__wrapper">
-        <div class="row g-4 align-items-center">
-          <div class="col-md-6 col-lg-4">
-            <div class="pricing__item" data-aos="fade-right" data-aos-duration="1000">
-              <div class="pricing__item-inner">
-                <div class="pricing__item-content">
-
-                  <!-- pricing top part -->
-                  <div class="pricing__item-top">
-                    <h6 class="mb-15">White Label</h6>
-                    <h3 class="mb-25">Custom<span>Scope</span> </h3>
-                  </div>
-
-                  <!-- pricing middle part -->
-                  <div class="pricing__item-middle">
-                    <ul class="pricing__list">
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Lower setup overhead</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Branded trading environment</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Market-testing path</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Less infrastructure ownership</li>
-                    </ul>
-
-                  </div>
-
-                  <!-- pricing bottom part -->
-                  <div class="pricing__item-bottom">
-                    <a href="#models" class="trk-btn trk-btn--outline">Explore Model</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="pricing__item " data-aos="fade-up" data-aos-duration="1000">
-              <div class="pricing__item-inner active">
-                <div class="pricing__item-content">
-
-                  <!-- pricing top part -->
-                  <div class="pricing__item-top">
-                    <h6 class="mb-15">Grey Label</h6>
-                    <h3 class="mb-25">Custom<span>Scope</span> </h3>
-                  </div>
-
-                  <!-- pricing middle part -->
-                  <div class="pricing__item-middle">
-                    <ul class="pricing__list">
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Own manager access</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Flexible trading groups</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Spreads and conditions control</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        More operating independence</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Integration options</li>
-                    </ul>
-
-                  </div>
-
-                  <!-- pricing bottom part -->
-                  <div class="pricing__item-bottom">
-                    <a href="#models" class="trk-btn trk-btn--outline active">Explore Model</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="pricing__item" data-aos="fade-left" data-aos-duration="1000">
-              <div class="pricing__item-inner">
-                <div class="pricing__item-content">
-
-                  <!-- pricing top part -->
-                  <div class="pricing__item-top">
-                    <h6 class="mb-15">Turnkey</h6>
-                    <h3 class="mb-25">Custom<span>Scope</span> </h3>
-                  </div>
-
-                  <!-- pricing middle part -->
-                  <div class="pricing__item-middle">
-                    <ul class="pricing__list">
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Platform and client CRM</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Client portal and KYC</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Liquidity and payments</li>
-                      <li class="pricing__list-item"><span><img src="assets/media/images/icon/check.svg" alt="check"
-                            class="dark"></span>
-                        Testing and handover</li>
-                    </ul>
-
-                  </div>
-
-                  <!-- pricing bottom part -->
-                  <div class="pricing__item-bottom">
-                    <a href="#models" class="trk-btn trk-btn--outline">Explore Model</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<section id="services" class="fxh-section fxh-solutions" aria-labelledby="fxh-solutions-title">
+      <div class="fxh-wrap">
+        <div class="fxh-section-head">
+          <div><p class="fxh-kicker"><span></span> OUR EXPERTISE</p><h2 id="fxh-solutions-title">Technology for every part of <em>brokerage operations.</em></h2></div>
+          <a href="solutions/" class="fxh-text-link">View all solutions <span aria-hidden="true">↗</span></a>
         </div>
-      </div>
-    </div>
-    <div class="pricing__shape">
-      <span class="pricing__shape-item pricing__shape-item--1"> <span></span> </span>
-      <span class="pricing__shape-item pricing__shape-item--2"> <img src="assets/media/images/icon/1.png" alt="">
-      </span>
-    </div>
-  </section>
-  <!-- ===============>> Pricing section start here <<================= -->
-
-
-
-
-
-  <!-- ===============>> Brokerage stack section start here <<================= -->
-  <section id="capabilities" class="mgl-stack-section">
-    <div class="mgl-stack-grid-lines" aria-hidden="true"></div>
-    <div class="container">
-      <div class="mgl-stack-top">
-        <div class="section-header">
-          <h2>A connected <span>brokerage stack</span></h2>
-          <p>One operating layer for trading, execution, client operations, administration and launch control.</p>
-        </div>
-        <div class="mgl-stack-status" aria-label="Brokerage stack status">
-          <span>6 connected modules</span>
-          <span>MT4 / MT5 ready</span>
-          <span>Scalable control</span>
-        </div>
-      </div>
-
-      <div class="mgl-stack-shell">
-        <div class="mgl-stack-list">
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="520">
-            <span class="mgl-stack-icon" aria-hidden="true"><i class="fa-solid fa-desktop"></i></span>
-            <div class="mgl-stack-copy">
-              <h4>Trading platform</h4>
-              <p>Branded MT4 or MT5 environments with desktop, web, mobile and manager access.</p>
-            </div>
-            <a href="trading-platforms/">Platforms <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        <div class="fxh-service-grid">
+          <article class="fxh-service-card">
+            <span class="fxh-card-index">01 / TECHNOLOGY</span><div class="fxh-service-symbol" aria-hidden="true">▥</div>
+            <h3>Trading platform solutions</h3><p>Branded MT4 and MT5 environments, configuration, hosting and access designed for brokerage teams.</p><a href="trading-platforms/" aria-label="Explore trading platform solutions">Explore solution <span aria-hidden="true">↗</span></a>
           </article>
-
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="580">
-            <span class="mgl-stack-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span>
-            <div class="mgl-stack-copy">
-              <h4>Operating model</h4>
-              <p>White Label, Grey Label or Turnkey structures matched to your required level of control.</p>
-            </div>
-            <a href="white-label-vs-grey-label/">Compare <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          <article class="fxh-service-card">
+            <span class="fxh-card-index">02 / EXECUTION</span><div class="fxh-service-symbol" aria-hidden="true">⌁</div>
+            <h3>Liquidity &amp; risk infrastructure</h3><p>Bridge connectivity, liquidity-provider routes and flexible A-Book, B-Book or hybrid workflows.</p><a href="liquidity-bridge/" aria-label="Explore liquidity and risk infrastructure">Explore solution <span aria-hidden="true">↗</span></a>
           </article>
-
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="640">
-            <span class="mgl-stack-icon" aria-hidden="true"><i class="fa-solid fa-arrow-trend-up"></i></span>
-            <div class="mgl-stack-copy">
-              <h4>Liquidity & execution</h4>
-              <p>Bridge, routing, Prime of Prime and book-model connectivity in one execution layer.</p>
-            </div>
-            <a href="forex-liquidity/">Liquidity <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          <article class="fxh-service-card">
+            <span class="fxh-card-index">03 / OPERATIONS</span><div class="fxh-service-symbol" aria-hidden="true">◎</div>
+            <h3>CRM &amp; client lifecycle</h3><p>Bring onboarding, back-office workflows, reporting and payment coordination into view.</p><a href="forex-crm/" aria-label="Explore forex CRM solutions">Explore solution <span aria-hidden="true">↗</span></a>
           </article>
-
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="700">
-            <span class="mgl-stack-icon" aria-hidden="true"><i class="fa-solid fa-users-gear"></i></span>
-            <div class="mgl-stack-copy">
-              <h4>Client operations</h4>
-              <p>CRM, back office, KYC, IB portal and payments connected to the trading environment.</p>
-            </div>
-            <a href="forex-crm/">CRM <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-          </article>
-
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="760">
-            <span class="mgl-stack-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
-            <div class="mgl-stack-copy">
-              <h4>Admin & risk control</h4>
-              <p>Account settings, trading conditions, exposure oversight and administration access.</p>
-            </div>
-            <a href="mt-admin-license/">Admin access <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-          </article>
-
-          <article class="mgl-stack-row" data-aos="fade-up" data-aos-duration="820">
-            <span class="mgl-stack-icon" aria-hidden="true"><i class="fa-solid fa-rocket"></i></span>
-            <div class="mgl-stack-copy">
-              <h4>Launch & handover</h4>
-              <p>Configuration, integration checks, testing and operational handover before go-live.</p>
-            </div>
-            <a href="brokerage-launch-process/">Launch process <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          <article class="fxh-service-card">
+            <span class="fxh-card-index">04 / DELIVERY</span><div class="fxh-service-symbol" aria-hidden="true">◇</div>
+            <h3>Turnkey brokerage launch</h3><p>Coordinate the technical decisions and implementation steps from model selection through go-live.</p><a href="forex-broker-turnkey/" aria-label="Explore turnkey brokerage solutions">Explore solution <span aria-hidden="true">↗</span></a>
           </article>
         </div>
+      </div>
+    </section>
 
-        <div class="mgl-stack-bottom">
-          <p>Start compact. Add control, liquidity and client operations as the brokerage grows.</p>
-          <div class="mgl-stack-actions">
-            <a class="mgl-stack-link" href="solutions/"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i> All solutions</a>
-            <a class="mgl-stack-link" href="white-label-vs-grey-label/"><i class="fa-solid fa-code-compare" aria-hidden="true"></i> Compare models</a>
-          </div>
+<section id="models" class="fxh-section fxh-models" aria-labelledby="fxh-models-title">
+      <div class="fxh-wrap">
+        <div class="fxh-centered-head"><p class="fxh-kicker"><span></span> ACCOUNT TYPES / OPERATING MODELS</p><h2 id="fxh-models-title">Choose the right <em>brokerage model.</em></h2><p>White Label, Grey Label or Turnkey—choose an operating model aligned to your infrastructure, control and growth requirements.</p></div>
+        <div class="fxh-model-grid">
+          <article class="fxh-model-card">
+            <span class="fxh-model-label">01 / START LEAN</span><h3>White Label</h3><p>A branded route to market with a streamlined technology and infrastructure footprint.</p>
+            <ul><li>Branded trading environment</li><li>Reduced infrastructure overhead</li><li>Platform and operational support</li></ul>
+            <a href="forex-white-label/" class="fxh-btn fxh-btn--outline">Explore White Label <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="fxh-model-card fxh-model-card--featured">
+            <span class="fxh-model-label">02 / FLEXIBLE CONTROL <small>GREY LABEL</small></span><h3>Grey Label</h3><p>A flexible brokerage structure that balances customization, control and technology responsibilities.</p>
+            <ul><li>Customizable trading setup</li><li>Connected execution and CRM</li><li>Operational choices by scope</li></ul>
+            <a href="forex-grey-label/" class="fxh-btn fxh-btn--primary">Explore Grey Label <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="fxh-model-card">
+            <span class="fxh-model-label">03 / END-TO-END PLANNING</span><h3>Turnkey</h3><p>Bring platform, liquidity, client operations and launch planning under one coordinated project.</p>
+            <ul><li>Integrated technology planning</li><li>Multi-system implementation</li><li>Launch and handover support</li></ul>
+            <a href="forex-broker-turnkey/" class="fxh-btn fxh-btn--outline">Explore Turnkey <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+        <p class="fxh-model-note">Need help deciding? <a href="white-label-vs-grey-label/">Compare brokerage models <span aria-hidden="true">↗</span></a></p>
+      </div>
+    </section>
+
+<section id="why" class="fxh-section fxh-why" aria-labelledby="fxh-why-title">
+      <div class="fxh-wrap fxh-why-grid">
+        <div class="fxh-why-copy">
+          <p class="fxh-kicker fxh-kicker--light"><span></span> WHY META GREY LABEL</p>
+          <h2 id="fxh-why-title">Why choose our <em>brokerage platform expertise?</em></h2>
+          <p>A brokerage is more than a platform login. Every layer of your trading, risk and client workflows needs a clear integration plan.</p>
+          <div class="fxh-why-media"><img src="assets/media/images/blog/1.png" alt="Illustrative trading infrastructure and data systems" loading="lazy" decoding="async"><a href="trading-platforms/" aria-label="Explore trading platform technology"><span aria-hidden="true">↗</span> Explore platforms</a></div>
+          <a href="why-choose-us/" class="fxh-btn fxh-btn--primary">Why Work With Us <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="fxh-why-features">
+          <article><span class="fxh-why-number">01</span><div><h3>Coordinated technology</h3><p>Connect the platform, execution, CRM and payment decisions instead of treating them in isolation.</p></div></article>
+          <article><span class="fxh-why-number">02</span><div><h3>Clarity before configuration</h3><p>Map business requirements and technical dependencies before defining the implementation scope.</p></div></article>
+          <article><span class="fxh-why-number">03</span><div><h3>A path beyond launch</h3><p>Design the operating stack with maintenance, access management and future expansion in mind.</p></div></article>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- ===============>> Brokerage stack section end here <<================= -->
+    </section>
 
-
-
-  <!-- ===============>> Blog section start here <<================= -->
-  <section id="resources" class="blog padding-top padding-bottom">
-    <div class="container">
-      <div class="section-header d-md-flex align-items-center justify-content-between">
-        <div class="section-header__content">
-          <h2 class="mb-10"><span>Broker</span> insights</h2>
-          <p class="mb-0">Practical guidance on grey label, white label, liquidity, CRM, KYC and brokerage operations.</p>
+<section id="roadmap" class="fxh-section fxh-steps" aria-labelledby="fxh-steps-title">
+      <div class="fxh-wrap">
+        <div class="fxh-centered-head"><p class="fxh-kicker"><span></span> HOW WE WORK</p><h2 id="fxh-steps-title">From blueprint to <em>brokerage launch.</em></h2><p>A structured technical process, with regulatory, liquidity and payment dependencies assessed before a go-live date is agreed.</p></div>
+        <div class="fxh-steps-grid">
+          <article><span class="fxh-step-count">01</span><div class="fxh-step-rule"></div><h3>Discover &amp; define</h3><p>Clarify the operating model, target market, platform and integration requirements.</p></article>
+          <article><span class="fxh-step-count">02</span><div class="fxh-step-rule"></div><h3>Configure &amp; connect</h3><p>Set up technology components and test the key trading and client workflows.</p></article>
+          <article><span class="fxh-step-count">03</span><div class="fxh-step-rule"></div><h3>Validate &amp; launch</h3><p>Check readiness, confirm handover responsibilities and plan ongoing support.</p></article>
         </div>
-        <div class="section-header__action">
-          <div class="swiper-nav swiper-nav--style1">
-            <button class="swiper-nav__btn blog__slider-prev"><i class="fa-solid fa-angle-left"></i></button>
-            <button class="swiper-nav__btn blog__slider-next active"><i class="fa-solid fa-angle-right"></i></button>
-          </div>
+        <div class="fxh-steps-action"><a href="brokerage-launch-process/" class="fxh-text-link">See the complete launch process <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
+<section id="testimonials" class="fxh-section fxh-testimonials" aria-labelledby="fxh-feedback-title">
+      <div class="fxh-wrap">
+        <div class="fxh-testimonials-head"><p class="fxh-kicker"><span></span> DELIVERY PRIORITIES</p><h2 id="fxh-feedback-title">What matters when <em>building a brokerage.</em></h2><p>Three principles behind how we approach technology delivery, from the first consultation through operational handover.</p></div>
+        <div class="fxh-review-grid">
+          <article class="fxh-review"><div class="fxh-review-quote" aria-hidden="true">“</div><p>Technology should connect—not create more moving parts. Platform, liquidity and client operations need a coherent implementation plan.</p><div class="fxh-review-author"><span class="fxh-review-avatar">01</span><span><strong>Connected technology</strong><small>Infrastructure planning</small></span></div></article>
+          <article class="fxh-review"><div class="fxh-review-quote" aria-hidden="true">“</div><p>Define the model and requirements before deployment so the technology supports how the brokerage will actually operate.</p><div class="fxh-review-author"><span class="fxh-review-avatar">02</span><span><strong>Operational clarity</strong><small>Scope and configuration</small></span></div></article>
+          <article class="fxh-review"><div class="fxh-review-quote" aria-hidden="true">“</div><p>Think beyond launch day: access, continuity and integrations need to remain maintainable as your brokerage evolves.</p><div class="fxh-review-author"><span class="fxh-review-avatar">03</span><span><strong>Long-term readiness</strong><small>Support and handover</small></span></div></article>
         </div>
       </div>
-      <div class="blog__wrapper" data-aos="fade-up" data-aos-duration="1000">
-        <div class="blog__slider swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="blog__item blog__item--style2">
-                <div class="blog__item-inner">
-                  <div class="blog__thumb">
-                    <img src="assets/media/images/blog/1.png" alt="Meta Grey Label brokerage technology illustration">
-                  </div>
+    </section>
 
-                  <div class="blog__content">
-                    <div class="blog__meta">
-                      <span class="blog__meta-tag blog__meta-tag--style1">Guide</span>
-                    </div>
-                    <h5 class="10"> <a href="metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/">Grey Label vs White Label</a> </h5>
-
-                    <p class="mb-15">Understand where control, cost and operational ownership differ.</p>
-
-                    <div class="blog__writer">
-                      <div class="blog__writer-thumb">
-                        <img src="assets/media/images/blog/author/1.png" alt="Meta Grey Label brokerage technology illustration">
-                      </div>
-                      <div class="blog__writer-designation">
-                        <h6 class="mb-0">Meta Grey Label</h6>
-                        <span>Guide</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="blog__item blog__item--style2">
-                <div class="blog__item-inner">
-                  <div class="blog__thumb">
-                    <img src="assets/media/images/blog/2.png" alt="Meta Grey Label brokerage technology illustration">
-                  </div>
-
-                  <div class="blog__content">
-                    <div class="blog__meta">
-                      <span class="blog__meta-tag blog__meta-tag--style1">Operations</span>
-                    </div>
-                    <h5 class="10"> <a href="metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/">Grey Label + CRM Integration</a> </h5>
-
-                    <p class="mb-15">How onboarding and client operations fit into the trading stack.</p>
-
-                    <div class="blog__writer">
-                      <div class="blog__writer-thumb">
-                        <img src="assets/media/images/blog/author/2.png" alt="Meta Grey Label brokerage technology illustration">
-                      </div>
-                      <div class="blog__writer-designation">
-                        <h6 class="mb-0">Meta Grey Label</h6>
-                        <span>Operations</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="blog__item blog__item--style2">
-                <div class="blog__item-inner">
-                  <div class="blog__thumb">
-                    <img src="assets/media/images/blog/3.png" alt="Meta Grey Label brokerage technology illustration">
-                  </div>
-
-                  <div class="blog__content">
-                    <div class="blog__meta">
-                      <span class="blog__meta-tag blog__meta-tag--style1">Compliance</span>
-                    </div>
-                    <h5 class="10"> <a href="compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/">Compliance and KYC Basics</a> </h5>
-
-                    <p class="mb-15">Review the operational basics beside the trading platform.</p>
-
-                    <div class="blog__writer">
-                      <div class="blog__writer-thumb">
-                        <img src="assets/media/images/blog/author/3.png" alt="Meta Grey Label brokerage technology illustration">
-                      </div>
-                      <div class="blog__writer-designation">
-                        <h6 class="mb-0">Meta Grey Label</h6>
-                        <span>Compliance</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<section id="faq" class="fxh-section fxh-faq" aria-labelledby="fxh-faq-title">
+      <div class="fxh-wrap fxh-faq-grid">
+        <div><p class="fxh-kicker"><span></span> FREQUENTLY ASKED QUESTIONS</p><h2 id="fxh-faq-title">Answers before <em>you get started.</em></h2><p>Clear information for brokerage founders and teams planning a technology setup.</p><a href="contact/" class="fxh-text-link">Ask another question <span aria-hidden="true">↗</span></a></div>
+        <div class="fxh-faq-list">
+          <details open><summary>What's the difference between White Label and Grey Label?<span aria-hidden="true">+</span></summary><p>Both provide a branded trading environment, but the degree of control, infrastructure responsibility and commercial scope varies. <a href="white-label-vs-grey-label/">Compare the models</a> for a more detailed breakdown.</p></details>
+          <details><summary>Can you help with both MT4 and MT5?<span aria-hidden="true">+</span></summary><p>We plan configurations and related integrations around the trading platform and access model selected for your brokerage. The right option depends on your operational requirements.</p></details>
+          <details><summary>Do you provide liquidity and CRM integration?<span aria-hidden="true">+</span></summary><p>Liquidity connectivity, CRM, onboarding and back-office workflows can be considered within the solution architecture, depending on selected providers and scope.</p></details>
+          <details><summary>How quickly can a brokerage go live?<span aria-hidden="true">+</span></summary><p>Timing depends on technical requirements, documentation, third-party integrations, licensing and compliance readiness. An implementation plan is established after requirements review.</p></details>
         </div>
       </div>
-      <div class="text-center">
-        <a href="insights/" class="trk-btn trk-btn--border trk-btn--primary mt-15">Browse Insights </a>
-      </div>
-    </div>
-    <div class="blog__shape">
-      <span class="blog__shape-item blog__shape-item--1"> <span></span> </span>
-    </div>
-  </section>
-  <!-- ===============>> Blog section start here <<================= -->
+    </section>
 
-
-
-
-  <!-- ===============>> Testimonial section start here <<================= -->
-  <section id="why" class="testimonial padding-top padding-bottom-style2 bg-color">
-    <div class="container">
-      <div class="section-header d-md-flex align-items-center justify-content-between">
-        <div class="section-header__content">
-          <h2 class="mb-10">Why brokers <span>choose us </span></h2>
-          <p class="mb-0">Platform, execution and client operations are treated as one system, with clear ownership from planning through support.
-          </p>
-        </div>
-        <div class="section-header__action">
-          <div class="swiper-nav">
-            <button class="swiper-nav__btn testimonial__slider-prev"><i class="fa-solid fa-angle-left"></i></button>
-            <button class="swiper-nav__btn testimonial__slider-next active"><i
-                class="fa-solid fa-angle-right"></i></button>
+<section id="platform" class="fxh-section fxh-platform" aria-labelledby="fxh-platform-title">
+      <div class="fxh-wrap fxh-platform-grid">
+        <div class="fxh-platform-copy"><p class="fxh-kicker"><span></span> THE PLATFORM ECOSYSTEM</p><h2 id="fxh-platform-title">Tools for an <em>integrated brokerage.</em></h2><p>Plan desktop, mobile and browser-based trading access alongside client operations, reporting, liquidity and risk workflows.</p>
+          <div class="fxh-platform-features">
+            <div><span aria-hidden="true">▥</span><div><h3>Multiple trading interfaces</h3><p>Desktop, mobile and web trading experiences integrated around your platform.</p></div></div>
+            <div><span aria-hidden="true">⌁</span><div><h3>Operations and analytics</h3><p>Connect front-office experiences with CRM, reporting and execution components.</p></div></div>
           </div>
+          <a class="fxh-btn fxh-btn--dark" href="trading-platforms/">Explore Trading Platforms <span aria-hidden="true">↗</span></a>
         </div>
+        <div class="fxh-platform-media"><div class="fxh-platform-device"><div class="fxh-platform-screen">
+          <div class="fxh-platform-device-top"><span>Platform overview</span><span>◉ ◉ ◉</span></div>
+          <div class="fxh-platform-chart"><svg viewBox="0 0 420 160" preserveAspectRatio="none" aria-label="Decorative chart representation" role="img"><defs><linearGradient id="fxh-platform-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#05ad87" stop-opacity=".3"/><stop offset="100%" stop-color="#05ad87" stop-opacity="0"/></linearGradient></defs><path d="M0 140 L42 117 76 131 111 88 152 104 203 71 230 82 269 52 306 66 350 20 420 32 V160 H0Z" fill="url(#fxh-platform-grad)"/><path d="M0 140 L42 117 76 131 111 88 152 104 203 71 230 82 269 52 306 66 350 20 420 32" fill="none" stroke="#17c7a1" stroke-width="4"/></svg></div>
+          <div class="fxh-platform-screen-stats"><span><b>MT4 / MT5</b>Platforms</span><span><b>CRM</b>Operations</span><span><b>Liquidity</b>Execution</span></div>
+        </div></div><span class="fxh-platform-orbit" aria-hidden="true"></span></div>
       </div>
-      <div class="testimonial__wrapper" data-aos="fade-up" data-aos-duration="1000">
-        <div class="testimonial__slider swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="testimonial__item testimonial__item--style1">
-                <div class="testimonial__item-inner">
-                  <div class="testimonial__item-content">
-                    <p class="mb-0">
-                      Work with people who understand MetaTrader configuration, hosting, liquidity connectivity and the operational links between them.
-                    </p>
-                    <div class="testimonial__footer">
-                      <div class="testimonial__author">
-                        <div class="testimonial__author-thumb">
-                          <img src="assets/media/images/testimonial/1.png" alt="Brokerage commercial scope illustration" loading="lazy" decoding="async">
-                        </div>
-                        <div class="testimonial__author-designation">
-                          <h6>Technical depth</h6>
-                          <span>Infrastructure & integrations</span>
-                        </div>
-                      </div>
-                      <div class="testimonial__quote">
-                        <span><i class="fa-solid fa-circle-check"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="testimonial__item testimonial__item--style1">
-                <div class="testimonial__item-inner">
-                  <div class="testimonial__item-content">
-                    <p class="mb-0">
-                      Use only the modules you need now, keep what already works, and add CRM, liquidity or administration as the brokerage grows.
-                    </p>
-                    <div class="testimonial__footer">
-                      <div class="testimonial__author">
-                        <div class="testimonial__author-thumb">
-                          <img src="assets/media/images/testimonial/2.png" alt="Scalable operating model illustration" loading="lazy" decoding="async">
-                        </div>
-                        <div class="testimonial__author-designation">
-                          <h6>Modular delivery</h6>
-                          <span>Scale without rebuilding</span>
-                        </div>
-                      </div>
-                      <div class="testimonial__quote">
-                        <span><i class="fa-solid fa-circle-check"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="testimonial__item testimonial__item--style1">
-                <div class="testimonial__item-inner">
-                  <div class="testimonial__item-content">
-                    <p class="mb-0">
-                      Coordinate provider handoffs, test real workflows before go-live, and keep monitoring and support in place after launch.
-                    </p>
-                    <div class="testimonial__footer">
-                      <div class="testimonial__author">
-                        <div class="testimonial__author-thumb">
-                          <img src="assets/media/images/testimonial/6.png" alt="Brokerage handover illustration" loading="lazy" decoding="async">
-                        </div>
-                        <div class="testimonial__author-designation">
-                          <h6>Vendor coordination</h6>
-                          <span>Testing & ongoing support</span>
-                        </div>
-                      </div>
-                      <div class="testimonial__quote">
-                        <span><i class="fa-solid fa-circle-check"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    </section>
+
+<section id="partners" class="fxh-partners" aria-labelledby="fxh-partner-title">
+      <div class="fxh-wrap fxh-partner-grid"><div><p class="fxh-kicker"><span></span> TECHNOLOGY ECOSYSTEM</p><h2 id="fxh-partner-title">Built around the components brokers need.</h2></div>
+      <div class="fxh-partner-list" aria-label="Technology categories, not claimed partnerships"><span>MT4</span><span>MT5</span><span>FOREX CRM</span><span>LIQUIDITY</span><span>PAYMENTS</span></div></div>
+    </section>
+
+<section id="resources" class="fxh-section fxh-insights" aria-labelledby="fxh-insights-title">
+      <div class="fxh-wrap">
+        <div class="fxh-section-head"><div><p class="fxh-kicker"><span></span> BROKERAGE INSIGHTS</p><h2 id="fxh-insights-title">Ideas and guidance for <em>better decisions.</em></h2></div><a class="fxh-text-link" href="insights/">All insights <span aria-hidden="true">↗</span></a></div>
+        <div class="fxh-insight-grid">
+          <article class="fxh-insight-card"><a href="metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/" aria-label="Read Grey Label versus White Label guide"><img loading="lazy" decoding="async" src="assets/media/images/blog/1.png" alt="Brokerage platform comparison concept"></a><div><span>OPERATING MODELS</span><h3><a href="metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/">Grey Label vs White Label: which is right for you?</a></h3><a class="fxh-read-more" href="metatrader-grey-label-vs-white-label-which-is-best-for-your-forex-brokerage/">Read article ↗</a></div></article>
+          <article class="fxh-insight-card"><a href="metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/" aria-label="Read CRM integration guide"><img loading="lazy" decoding="async" src="assets/media/images/blog/2.png" alt="Brokerage CRM workflow concept"></a><div><span>CLIENT OPERATIONS</span><h3><a href="metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/">Why CRM integration matters for your brokerage</a></h3><a class="fxh-read-more" href="metatrader-grey-label-crm-integration-boosting-client-onboarding-and-retention/">Read article ↗</a></div></article>
+          <article class="fxh-insight-card"><a href="compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/" aria-label="Read KYC and compliance guide"><img loading="lazy" decoding="async" src="assets/media/images/blog/3.png" alt="Financial compliance and documentation concept"></a><div><span>COMPLIANCE</span><h3><a href="compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/">KYC and compliance basics for brokerage teams</a></h3><a class="fxh-read-more" href="compliance-and-kyc-basics-for-metatrader-grey-label-brokerages/">Read article ↗</a></div></article>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- ===============>> Testimonial section start here <<================= -->
+    </section>
 
-
-
-
-  <!-- ===============>> FAQ section start here <<================= -->
-  <section id="faq" class="faq padding-top padding-bottom of-hidden">
-    <div class="section-header section-header--max65">
-      <h2 class="mb-10 mt-minus-5"><span>Common</span> launch questions</h2>
-      <p>Clear answers about platform choices, operating models and the setup process.</p>
-    </div>
-    <div class="container">
-      <div class="faq__wrapper">
-        <div class="row g-5 align-items-center justify-content-between">
-          <div class="col-lg-6">
-            <div class="accordion accordion--style1" id="faqAccordion1" data-aos="fade-right" data-aos-duration="1000">
-              <div class="row">
-                <div class="col-12">
-                  <div class="accordion__item accordion-item">
-                    <div class="accordion__header accordion-header" id="faq1">
-                      <button class="accordion__button accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#faqBody1" aria-expanded="true" aria-controls="faqBody1">
-                        <span class="mgl-faq-topic-icon" aria-hidden="true"><i class="fa-solid fa-sliders"></i></span>
-                        <span class="accordion__button-content">MT4 or MT5: which should I choose?</span>
-                      </button>
-                    </div>
-                    <div id="faqBody1" class="accordion-collapse collapse show" aria-labelledby="faq1"
-                      data-bs-parent="#faqAccordion1">
-                      <div class="accordion__body accordion-body">
-                        <p class="mb-15">
-                          MT5 supports more asset classes, while MT4 remains familiar to many traders. Both can be configured based on your business needs.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="accordion__item accordion-item">
-                    <div class="accordion__header accordion-header" id="faq2">
-                      <button class="accordion-button accordion__button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#faqBody2" aria-expanded="false"
-                        aria-controls="faqBody2">
-                        <span class="mgl-faq-topic-icon" aria-hidden="true"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
-                        <span class="accordion__button-content">Can I switch to a different model later?</span>
-                      </button>
-                    </div>
-                    <div id="faqBody2" class="accordion-collapse collapse" aria-labelledby="faq2"
-                      data-bs-parent="#faqAccordion1">
-                      <div class="accordion__body accordion-body">
-                        <p class="mb-15">
-                          Yes. Moving from white label to grey label, or expanding to a turnkey stack, can be planned as your brokerage grows.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="accordion__item accordion-item">
-                    <div class="accordion__header accordion-header" id="faq3">
-                      <button class="accordion-button accordion__button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#faqBody3" aria-expanded="false"
-                        aria-controls="faqBody3">
-                        <span class="mgl-faq-topic-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span>
-                        <span class="accordion__button-content">What does a grey label provide?</span>
-                      </button>
-                    </div>
-                    <div id="faqBody3" class="accordion-collapse collapse" aria-labelledby="faq3"
-                      data-bs-parent="#faqAccordion1">
-                      <div class="accordion__body accordion-body">
-                        <p class="mb-15"> A branded MetaTrader environment with manager access and more control over trading groups, spreads and conditions.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="accordion__item accordion-item">
-                    <div class="accordion__header accordion-header" id="faq4">
-                      <button class="accordion-button accordion__button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#faqBody4" aria-expanded="false"
-                        aria-controls="faqBody4">
-                        <span class="mgl-faq-topic-icon" aria-hidden="true"><i class="fa-regular fa-clock"></i></span>
-                        <span class="accordion__button-content">How long does setup take?</span>
-                      </button>
-                    </div>
-                    <div id="faqBody4" class="accordion-collapse collapse" aria-labelledby="faq4"
-                      data-bs-parent="#faqAccordion1">
-                      <div class="accordion__body accordion-body">
-                        <p class="mb-15">The timeline depends on platform scope, documents and third-party dependencies. Platform configuration can move quickly, while licensing, liquidity, KYC or payment approvals may take longer.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="accordion__item accordion-item">
-                    <div class="accordion__header accordion-header" id="faq5">
-                      <button class="accordion-button accordion__button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#faqBody5" aria-expanded="false"
-                        aria-controls="faqBody5">
-                        <span class="mgl-faq-topic-icon" aria-hidden="true"><i class="fa-solid fa-cubes-stacked"></i></span>
-                        <span class="accordion__button-content">What is included in turnkey?</span>
-                      </button>
-                    </div>
-                    <div id="faqBody5" class="accordion-collapse collapse" aria-labelledby="faq5"
-                      data-bs-parent="#faqAccordion1">
-                      <div class="accordion__body accordion-body">
-                        <p class="mb-15"> A coordinated platform, CRM, client portal, liquidity connections, payment integration, website and launch support.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="accordion__item accordion-item border-0">
-                    <div class="accordion__header accordion-header" id="faq6">
-                      <button class="accordion-button accordion__button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#faqBody6" aria-expanded="false"
-                        aria-controls="faqBody6">
-                        <span class="mgl-faq-topic-icon" aria-hidden="true"><i class="fa-solid fa-list-check"></i></span>
-                        <span class="accordion__button-content">What should we prepare first?</span>
-                      </button>
-                    </div>
-                    <div id="faqBody6" class="accordion-collapse collapse" aria-labelledby="faq6"
-                      data-bs-parent="#faqAccordion1">
-                      <div class="accordion__body accordion-body">
-                        <p class="mb-15"> Confirm your company documents, target markets, platform preference and intended launch window.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="faq__thumb faq__thumb--style1" data-aos="fade-left" data-aos-duration="1000">
-              <img class="dark" src="assets/media/images/others/1.png" alt="">
-            </div>
-          </div>
-        </div>
+<section id="app" class="fxh-section fxh-app" aria-labelledby="fxh-app-title">
+      <div class="fxh-wrap fxh-app-grid">
+        <div class="fxh-app-copy"><p class="fxh-kicker fxh-kicker--light"><span></span> MOBILE TRADING INFRASTRUCTURE</p><h2 id="fxh-app-title">Brokerage technology <em>wherever your clients trade.</em></h2><p>Plan mobile, desktop and web access as part of your connected trading platform environment.</p><div class="fxh-actions"><a href="mobile-trading-app/" class="fxh-btn fxh-btn--primary">Mobile Trading Solutions ↗</a><a href="web-trader/" class="fxh-btn fxh-btn--ghost">Web Trader ↗</a></div></div>
+        <div class="fxh-app-art"><div class="fxh-app-phone"><div class="fxh-app-notch"></div><div class="fxh-app-phone-content"><span>META GREY LABEL</span><strong>Mobile platform</strong><img src="assets/media/images/banner/home1/1.png" alt="Abstract trading application illustration" loading="lazy" decoding="async"></div></div><div class="fxh-app-surface" aria-hidden="true"></div></div>
       </div>
-    </div>
-    <div class="faq__shape faq__shape--style1">
-      <span class="faq__shape-item faq__shape-item--1"><img src="assets/media/images/others/2.png" alt=""></span>
-    </div>
-  </section>
-  <!-- ===============>> FAQ section start here <<================= -->
+    </section>
 
-
-
-
-
-  <!-- ===============>> cta section start here <<================= -->
-  <section id="contact" class="cta padding-top padding-bottom  bg-color">
-    <div class="container">
-      <div class="cta__wrapper">
-        <div class="cta__newsletter justify-content-center">
-          <div class="cta__newsletter-inner" data-aos="fade-up" data-aos-duration="1000">
-            <div class="cta__thumb">
-              <img src="assets/media/images/cta/3.png" alt="">
-            </div>
-            <div class="cta__subscribe">
-              <h2> <span>Plan</span> your brokerage</h2>
-              <p>Review white label, grey label and turnkey options. Choose the approach that fits your market, operating needs and launch window.</p>
-              <div class="mgl-model-shortcuts" aria-label="Explore brokerage models">
-                <a href="forex-white-label/"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> White Label</a>
-                <a href="forex-grey-label/"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Grey Label</a>
-                <a href="forex-broker-turnkey/"><i class="fa-solid fa-rocket" aria-hidden="true"></i> Turnkey</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="cta__shape">
-          <span class="cta__shape-item cta__shape-item--1"><img src="assets/media/images/cta/2.png" alt=""></span>
-          <span class="cta__shape-item cta__shape-item--2"><img src="assets/media/images/cta/4.png" alt=""></span>
-          <span class="cta__shape-item cta__shape-item--3"><img src="assets/media/images/cta/5.png" alt=""></span>
-        </div>
+<section id="contact" class="fxh-cta" aria-labelledby="fxh-cta-title">
+      <div class="fxh-wrap">
+        <div class="fxh-cta-content"><div><p class="fxh-kicker"><span></span> LET'S BUILD WHAT'S NEXT</p><h2 id="fxh-cta-title">The right infrastructure starts with <em>the right conversation.</em></h2><p>Tell us your brokerage goals and we'll help you map a practical technology route.</p></div><a href="contact/" class="fxh-btn fxh-btn--dark">Discuss Your Project <span aria-hidden="true">↗</span></a></div>
       </div>
-    </div>
-  </section>
-  <!-- ===============>> cta section start here <<================= -->
+    </section>
+</main>
 
-
-
-
-
-  </main>
-
-<template data-shared-part="footer"></template>
-  <!-- ===============>> footer end here <<================= -->
-
-
-
-  <!-- ===============>> scrollToTop start here <<================= -->
-  <a href="#" class="scrollToTop scrollToTop--style1"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
-  <!-- ===============>> scrollToTop ending here <<================= -->
-
-
-  <!-- Locally bundled UI dependencies -->
-
+  <template data-shared-part="footer"></template>
+  <a href="#home" class="scrollToTop scrollToTop--style1" aria-label="Back to top"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i></a>
   <script src="assets/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/all.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/aos.js"></script>
   <script src="assets/js/purecounter_vanilla.js"></script>
-
-
-
   <script src="assets/js/includes.js"></script>
-
-
 </body>
-
 </html>
