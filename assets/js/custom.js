@@ -63,14 +63,18 @@ function updateThemeColor(themeMode = 'dark') {
     const assetRoot = new URL('assets/media/branding/', mglSiteRoot).href;
     const headerLogo = document.querySelector('img[data-brand-logo]');
     const footerLogo = document.querySelector('img[data-brand-footer]');
-    if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'logo-dark.svg' : 'logo-light.svg');
-    if (footerLogo) footerLogo.src = assetRoot + 'logo-dark.svg';
-    const favicon = document.querySelector('#site-favicon');
+    const version = '?v=mgl-brand-v3';
+    if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'logo-dark.svg' : 'logo-light.svg') + version;
+    // The footer background remains dark in both themes; keep its wordmark high-contrast.
+    if (footerLogo) footerLogo.src = assetRoot + 'logo-dark.svg' + version;
+    const favicon = document.querySelector('#site-favicon') || document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+    const pngIcon = document.querySelector('link[rel="icon"][sizes="32x32"]');
     const largeIcon = document.querySelector('#site-icon-large');
-    const appleIcon = document.querySelector('#site-apple-icon');
-    if (favicon) favicon.href = assetRoot + 'favicon.svg';
-    if (largeIcon) largeIcon.href = assetRoot + 'icon-192.png';
-    if (appleIcon) appleIcon.href = assetRoot + 'apple-touch-icon.png';
+    const appleIcon = document.querySelector('#site-apple-icon') || document.querySelector('link[rel="apple-touch-icon"]');
+    if (favicon) favicon.href = assetRoot + (themeMode === 'dark' ? 'favicon-dark.svg' : 'favicon-light.svg') + version;
+    if (pngIcon) pngIcon.href = assetRoot + 'favicon-32.png' + version;
+    if (largeIcon) largeIcon.href = assetRoot + 'icon-192.png' + version;
+    if (appleIcon) appleIcon.href = assetRoot + 'apple-touch-icon.png' + version;
     colorSwitcher?.setAttribute('aria-label', themeMode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
     colorSwitcher?.setAttribute('aria-pressed', String(themeMode === 'dark'));
 

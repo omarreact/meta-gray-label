@@ -100,6 +100,23 @@ jobs:
                   }
                 }
                 if(errors.length)throw Error('Browser errors '+route+': '+errors.join('; '));
+                if(route==='index.html'){
+                  await page.locator('img[data-brand-logo]').waitFor();
+                  await page.locator('img[data-brand-footer]').waitFor();
+                  const brand=await page.evaluate(()=>{
+                    const header=document.querySelector('img[data-brand-logo]');
+                    const footer=document.querySelector('img[data-brand-footer]');
+                    const favicon=document.querySelector('#site-favicon')||document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+                    return {header:header?.getAttribute('src'),footer:footer?.getAttribute('src'),icon:favicon?.getAttribute('href'),
+                      headerLoaded:header?.complete&&header?.naturalWidth>0,footerLoaded:footer?.complete&&footer?.naturalWidth>0};
+                  });
+                  const filename=theme==='dark'?'logo-dark.svg':'logo-light.svg';
+                  if(!brand.header?.includes(filename)||!brand.footer?.includes('logo-dark.svg')||
+                     !brand.icon?.includes(theme==='dark'?'favicon-dark.svg':'favicon-light.svg')||
+                     !brand.headerLoaded||!brand.footerLoaded){
+                    throw Error('Logo/theme mismatch: '+route+' '+theme+' '+JSON.stringify(brand));
+                  }
+                }
                 if ((width===360&&theme==='dark')||(width===1440&&theme==='light')){
                   const fs=require('node:fs');
                   fs.mkdirSync('tmp/static-visuals',{recursive:true});
