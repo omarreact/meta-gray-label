@@ -7,12 +7,11 @@ import { chromium } from 'playwright';
 import { INNER_ROLLOUT,pageFamily } from '../src/inner-system.js';
 import { DIRECTORY_ROUTES } from '../src/directories.js';
 const allRoutes=new Set([...INNER_ROLLOUT,...DIRECTORY_ROUTES]);
-const wp=process.env.MGL_INNER_TARGET==='wordpress';
-const base=wp?(process.env.MGL_WP_BASE||'http://localhost:8888'):'http://127.0.0.1:4177';
-const dir=wp?'tmp/inner-wordpress/families':'tmp/inner-static/families';mkdirSync(dir,{recursive:true});
+const base='http://127.0.0.1:4177';
+const dir='tmp/inner-static/families';mkdirSync(dir,{recursive:true});
 const types={'.css':'text/css','.js':'application/javascript','.json':'application/json','.html':'text/html','.svg':'image/svg+xml','.png':'image/png'};
 let server;
-if(!wp){server=createServer(async(req,res)=>{try{let path=new URL(req.url,'http://localhost').pathname;if(path.endsWith('/'))path+='index.html';const file=resolve('dist/public','.'+path);if(!file.startsWith(resolve('dist/public')+'/'))throw Error();res.setHeader('Content-Type',types[extname(file)]||'application/octet-stream');res.end(await readFile(file))}catch{res.statusCode=404;res.end('Not found')}});await new Promise(r=>server.listen(4177,'127.0.0.1',r))}
+server=createServer(async(req,res)=>{try{let path=new URL(req.url,'http://localhost').pathname;if(path.endsWith('/'))path+='index.html';const file=resolve('dist/public','.'+path);if(!file.startsWith(resolve('dist/public')+'/'))throw Error();res.setHeader('Content-Type',types[extname(file)]||'application/octet-stream');res.end(await readFile(file))}catch{res.statusCode=404;res.end('Not found')}});await new Promise(r=>server.listen(4177,'127.0.0.1',r))
 const representatives=new Map();for(const route of INNER_ROLLOUT)if(!representatives.has(pageFamily(route)))representatives.set(pageFamily(route),route);
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});const results=[];
 try{
@@ -20,7 +19,7 @@ try{
   const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});const page=await ctx.newPage();
   let errors=[];page.on('pageerror',e=>errors.push(e.message));
   for(const route of allRoutes){
-   errors=[];const response=await page.goto(base+(wp&&route==='/services.html'?'/services/':route)+'?theme='+theme,{waitUntil:'load'});assert.equal(response.status(),200,route);
+   errors=[];const response=await page.goto(base+route+'?theme='+theme,{waitUntil:'load'});assert.equal(response.status(),200,route);
    const metrics=await page.evaluate(()=>{
     const q=s=>document.querySelector(s),root=document.documentElement;
     return {overflow:root.scrollWidth-root.clientWidth,h1:document.querySelectorAll('h1').length,theme:root.getAttribute('data-bs-theme'),design:!!q('.mgl-design'),css:[...document.styleSheets].some(x=>x.href?.includes('inner-pages.css')),text:q('.mgl-design')?.innerText.length};

@@ -1,4 +1,4 @@
-/** Run against the static build or real wp-env; capture before/after evidence. */
+/** Validate the standalone static HTML build and capture before/after evidence. */
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -6,16 +6,15 @@ import { execFileSync } from 'node:child_process';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
-const wp=process.env.MGL_INNER_TARGET==='wordpress';
-const base=wp?(process.env.MGL_WP_BASE||'http://localhost:8888'):'http://127.0.0.1:4175';
-const dir=wp?'tmp/inner-wordpress':'tmp/inner-static';mkdirSync(dir,{recursive:true});
+const base='http://127.0.0.1:4175';
+const dir='tmp/inner-static';mkdirSync(dir,{recursive:true});
 const types={'.css':'text/css','.js':'application/javascript','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.html':'text/html'};
 let server;
-if(!wp){server=createServer(async(req,res)=>{try{let path=new URL(req.url,'http://localhost').pathname;if(path.endsWith('/'))path+='index.html';const file=resolve('dist/public','.'+path);if(!file.startsWith(resolve('dist/public')+'/'))throw Error();res.setHeader('Content-Type',types[extname(file)]||'application/octet-stream');res.end(await readFile(file));}catch{res.statusCode=404;res.end('Not found')}});await new Promise(r=>server.listen(4175,'127.0.0.1',r))}
+server=createServer(async(req,res)=>{try{let path=new URL(req.url,'http://localhost').pathname;if(path.endsWith('/'))path+='index.html';const file=resolve('dist/public','.'+path);if(!file.startsWith(resolve('dist/public')+'/'))throw Error();res.setHeader('Content-Type',types[extname(file)]||'application/octet-stream');res.end(await readFile(file));}catch{res.statusCode=404;res.end('Not found')}});await new Promise(r=>server.listen(4175,'127.0.0.1',r))
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const widths=[360,390,430,768,1024,1180,1440,1920];
 const route='/forex-grey-label/mt5-grey-label/';
-const report={target:wp?'real-wordpress':'static',cases:[],errors:[]};
+const report={target:'static',cases:[],errors:[]};
 try{
  for(const theme of ['light','dark'])for(const width of widths){
   const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});
@@ -33,7 +32,7 @@ try{
   });
   assert.equal(metrics.h1Count,1);assert.ok(metrics.overflow<=2,JSON.stringify(metrics));
   assert.equal(metrics.theme,theme);assert.ok(metrics.contrast>=4.5,'low hero contrast '+metrics.contrast);
-  if(!wp)assert.ok(metrics.cta.bottom<800,'primary CTA pushed below first screen');
+  assert.ok(metrics.cta.bottom<800,'primary CTA pushed below first screen');
   assert.ok(metrics.cta.height>=44);
   const disclosure=page.locator('.mgl-inner-disclosure').first();
   await disclosure.locator('summary').press('Enter');assert.equal(await disclosure.getAttribute('open'),'');
@@ -47,7 +46,7 @@ try{
   report.cases.push({theme,...metrics});
   await ctx.close();
  }
- if(!wp){
+ {
   // Historical HTML and original logos, using unchanged baseline CSS/JS assets.
   const baseline=execFileSync('git',['show','7d5568d512e21e09cdd18e57749abe5e1eb7cf49:forex-grey-label/mt5-grey-label/index.html'],{encoding:'utf8'});
   for(const theme of ['light','dark'])for(const width of [390,1440]){
@@ -67,5 +66,5 @@ try{
   // Confirm the approved home and shared chrome sources are byte-for-byte intact.
   for(const path of ['index.html','header.html','footer.html'])assert.equal(execFileSync('git',['show','7d5568d512e21e09cdd18e57749abe5e1eb7cf49:'+path],{encoding:'utf8'}).toString(),execFileSync('cat',[path]).toString(),path+' changed');
  }
- console.log('INNER BROWSER PASS: '+report.cases.length+' viewport/theme cases; contrast, overflow, native FAQ, focus, errors and screenshots.');
+ console.log('INNER BROWSER PASS: '+report.cases.length+' viewport/theme cases; contrast, overflow, HTML FAQ, focus, errors and screenshots.');
 }finally{writeFileSync(dir+'/metrics.json',JSON.stringify(report,null,2));await browser.close();if(server)await new Promise(r=>server.close(r))}
