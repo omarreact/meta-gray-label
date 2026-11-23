@@ -108,6 +108,31 @@ jobs:
                 }
                 if(errors.length)throw Error('Browser errors '+route+': '+errors.join('; '));
                 if(route==='index.html'){
+                  const cards=page.locator('#services .mgl-solution-card');
+                  if(await cards.count()!==6)throw Error('Expected six redesigned brokerage cards');
+                  const result=await page.evaluate(()=>{
+                    const section=document.querySelector('#services.mgl-solutions-section');
+                    const grid=section?.querySelector('.mgl-solutions-grid');
+                    if(!grid)return null;
+                    const links=Array.from(grid.querySelectorAll('.mgl-solution-card__link'));
+                    const columns=getComputedStyle(grid).gridTemplateColumns.trim().split(/\\s+/).length;
+                    const rect=section.getBoundingClientRect();
+                    const cs=getComputedStyle(section);
+                    const cards=Array.from(grid.querySelectorAll('.mgl-solution-card'));
+                    return {columns,cardCount:cards.length,links:links.length,
+                      hasTitles:cards.every(c=>c.querySelector('h3')?.textContent?.trim()),
+                      minLinkHeight:Math.min(...links.map(link=>link.getBoundingClientRect().height)),
+                      horizontalBounds:rect.left>=-2&&rect.right<=document.documentElement.clientWidth+2,
+                      background:cs.backgroundImage};
+                  });
+                  const expectedCols=width<576?1:width<992?2:3;
+                  if(!result||result.columns!==expectedCols||result.cardCount!==6||
+                    result.links!==6||!result.hasTitles||result.minLinkHeight<44||
+                    !result.horizontalBounds){
+                    throw Error('Brokerage solutions regression at '+width+'px: '+JSON.stringify(result));
+                  }
+                }
+                if(route==='index.html'){
                   await page.locator('img[data-brand-logo]').waitFor();
                   await page.locator('img[data-brand-footer]').waitFor();
                   const brand=await page.evaluate(()=>{
