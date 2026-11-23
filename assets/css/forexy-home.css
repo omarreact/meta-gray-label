@@ -324,3 +324,14 @@ html[data-bs-theme="dark"] .fxh-model-note{color:#aec8c2}
 }
 
 .fxh-anchor{display:block;position:relative;top:-95px;height:0;visibility:hidden;pointer-events:none}
+
+/* Keep the existing typography settings control usable without covering
+   the narrow mobile hero copy. Desktop placement stays unchanged. */
+@media(max-width:600px){
+ .mgl-dev-settings-toggle{
+   top:auto!important;bottom:max(18px,env(safe-area-inset-bottom))!important;
+   right:10px!important;transform:none!important;
+   width:40px!important;height:40px!important;border-radius:12px!important;
+ }
+ .mgl-dev-settings-toggle:hover{transform:translateX(-2px)!important}
+}
