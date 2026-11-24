@@ -1,83 +1,48 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import path from 'node:path';
-
-const root=process.cwd();
-const innerDirectory=path.join(root,'inner-pages');
-const innerEntries=fs.readdirSync(innerDirectory,{withFileTypes:true});
-const innerPages=innerEntries.filter(entry=>entry.isFile()&&entry.name.endsWith('.html')).map(entry=>'inner-pages/'+entry.name).sort();
-
-assert.equal(innerPages.length,51,'Expected 51 flat inner-page HTML files');
-assert.equal(innerEntries.filter(entry=>entry.isDirectory()).length,0,'inner-pages must not contain nested folders');
-
-const required=[
-  'index.html','home-2/index.html','home-2/style.css','home-2/script.js','404.html','assets/js/includes.js','assets/js/custom.js',
-  'assets/js/site-settings.json','assets/css/style.css','assets/media/branding/favicon.svg',
-  'design-tokens.json','sitemap.xml'
-];
-for(const file of required)assert(fs.existsSync(file),'Missing '+file);
-
-const tokens=JSON.parse(fs.readFileSync('design-tokens.json','utf8'));
-assert(tokens.colors&&tokens.typography&&tokens.layout,'Incomplete design tokens');
-
-const alternatePages=innerPages.map(file=>'home-2/'+file);
-assert.deepEqual(fs.readdirSync('home-2').sort(),['index.html','inner-pages','script.js','style.css'],'Unexpected alternate layout files');
-assert.deepEqual(fs.readdirSync('home-2/inner-pages').sort(),innerPages.map(file=>path.basename(file)).sort(),'Alternate layout route mismatch');
-const pages=['index.html','home-2/index.html','404.html',...innerPages,...alternatePages];
-let checked=0;
-for(const file of pages){
-  const html=fs.readFileSync(file,'utf8');
-  assert(/<title>/i.test(html),'Missing title: '+file);
-  if(file!=='404.html')assert(/<main\b/i.test(html),'Missing main: '+file);
-
-  for(const match of html.matchAll(/\b(?:href|src|poster)=(["'])(.*?)\1/gi)){
-    const value=match[2].trim().replace(/&amp;/g,'&');
-    if(!value||/^(?:#|data:|mailto:|tel:|javascript:|\/\/)/i.test(value))continue;
-    let url;
-    try{url=new URL(value,'https://local.test/'+file);}catch{continue;}
-    if(url.origin!=='https://local.test')continue;
-    const local=decodeURIComponent(url.pathname).replace(/^\//,'');
-    if(!local)continue;
-    const target=local.endsWith('/')?local+'index.html':local;
-    assert(fs.existsSync(target)&&fs.statSync(target).isFile(),`Broken ${file}: ${value} -> ${target}`);
-    checked++;
-  }
-
-  if(file.startsWith('inner-pages/')||file.startsWith('home-2/inner-pages/')){
-    const slug=path.basename(file,'.html');
-    const canonical='https://mg-label.webflow.io/inner-pages/'+slug+'.html';
-    assert(html.includes('rel="canonical" href="'+canonical+'"'),'Wrong standalone canonical: '+file);
-  }
+import vm from 'node:vm';
+const d=JSON.parse(fs.readFileSync('site-content.json','utf8'));
+const ids=new Set(d.pages.map(x=>x.slug));
+assert.equal(d.pages.length,52);assert.equal(ids.size,52);
+assert.equal(d.pages.filter(x=>x.slug!=='home').length,51);
+assert.equal(d.themeNames['theme-1'],'Meta Grey Label');
+assert.equal(d.themeNames['theme-2'],'Meta Grey Label');
+assert.deepEqual(fs.readdirSync('theme-1').sort(),fs.readdirSync('theme-2').sort());
+assert(!fs.existsSync('inner-pages'));assert(!fs.existsSync('home-2'));
+assert.deepEqual(fs.readdirSync('theme-1').sort(),['404.html','footer.html','header.html','index.html','runtime.js','script.js','style.css']);
+const host='https://example.test',prefix='/meta-gray-label/';
+function checkTarget(raw,here){const v=raw.replace(/&amp;/g,'&');if(!v||v.startsWith('#')||v.startsWith('data:'))return;
+const u=new URL(v,here);assert.equal(u.origin,host,'External resource '+v);assert(u.pathname.startsWith(prefix),'Outside site '+v);
+let p=decodeURIComponent(u.pathname.slice(prefix.length));if(p.endsWith('/'))p+='index.html';
+assert(fs.existsSync(p),'Missing target '+p+' from '+here);
+if(u.searchParams.has('page'))assert(ids.has(u.searchParams.get('page')),'Unknown route '+u.href);}
+async function render(theme,slug,error=false){
+ const url=new URL(prefix+theme+'/',host);if(slug!=='home')url.searchParams.set('page',slug);
+ let output='',failed=false;
+ const doc={documentElement:{dataset:{layout:theme,error:String(error)}},open(){},write(s){output=s},close(){},getElementById(){return {set textContent(v){failed=true}}}};
+ await vm.runInNewContext(fs.readFileSync(theme+'/script.js','utf8'),{document:doc,location:url,URL,URLSearchParams,fetch:async u=>{let p=u.pathname.slice(prefix.length);return{ok:fs.existsSync(p),text:async()=>fs.readFileSync(p,'utf8')}},console});
+ assert(!failed&&output.includes('<main'),'Renderer failed '+theme+'/'+slug);
+ assert(output.includes('data-mgl-theme="'+theme+'"'));
+ assert(output.includes('data-site-header')&&/<footer\b/i.test(output),'Missing chrome');
+ assert(!/\{\{(?:COPY:|PAGE_)/.test(output),'Unresolved template token');
+ assert(!/<template\s+data-shared-part=/.test(output),'Unresolved chrome');
+ assert(output.includes('<script src="runtime.js"></script>'),'Missing runtime');
+ if(error)assert(output.includes('Page not found'));
+ for(const m of output.matchAll(/\b(?:href|src|poster|action)=["']([^"']+)["']/gi))checkTarget(m[1],url);
+ for(const m of output.matchAll(/\bstyle=["']([^"']+)["']/gi))for(const u of m[1].matchAll(/url\(\s*([^)"']+)\s*\)/gi))checkTarget(u[1],url);
+ return output;
 }
-
-const home2Styles='home-2/style.css';
-const css=fs.readFileSync(home2Styles,'utf8');
-for(const match of css.matchAll(/url\(\s*(["']?)(.*?)\1\s*\)/gi)){
-  const value=match[2].trim();
-  if(!value||/^(?:data:|https?:|\/\/|#|var\()/i.test(value))continue;
-  const local=value.split(/[?#]/)[0];
-  const target=path.normalize(path.join(path.dirname(home2Styles),local));
-  assert(fs.existsSync(target)&&fs.statSync(target).isFile(),`Broken ${home2Styles}: ${value} -> ${target}`);
-  checked++;
+for(const theme of ['theme-1','theme-2']){
+ for(const p of d.pages)await render(theme,p.slug);
+ await render(theme,'not-a-route',true);
+ const css=fs.readFileSync(theme+'/style.css','utf8');
+ for(const m of css.matchAll(/url\(\s*(["']?)([^"')]+)\1\s*\)/gi))checkTarget(m[2].trim(),new URL(prefix+theme+'/style.css',host));
 }
-
-for(const file of ['index.html','home-2/index.html',...innerPages,...alternatePages]){
-  const html=fs.readFileSync(file,'utf8');
-  if(file.startsWith('home-2/')){
-    const prefix=file==='home-2/index.html'?'':'../';
-    assert.deepEqual([...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/gi)].map(m=>m[1]),[prefix+'script.js'],'Alternate script isolation');
-    assert.deepEqual([...html.matchAll(/<link\b[^>]*\bhref=["']([^"']+\.css)["'][^>]*>/gi)].map(m=>m[1]),[prefix+'style.css'],'Alternate CSS isolation');
-    const local=fs.readFileSync('home-2/script.js','utf8');
-    assert(local.includes('function loadHome2Layout()')&&local.includes('mgl-home2-dev-typography-v2'),'Missing local navigation or typography runtime');
-    assert(!/assets\/(?:js|css)\//.test(local.slice(local.indexOf('/* ===== Home 02 independent navigation'))),'Home 02 must not load global JS/CSS');
-    continue;
-  }
-  const hasLoader=html.includes('assets/js/includes.js')||html.includes('../assets/js/includes.js');
-  const hasBehavior=html.includes('assets/js/custom.js')||html.includes('../assets/js/custom.js');
-  assert(hasLoader||hasBehavior,'Missing JavaScript behavior: '+file);
-  if(html.includes('data-shared-part='))assert(hasLoader,'Shared UI template is missing its JavaScript loader: '+file);
+const old404=fs.readFileSync('404.html','utf8').match(/<script>([\s\S]*?)<\/script>/)[1];
+for(const [old,expected] of [['inner-pages/about-us.html','theme-1/'],['home-2/inner-pages/contact.html','theme-2/'],['home-2/index.html','theme-2/']]){
+ let redirect;const u=new URL(prefix+old,host);const location={pathname:u.pathname,origin:u.origin,search:u.search,hash:u.hash,replace(v){redirect=new URL(v)}};
+ vm.runInNewContext(old404,{location,URL});
+ assert.equal(redirect.pathname,prefix+expected);
+ if(old.includes('inner-pages/'))assert(ids.has(redirect.searchParams.get('page')));
 }
-
-assert(fs.readFileSync('assets/js/site-settings.js','utf8').includes('mgl-website-layout-v1'),'Missing default layout switcher');
-assert(fs.readFileSync('home-2/script.js','utf8').includes('mgl-website-layout-v1'),'Missing alternate layout switcher');
-console.log(`PASS: ${innerPages.length} default and ${alternatePages.length} alternate inner pages; ${checked} local links/assets.`);
+console.log('PASS: 104 page renderings, 2 error pages, local links, assets, and legacy redirects.');

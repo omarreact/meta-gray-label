@@ -1,15 +1,18 @@
-name: Publish static website to Webflow branch
+name: Publish Meta Grey Label static website to Webflow branch
 on:
   push:
     branches: [main]
     paths:
       - "index.html"
-      - "home-2/**"
       - "404.html"
-      - "robots.txt"
-      - "sitemap.xml"
+      - "theme-1/**"
+      - "theme-2/**"
       - "assets/**"
-      - "inner-pages/**"
+      - "site-content.json"
+      - "site-manifest.json"
+      - "pages.xml"
+      - "sitemap.xml"
+      - "robots.txt"
       - "webflow.json"
       - ".github/workflows/build-webflow-branch.yml"
   workflow_dispatch:
@@ -17,7 +20,7 @@ permissions:
   contents: write
 concurrency:
   group: webflow-deployment-branch
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   build-webflow:
     runs-on: ubuntu-latest
@@ -26,24 +29,24 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Verify standalone assets
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Validate source
         run: |
-          test -f index.html
-          test -f home-2/index.html
-          test -f home-2/style.css
-          test -f home-2/script.js
-          test -f inner-pages/mt5-grey-label.html
-          test -f assets/js/includes.js
-      - name: Publish standalone HTML website
+          node scripts/sync-content.mjs --check
+          node tests/standalone-source.mjs
+      - name: Publish static website without rewriting branch history
         run: |
-          rm -rf /tmp/mgl-webflow
           mkdir -p /tmp/mgl-webflow
-          cp -a index.html 404.html robots.txt sitemap.xml webflow.json assets home-2 inner-pages /tmp/mgl-webflow/
+          cp -a index.html 404.html robots.txt sitemap.xml webflow.json design-tokens.json site-content.json site-manifest.json pages.xml assets theme-1 theme-2 /tmp/mgl-webflow/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout --orphan webflow-build
-          git rm -rf . >/dev/null 2>&1 || true
+          git fetch origin webflow
+          git checkout -B webflow-build origin/webflow
+          git rm -r --ignore-unmatch .
           cp -a /tmp/mgl-webflow/. .
           git add -A
-          git commit -m "Publish standalone static Webflow website from main"
-          git push --force origin HEAD:webflow
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish shared Meta Grey Label website from main"
+          git push origin HEAD:webflow

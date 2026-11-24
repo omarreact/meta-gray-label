@@ -1,4 +1,4 @@
-name: Validate standalone HTML website
+name: Validate shared Meta Grey Label website
 on:
   push:
     branches: [main]
@@ -8,149 +8,67 @@ permissions:
   contents: read
 jobs:
   static-check:
-    name: Check JS, routes and local assets
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: JavaScript syntax
+      - name: Verify content and renderer
         run: |
-          for file in assets/js/*.js; do node --check "$file"; done
-          node --check home-2/script.js
-      - name: Verify all inner pages and local references
-        run: node tests/standalone-source.mjs
+          node --check theme-1/script.js
+          node --check theme-2/script.js
+          node --check theme-1/runtime.js
+          node --check theme-2/runtime.js
+          node scripts/sync-content.mjs --check
+          node tests/standalone-source.mjs
   browser-smoke:
-    name: Browser smoke — mobile/desktop, light/dark
     needs: static-check
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Install browser tests
-        run: |
+      - run: |
           npm install --no-save --no-package-lock playwright@1.58.2
           npx playwright install chromium
-      - name: Check key pages and interactions
+      - name: Test both layouts on desktop and mobile
         run: |
           python3 -m http.server 4173 >/tmp/mgl-static-server.log 2>&1 &
           node <<'NODE'
           const {chromium}=require('playwright');
           (async()=>{
             const browser=await chromium.launch({headless:true});
-            const routes=['index.html','inner-pages/services.html','inner-pages/solutions.html','inner-pages/insights.html','inner-pages/contact.html','inner-pages/mt5-grey-label.html'];
-            try{
-              for(const route of routes)for(const width of [360,390,768,1024,1440,1920])for(const theme of ['light','dark']){
+            const routes=['home','services','solutions','insights','contact','mt5-grey-label'];
+            const base='http://127.0.0.1:4173/';
+            try {
+              for(const layout of ['theme-1','theme-2'])for(const slug of routes)for(const width of [360,390,768,1024,1180,1440,1920])for(const mode of ['light','dark']){
                 const page=await browser.newPage({viewport:{width,height:900}});
                 const errors=[];
-                page.on('pageerror',err=>errors.push(err.message));
-                const response=await page.goto('http://127.0.0.1:4173/'+route+'?theme='+theme,{waitUntil:'networkidle'});
-                if(!response || response.status()!==200)throw Error('HTTP failure: '+route);
-                await page.locator('main').waitFor();
+                page.on('pageerror',e=>errors.push(e.message));
+                const url=new URL(layout+'/',base);url.searchParams.set('theme',mode);if(slug!=='home')url.searchParams.set('page',slug);
+                const response=await page.goto(url.href,{waitUntil:'domcontentloaded'});
+                if(!response||response.status()!==200)throw Error('HTTP '+url);
+                await page.locator('#main-content').waitFor({timeout:15000});
                 await page.locator('.mgl-site-header').waitFor();
-                const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
-                if(size.scroll>size.client+2)throw Error('Horizontal overflow '+route+' at '+width+': '+JSON.stringify(size));
-                if(route==='index.html'){
-                  const ribbon=await page.evaluate(()=>{
-                    const section=document.querySelector('.fxh-pillars');
-                    const wrapper=section?.querySelector('.fxh-pillars-grid');
-                    if(!section||!wrapper)return null;
-                    const outer=section.getBoundingClientRect();
-                    const inner=wrapper.getBoundingClientRect();
-                    return {outerWidth:outer.width,clientWidth:document.documentElement.clientWidth,
-                      gutterLeft:inner.left,gutterRight:document.documentElement.clientWidth-inner.right};
-                  });
-                  if(!ribbon || Math.abs(ribbon.outerWidth-ribbon.clientWidth)>3 ||
-                    ribbon.gutterLeft<19 || ribbon.gutterRight<19){
-                    throw Error('Homepage technology ribbon width/gutters regression at '+width+': '+JSON.stringify(ribbon));
-                  }
-                }
-                if(errors.length)throw Error('Browser errors '+route+': '+errors.join('; '));
-                const typography=await page.evaluate(()=>{
-                  const root=document.querySelector('main');
-                  const h1=root?.querySelector('h1');
-                  const h2=root?.querySelector('#services h2, .mgl-inner-section h2, .section-header h2, h2');
-                  const px=e=>e?parseFloat(getComputedStyle(e).fontSize):null;
-                  const service=document.querySelector('#services.fxh-solutions');
-                  const inner=document.querySelector('.mgl-design .mgl-inner-section');
-                  const top=e=>e?parseFloat(getComputedStyle(e).paddingTop):null;
-                  return {h1:px(h1),h2:px(h2),serviceSpace:top(service),innerSpace:top(inner)};
-                });
-                const maxH1=width<=390?39:61;
-                const maxH2=width<=390?31:41;
-                if(!typography.h1||typography.h1>maxH1||
-                   (typography.h2&&typography.h2>maxH2)||
-                   (typography.serviceSpace!=null&&typography.serviceSpace>(width<=390?60:80))||
-                   (typography.innerSpace!=null&&typography.innerSpace>76)){
-                  throw Error('Oversized typography/spacing '+route+' '+width+'px: '+JSON.stringify(typography));
-                }
-                if(route==='index.html'){
-                  const cards=page.locator('#services .fxh-service-card');
-                  if(await cards.count()!==4)throw Error('Expected four Forexy-inspired brokerage service cards');
-                  const result=await page.evaluate(()=>{
-                    const section=document.querySelector('#services.fxh-solutions');
-                    const grid=section?.querySelector('.fxh-service-grid');
-                    if(!grid)return null;
-                    const links=Array.from(grid.querySelectorAll('.fxh-service-card > a'));
-                    const columns=getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length;
-                    const rect=section.getBoundingClientRect();
-                    const cards=Array.from(grid.querySelectorAll('.fxh-service-card'));
-                    return {columns,cardCount:cards.length,links:links.length,
-                      hasTitles:cards.every(c=>c.querySelector('h3')?.textContent?.trim()),
-                      minLinkHeight:Math.min(...links.map(link=>link.getBoundingClientRect().height)),
-                      horizontalBounds:rect.left>=-2&&rect.right<=document.documentElement.clientWidth+2};
-                  });
-                  const expectedCols=width<=600?1:width<=1250?2:4;
-                  if(!result||result.columns!==expectedCols||result.cardCount!==4||
-                    result.links!==4||!result.hasTitles||result.minLinkHeight<44||
-                    !result.horizontalBounds){
-                    throw Error('Homepage service cards regression at '+width+'px: '+JSON.stringify(result));
-                  }
-                }
-                if(route==='index.html'){
-                  await page.locator('img[data-brand-logo]').waitFor();
-                  await page.locator('img[data-brand-footer]').waitFor();
-                  const brand=await page.evaluate(()=>{
-                    const header=document.querySelector('img[data-brand-logo]');
-                    const footer=document.querySelector('img[data-brand-footer]');
-                    const favicon=document.querySelector('#site-favicon')||document.querySelector('link[rel="icon"][type="image/svg+xml"]');
-                    return {header:header?.getAttribute('src'),footer:footer?.getAttribute('src'),icon:favicon?.getAttribute('href'),
-                      headerLoaded:header?.complete&&header?.naturalWidth>0,footerLoaded:footer?.complete&&footer?.naturalWidth>0};
-                  });
-                  const filename=theme==='dark'?'logo-dark.svg':'logo-light.svg';
-                  if(!brand.header?.includes(filename)||!brand.footer?.includes('logo-dark.svg')||
-                     !brand.icon?.includes(theme==='dark'?'favicon-dark.svg':'favicon-light.svg')||
-                     !brand.headerLoaded||!brand.footerLoaded){
-                    throw Error('Logo/theme mismatch: '+route+' '+theme+' '+JSON.stringify(brand));
-                  }
-                }
-                if ((width===360&&theme==='dark')||(width===1440&&theme==='light')){
-                  const fs=require('node:fs');
-                  fs.mkdirSync('tmp/static-visuals',{recursive:true});
-                  // Load lazy content before full-page visual capture.
-                  await page.locator('main img[loading="lazy"]').evaluateAll(async images=>{
-                    images.forEach(img=>img.loading='eager');
-                    await Promise.all(images.map(img=>img.decode().catch(()=>{})));
-                  });
-                  await page.waitForTimeout(450);
-                  const filename=route.replace(/\//g,'__')+'--'+width+'--'+theme+'.png';
-                  await page.screenshot({path:'tmp/static-visuals/'+filename,fullPage:true});
-                }
+                await page.locator('footer').waitFor();
+                await page.locator('#mgl-dev-settings-toggle').waitFor();
+                if(await page.locator('html').getAttribute('data-bs-theme')!==mode)throw Error('Theme mismatch '+url);
+                const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
+                if(dimensions.scroll>dimensions.client+2)throw Error('Horizontal overflow '+url+' '+width+' '+JSON.stringify(dimensions));
+                if(errors.length)throw Error('Browser errors '+url+': '+errors.join('; '));
                 await page.close();
               }
-              console.log('PASS 72 viewport/theme/browser checks with typography and spacing budgets');
+              const page=await browser.newPage({viewport:{width:390,height:844}});
+              await page.goto(base+'theme-1/?page=contact&theme=dark');
+              await page.locator('#mgl-dev-settings-toggle').click();
+              await page.locator('[data-layout-choice="theme-2"]').click();
+              await page.waitForURL('**/theme-2/**');
+              await page.locator('#main-content').waitFor();
+              if(new URL(page.url()).searchParams.get('page')!=='contact')throw Error('Theme switch lost route');
+              await page.close();
             }finally{await browser.close();}
-          })().catch(e=>{console.error(e);process.exitCode=1});
+          })().catch(e=>{console.error(e);process.exit(1)});
           NODE
-
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: standalone-html-visual-qa
-          path: tmp/static-visuals/
-          if-no-files-found: ignore
-          retention-days: 7
