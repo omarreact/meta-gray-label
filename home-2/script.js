@@ -8066,3 +8066,107 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     if (preloader) preloader.style.display = 'none';
   }
 })();
+
+/* Progressive enhancement: unfiltered directories remain usable without JavaScript. */
+(() => {
+ 'use strict';
+ const root=document.querySelector('.mgl-design--directory');
+ if(!root)return;
+ const nav=root.querySelector('.mgl-directory-filter');
+ if(!nav)return;
+ const links=[...nav.querySelectorAll('a')],groups=[...root.querySelectorAll('.mgl-directory-group')];
+ const status=document.createElement('p');status.className='mgl-directory-status';status.setAttribute('role','status');nav.append(status);
+ function select(id,announce){
+  if(id!=='directory-all'&&!groups.some(x=>x.id===id))return false;
+  for(const item of groups)item.hidden=id!=='directory-all'&&item.id!==id;
+  for(const item of links)item.setAttribute('aria-pressed',String(item.hash==='#'+id));
+  if(announce)status.textContent=id==='directory-all'?'Showing all '+groups.length+' groups.':'Showing '+links.find(x=>x.hash==='#'+id).textContent+'.';
+  return true;
+ }
+ for(const item of links){
+  item.setAttribute('role','button');
+  item.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();select(item.hash.slice(1),true);history.replaceState(null,'',item.hash);});
+  item.addEventListener('keydown',event=>{if(event.key===' '){event.preventDefault();item.click();}});
+ }
+ select(location.hash.slice(1)||'directory-all',false);
+ addEventListener('hashchange',()=>select(location.hash.slice(1)||'directory-all',true));
+})();
+
+
+/* Website layout preference, independent of light/dark mode and typography. */
+(function layoutSwitcher(isForexy, scriptUrl) {
+  'use strict';
+  const root = new URL(isForexy ? '../' : '../../', scriptUrl);
+  const base = root.pathname;
+  const storageKey = 'mgl-website-layout-v1';
+  const current = isForexy ? 'forexy' : 'meta';
+  function relative(url) {
+    if (url.origin !== root.origin || !url.pathname.startsWith(base)) return null;
+    return url.pathname.slice(base.length).replace(/^home-2\/?/, '');
+  }
+  function equivalent(layout, url) {
+    const rel = relative(url);
+    if (rel === null) return null;
+    if (rel && rel !== 'index.html' && !/^inner-pages\/[^/]+\.html$/.test(rel)) return null;
+    const target = new URL((layout === 'forexy' ? 'home-2/' : '') + (rel === 'index.html' ? '' : rel), root);
+    target.search = url.search; target.hash = url.hash; return target;
+  }
+  function select(layout) {
+    try { localStorage.setItem(storageKey, layout); } catch (_) {}
+    const target = equivalent(layout, new URL(location.href));
+    if (target && target.href !== location.href) location.assign(target.href);
+  }
+  function removeHomeDropdown() {
+    const panel = document.getElementById('mgl-nav-home');
+    if (!panel) return;
+    const item = panel.closest('.mgl-nav-item');
+    if (!item) return;
+    panel.remove(); item.querySelector('[data-nav-disclosure]')?.remove();
+    item.classList.remove('mgl-nav-item--has-panel','is-touch-open');
+  }
+  function rewriteLinks() {
+    document.querySelectorAll('a[href]').forEach(link => {
+      const raw = link.getAttribute('href');
+      if (!raw || raw[0] === '#' || /^(?:mailto|tel|javascript|data):/i.test(raw)) return;
+      let url;
+      try { url = new URL(raw, location.href); } catch (_) { return; }
+      if (url.origin !== root.origin) {
+        if (!['mg-label.webflow.io','omarreact.github.io'].includes(url.hostname)) return;
+        const path = url.pathname.replace(/^\/meta-gray-label\//,'/').replace(/^\/+/,'');
+        url = new URL(path + url.search + url.hash, root);
+      } else if (!url.pathname.startsWith(base) && /^\/(?:inner-pages\/|home-2(?:\/|$)|index\.html$)/.test(url.pathname)) {
+        url = new URL(url.pathname.slice(1) + url.search + url.hash, root);
+      }
+      const target = equivalent(current, url);
+      if (target) link.href = target.href;
+    });
+  }
+  function addControl() {
+    const body = document.querySelector('#mgl-dev-settings-panel .mgl-dev-settings-body');
+    if (!body || body.querySelector('[data-mgl-layout-picker]')) return;
+    const section = document.createElement('section');
+    section.className = 'mgl-dev-settings-section';
+    section.setAttribute('data-mgl-layout-picker','');
+    section.innerHTML = '<h3 class="mgl-dev-settings-section-title">Website design</h3><p>Choose a complete website layout. Light/dark mode is independent.</p><div class="mgl-dev-settings-actions"><button type="button" class="mgl-dev-settings-button" data-layout-choice="meta">Meta Grey Label (default)</button><button type="button" class="mgl-dev-settings-button" data-layout-choice="forexy">Forexy</button></div>';
+    section.querySelectorAll('[data-layout-choice]').forEach(btn => {
+      const active = btn.dataset.layoutChoice === current;
+      btn.setAttribute('aria-pressed', String(active));
+      if (active) btn.classList.add('mgl-dev-settings-button--primary');
+      btn.addEventListener('click', () => select(btn.dataset.layoutChoice));
+    });
+    body.prepend(section);
+  }
+  const rel = relative(new URL(location.href));
+  try {
+    if (!isForexy && (rel === '' || rel === 'index.html') && localStorage.getItem(storageKey) === 'forexy') {
+      const target = equivalent('forexy', new URL(location.href));
+      if (target) { location.replace(target.href); return; }
+    }
+    if (isForexy) localStorage.setItem(storageKey,'forexy');
+  } catch (_) {}
+  function refresh() { removeHomeDropdown(); rewriteLinks(); addControl(); }
+  refresh();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', refresh, {once:true});
+  const observer = new MutationObserver(() => { removeHomeDropdown(); addControl(); });
+  observer.observe(document.body,{childList:true,subtree:true});
+})(true, document.currentScript.src);

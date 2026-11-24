@@ -20,7 +20,10 @@ for(const file of required)assert(fs.existsSync(file),'Missing '+file);
 const tokens=JSON.parse(fs.readFileSync('design-tokens.json','utf8'));
 assert(tokens.colors&&tokens.typography&&tokens.layout,'Incomplete design tokens');
 
-const pages=['index.html','home-2/index.html','404.html',...innerPages];
+const alternatePages=innerPages.map(file=>'home-2/'+file);
+assert.deepEqual(fs.readdirSync('home-2').sort(),['index.html','inner-pages','script.js','style.css'],'Unexpected alternate layout files');
+assert.deepEqual(fs.readdirSync('home-2/inner-pages').sort(),innerPages.map(file=>path.basename(file)).sort(),'Alternate layout route mismatch');
+const pages=['index.html','home-2/index.html','404.html',...innerPages,...alternatePages];
 let checked=0;
 for(const file of pages){
   const html=fs.readFileSync(file,'utf8');
@@ -40,7 +43,7 @@ for(const file of pages){
     checked++;
   }
 
-  if(file.startsWith('inner-pages/')){
+  if(file.startsWith('inner-pages/')||file.startsWith('home-2/inner-pages/')){
     const slug=path.basename(file,'.html');
     const canonical='https://mg-label.webflow.io/inner-pages/'+slug+'.html';
     assert(html.includes('rel="canonical" href="'+canonical+'"'),'Wrong standalone canonical: '+file);
@@ -58,12 +61,12 @@ for(const match of css.matchAll(/url\(\s*(["']?)(.*?)\1\s*\)/gi)){
   checked++;
 }
 
-for(const file of ['index.html','home-2/index.html',...innerPages]){
+for(const file of ['index.html','home-2/index.html',...innerPages,...alternatePages]){
   const html=fs.readFileSync(file,'utf8');
-  if(file==='home-2/index.html'){
-    assert.deepEqual(fs.readdirSync('home-2').sort(),['index.html','script.js','style.css'],'Home 02 must contain only three files');
-    assert.deepEqual([...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/gi)].map(m=>m[1]),['script.js'],'Home 02 script isolation');
-    assert.deepEqual([...html.matchAll(/<link\b[^>]*\bhref=["']([^"']+\.css)["'][^>]*>/gi)].map(m=>m[1]),['style.css'],'Home 02 CSS isolation');
+  if(file.startsWith('home-2/')){
+    const prefix=file==='home-2/index.html'?'':'../';
+    assert.deepEqual([...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/gi)].map(m=>m[1]),[prefix+'script.js'],'Alternate script isolation');
+    assert.deepEqual([...html.matchAll(/<link\b[^>]*\bhref=["']([^"']+\.css)["'][^>]*>/gi)].map(m=>m[1]),[prefix+'style.css'],'Alternate CSS isolation');
     const local=fs.readFileSync('home-2/script.js','utf8');
     assert(local.includes('function loadHome2Layout()')&&local.includes('mgl-home2-dev-typography-v2'),'Missing local navigation or typography runtime');
     assert(!/assets\/(?:js|css)\//.test(local.slice(local.indexOf('/* ===== Home 02 independent navigation'))),'Home 02 must not load global JS/CSS');
@@ -75,4 +78,6 @@ for(const file of ['index.html','home-2/index.html',...innerPages]){
   if(html.includes('data-shared-part='))assert(hasLoader,'Shared UI template is missing its JavaScript loader: '+file);
 }
 
-console.log(`PASS: ${innerPages.length} flat inner pages and ${checked} local links/assets.`);
+assert(fs.readFileSync('assets/js/site-settings.js','utf8').includes('mgl-website-layout-v1'),'Missing default layout switcher');
+assert(fs.readFileSync('home-2/script.js','utf8').includes('mgl-website-layout-v1'),'Missing alternate layout switcher');
+console.log(`PASS: ${innerPages.length} default and ${alternatePages.length} alternate inner pages; ${checked} local links/assets.`);

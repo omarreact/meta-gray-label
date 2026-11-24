@@ -16588,3 +16588,6 @@ html.mgl-settings-open .mgl-dev-settings-panel{transform:translateX(0)}
 }
 
 /* MGL_SHARED_SETTINGS_END */
+
+/* Layout is selected in Settings, not in the primary navigation. */
+#mgl-nav-home,.mgl-nav-disclosure[aria-controls="mgl-nav-home"]{display:none!important}
