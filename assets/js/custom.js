@@ -1,4 +1,15 @@
 const mglSiteRoot = new URL('../../', document.currentScript.src);
+// Keep flat-page navigation inside the deployed project base (including GitHub Pages).
+function mglResolveFlatPageLinks() {
+    document.querySelectorAll('a[href^="/inner-pages/"]').forEach(link => {
+        link.href = new URL(link.getAttribute('href').slice(1), mglSiteRoot).href;
+    });
+}
+mglResolveFlatPageLinks();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mglResolveFlatPageLinks, { once: true });
+}
+
 // =================== preloader js  ================== //
 function hidePreloader() {
     var preloader = document.querySelector('.preloader');
