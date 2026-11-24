@@ -28,6 +28,15 @@ async function render(theme,slug,error=false){
  assert(!/<template\s+data-shared-part=/.test(output),'Unresolved chrome');
  assert(output.includes('<script src="runtime.js"></script>'),'Missing runtime');
  if(error)assert(output.includes('Page not found'));
+ if(theme==='theme-2'){
+   assert(output.includes('data-theme-header="2"'),'Independent Theme 2 header missing');
+   assert(output.includes('mgl2-topbar'),'Theme 2 utility header missing');
+   if(slug!=='home'){
+     assert(/<main\b[^>]*data-mgl2-layout="[^"]+"/.test(output),'Theme 2 layout adapter missing');
+     assert(output.includes('data-mgl2-block="banner"'),'Theme 2 banner missing');
+   }
+ }else{assert(!output.includes('data-theme-header="2"'),'Theme 2 header leaked into Theme 1');}
+
  for(const m of output.matchAll(/\b(?:href|src|poster|action)=["']([^"']+)["']/gi))checkTarget(m[1],url);
  for(const m of output.matchAll(/\bstyle=["']([^"']+)["']/gi))for(const u of m[1].matchAll(/url\(\s*([^)"']+)\s*\)/gi))checkTarget(u[1],url);
  return output;
