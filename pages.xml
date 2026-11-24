@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<website schemaVersion="1" repository="omarreact/meta-gray-label" sourceCommit="414a61dd996761dc4f68438419fcf11116563dee" pageCount="54" partCount="2">
+<website schemaVersion="1" repository="omarreact/meta-gray-label" sourceCommit="c72349b6065aee8de4d7aaf7559923674621dc4f" pageCount="54" partCount="2">
   <page path="404.html" route="/404.html" sha256="e9c228c383eac48340ee0790038a040d17425ba21362e3b727557a624162ae03">
     <title>Page moved | Meta Grey Label</title>
     <html>&lt;!doctype html&gt;
@@ -23,7 +23,7 @@
 &lt;h1&gt;Page not found&lt;/h1&gt;&lt;p&gt;The requested page may have moved to a new address.&lt;/p&gt;
 &lt;a href=&quot;/&quot; id=&quot;home-link&quot;&gt;Go to Meta Grey Label home&lt;/a&gt;&lt;/main&gt;&lt;/body&gt;&lt;/html&gt;</html>
   </page>
-  <page path="home-2/index.html" route="/home-2/" sha256="0dd35b3e00f504b993ca9e8881e7d57d9e309e58344d961f1116a0677e5cd905">
+  <page path="home-2/index.html" route="/home-2/" sha256="2b5c100215c9644a5c53da73ae9409b4234f5258ef3e0c4329f0d704cf093245">
     <title>Meta Grey Label | Home 02 — Brokerage Technology</title>
     <html>&lt;!DOCTYPE html&gt;
 &lt;!-- Second homepage: independently stored Forexy Home 01 reference layout. --&gt;
@@ -41,22 +41,7 @@
 &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
 &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;&gt;
 
-&lt;link rel=&quot;icon&quot; href=&quot;../assets/media/branding/favicon.svg&quot; type=&quot;image/svg+xml&quot;&gt;&lt;style id=&quot;home-2-branding&quot;&gt;
-/* Home 02 uses the canonical shared header, outside the old template's clipped page wrapper. */
-.home2-shared-header .mgl-skip-link{position:fixed;z-index:100050;top:10px;left:12px;padding:10px 14px;border-radius:10px;background:#052f35;color:#fff;font-weight:800;text-decoration:none;transform:translateY(-160%);transition:transform .18s ease;box-shadow:0 12px 30px rgba(0,0,0,.20)}
-.home2-shared-header .mgl-skip-link:focus{transform:translateY(0);color:#fff}
-.home2-shared-header .mgl-site-header{z-index:99999}
-.home2-shared-header .page-wrapper{padding-top:0}
-.home2-shared-header .page-wrapper .banner-section{padding-top:100px;scroll-margin-top:100px}
-.home2-shared-header .client-block .tech-label{font-size:20px;font-weight:700;display:inline-block;padding:14px}
-.home2-shared-header .main-footer .footer-logo img{width:100%;max-width:205px;height:auto;object-fit:contain}
-/* Always render locally bundled Forexy pictogram glyphs, even in generic icon containers. */
-.home2-shared-header [class*=&quot;flaticon-forex-&quot;]::before{font-family:&quot;flaticon-forex&quot;!important;font-weight:normal!important;font-style:normal}
-.home2-shared-header img{max-width:100%}
-.home2-shared-header img.mgl-home2-feature-icon{width:72px;height:72px;object-fit:contain}
-@media(max-width:1199.98px){.home2-shared-header .page-wrapper .banner-section{padding-top:82px}}
-@media(max-width:767.98px){.home2-shared-header .page-wrapper .banner-section{padding-top:80px}.home2-shared-header .client-block .tech-label{font-size:16px;padding:8px}}
-&lt;/style&gt;&lt;/head&gt;
+&lt;link rel=&quot;icon&quot; href=&quot;../assets/media/branding/favicon.svg&quot; type=&quot;image/svg+xml&quot;&gt;&lt;/head&gt;
 
 &lt;body class=&quot;home2-shared-header&quot;&gt;
 &lt;template data-shared-part=&quot;header&quot;&gt;&lt;/template&gt;
@@ -1331,7 +1316,7 @@
 
 
 
-&lt;script src=&quot;../assets/js/includes.js&quot;&gt;&lt;/script&gt;
+
 &lt;/body&gt;&lt;/html&gt;
 </html>
   </page>
