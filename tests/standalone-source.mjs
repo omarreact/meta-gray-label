@@ -31,6 +31,12 @@ async function render(theme,slug,error=false){
  if(theme==='theme-2'){
    assert(output.includes('data-theme-header="2"'),'Independent Theme 2 header missing');
    assert(output.includes('mgl2-topbar'),'Theme 2 utility header missing');
+   const viewport=output.match(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/i)?.[0]||'';
+   assert(viewport.includes('width=device-width')&&!/user-scalable\s*=\s*(?:0|no)|maximum-scale\s*=/i.test(viewport),'Theme 2 must allow browser zoom');
+   assert(output.includes('href="./#faq">FAQs'),'Theme 2 footer FAQ must link to home');
+   assert(/class="footer-logo"[^>]*>[\s\S]*?<img[^>]*alt="Meta Grey Label"/i.test(output),'Theme 2 footer logo must have an accessible name');
+   if(error)assert(!/<link\b[^>]*rel=["']canonical["']/i.test(output),'Error page must not canonicalize to homepage');
+   else assert.equal((output.match(/<link\b[^>]*rel=["']canonical["']/gi)||[]).length,1,'Expected one canonical');
    if(slug!=='home'){
      assert(/<main\b[^>]*data-mgl2-layout="[^"]+"/.test(output),'Theme 2 layout adapter missing');
      assert(output.includes('data-mgl2-block="banner"'),'Theme 2 banner missing');

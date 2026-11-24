@@ -41,10 +41,20 @@ else if(theme==='theme-1')html=p.html;
 else{let m=getMain(p.html);if(!m)throw Error('Missing page content');m=applyTheme2Layout(m);html=d.alternatePageTemplate.replace('{{PAGE_MAIN}}',()=>m).replace('{{PAGE_TITLE}}',()=>p.title).replace('{{PAGE_DESCRIPTION}}',()=>escape(p.description));}
 html=html.replace(/<template\s+data-shared-part="header"\s*><\/template>/gi,()=>header).replace(/<template\s+data-shared-part="footer"\s*><\/template>/gi,()=>footer);
 html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>known.has(id)&&id!=='home'?'href='+q+'./?page='+encodeURIComponent(id)+tail.replace(/^\?/,'&amp;')+q:id==='index'?'href='+q+'./'+tail+q:m);
+// Allow browser zoom on all Theme 2 pages, including the legacy homepage template.
+html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');
 html=html.replace(/<html\b/i,'<html data-mgl-theme="'+theme+'"');
-const canonical=new URL('../theme-1/',root);
-if(p.slug&&p.slug!=='home')canonical.searchParams.set('page',p.slug);
-html=html.replace(/<\/head>/i,'<link rel="canonical" href="'+escape(canonical.href)+'"></head>');
+// Canonicalize valid alternate pages only; a missing route is not the homepage.
+html=html.replace(/<link\b[^>]*\brel=["']canonical["'][^>]*>/gi,'');
+if(!errorMode&&p.slug){
+ const canonical=new URL('../theme-1/',root);
+ if(p.slug!=='home')canonical.searchParams.set('page',p.slug);
+ html=html.replace(/<\/head>/i,'<link rel="canonical" href="'+escape(canonical.href)+'"></head>');
+}
+// Restore the FAQ fragment after asynchronous homepage rendering.
+if(slug==='home'&&!errorMode&&location.hash==='#faq'){
+ html=html.replace(/<\/body>/i,()=>'<script>window.addEventListener("load",function(){var target=document.getElementById("faq");if(!target)return;var header=document.querySelector(".mgl-site-header");var offset=(header?header.getBoundingClientRect().height:78)+40;window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-offset),behavior:"auto"});},{once:true});<\/script></body>');
+}
 document.open();document.write(html);document.close();
 }catch(e){console.error(e);const status=document.getElementById('mgl-loading');if(status)status.textContent='Unable to load this page. Refresh to try again.';}
 })();
