@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "typography": {
+    "globalFontFamily": "Inter",
+    "provider": "google",
+    "fallback": "Arial, Helvetica, sans-serif",
+    "bodySizePx": 16,
+    "bodyWeight": 400,
+    "bodyLineHeight": 1.65,
+    "bodyLetterSpacingEm": 0,
+    "headingWeight": 600,
+    "headingLineHeight": 1.16,
+    "headingLetterSpacingEm": -0.035,
+    "headingSizes": {
+      "h1": 60,
+      "h2": 40,
+      "h3": 26,
+      "h4": 22,
+      "h5": 19,
+      "h6": 16
+    },
+    "uiSizePx": 14,
+    "uiWeight": 600,
+    "buttonSizePx": 14,
+    "buttonWeight": 800
+  }
+}
