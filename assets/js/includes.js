@@ -4,13 +4,22 @@
   const siteRoot = new URL('../../', document.currentScript.src);
   const isNestedPage = new URL('.', document.baseURI).href !== siteRoot.href;
 
-  // Developer site settings are shared across every static/dynamic route.
-  if (!document.getElementById('mgl-site-settings-style')) {
-    const settingsStyle = document.createElement('link');
+  // Home 02 has an independent template stylesheet. Apply only the shared
+  // settings section from the unified CSS, never the other homepage's base styles.
+  if (document.body.classList.contains('home2-shared-header') && !document.getElementById('mgl-site-settings-style')) {
+    const settingsStyle = document.createElement('style');
     settingsStyle.id = 'mgl-site-settings-style';
-    settingsStyle.rel = 'stylesheet';
-    settingsStyle.href = new URL('assets/css/site-settings.css', siteRoot).href;
     document.head.appendChild(settingsStyle);
+    fetch(new URL('assets/css/style.css', siteRoot))
+      .then(response => { if (!response.ok) throw new Error('Shared CSS unavailable'); return response.text(); })
+      .then(css => {
+        const start = css.indexOf('/* MGL_SHARED_SETTINGS_START */');
+        const end = css.indexOf('/* MGL_SHARED_SETTINGS_END */');
+        if (start < 0 || end <= start) throw new Error('Shared settings section missing');
+        const fontImport = css.slice(0, css.indexOf('\n'));
+        settingsStyle.textContent = fontImport + '\n' + css.slice(start, end);
+      })
+      .catch(error => console.warn('Meta Grey Label shared settings:', error));
   }
 
   // Shared HTML chrome is bundled into this script: no separate header/footer request.
