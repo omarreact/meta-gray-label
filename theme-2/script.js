@@ -9,7 +9,7 @@ const getMain=s=>s.match(/<main\b[\s\S]*?<\/main>/i)?.[0];
 // Theme 2 presentation adapter: decorate, never duplicate or rewrite shared business content.
 function applyTheme2Layout(markup) {
   const variant = markup.match(/\bmgl-design--(company|pricing|comparison|process|technical|article|directory|hub|service)\b/)?.[1] || (markup.includes('mgl-contact-page') ? 'contact' : 'service');
-  return markup.replace(/<main\b/i,'<main data-layout="design2" data-mgl2-layout="'+variant+'"')
+  const out=markup.replace(/<main\b/i,'<main data-layout="design2" data-mgl2-layout="'+variant+'"')
     .replace(/<section\b([^>]*\bclass="([^"]*)"[^>]*)>/gi,(tag,attrs,classes)=>{
       const list=classes.split(/\s+/);
       let block=list.includes('mgl-inner-hero-v2')||list.includes('mgl-contact-hero')?'banner':
@@ -22,6 +22,34 @@ function applyTheme2Layout(markup) {
       if(!block && list.includes('mgl-inner-comparison-matrix'))block='matrix';
       return block ? '<section data-mgl2-block="'+block+'"'+attrs+'>' : tag;
     });
+  return composeTheme2(out,variant);
+}
+
+function composeTheme2(out,variant){
+  // Move the title and breadcrumb into the independent full-width title band.
+  // All original content remains in its original order below the band.
+  out=out.replace(/(<section\b[^>]*data-mgl2-block="banner"[^>]*>)([\s\S]*?)<\/section>/i,(whole,open,content)=>{
+    const title=content.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/i)?.[0];
+    if(!title)return whole;
+    const crumb=content.match(/<p class="mgl-inner-breadcrumb">[\s\S]*?<\/p>/i)?.[0]||'';
+    const rest=content.replace(title,'').replace(crumb,'');
+    const context=rest.replace(/<[^>]+>/g,'').trim();
+    return open+'<div class="mgl-inner-container mgl2-title-band">'+title+crumb+'</div></section>'+
+      (context?'<div class="mgl2-hero-context '+(variant==='contact'?'mgl-contact-hero':'mgl-inner-hero-v2')+'">'+rest+'</div>':'');
+  });
+  const sections=[...out.matchAll(/<section\b[^>]*\bid="(inner-section-\d+)"[^>]*>[\s\S]*?<h2\b[^>]*>([\s\S]*?)<\/h2>/gi)];
+  const nav=(label,cls)=>'<nav class="'+cls+'" aria-label="'+label+'">'+
+    sections.map((m,i)=>'<a href="#'+m[1]+'"><span aria-hidden="true">'+String(i+1).padStart(2,'0')+'</span> '+m[2].replace(/<[^>]*>/g,' ').trim()+'</a>').join('')+'</nav>';
+  if((variant==='service'||variant==='technical')&&sections.length){
+    out=out.replace('<div class="mgl-inner-body">','<div class="mgl-inner-body mgl2-service-flow"><aside class="mgl2-service-sidebar"><p class="mgl-inner-eyebrow">On this page</p>'+nav('Section navigation','mgl2-section-nav')+'<a class="mgl2-sidebar-cta" href="contact.html">Discuss your project →</a></aside>');
+  }
+  if(variant==='company'){
+    out=out.replace(/(<section\b[^>]*data-mgl2-block="intro"[^>]*>\s*<div class="mgl-inner-container">)([\s\S]*?)(<\/div>\s*<\/section>)/i,(_,a,b,c)=>a+'<figure class="mgl2-company-media"><img src="../assets/media/design2-resource-about-1.jpg" alt="" loading="lazy" decoding="async"></figure><div class="mgl2-company-copy">'+b+'</div>'+c);
+  }
+  if(variant==='process'&&sections.length){
+    out=out.replace(/(<div class="mgl-inner-body">)/, '$1<div class="mgl2-process-index"><p class="mgl-inner-eyebrow">Explore the launch sequence</p>'+nav('Launch steps','mgl2-step-nav')+'</div>');
+  }
+  return out;
 }
 
 try{

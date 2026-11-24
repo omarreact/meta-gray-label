@@ -31,6 +31,9 @@ async function render(theme,slug,error=false){
  if(theme==='theme-2'){
    assert(output.includes('data-theme-header="2"'),'Independent Theme 2 header missing');
    assert(output.includes('mgl2-topbar'),'Theme 2 utility header missing');
+   assert(output.includes('data-mgl2-chrome="header"')&&output.includes('data-mgl2-chrome="footer"'),'Theme 2 independent chrome missing');
+   if(slug!=='home'||error)assert(output.includes('mgl2-title-band'),'Theme 2 title composition missing');
+   if(/data-mgl2-layout="(?:service|technical)"/.test(output)&&!error)assert(output.includes('mgl2-service-sidebar'),'Service navigation missing');
    const viewport=output.match(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/i)?.[0]||'';
    assert(viewport.includes('width=device-width')&&!/user-scalable\s*=\s*(?:0|no)|maximum-scale\s*=/i.test(viewport),'Theme 2 must allow browser zoom');
    assert(output.includes('href="./#faq">FAQs'),'Theme 2 footer FAQ must link to home');

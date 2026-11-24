@@ -66473,3 +66473,64 @@ html body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"] .mgl-inn
 @media(max-width:767px) {
   html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] {min-height:280px}
 }
+
+
+/* Theme 2 | independent Forexy-inspired inner-page compositions.
+   Layout is isolated from Theme 1; shared business copy is unchanged. */
+html body.design2-inner [data-mgl2-layout]{--mgl2-gutter:clamp(16px,4vw,64px);--mgl2-surface:#f1f4f2;--mgl2-text:#003f2f;--mgl2-stroke:#d9e5de}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout]{--mgl2-surface:#14352c;--mgl2-text:#e9f6ed;--mgl2-stroke:#36564b}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]{width:100%;min-height:clamp(185px,24vw,360px);padding:clamp(36px,6vw,90px) var(--mgl2-gutter);background-color:#003f2f;background-image:linear-gradient(90deg,rgba(0,38,29,.83),rgba(0,55,43,.53)),url('../assets/media/design2-banner-slide-1.jpg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;text-align:center}
+html body.design2-inner [data-mgl2-layout] .mgl2-title-band{width:100%;max-width:1100px;margin:auto;display:flex;flex-direction:column;align-items:center;gap:12px}
+html body.design2-inner [data-mgl2-layout] .mgl2-title-band h1{max-width:24ch;margin:0 auto;color:#fff;font-size:clamp(30px,4vw,58px)!important;line-height:1.13;text-wrap:balance;overflow-wrap:anywhere}
+html body.design2-inner [data-mgl2-layout] .mgl2-title-band .mgl-inner-breadcrumb{justify-content:center;flex-wrap:wrap;margin:0;color:#e2f1e9}
+html body.design2-inner [data-mgl2-layout] .mgl2-title-band .mgl-inner-breadcrumb a{color:#ddff93}
+html body.design2-inner [data-mgl2-layout] .mgl2-hero-context{min-height:0!important;background:var(--mgl2-surface)!important;color:var(--mgl2-text);padding:clamp(32px,5vw,76px) 0!important}
+html body.design2-inner [data-mgl2-layout] .mgl2-hero-context::before,html body.design2-inner [data-mgl2-layout] .mgl2-hero-context::after{display:none}
+html body.design2-inner [data-mgl2-layout] .mgl2-hero-context :is(.mgl-inner-summary,.mgl-inner-eyebrow,.mgl-inner-hero-copy>.mgl-inner-caption,.mgl-contact-hero__grid>div>p){color:var(--mgl2-text)!important}
+html body.design2-inner [data-mgl2-layout] .mgl2-hero-context .mgl-inner-action--secondary a{color:var(--mgl2-text);border-color:var(--mgl2-stroke)}
+html body.design2-inner [data-mgl2-layout] .mgl-inner-container{min-width:0}
+html body.design2-inner [data-mgl2-layout] :is(.mgl-inner-card,.mgl-inner-link-card,.mgl-directory-group,.mgl-inner-module){min-width:0;overflow-wrap:anywhere}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"]>.mgl-inner-container{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center;background:var(--mgl2-surface);padding:clamp(20px,4vw,56px);border-radius:10px}
+html body.design2-inner [data-mgl2-layout="company"] .mgl2-company-media{margin:0;min-width:0}
+html body.design2-inner [data-mgl2-layout="company"] .mgl2-company-media img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="story"]:nth-of-type(even){background:var(--mgl2-surface)}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-flow{width:min(1440px,calc(100% - 2 * var(--mgl2-gutter)));margin:clamp(28px,5vw,70px) auto;display:grid;grid-template-columns:minmax(220px,280px) minmax(0,1fr);gap:0 clamp(24px,4vw,64px);align-items:start}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-flow>.mgl-inner-section{grid-column:2;min-width:0;padding-block:clamp(24px,4vw,48px)}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-flow>.mgl-inner-section>.mgl-inner-container{width:100%;max-width:none}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-sidebar{grid-column:1;grid-row:1/span 30;position:sticky;top:140px;min-width:0;padding:20px;background:var(--mgl2-surface);border:1px solid var(--mgl2-stroke);border-radius:8px;max-height:calc(100dvh - 160px);overflow:auto}
+html body.design2-inner [data-mgl2-layout] .mgl2-section-nav{display:grid;gap:6px;margin:12px 0 20px}
+html body.design2-inner [data-mgl2-layout] .mgl2-section-nav a{display:flex;gap:10px;align-items:flex-start;color:var(--mgl2-text);padding:12px 9px;border-bottom:1px solid var(--mgl2-stroke);font-size:14px;line-height:1.4;text-decoration:none}
+html body.design2-inner [data-mgl2-layout] .mgl2-section-nav a:hover,html body.design2-inner [data-mgl2-layout] .mgl2-section-nav a:focus-visible{background:#ddff93;color:#003f2f}
+html body.design2-inner [data-mgl2-layout] .mgl2-sidebar-cta{display:block;padding:12px;background:#003f2f;color:#fff;border-radius:4px;text-align:center}
+html body.design2-inner [data-mgl2-layout="pricing"] [data-mgl2-block="packages"] .mgl-inner-items{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px}
+html body.design2-inner [data-mgl2-layout="pricing"] [data-mgl2-block="packages"] .mgl-inner-card{border:1px solid var(--mgl2-stroke);border-radius:6px;background:var(--mgl2-surface);box-shadow:none}
+html body.design2-inner [data-mgl2-layout="pricing"] [data-mgl2-block="rows"] .mgl-inner-items{grid-template-columns:1fr}
+html body.design2-inner [data-mgl2-layout="process"] .mgl2-process-index{width:min(1320px,calc(100% - 2 * var(--mgl2-gutter)));margin:clamp(24px,5vw,70px) auto;padding:clamp(20px,4vw,48px);border-radius:8px;background:#ddff93;color:#003f2f}
+html body.design2-inner [data-mgl2-layout="process"] .mgl2-step-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,175px),1fr));gap:10px}
+html body.design2-inner [data-mgl2-layout="process"] .mgl2-step-nav a{display:grid;gap:8px;padding:16px;background:#003f2f;color:#fff;border-radius:5px;text-decoration:none}
+html body.design2-inner [data-mgl2-layout="process"] .mgl2-step-nav a span{color:#ddff93;font-size:24px}
+html body.design2-inner [data-mgl2-layout="process"] .mgl2-step-nav a:hover,html body.design2-inner [data-mgl2-layout="process"] .mgl2-step-nav a:focus-visible{background:#176548}
+html body.design2-inner [data-mgl2-layout="article"] .mgl-inner-editorial-layout{width:min(1320px,calc(100% - 2 * var(--mgl2-gutter)));grid-template-columns:minmax(0,1fr) minmax(220px,300px)}
+html body.design2-inner [data-mgl2-layout="article"] .mgl-inner-editorial-copy{min-width:0}
+html body.design2-inner [data-mgl2-layout="comparison"] [data-mgl2-block="matrix"]{overflow-x:auto}
+html body.design2-inner [data-mgl2-layout="contact"] .mgl2-hero-context .mgl-contact-hero__grid{align-items:center}
+html body.design2-inner [data-mgl2-layout] :is(a,button,summary,input,select,textarea):focus-visible{outline:2px solid #018599;outline-offset:3px}
+body.home2-shared-header header[data-theme-header="2"]{border-radius:0;max-width:none}
+body.home2-shared-header header[data-theme-header="2"] .mgl-header-shell{border-radius:0;box-shadow:none}
+body.home2-shared-header footer[data-mgl2-chrome="footer"]{background-color:#003f2f;color:#fff}
+body.home2-shared-header footer[data-mgl2-chrome="footer"] .footer-bottom{background:#ddff93;color:#003f2f}
+body.home2-shared-header footer[data-mgl2-chrome="footer"] .footer-bottom :is(a,.copyright,i){color:#003f2f!important}
+@media(max-width:991px){
+ html body.design2-inner [data-mgl2-layout] .mgl2-service-flow{display:block}
+ html body.design2-inner [data-mgl2-layout] .mgl2-service-sidebar{position:static;max-height:none;margin:0 0 24px}
+ html body.design2-inner [data-mgl2-layout] .mgl2-section-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+ html body.design2-inner [data-mgl2-layout="article"] .mgl-inner-editorial-layout{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:767px){
+ html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]{min-height:210px}
+ html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"]>.mgl-inner-container{grid-template-columns:1fr}
+ html body.design2-inner [data-mgl2-layout] .mgl2-section-nav{grid-template-columns:1fr}
+ html body.design2-inner [data-mgl2-layout] .mgl2-hero-context :is(.mgl-inner-hero-layout,.mgl-directory-hero-layout,.mgl-contact-hero__grid){grid-template-columns:minmax(0,1fr)}
+ html body.design2-inner [data-mgl2-layout] .mgl2-hero-context .mgl-inner-actions{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){html body.design2-inner [data-mgl2-layout] .mgl2-section-nav a{transition:none}}
