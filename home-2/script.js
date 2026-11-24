@@ -6714,3 +6714,1355 @@ var THEMEMASCOT = {};
 
 
 ;
+
+/* ===== Home 02 independent navigation and typography runtime ===== */
+(function loadHome2Layout() {
+  const siteRoot = new URL('../', document.currentScript.src);
+  const isNestedPage = true;
+  // Shared HTML chrome is bundled into this script: no separate header/footer request.
+  const sharedParts = {header:"<a class=\"mgl-skip-link\" href=\"#main-content\">Skip to main content</a>\n<header class=\"mgl-site-header\" data-site-header>\n  <div class=\"mgl-header-shell\">\n    <a class=\"mgl-header-brand\" href=\"index.html\" aria-label=\"Meta Grey Label home\">\n      <img data-brand-logo src=\"assets/media/branding/logo-dark.svg\" alt=\"Meta Grey Label\" width=\"264\" height=\"56\">\n    </a>\n\n    <nav class=\"mgl-primary-nav\" aria-label=\"Primary navigation\">\n      <ul class=\"mgl-nav-list\" id=\"primary-navigation\">\n        <li class=\"mgl-nav-item mgl-nav-item--has-panel\">\n          <div class=\"mgl-nav-trigger\">\n            <a class=\"mgl-nav-link\" href=\"index.html\"><svg class=\"mgl-nav-icon\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M3.5 10.5 12 3l8.5 7.5\"/><path d=\"M5.5 9.5V21h13V9.5\"/><path d=\"M9.5 21v-6h5v6\"/></svg><span>Home</span></a>\n            <button class=\"mgl-nav-disclosure\" type=\"button\" data-nav-disclosure aria-controls=\"mgl-nav-home\" aria-expanded=\"false\" aria-label=\"Toggle Home submenu\">\n              <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"m5.5 7.5 4.5 4.5 4.5-4.5\"/></svg>\n            </button>\n          </div>\n          <div class=\"mgl-nav-panel mgl-simple-panel mgl-home-panel\" id=\"mgl-nav-home\">\n            <a class=\"mgl-dropdown-link\" href=\"index.html\">Home 01</a>\n            <a class=\"mgl-dropdown-link\" href=\"/home-2/\">Home 02</a>\n          </div>\n        </li>\n\n        <li class=\"mgl-nav-item mgl-nav-item--has-panel\">\n          <div class=\"mgl-nav-trigger\">\n            <a class=\"mgl-nav-link\" href=\"/inner-pages/solutions.html\"><svg class=\"mgl-nav-icon\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"4\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"4\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"15\" width=\"7\" height=\"6\" rx=\"1.5\"/><rect x=\"14\" y=\"15\" width=\"7\" height=\"6\" rx=\"1.5\"/></svg><span>Solutions</span></a>\n            <button class=\"mgl-nav-disclosure\" type=\"button\" data-nav-disclosure aria-controls=\"mgl-nav-solutions\" aria-expanded=\"false\" aria-label=\"Toggle Solutions submenu\">\n              <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"m5.5 7.5 4.5 4.5 4.5-4.5\"/></svg>\n            </button>\n          </div>\n          <div class=\"mgl-nav-panel mgl-simple-panel\" id=\"mgl-nav-solutions\">\n            <span class=\"mgl-dropdown-group\" role=\"presentation\">White Label</span>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/forex-white-label.html\">Forex White Label</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/mt4-white-label.html\">MT4 White Label</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/mt5-white-label.html\">MT5 White Label</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/white-label-pricing.html\">White Label Pricing</a>\n            <span class=\"mgl-dropdown-group\" role=\"presentation\">Grey Label</span>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/forex-grey-label.html\">Forex Grey Label</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/mt4-grey-label.html\">MT4 Grey Label</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/mt5-grey-label.html\">MT5 Grey Label</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/grey-label-pricing.html\">Grey Label Pricing</a>\n            <span class=\"mgl-dropdown-group\" role=\"presentation\">Admin & Turnkey</span>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/mt-admin-license.html\">MT4 / MT5 Admin License</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/forex-broker-turnkey.html\">Forex Broker Turnkey</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/brokerage-launch-process.html\">Launch in 2 Days</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/solutions.html\">Pricing / Packages</a>\n          </div>\n        </li>\n\n        <li class=\"mgl-nav-item mgl-nav-item--has-panel\">\n          <div class=\"mgl-nav-trigger\">\n            <a class=\"mgl-nav-link\" href=\"/inner-pages/services.html\"><svg class=\"mgl-nav-icon\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"><rect x=\"5\" y=\"5\" width=\"14\" height=\"14\" rx=\"2.5\"/><path d=\"M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3\"/></svg><span>Technology</span></a>\n            <button class=\"mgl-nav-disclosure\" type=\"button\" data-nav-disclosure aria-controls=\"mgl-nav-technology\" aria-expanded=\"false\" aria-label=\"Toggle Technology submenu\">\n              <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"m5.5 7.5 4.5 4.5 4.5-4.5\"/></svg>\n            </button>\n          </div>\n          <div class=\"mgl-nav-panel mgl-simple-panel\" id=\"mgl-nav-technology\">\n            <span class=\"mgl-dropdown-group\" role=\"presentation\">Liquidity</span>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/forex-liquidity.html\">Forex Liquidity</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/a-book-b-book-hybrid.html\">A-Book / B-Book / Hybrid</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/liquidity-bridge.html\">Liquidity Bridge</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/prime-of-prime.html\">Prime of Prime (PoP)</a>\n            <span class=\"mgl-dropdown-group\" role=\"presentation\">CRM & Platforms</span>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/forex-crm.html\">Fx CRM | TradeRoom</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/back-office.html\">Back Office & Admin Panel</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/kyc-compliance.html\">KYC & Compliance</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/payments-automation.html\">Deposit / Withdrawal Automation</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/trading-platforms.html\">Trading Platforms</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/web-trader.html\">Web Trader</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/mobile-trading-app.html\">Mobile Trading App</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/desktop-platform.html\">Desktop Platform</a>\n            <span class=\"mgl-dropdown-group\" role=\"presentation\">Broker Tools</span>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/essential-tools-and-plugins-for-a-metatrader-grey-label-brokerage.html\">MT4 / MT5 Plugins</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/copy-trading-and-social-trading-for-metatrader-grey-label-brokers.html\">Copy Trading / PAMM / MAM</a>\n          </div>\n        </li>\n\n        <li class=\"mgl-nav-item mgl-nav-item--has-panel\">\n          <div class=\"mgl-nav-trigger\">\n            <a class=\"mgl-nav-link\" href=\"/inner-pages/about-us.html\"><svg class=\"mgl-nav-icon\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M4 21V7l8-4 8 4v14\"/><path d=\"M8 10h2M14 10h2M8 14h2M14 14h2M10 21v-3h4v3\"/></svg><span>Company</span></a>\n            <button class=\"mgl-nav-disclosure\" type=\"button\" data-nav-disclosure aria-controls=\"mgl-nav-company\" aria-expanded=\"false\" aria-label=\"Toggle Company submenu\">\n              <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"m5.5 7.5 4.5 4.5 4.5-4.5\"/></svg>\n            </button>\n          </div>\n          <div class=\"mgl-nav-panel mgl-simple-panel\" id=\"mgl-nav-company\">\n            <span class=\"mgl-dropdown-group\" role=\"presentation\">Company</span>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/about-us.html\">About Us</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/why-choose-us.html\">Why Choose Us</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/forex-company-license.html\">Fx Company & License</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/offshore-company-formation.html\">Offshore Company Formation</a>\n            <span class=\"mgl-dropdown-group\" role=\"presentation\">Brand & Growth</span>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/services.html\">Branding & Marketing</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/services.html\">Forex Website Design</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/services.html\">Logo & Brand Identity</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/insights.html\">Forex SEO & Marketing</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/ib-portal.html\">IB & Affiliate Marketing</a>\n          </div>\n        </li>\n\n        <li class=\"mgl-nav-item mgl-nav-item--has-panel\">\n          <div class=\"mgl-nav-trigger\">\n            <a class=\"mgl-nav-link\" href=\"/inner-pages/insights.html\"><svg class=\"mgl-nav-icon\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z\"/><path d=\"M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z\"/></svg><span>Resources</span></a>\n            <button class=\"mgl-nav-disclosure\" type=\"button\" data-nav-disclosure aria-controls=\"mgl-nav-resources\" aria-expanded=\"false\" aria-label=\"Toggle Resources submenu\">\n              <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"m5.5 7.5 4.5 4.5 4.5-4.5\"/></svg>\n            </button>\n          </div>\n          <div class=\"mgl-nav-panel mgl-simple-panel\" id=\"mgl-nav-resources\">\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/insights.html\">Blogs & News</a>\n            <a class=\"mgl-dropdown-link\" href=\"index.html#faq\">FAQ</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/a-book-b-book-hybrid.html\">Risk Management Tools</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/payments-automation.html\">Payment Gateways (PSPs)</a>\n            <a class=\"mgl-dropdown-link\" href=\"/inner-pages/back-office.html\">Reports & Analytics</a>\n          </div>\n        </li>\n\n        <li class=\"mgl-nav-item\"><a class=\"mgl-nav-link\" href=\"/inner-pages/contact.html\"><svg class=\"mgl-nav-icon\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M4 5.5h16v11H9l-5 4v-15Z\"/><path d=\"M8 9h8M8 13h5\"/></svg><span>Contact</span></a></li>\n      </ul>\n\n      <div class=\"mgl-mobile-utilities\" aria-label=\"Quick actions\">\n        <a class=\"mgl-mobile-utility\" href=\"https://wa.me/447988028424?text=Hello%20Meta%20Grey%20Label%2C%20I%27d%20like%20to%20discuss%20a%20brokerage%20technology%20setup.\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M20.2 11.5a8.3 8.3 0 0 1-12.4 7.2L3 20l1.3-4.6A8.3 8.3 0 1 1 20.2 11.5Z\"/><path d=\"M8.6 8.1c-.5.2-.9.9-.8 1.5.4 2.4 3 5.1 5.5 5.8.8.2 1.6-.2 1.9-.8l.4-1-2.1-1-.9 1a8.8 8.8 0 0 1-2.5-2.5l.9-.8-1.1-2.2H8.6Z\"/></svg>\n          WhatsApp\n        </a>\n        <a class=\"mgl-mobile-utility mgl-mobile-utility--primary\" href=\"/inner-pages/contact.html\">\n          Get a Quote\n          <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"M4 10h11M11 6l4 4-4 4\"/></svg>\n        </a>\n      </div>\n    </nav>\n\n    <div class=\"mgl-header-actions\">\n      <a class=\"mgl-header-action mgl-header-social\" href=\"https://wa.me/447988028424?text=Hello%20Meta%20Grey%20Label%2C%20I%27d%20like%20to%20discuss%20a%20brokerage%20technology%20setup.\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Chat with Meta Grey Label on WhatsApp\" title=\"WhatsApp\">\n        <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M20.2 11.5a8.3 8.3 0 0 1-12.4 7.2L3 20l1.3-4.6A8.3 8.3 0 1 1 20.2 11.5Z\"/><path d=\"M8.6 8.1c-.5.2-.9.9-.8 1.5.4 2.4 3 5.1 5.5 5.8.8.2 1.6-.2 1.9-.8l.4-1-2.1-1-.9 1a8.8 8.8 0 0 1-2.5-2.5l.9-.8-1.1-2.2H8.6Z\"/></svg>\n      </a>\n      <button class=\"mgl-header-action mgl-theme-toggle\" id=\"btnSwitch\" type=\"button\" aria-label=\"Switch to dark theme\" aria-pressed=\"false\" title=\"Toggle light and dark theme\">\n        <img src=\"assets/media/images/icon/moon.svg\" alt=\"\" width=\"20\" height=\"20\">\n      </button>\n      <a class=\"mgl-header-cta\" href=\"/inner-pages/contact.html\">\n        Get a Quote\n        <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\"><path d=\"M4 10h11M11 6l4 4-4 4\"/></svg>\n      </a>\n      <button class=\"mgl-header-action mgl-menu-toggle\" type=\"button\" aria-controls=\"primary-navigation\" aria-expanded=\"false\" aria-label=\"Open navigation\">\n        <span></span><span></span><span></span>\n      </button>\n    </div>\n  </div>\n</header>\n\n"};
+
+  function insertPart(name) {
+    const target = document.querySelector('template[data-shared-part="' + name + '"]');
+    if (!target) return;
+
+    const template = document.createElement('template');
+    template.innerHTML = sharedParts[name] || '';
+
+    // Keep the original attributes on the homepage. On subpages, resolve
+    // fragment assets and internal links relative to the website root.
+    if (isNestedPage) {
+      for (const element of template.content.querySelectorAll('[src], [href]')) {
+        for (const attr of ['src', 'href']) {
+          const value = element.getAttribute(attr);
+          if (value && !value.startsWith('#') && !value.startsWith('//') &&
+              !/^[a-z][a-z0-9+.-]*:/i.test(value)) {
+            element.setAttribute(attr, new URL(value.replace(/^\/(?!\/)/, ''), siteRoot).href);
+          }
+        }
+      }
+    }
+
+    // Replace the placeholder without introducing any wrapper elements.
+    target.replaceWith(template.content);
+  }
+
+  try {
+    insertPart('header');
+
+    // Keep internal navigation on the platform the visitor is currently using.
+    // Known mirror-domain links are converted to the active host while preserving
+    // the route, query string and hash. This prevents Webflow/GitHub/Cloudflare
+    // mirrors from unexpectedly handing visitors to another platform.
+    function keepInternalLinksOnActivePlatform() {
+      const currentHost = window.location.hostname;
+      const githubPrefix = '/meta-gray-label/';
+      const mirrorHosts = new Set([
+        'mg-label.webflow.io',
+        'omarreact.github.io'
+      ]);
+
+      document.querySelectorAll('a[href]').forEach(function (link) {
+        const raw = link.getAttribute('href');
+        if (!raw || raw.startsWith('#') || raw.startsWith('//') ||
+            /^(?:mailto:|tel:|javascript:|data:)/i.test(raw)) return;
+
+        let target;
+        try {
+          target = new URL(raw, document.baseURI);
+        } catch (_) {
+          return;
+        }
+
+        if (!mirrorHosts.has(target.hostname) || target.hostname === currentHost) return;
+
+        let routePath = target.pathname;
+        if (target.hostname === 'omarreact.github.io' && routePath.startsWith(githubPrefix)) {
+          routePath = '/' + routePath.slice(githubPrefix.length);
+        }
+
+        let localPath = routePath;
+        if (currentHost === 'omarreact.github.io' &&
+            window.location.pathname.startsWith(githubPrefix)) {
+          localPath = githubPrefix + routePath.replace(/^\/+/, '');
+        }
+
+        link.href = localPath + target.search + target.hash;
+      });
+    }
+
+    keepInternalLinksOnActivePlatform();
+    // Resolve project-root navigation under GitHub Pages as well as a root domain.
+    document.querySelectorAll('a[href^="/inner-pages/"], a[href^="/home-2/"]').forEach(link => {
+      link.href = new URL(link.getAttribute('href').slice(1), siteRoot).href;
+    });
+
+    // Resolve the shared inner-page hero background from the site root so it
+    // works consistently on the homepage host, GitHub Pages and nested routes.
+    const innerHeroImage = new URL('assets/media/images/banner/home1/bg.png', siteRoot).href;
+    document.querySelectorAll('.mgl-inner-hero').forEach((hero) => {
+      hero.style.setProperty('--mgl-inner-hero-image', 'url("' + innerHeroImage + '")');
+
+      // Inner heroes intentionally contain only route/breadcrumb, title and
+      // the short page summary. All supporting content begins after the hero.
+      hero.querySelectorAll('.mgl-kicker, .mgl-hero-actions, .mgl-hero-art').forEach((extra) => extra.remove());
+    });
+
+
+    (() => {
+  'use strict';
+
+  // Independent Home 02 settings snapshot.
+  const localKey = 'mgl-home2-dev-typography-v2';
+  const legacyLocalKey = 'mgl-home2-dev-font-preference-v1';
+  const repoIssueUrl = 'https://github.com/omarreact/meta-gray-label/issues/new';
+  const googleMetadataUrl = 'https://fonts.google.com/metadata/fonts';
+
+  const systemFonts = [
+    { family: 'Arial', provider: 'system', category: 'sans-serif', weights: [400,700] },
+    { family: 'Helvetica', provider: 'system', category: 'sans-serif', weights: [400,700] },
+    { family: 'Georgia', provider: 'system', category: 'serif', weights: [400,700] },
+    { family: 'Times New Roman', provider: 'system', category: 'serif', weights: [400,700] },
+    { family: 'Verdana', provider: 'system', category: 'sans-serif', weights: [400,700] },
+    { family: 'Tahoma', provider: 'system', category: 'sans-serif', weights: [400,700] },
+    { family: 'Trebuchet MS', provider: 'system', category: 'sans-serif', weights: [400,700] },
+    { family: 'Courier New', provider: 'system', category: 'monospace', weights: [400,700] }
+  ];
+
+  const fallbackGoogleFonts = [
+    'Inter','Roboto','Open Sans','Lato','Montserrat','Poppins','Nunito Sans','DM Sans','Manrope',
+    'Work Sans','Source Sans 3','Merriweather','Playfair Display','Noto Sans','Noto Serif',
+    'Raleway','Oswald','Ubuntu','Rubik','Fira Sans','Barlow','Mulish','Karla','Libre Franklin',
+    'IBM Plex Sans','IBM Plex Serif','Space Grotesk','Plus Jakarta Sans','Outfit','Sora'
+  ].map(function (family) {
+    return { family: family, provider: 'google', category: 'google', weights: [100,200,300,400,500,600,700,800,900] };
+  });
+
+  const defaults = {
+    globalFontFamily: 'Inter',
+    provider: 'google',
+    bodySizePx: 16,
+    bodyWeight: 400,
+    bodyLineHeight: 1.65,
+    bodyLetterSpacingEm: 0,
+    headingWeight: 600,
+    headingLineHeight: 1.16,
+    headingLetterSpacingEm: -0.035,
+    headingSizes: { h1: 60, h2: 40, h3: 26, h4: 22, h5: 19, h6: 16 },
+    uiSizePx: 14,
+    uiWeight: 600,
+    buttonSizePx: 14,
+    buttonWeight: 800
+  };
+
+  let fontCatalog = systemFonts.concat(fallbackGoogleFonts);
+  let catalogMap = new Map(fontCatalog.map(function (font) { return [font.family, font]; }));
+  let projectSetting = normalizeSetting(defaults);
+  let draftSetting = normalizeSetting(defaults);
+  let catalogLoaded = false;
+
+  function clampNumber(value, min, max, fallback, step) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return fallback;
+    const clamped = Math.min(max, Math.max(min, number));
+    if (!step) return clamped;
+    return Math.round(clamped / step) * step;
+  }
+
+  function normalizeWeight(value, fallback) {
+    const weight = clampNumber(value, 100, 900, fallback, 100);
+    return Math.round(weight / 100) * 100;
+  }
+
+  function sanitizeFamily(value) {
+    const family = typeof value === 'string' ? value.trim() : '';
+    return /^[A-Za-z0-9 .&+'-]{1,100}$/.test(family) ? family : 'Arial';
+  }
+
+  function normalizeSetting(value) {
+    const source = value || {};
+    const family = sanitizeFamily(source.globalFontFamily || defaults.globalFontFamily);
+    const known = catalogMap.get(family);
+    const provider = family === 'Arial' ? 'system' :
+      (source.provider === 'system' || known?.provider === 'system' ? 'system' : 'google');
+    const sizes = source.headingSizes || {};
+    return {
+      globalFontFamily: family,
+      provider: provider,
+      bodySizePx: clampNumber(source.bodySizePx, 12, 28, defaults.bodySizePx, 0.5),
+      bodyWeight: normalizeWeight(source.bodyWeight, defaults.bodyWeight),
+      bodyLineHeight: clampNumber(source.bodyLineHeight, 1.1, 2.2, defaults.bodyLineHeight, 0.05),
+      bodyLetterSpacingEm: clampNumber(source.bodyLetterSpacingEm, -0.08, 0.2, defaults.bodyLetterSpacingEm, 0.005),
+      headingWeight: normalizeWeight(source.headingWeight, defaults.headingWeight),
+      headingLineHeight: clampNumber(source.headingLineHeight, 0.9, 1.6, defaults.headingLineHeight, 0.01),
+      headingLetterSpacingEm: clampNumber(source.headingLetterSpacingEm, -0.12, 0.12, defaults.headingLetterSpacingEm, 0.005),
+      headingSizes: {
+        h1: clampNumber(sizes.h1, 28, 120, defaults.headingSizes.h1, 1),
+        h2: clampNumber(sizes.h2, 26, 100, defaults.headingSizes.h2, 1),
+        h3: clampNumber(sizes.h3, 20, 72, defaults.headingSizes.h3, 1),
+        h4: clampNumber(sizes.h4, 18, 56, defaults.headingSizes.h4, 1),
+        h5: clampNumber(sizes.h5, 16, 48, defaults.headingSizes.h5, 1),
+        h6: clampNumber(sizes.h6, 14, 40, defaults.headingSizes.h6, 1)
+      },
+      uiSizePx: clampNumber(source.uiSizePx, 11, 22, defaults.uiSizePx, 0.5),
+      uiWeight: normalizeWeight(source.uiWeight, defaults.uiWeight),
+      buttonSizePx: clampNumber(source.buttonSizePx, 11, 22, defaults.buttonSizePx, 0.5),
+      buttonWeight: normalizeWeight(source.buttonWeight, defaults.buttonWeight)
+    };
+  }
+
+  function fontStack(setting) {
+    const family = setting.globalFontFamily.replace(/"/g, '');
+    if (setting.provider === 'google') return '"' + family + '",Arial,Helvetica,sans-serif';
+    if (family === 'Arial') return 'Arial,Helvetica,sans-serif';
+    return '"' + family + '",Arial,Helvetica,sans-serif';
+  }
+
+  function nearestWeight(target, available) {
+    if (!available || !available.length) return target;
+    return available.reduce(function (best, current) {
+      return Math.abs(current - target) < Math.abs(best - target) ? current : best;
+    }, available[0]);
+  }
+
+  function requestedGoogleWeights(setting) {
+    const font = catalogMap.get(setting.globalFontFamily);
+    const available = font?.weights?.length ? font.weights : [400,700];
+    const wanted = [setting.bodyWeight, setting.headingWeight, setting.uiWeight, setting.buttonWeight];
+    return Array.from(new Set(wanted.map(function (weight) {
+      return nearestWeight(weight, available);
+    }))).sort(function (a, b) { return a - b; });
+  }
+
+  function googleCss2Url(setting) {
+    const encodedFamily = encodeURIComponent(setting.globalFontFamily).replace(/%20/g, '+');
+    const weights = requestedGoogleWeights(setting);
+    return 'https://fonts.googleapis.com/css2?family=' + encodedFamily + ':wght@' + weights.join(';') + '&display=swap';
+  }
+
+  function loadGoogleFont(setting) {
+    const existing = document.getElementById('mgl-google-font-runtime');
+    if (setting.provider !== 'google') {
+      existing?.remove();
+      return;
+    }
+    const href = googleCss2Url(setting);
+    if (existing?.getAttribute('href') === href) return;
+    existing?.remove();
+    const link = document.createElement('link');
+    link.id = 'mgl-google-font-runtime';
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.crossOrigin = 'anonymous';
+    document.head.appendChild(link);
+  }
+
+  function setCssVar(name, value) {
+    document.documentElement.style.setProperty(name, String(value));
+  }
+
+  function applySetting(setting) {
+    const normalized = normalizeSetting(setting);
+    loadGoogleFont(normalized);
+    setCssVar('--mgl-global-font-family', fontStack(normalized));
+    setCssVar('--mgl-body-font-size', normalized.bodySizePx + 'px');
+    setCssVar('--mgl-body-font-weight', normalized.bodyWeight);
+    setCssVar('--mgl-body-line-height', normalized.bodyLineHeight);
+    setCssVar('--mgl-body-letter-spacing', normalized.bodyLetterSpacingEm + 'em');
+    setCssVar('--mgl-heading-font-weight', normalized.headingWeight);
+    setCssVar('--mgl-heading-line-height', normalized.headingLineHeight);
+    setCssVar('--mgl-heading-letter-spacing', normalized.headingLetterSpacingEm + 'em');
+    Object.keys(normalized.headingSizes).forEach(function (tag) {
+      setCssVar('--mgl-' + tag + '-size', normalized.headingSizes[tag] + 'px');
+    });
+    setCssVar('--mgl-ui-font-size', normalized.uiSizePx + 'px');
+    setCssVar('--mgl-ui-font-weight', normalized.uiWeight);
+    setCssVar('--mgl-button-font-size', normalized.buttonSizePx + 'px');
+    setCssVar('--mgl-button-font-weight', normalized.buttonWeight);
+    document.documentElement.dataset.mglFontFamily = normalized.globalFontFamily;
+    draftSetting = normalized;
+    updatePreview(normalized);
+    return normalized;
+  }
+
+  function updatePreview(setting) {
+    const preview = document.querySelector('[data-mgl-font-preview]');
+    if (preview) {
+      preview.style.fontFamily = fontStack(setting);
+      const title = preview.querySelector('strong');
+      const body = preview.querySelector('span');
+      if (title) {
+        title.style.fontWeight = String(setting.headingWeight);
+        title.style.lineHeight = String(setting.headingLineHeight);
+        title.style.letterSpacing = setting.headingLetterSpacingEm + 'em';
+      }
+      if (body) {
+        body.style.fontSize = setting.bodySizePx + 'px';
+        body.style.fontWeight = String(setting.bodyWeight);
+        body.style.lineHeight = String(setting.bodyLineHeight);
+        body.style.letterSpacing = setting.bodyLetterSpacingEm + 'em';
+      }
+    }
+    const source = document.querySelector('[data-mgl-font-source]');
+    if (source) {
+      source.textContent = setting.provider === 'google'
+        ? 'Google Fonts CSS2 · live weights ' + requestedGoogleWeights(setting).join(', ')
+        : 'System font · no external font request';
+    }
+  }
+
+  function readLocalSetting() {
+    try {
+      const raw = localStorage.getItem(localKey) || localStorage.getItem(legacyLocalKey);
+      if (!raw) return null;
+      const stored = JSON.parse(raw);
+      // Upgrade only the original oversized defaults. Custom font choices and
+      // intentionally edited size scales remain untouched.
+      const legacySizes = { h1: 93, h2: 77, h3: 36, h4: 26, h5: 22, h6: 18 };
+      const isLegacyDefault = stored && stored.headingSizes &&
+        Object.keys(legacySizes).every(function (tag) {
+          return Number(stored.headingSizes[tag]) === legacySizes[tag];
+        }) &&
+        Number(stored.headingLineHeight) === 1.04 &&
+        Number(stored.headingLetterSpacingEm) === -0.055;
+      if (isLegacyDefault) {
+        return normalizeSetting(Object.assign({}, stored, {
+          headingSizes: Object.assign({}, defaults.headingSizes),
+          headingLineHeight: defaults.headingLineHeight,
+          headingLetterSpacingEm: defaults.headingLetterSpacingEm
+        }));
+      }
+      return normalizeSetting(stored);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function saveLocalSetting(setting) {
+    const normalized = normalizeSetting(setting);
+    localStorage.setItem(localKey, JSON.stringify(normalized));
+    localStorage.setItem(legacyLocalKey, JSON.stringify(normalized));
+  }
+
+  function setStatus(message, tone) {
+    const status = document.querySelector('[data-mgl-settings-status]');
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.tone = tone || 'ok';
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, function (char) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[char];
+    });
+  }
+
+  function parseGoogleMetadata(text) {
+    const cleaned = text.replace(/^\)\]\}'\s*/, '');
+    const payload = JSON.parse(cleaned);
+    const items = payload.familyMetadataList || payload.items || [];
+    return items.map(function (item) {
+      const rawFamily = item.family || item.familyName || '';
+      const family = sanitizeFamily(rawFamily);
+      if (family === 'Arial' && rawFamily !== 'Arial') return null;
+      const weights = new Set();
+      const variants = Array.isArray(item.variants) ? item.variants : [];
+      variants.forEach(function (variant) {
+        const match = String(variant).match(/([1-9]00)/);
+        if (match) weights.add(Number(match[1]));
+        if (variant === 'regular') weights.add(400);
+      });
+      if (item.fonts && typeof item.fonts === 'object') {
+        Object.keys(item.fonts).forEach(function (key) {
+          const match = key.match(/^([1-9]00)/);
+          if (match) weights.add(Number(match[1]));
+        });
+      }
+      const axes = Array.isArray(item.axes) ? item.axes : [];
+      const weightAxis = axes.find(function (axis) { return axis.tag === 'wght'; });
+      if (weightAxis) {
+        const min = Math.ceil(Number(weightAxis.min || 100) / 100) * 100;
+        const max = Math.floor(Number(weightAxis.max || 900) / 100) * 100;
+        for (let weight = min; weight <= max; weight += 100) weights.add(weight);
+      }
+      if (!weights.size) {
+        weights.add(400);
+        weights.add(700);
+      }
+      return {
+        family: family,
+        provider: 'google',
+        category: item.category || 'google',
+        weights: Array.from(weights).sort(function (a, b) { return a - b; })
+      };
+    }).filter(Boolean);
+  }
+
+  async function loadFontCatalog() {
+    try {
+      const response = await fetch(googleMetadataUrl, { cache: 'force-cache', mode: 'cors' });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const googleFonts = parseGoogleMetadata(await response.text());
+      if (!googleFonts.length) throw new Error('Empty Google Fonts catalog');
+      fontCatalog = systemFonts.concat(googleFonts);
+      catalogMap = new Map(fontCatalog.map(function (font) { return [font.family, font]; }));
+      catalogLoaded = true;
+      renderFontOptions(document.querySelector('[data-mgl-font-search]')?.value || '', draftSetting.globalFontFamily);
+      refreshWeightControls();
+      applySetting(draftSetting);
+      updateCatalogStatus();
+    } catch (error) {
+      catalogLoaded = false;
+      updateCatalogStatus('Google Fonts catalog could not be loaded; common fonts remain available.', 'warning');
+      console.warn('Google Fonts catalog unavailable:', error);
+    }
+  }
+
+  function updateCatalogStatus(message, tone) {
+    const node = document.querySelector('[data-mgl-font-catalog-status]');
+    if (!node) return;
+    node.textContent = message || (fontCatalog.length + ' fonts loaded · search by family name');
+    node.dataset.tone = tone || 'ok';
+  }
+
+  function renderFontOptions(query, selectedFamily) {
+    const select = document.querySelector('[data-mgl-font-select]');
+    if (!select) return;
+    const search = String(query || '').trim().toLowerCase();
+    const matches = fontCatalog.filter(function (font) {
+      return !search || font.family.toLowerCase().includes(search);
+    });
+    const selected = catalogMap.get(selectedFamily);
+    const visible = search ? matches.slice(0, 300) : matches;
+    if (selected && !visible.some(function (font) { return font.family === selected.family; })) visible.unshift(selected);
+    select.innerHTML = visible.map(function (font) {
+      const suffix = font.provider === 'system' ? ' — System' : '';
+      return '<option value="' + escapeHtml(font.family) + '">' + escapeHtml(font.family + suffix) + '</option>';
+    }).join('');
+    if (selectedFamily && Array.from(select.options).some(function (option) { return option.value === selectedFamily; })) {
+      select.value = selectedFamily;
+    }
+    updateCatalogStatus(
+      (catalogLoaded ? fontCatalog.length : fontCatalog.length + '+ fallback') +
+      ' fonts available · ' + matches.length + ' match' + (matches.length === 1 ? '' : 'es')
+    );
+  }
+
+  function weightOptionsForFamily(family) {
+    const font = catalogMap.get(family);
+    return font?.weights?.length ? font.weights : [100,200,300,400,500,600,700,800,900];
+  }
+
+  function fillWeightSelect(select, value, available) {
+    if (!select) return;
+    const weights = available.length ? available : [400,700];
+    select.innerHTML = weights.map(function (weight) {
+      return '<option value="' + weight + '">' + weight + '</option>';
+    }).join('');
+    select.value = String(nearestWeight(Number(value), weights));
+  }
+
+  function refreshWeightControls() {
+    const available = weightOptionsForFamily(draftSetting.globalFontFamily);
+    fillWeightSelect(document.querySelector('[data-mgl-body-weight]'), draftSetting.bodyWeight, available);
+    fillWeightSelect(document.querySelector('[data-mgl-heading-weight]'), draftSetting.headingWeight, available);
+    fillWeightSelect(document.querySelector('[data-mgl-ui-weight]'), draftSetting.uiWeight, available);
+    fillWeightSelect(document.querySelector('[data-mgl-button-weight]'), draftSetting.buttonWeight, available);
+  }
+
+  function syncForm(setting) {
+    const panel = document.getElementById('mgl-dev-settings-panel');
+    if (!panel) return;
+    const search = panel.querySelector('[data-mgl-font-search]');
+    if (search) search.value = '';
+    renderFontOptions('', setting.globalFontFamily);
+    const mapping = {
+      '[data-mgl-body-size]': setting.bodySizePx,
+      '[data-mgl-body-line-height]': setting.bodyLineHeight,
+      '[data-mgl-body-letter-spacing]': setting.bodyLetterSpacingEm,
+      '[data-mgl-heading-line-height]': setting.headingLineHeight,
+      '[data-mgl-heading-letter-spacing]': setting.headingLetterSpacingEm,
+      '[data-mgl-ui-size]': setting.uiSizePx,
+      '[data-mgl-button-size]': setting.buttonSizePx
+    };
+    Object.keys(mapping).forEach(function (selector) {
+      const input = panel.querySelector(selector);
+      if (input) input.value = mapping[selector];
+    });
+    Object.keys(setting.headingSizes).forEach(function (tag) {
+      const input = panel.querySelector('[data-mgl-' + tag + '-size]');
+      if (input) input.value = setting.headingSizes[tag];
+    });
+    refreshWeightControls();
+  }
+
+  function updateDraftFromForm() {
+    const panel = document.getElementById('mgl-dev-settings-panel');
+    if (!panel) return draftSetting;
+    const family = panel.querySelector('[data-mgl-font-select]')?.value || draftSetting.globalFontFamily;
+    const font = catalogMap.get(family);
+    const next = {
+      globalFontFamily: family,
+      provider: font?.provider || (family === 'Arial' ? 'system' : 'google'),
+      bodySizePx: panel.querySelector('[data-mgl-body-size]')?.value,
+      bodyWeight: panel.querySelector('[data-mgl-body-weight]')?.value,
+      bodyLineHeight: panel.querySelector('[data-mgl-body-line-height]')?.value,
+      bodyLetterSpacingEm: panel.querySelector('[data-mgl-body-letter-spacing]')?.value,
+      headingWeight: panel.querySelector('[data-mgl-heading-weight]')?.value,
+      headingLineHeight: panel.querySelector('[data-mgl-heading-line-height]')?.value,
+      headingLetterSpacingEm: panel.querySelector('[data-mgl-heading-letter-spacing]')?.value,
+      headingSizes: {},
+      uiSizePx: panel.querySelector('[data-mgl-ui-size]')?.value,
+      uiWeight: panel.querySelector('[data-mgl-ui-weight]')?.value,
+      buttonSizePx: panel.querySelector('[data-mgl-button-size]')?.value,
+      buttonWeight: panel.querySelector('[data-mgl-button-weight]')?.value
+    };
+    ['h1','h2','h3','h4','h5','h6'].forEach(function (tag) {
+      next.headingSizes[tag] = panel.querySelector('[data-mgl-' + tag + '-size]')?.value;
+    });
+    return applySetting(next);
+  }
+
+  function settingsEqual(a, b) {
+    return JSON.stringify(normalizeSetting(a)) === JSON.stringify(normalizeSetting(b));
+  }
+
+  function buildIssueUrl(setting) {
+    const normalized = normalizeSetting(setting);
+    const payload = JSON.stringify(normalized);
+    const body = [
+      '<!-- MGL_HOME2_SETTINGS_V2', payload, '-->',
+      '### Home 02 typography setting', '',
+      '- Font family: **' + normalized.globalFontFamily + '** (' + normalized.provider + ')',
+      '- Body: **' + normalized.bodySizePx + 'px / ' + normalized.bodyWeight + ' / ' + normalized.bodyLineHeight + '**',
+      '- Headings: **weight ' + normalized.headingWeight + ' / line-height ' + normalized.headingLineHeight + '**',
+      '- Navigation/UI: **' + normalized.uiSizePx + 'px / ' + normalized.uiWeight + '**',
+      '- Buttons: **' + normalized.buttonSizePx + 'px / ' + normalized.buttonWeight + '**', '',
+      'This issue was generated by the Meta Grey Label typography settings panel.',
+      'This request is scoped to Home 02 and does not change the global typography.', '',
+      'Submit this issue for a Home 02 codebase update.'
+    ].join('\n');
+    const url = new URL(repoIssueUrl);
+    url.searchParams.set('title', '[Home 02 Settings] Typography: ' + normalized.globalFontFamily);
+    url.searchParams.set('body', body);
+    return url.href;
+  }
+
+  function closePanel(restoreFocus) {
+    document.documentElement.classList.remove('mgl-settings-open');
+    const panel = document.getElementById('mgl-dev-settings-panel');
+    const toggle = document.getElementById('mgl-dev-settings-toggle');
+    panel?.setAttribute('aria-hidden', 'true');
+    toggle?.setAttribute('aria-expanded', 'false');
+    if (restoreFocus !== false) toggle?.focus({ preventScroll: true });
+  }
+
+  function openPanel() {
+    document.documentElement.classList.add('mgl-settings-open');
+    const panel = document.getElementById('mgl-dev-settings-panel');
+    const toggle = document.getElementById('mgl-dev-settings-toggle');
+    panel?.setAttribute('aria-hidden', 'false');
+    toggle?.setAttribute('aria-expanded', 'true');
+    panel?.querySelector('[data-mgl-font-search]')?.focus({ preventScroll: true });
+  }
+
+  function numberField(label, attr, min, max, step, suffix) {
+    return [
+      '<label class="mgl-dev-control">', '<span>' + label + '</span>', '<span class="mgl-dev-control-input">',
+      '<input type="number" ' + attr + ' min="' + min + '" max="' + max + '" step="' + step + '">',
+      '<small>' + suffix + '</small>', '</span>', '</label>'
+    ].join('');
+  }
+
+  function createUi(activeSetting) {
+    if (document.getElementById('mgl-dev-settings-toggle')) return;
+    const toggle = document.createElement('button');
+    toggle.id = 'mgl-dev-settings-toggle';
+    toggle.className = 'mgl-dev-settings-toggle';
+    toggle.type = 'button';
+    toggle.setAttribute('aria-label', 'Open typography settings');
+    toggle.setAttribute('aria-controls', 'mgl-dev-settings-panel');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="M19.2 13.2a7.6 7.6 0 0 0 0-2.4l2-1.5-2-3.5-2.4 1a8.6 8.6 0 0 0-2.1-1.2L14.4 3h-4.1L10 5.6a8.6 8.6 0 0 0-2.1 1.2l-2.4-1-2 3.5 2 1.5a7.6 7.6 0 0 0 0 2.4l-2 1.5 2 3.5 2.4-1a8.6 8.6 0 0 0 2.1 1.2l.3 2.6h4.1l.3-2.6a8.6 8.6 0 0 0 2.1-1.2l2.4 1 2-3.5-2-1.5Z"/></svg>';
+
+    const panel = document.createElement('aside');
+    panel.id = 'mgl-dev-settings-panel';
+    panel.className = 'mgl-dev-settings-panel';
+    panel.setAttribute('aria-label', 'Typography settings');
+    panel.setAttribute('aria-hidden', 'true');
+    panel.innerHTML = [
+      '<div class="mgl-dev-settings-head"><div><span class="mgl-dev-settings-kicker">Developer controls</span><h2 class="mgl-dev-settings-title">Typography Settings</h2></div><button class="mgl-dev-settings-close" type="button" aria-label="Close settings" data-mgl-settings-close>×</button></div>',
+      '<div class="mgl-dev-settings-body">',
+      '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Font family</h3><label class="mgl-dev-settings-label" for="mgl-font-search">Search Google Fonts</label><input class="mgl-dev-settings-search" id="mgl-font-search" type="search" autocomplete="off" placeholder="Search font family…" data-mgl-font-search><select class="mgl-dev-settings-select" id="mgl-global-font-select" aria-label="Font family results" data-mgl-font-select></select><div class="mgl-dev-settings-meta"><span class="mgl-dev-settings-dot" aria-hidden="true"></span><span data-mgl-font-catalog-status>Loading Google Fonts catalog…</span></div><div class="mgl-dev-settings-meta"><span data-mgl-font-source></span></div></section>',
+      '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Body text</h3><div class="mgl-dev-settings-grid">',
+      numberField('Size','data-mgl-body-size','12','28','0.5','px'), '<label class="mgl-dev-control"><span>Weight</span><select data-mgl-body-weight></select></label>', numberField('Line height','data-mgl-body-line-height','1.1','2.2','0.05','×'), numberField('Letter spacing','data-mgl-body-letter-spacing','-0.08','0.2','0.005','em'), '</div></section>',
+      '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Headings</h3><div class="mgl-dev-settings-grid"><label class="mgl-dev-control"><span>Weight</span><select data-mgl-heading-weight></select></label>', numberField('Line height','data-mgl-heading-line-height','0.9','1.6','0.01','×'), numberField('Letter spacing','data-mgl-heading-letter-spacing','-0.12','0.12','0.005','em'), '</div><div class="mgl-dev-heading-grid">',
+      numberField('H1','data-mgl-h1-size','28','120','1','px'), numberField('H2','data-mgl-h2-size','26','100','1','px'), numberField('H3','data-mgl-h3-size','20','72','1','px'), numberField('H4','data-mgl-h4-size','18','56','1','px'), numberField('H5','data-mgl-h5-size','16','48','1','px'), numberField('H6','data-mgl-h6-size','14','40','1','px'), '</div></section>',
+      '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Navigation & buttons</h3><div class="mgl-dev-settings-grid">', numberField('UI size','data-mgl-ui-size','11','22','0.5','px'), '<label class="mgl-dev-control"><span>UI weight</span><select data-mgl-ui-weight></select></label>', numberField('Button size','data-mgl-button-size','11','22','0.5','px'), '<label class="mgl-dev-control"><span>Button weight</span><select data-mgl-button-weight></select></label></div></section>',
+      '<section class="mgl-dev-settings-section"><h3 class="mgl-dev-settings-section-title">Live preview</h3><div class="mgl-dev-font-preview" data-mgl-font-preview><strong>Meta Grey Label</strong><span>Brokerage technology, liquidity, CRM and platform infrastructure.</span></div><div class="mgl-dev-settings-actions"><button class="mgl-dev-settings-button" type="button" data-mgl-save-device>Save on device</button><button class="mgl-dev-settings-button" type="button" data-mgl-reset-font>Reset</button><button class="mgl-dev-settings-button mgl-dev-settings-button--primary mgl-dev-settings-button--wide" type="button" data-mgl-save-codebase>Save to codebase → GitHub</button></div><p class="mgl-dev-settings-note">Changes preview instantly. Device save uses localStorage. Codebase save opens an owner-only GitHub request; no GitHub token is exposed in the website.</p><p class="mgl-dev-settings-status" role="status" aria-live="polite" data-mgl-settings-status></p></section>',
+      '</div><div class="mgl-dev-settings-footer">Google families are loaded on demand through the Google Fonts CSS2 service.</div>'
+    ].join('');
+
+    document.body.append(toggle, panel);
+    syncForm(activeSetting);
+    applySetting(activeSetting);
+    toggle.addEventListener('click', openPanel);
+    panel.querySelector('[data-mgl-settings-close]')?.addEventListener('click', function () { closePanel(); });
+
+    const search = panel.querySelector('[data-mgl-font-search]');
+    const select = panel.querySelector('[data-mgl-font-select]');
+    search?.addEventListener('input', function () { renderFontOptions(search.value, select?.value || draftSetting.globalFontFamily); });
+    search?.addEventListener('keydown', function (event) { if (event.key === 'ArrowDown') { event.preventDefault(); select?.focus(); } });
+    select?.addEventListener('change', function () {
+      if (search) search.value = select.value;
+      draftSetting.globalFontFamily = select.value;
+      draftSetting.provider = catalogMap.get(select.value)?.provider || 'google';
+      refreshWeightControls();
+      updateDraftFromForm();
+      setStatus('Font preview applied. Adjust typography values or save.');
+    });
+
+    panel.querySelectorAll('input[type="number"], select[data-mgl-body-weight], select[data-mgl-heading-weight], select[data-mgl-ui-weight], select[data-mgl-button-weight]').forEach(function (control) {
+      control.addEventListener('input', function () { updateDraftFromForm(); setStatus('Preview updated.'); });
+      control.addEventListener('change', function () { updateDraftFromForm(); setStatus('Preview updated.'); });
+    });
+
+    panel.querySelector('[data-mgl-save-device]')?.addEventListener('click', function () { const setting = updateDraftFromForm(); saveLocalSetting(setting); setStatus('Typography saved on this device.'); });
+    panel.querySelector('[data-mgl-reset-font]')?.addEventListener('click', function () { localStorage.removeItem(localKey); localStorage.removeItem(legacyLocalKey); draftSetting = normalizeSetting(projectSetting); syncForm(draftSetting); applySetting(draftSetting); setStatus('Reset to current codebase typography.'); });
+    panel.querySelector('[data-mgl-save-codebase]')?.addEventListener('click', function () {
+      const setting = updateDraftFromForm();
+      saveLocalSetting(setting);
+      if (settingsEqual(setting, projectSetting)) { setStatus('These values already match the codebase.'); return; }
+      const popup = window.open(buildIssueUrl(setting), '_blank', 'noopener,noreferrer');
+      if (!popup) { setStatus('Popup blocked. Allow popups and try again.', 'error'); return; }
+      setStatus('GitHub opened. Submit the prefilled Home 02 request for review.');
+    });
+    document.addEventListener('keydown', function (event) { if (event.key === 'Escape' && document.documentElement.classList.contains('mgl-settings-open')) closePanel(); });
+    loadFontCatalog();
+  }
+
+  async function init() {
+    projectSetting = normalizeSetting({"globalFontFamily":"Inter","provider":"google","fallback":"Arial, Helvetica, sans-serif","bodySizePx":16,"bodyWeight":400,"bodyLineHeight":1.65,"bodyLetterSpacingEm":0,"headingWeight":600,"headingLineHeight":1.16,"headingLetterSpacingEm":-0.035,"headingSizes":{"h1":60,"h2":40,"h3":26,"h4":22,"h5":19,"h6":16},"uiSizePx":14,"uiWeight":600,"buttonSizePx":14,"buttonWeight":800});
+    const localSetting = readLocalSetting();
+    const active = applySetting(localSetting || projectSetting);
+    createUi(active);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+})();
+
+    (function initialiseHome2Navigation() {
+const mglSiteRoot = siteRoot;
+// =================== preloader js  ================== //
+function hidePreloader() {
+    var preloader = document.querySelector('.preloader');
+    if (!preloader) return;
+    preloader.style.transition = 'opacity 0.42s cubic-bezier(.22,1,.36,1)';
+    // Hide the preloader 1 second (1000 milliseconds) after DOM content is loaded
+    setTimeout(function () {
+        preloader.style.opacity = '0';
+        setTimeout(function () {
+            preloader.style.display = 'none';
+        }, 500); // .5 seconds for the fade-out transition
+    }, 1000); // 1 second delay before starting the fade-out effect
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hidePreloader);
+} else {
+    hidePreloader();
+}
+// =================== preloader js end ================== //
+
+
+// =================== light and dark start ================== //
+
+const colorSwitcher = document.querySelector('.mgl-site-header #btnSwitch') || document.getElementById('btnSwitch');
+
+
+switchThemeByUrl();
+const savedTheme = localStorage.getItem('theme');
+updateThemeColor(savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark');
+
+
+colorSwitcher?.addEventListener('click', () => {
+
+    const theme = localStorage.getItem('theme');
+
+    if (theme && theme === 'dark') {
+
+        updateThemeColor('light');
+
+    } else {
+        updateThemeColor('dark');
+
+    }
+
+    refreshScrollEffectsAfterLayout();
+});
+
+function updateThemeColor(themeMode = 'dark') {
+    themeMode = themeMode === 'dark' ? 'dark' : 'light';
+
+    document.documentElement.setAttribute('data-bs-theme', themeMode);
+    localStorage.setItem('theme', themeMode)
+
+    if (themeMode === 'dark') {
+        colorSwitcher?.classList.add('dark-switcher');
+
+    } else {
+        colorSwitcher?.classList.remove('dark-switcher');
+    }
+
+    changeImage(themeMode);
+    const assetRoot = new URL('assets/media/branding/', mglSiteRoot).href;
+    const headerLogo = document.querySelector('img[data-brand-logo]');
+    const footerLogo = document.querySelector('img[data-brand-footer]');
+    const version = '?v=mgl-brand-v3';
+    if (headerLogo) headerLogo.src = assetRoot + (themeMode === 'dark' ? 'logo-dark.svg' : 'logo-light.svg') + version;
+    // The footer background remains dark in both themes; keep its wordmark high-contrast.
+    if (footerLogo) footerLogo.src = assetRoot + 'logo-dark.svg' + version;
+    const favicon = document.querySelector('#site-favicon') || document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+    const pngIcon = document.querySelector('link[rel="icon"][sizes="32x32"]');
+    const largeIcon = document.querySelector('#site-icon-large');
+    const appleIcon = document.querySelector('#site-apple-icon') || document.querySelector('link[rel="apple-touch-icon"]');
+    if (favicon) favicon.href = assetRoot + (themeMode === 'dark' ? 'favicon-dark.svg' : 'favicon-light.svg') + version;
+    if (pngIcon) pngIcon.href = assetRoot + 'favicon-32.png' + version;
+    if (largeIcon) largeIcon.href = assetRoot + 'icon-192.png' + version;
+    if (appleIcon) appleIcon.href = assetRoot + 'apple-touch-icon.png' + version;
+    colorSwitcher?.setAttribute('aria-label', themeMode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    colorSwitcher?.setAttribute('aria-pressed', String(themeMode === 'dark'));
+
+}
+
+
+
+function switchThemeByUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const theme = urlParams.get('theme');
+
+    if (theme) {
+        localStorage.setItem("theme", theme);
+    }
+
+}
+
+// =================== light and dark end ================== //
+
+
+
+
+// =================== Change image path start ================== //
+
+
+function changeImage(themeMode = 'light') {
+    const icon = document.querySelector('#btnSwitch img');
+    if (icon) {
+        icon.src = new URL(themeMode === 'dark' ? 'assets/media/images/icon/sun.svg' : 'assets/media/images/icon/moon.svg', mglSiteRoot).href;
+    }
+
+    // Do not fabricate -dark asset paths. Only swap when a verified alternate is configured.
+    document.querySelectorAll('img[data-dark-src]').forEach(image => {
+        if (!image.dataset.lightSrc) image.dataset.lightSrc = image.getAttribute('src');
+        const target = themeMode === 'dark' ? image.dataset.darkSrc : image.dataset.lightSrc;
+        if (target && image.getAttribute('src') !== target) image.setAttribute('src', target);
+    });
+}
+
+// =================== Change image path end ================== //
+
+
+
+
+
+
+
+
+
+// =================== header js start here ===================
+
+const siteHeader = document.querySelector('[data-site-header]');
+const primaryNav = document.querySelector('.mgl-primary-nav');
+const navToggle = document.querySelector('.mgl-menu-toggle');
+const navDisclosureButtons = Array.from(document.querySelectorAll('[data-nav-disclosure]'));
+const mobileNavQuery = window.matchMedia('(max-width: 1199.98px)');
+const desktopTouchQuery = window.matchMedia('(min-width: 1200px) and (hover: none), (min-width: 1200px) and (pointer: coarse)');
+
+function closeHeaderSubmenus(exceptItem = null) {
+    document.querySelectorAll('.mgl-nav-item.is-open').forEach(function (item) {
+        if (item === exceptItem) return;
+        item.classList.remove('is-open');
+        const button = item.querySelector(':scope > .mgl-nav-trigger [data-nav-disclosure]');
+        if (button) button.setAttribute('aria-expanded', 'false');
+    });
+}
+
+function setMobileNavigation(open, restoreFocus = false) {
+    if (!primaryNav || !navToggle) return;
+
+    const shouldOpen = Boolean(open && mobileNavQuery.matches);
+    primaryNav.classList.toggle('is-open', shouldOpen);
+    navToggle.classList.toggle('is-active', shouldOpen);
+    navToggle.setAttribute('aria-expanded', String(shouldOpen));
+    navToggle.setAttribute('aria-label', shouldOpen ? 'Close navigation' : 'Open navigation');
+    document.documentElement.classList.toggle('mgl-nav-open', shouldOpen);
+
+    if (!shouldOpen) {
+        closeHeaderSubmenus();
+        if (restoreFocus) navToggle.focus({ preventScroll: true });
+    }
+}
+
+navToggle?.addEventListener('click', function () {
+    setMobileNavigation(!primaryNav?.classList.contains('is-open'));
+});
+
+navDisclosureButtons.forEach(function (button) {
+    button.addEventListener('click', function (event) {
+        if (!mobileNavQuery.matches) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const item = button.closest('.mgl-nav-item--has-panel');
+        if (!item) return;
+
+        const willOpen = !item.classList.contains('is-open');
+        closeHeaderSubmenus(item);
+        item.classList.toggle('is-open', willOpen);
+        button.setAttribute('aria-expanded', String(willOpen));
+    });
+});
+
+document.querySelectorAll('.mgl-nav-item--has-panel > .mgl-nav-trigger > .mgl-nav-link').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+        if (!desktopTouchQuery.matches) return;
+
+        const item = link.closest('.mgl-nav-item--has-panel');
+        if (!item || item.classList.contains('is-touch-open')) return;
+
+        event.preventDefault();
+        document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (openItem) {
+            if (openItem !== item) openItem.classList.remove('is-touch-open');
+        });
+        item.classList.add('is-touch-open');
+    });
+});
+
+primaryNav?.addEventListener('click', function (event) {
+    if (!mobileNavQuery.matches) return;
+    const link = event.target.closest('a[href]');
+    if (link) setMobileNavigation(false);
+});
+
+document.addEventListener('click', function (event) {
+    if (mobileNavQuery.matches) {
+        if (!siteHeader?.contains(event.target) && primaryNav?.classList.contains('is-open')) {
+            setMobileNavigation(false);
+        }
+        return;
+    }
+
+    if (!siteHeader?.contains(event.target)) {
+        document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (item) {
+            item.classList.remove('is-touch-open');
+        });
+    }
+});
+
+document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape') return;
+
+    if (primaryNav?.classList.contains('is-open')) {
+        setMobileNavigation(false, true);
+        return;
+    }
+
+    closeHeaderSubmenus();
+    document.querySelectorAll('.mgl-nav-item.is-touch-open').forEach(function (item) {
+        item.classList.remove('is-touch-open');
+    });
+});
+
+mobileNavQuery.addEventListener('change', function (event) {
+    if (!event.matches) setMobileNavigation(false);
+});
+
+function updateHeaderScrollState() {
+    if (!siteHeader) return;
+    siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
+}
+
+updateHeaderScrollState();
+window.addEventListener('scroll', updateHeaderScrollState, { passive: true });
+
+// =================== header js end here =================== //
+
+
+
+
+// Keep reveal effects, but initialise after the shared layout is loaded and
+// refresh after image layout shifts. This prevents sections from remaining
+// invisible or offset during a fast scroll.
+function initialiseScrollEffects() {
+    if (!window.AOS) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const compactViewport = window.matchMedia('(max-width: 767.98px)').matches;
+
+    if (reduceMotion || compactViewport) {
+        document.querySelectorAll('[data-aos]').forEach(function (element) {
+            element.removeAttribute('data-aos');
+            element.removeAttribute('data-aos-duration');
+            element.removeAttribute('data-aos-delay');
+        });
+        return;
+    }
+
+    // Prevent long stagger chains from making the interface feel slow.
+    document.querySelectorAll('[data-aos-duration]').forEach(function (element) {
+        var duration = Number(element.getAttribute('data-aos-duration'));
+        if (!Number.isFinite(duration) || duration > 780) {
+            element.setAttribute('data-aos-duration', '680');
+        }
+    });
+
+    AOS.init({
+        once: true,
+        mirror: false,
+        offset: 48,
+        duration: 680,
+        easing: 'ease-out-cubic',
+        anchorPlacement: 'top-bottom'
+    });
+
+    requestAnimationFrame(function () {
+        AOS.refreshHard();
+    });
+
+    window.addEventListener('load', function () {
+        AOS.refreshHard();
+    }, { once: true });
+}
+initialiseScrollEffects();
+
+
+
+
+// =================== custom trk slider js here =================== //
+
+// Meta Grey Label's capability links are ordinary accessible links.
+
+// component slider here
+const Partner = window.Swiper && new window.Swiper('.partner__slider', {
+    spaceBetween: 24,
+    grabCursor: true,
+    loop: true,
+    slidesPerView: 1.25,
+    breakpoints: {
+        576: { slidesPerView: 2, spaceBetween: 18 },
+        768: { slidesPerView: 3, spaceBetween: 20 },
+        992: { slidesPerView: 4, spaceBetween: 20 },
+        1200: { slidesPerView: 5, spaceBetween: 24 },
+    },
+    autoplay: {
+        delay: 1,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
+    speed: 3200,
+});
+
+
+// blog  slider here
+const blog = window.Swiper && new window.Swiper('.blog__slider', {
+    spaceBetween: 24,
+    grabCursor: true,
+    loop: true,
+    slidesPerView: 1,
+    breakpoints: {
+        576: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 2,
+        },
+        992: {
+            slidesPerView: 3,
+        },
+        1200: {
+            slidesPerView: 3,
+        }
+    },
+
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
+    speed: 720,
+    navigation: {
+        nextEl: ".blog__slider-next",
+        prevEl: ".blog__slider-prev",
+    },
+});
+
+// testimonial slider
+
+const testimonial = window.Swiper && new window.Swiper('.testimonial__slider', {
+    spaceBetween: 24,
+    grabCursor: true,
+    loop: true,
+    slidesPerView: 1,
+    breakpoints: {
+        576: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 2,
+        },
+        992: {
+            slidesPerView: 2,
+        },
+        1200: {
+            slidesPerView: 2,
+            spaceBetween: 25,
+        },
+    },
+
+    autoplay: {
+        delay: 5500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
+    speed: 720,
+
+    navigation: {
+        nextEl: ".testimonial__slider-next",
+        prevEl: ".testimonial__slider-prev",
+    },
+});
+
+
+// roadmap slider 
+const roadmapSlider = window.Swiper && new window.Swiper('.roadmap__slider', {
+
+    grabCursor: true,
+    // loop: true,
+    slidesPerView: 1,
+    breakpoints: {
+        576: {
+            slidesPerView: 1,
+            spaceBetween: 15,
+        },
+        768: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+        },
+        992: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+        },
+        1200: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+        },
+        1400: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+        }
+
+    },
+
+    autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+    },
+    speed: 720,
+
+});
+
+// =================== custom trk slider end here =================== //
+
+
+
+
+// =================== homepage lifecycle tabs =================== //
+const lifecycleTabs = Array.from(document.querySelectorAll('[data-lifecycle-step]'));
+const lifecyclePanels = Array.from(document.querySelectorAll('[data-lifecycle-panel]'));
+
+function activateLifecycleTab(tab, moveFocus = false) {
+    if (!tab) return;
+    const key = tab.getAttribute('data-lifecycle-step');
+
+    lifecycleTabs.forEach(function (item) {
+        const active = item === tab;
+        item.setAttribute('aria-selected', String(active));
+        item.tabIndex = active ? 0 : -1;
+    });
+
+    lifecyclePanels.forEach(function (panel) {
+        panel.hidden = panel.getAttribute('data-lifecycle-panel') !== key;
+    });
+
+    if (moveFocus) tab.focus({ preventScroll: true });
+}
+
+lifecycleTabs.forEach(function (tab, index) {
+    tab.addEventListener('click', function () {
+        activateLifecycleTab(tab);
+    });
+
+    tab.addEventListener('keydown', function (event) {
+        if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+
+        let nextIndex = index;
+        if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = lifecycleTabs.length - 1;
+        else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % lifecycleTabs.length;
+        else nextIndex = (index - 1 + lifecycleTabs.length) % lifecycleTabs.length;
+
+        activateLifecycleTab(lifecycleTabs[nextIndex], true);
+    });
+});
+
+// =================== homepage lifecycle tabs end =================== //
+
+
+// The homepage form navigates between launch models; it does not send lead data.
+document.querySelector('.cta-form.form-subscribe')?.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const preference = (this.querySelector('input')?.value || '').trim().toLowerCase();
+  const selected = preference.includes('white') ? 0 : preference.includes('grey') || preference.includes('gray') ? 1 : preference.includes('turnkey') ? 2 : null;
+  if (selected !== null) {
+    document.querySelectorAll('#models .pricing__item-inner').forEach((card, index) => card.classList.toggle('active', index === selected));
+  }
+  document.querySelector('#models')?.scrollIntoView({
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    block: 'start'
+  });
+});
+
+
+// =================== contact qualification workflow =================== //
+const enquiryForm = document.getElementById('mgl-enquiry-form');
+
+function enquiryValue(form, name) {
+    const field = form.elements.namedItem(name);
+    return field ? String(field.value || '').trim() : '';
+}
+
+function buildEnquirySummary(form) {
+    const lines = [
+        'Meta Grey Label — Brokerage Project Brief',
+        '',
+        'Name: ' + enquiryValue(form, 'name'),
+        'Company / Brand: ' + (enquiryValue(form, 'company') || 'Not provided'),
+        'Contact: ' + enquiryValue(form, 'contact'),
+        'Target Market: ' + (enquiryValue(form, 'market') || 'Not provided'),
+        '',
+        'Launch Model: ' + enquiryValue(form, 'model'),
+        'Trading Platform: ' + enquiryValue(form, 'platform'),
+        'Execution / Liquidity: ' + (enquiryValue(form, 'execution') || 'Not provided'),
+        'Client Operations: ' + (enquiryValue(form, 'operations') || 'Not provided'),
+        '',
+        'Launch Window: ' + (enquiryValue(form, 'timeline') || 'Not provided'),
+        'Current Status: ' + (enquiryValue(form, 'status') || 'Not provided'),
+        '',
+        'Additional Requirements:',
+        enquiryValue(form, 'message') || 'None provided'
+    ];
+    return lines.join('\n');
+}
+
+function validateEnquiryForm(form) {
+    let valid = true;
+    form.querySelectorAll('[required]').forEach(function (field) {
+        const filled = String(field.value || '').trim().length > 0;
+        field.setAttribute('aria-invalid', String(!filled));
+        if (!filled) valid = false;
+    });
+    return valid;
+}
+
+if (enquiryForm) {
+    const output = document.getElementById('mgl-enquiry-output');
+    const summary = document.getElementById('mgl-enquiry-summary');
+    const status = document.getElementById('mgl-enquiry-status');
+    const copyButton = document.getElementById('mgl-copy-enquiry');
+    const shareLink = document.getElementById('mgl-share-enquiry');
+
+    enquiryForm.querySelectorAll('input, select, textarea').forEach(function (field) {
+        field.addEventListener('input', function () {
+            field.removeAttribute('aria-invalid');
+        });
+        field.addEventListener('change', function () {
+            field.removeAttribute('aria-invalid');
+        });
+    });
+
+    enquiryForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        if (!validateEnquiryForm(enquiryForm)) {
+            const firstInvalid = enquiryForm.querySelector('[aria-invalid="true"]');
+            if (status) status.textContent = 'Please complete the required fields first.';
+            firstInvalid?.focus();
+            return;
+        }
+
+        const prepared = buildEnquirySummary(enquiryForm);
+        if (summary) summary.textContent = prepared;
+        if (shareLink) {
+            const shareText = prepared + '\n\nProject page: ' + window.location.href;
+            shareLink.href = 'https://wa.me/447988028424?text=' + encodeURIComponent(shareText);
+        }
+        if (output) {
+            output.hidden = false;
+            output.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                block: 'start'
+            });
+        }
+        if (status) status.textContent = 'Project brief prepared. No data has been transmitted.';
+    });
+
+    copyButton?.addEventListener('click', async function () {
+        const text = summary?.textContent || '';
+        if (!text) return;
+
+        try {
+            await navigator.clipboard.writeText(text);
+            copyButton.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i> Copied';
+            window.setTimeout(function () {
+                copyButton.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i> Copy enquiry';
+            }, 1800);
+        } catch (error) {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            if (summary) {
+                range.selectNodeContents(summary);
+                selection?.removeAllRanges();
+                selection?.addRange(range);
+            }
+            if (status) status.textContent = 'Select the prepared brief and copy it manually.';
+        }
+    });
+}
+
+// =================== contact qualification workflow end =================== //
+
+
+// =================== scroll js start here =================== //
+
+const scrollToTop = document.querySelector('.scrollToTop');
+
+function updateScrollToTopVisibility() {
+    if (!scrollToTop) return;
+
+    const visible = window.scrollY > 300;
+    scrollToTop.classList.toggle('is-visible', visible);
+    scrollToTop.setAttribute('aria-hidden', String(!visible));
+    scrollToTop.tabIndex = visible ? 0 : -1;
+}
+
+if (scrollToTop) {
+    updateScrollToTopVisibility();
+
+    window.addEventListener('scroll', updateScrollToTopVisibility, { passive: true });
+
+    scrollToTop.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: reduceMotion ? 'auto' : 'smooth'
+        });
+    });
+}
+
+// =================== scroll js end here =================== //
+
+
+
+// =================== count start here =================== //
+if (window.PureCounter) new window.PureCounter();
+// =================== count end here =================== //
+
+
+
+
+// =================== rtl icon direction chnage start here =================== //
+// Get the HTML tag
+const htmlTag = document.querySelector('html');
+
+// Function to toggle the icon directions
+function toggleAllIconsDirection() {
+    const icons = document.querySelectorAll('i');
+
+    icons.forEach((icon) => {
+        if (icon.classList.contains("fa-arrow-right") || icon.classList.contains("fa-angle-right")) {
+            icon.classList.remove("fa-arrow-right", "fa-angle-right");
+            icon.classList.add("fa-arrow-left", "fa-angle-left");
+        } else if (icon.classList.contains("fa-arrow-left") || icon.classList.contains("fa-angle-left")) {
+            icon.classList.remove("fa-arrow-left", "fa-angle-left");
+            icon.classList.add("fa-arrow-right", "fa-angle-right");
+        }
+    });
+}
+
+// Check if the HTML tag has the dir="rtl" attribute
+if (htmlTag.getAttribute('dir') === 'rtl') {
+    toggleAllIconsDirection();
+}
+// =================== rtl icon direction chnage end here =================== //
+
+// Keep reveal animations enabled while recalculating their positions after any layout change.
+var mglAosRefreshFrame;
+function refreshScrollEffectsAfterLayout() {
+    if (!window.AOS) return;
+    window.cancelAnimationFrame(mglAosRefreshFrame);
+    mglAosRefreshFrame = window.requestAnimationFrame(function () {
+        AOS.refreshHard();
+    });
+}
+
+document.querySelectorAll('img').forEach(function (image) {
+    if (!image.complete) image.addEventListener('load', refreshScrollEffectsAfterLayout, { once: true });
+});
+window.addEventListener('resize', refreshScrollEffectsAfterLayout, { passive: true });
+window.addEventListener('orientationchange', refreshScrollEffectsAfterLayout, { passive: true });
+document.addEventListener('shown.bs.collapse', refreshScrollEffectsAfterLayout);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshScrollEffectsAfterLayout);
+
+// All in-page navigation accounts for the floating header rather than placing
+// the target title beneath it.
+document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+    var target = document.querySelector(hash);
+    if (!target) return;
+
+    link.addEventListener('click', function (event) {
+        event.preventDefault();
+        var header = document.querySelector('.mgl-site-header');
+        var offset = (header ? header.getBoundingClientRect().height : 78) + 40;
+        var targetTop = window.scrollY + target.getBoundingClientRect().top - offset;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        window.history.replaceState(null, '', hash);
+    });
+});
+
+
+    })();
+  } catch (error) {
+    console.error('Failed to load shared header/footer:', error);
+    // Do not leave the entire page covered by the preloader on a network error.
+    const preloader = document.querySelector('.preloader');
+    if (preloader) preloader.style.display = 'none';
+  }
+})();

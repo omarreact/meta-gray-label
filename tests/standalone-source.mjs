@@ -60,6 +60,15 @@ for(const match of css.matchAll(/url\(\s*(["']?)(.*?)\1\s*\)/gi)){
 
 for(const file of ['index.html','home-2/index.html',...innerPages]){
   const html=fs.readFileSync(file,'utf8');
+  if(file==='home-2/index.html'){
+    assert.deepEqual(fs.readdirSync('home-2').sort(),['index.html','script.js','style.css'],'Home 02 must contain only three files');
+    assert.deepEqual([...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/gi)].map(m=>m[1]),['script.js'],'Home 02 script isolation');
+    assert.deepEqual([...html.matchAll(/<link\b[^>]*\bhref=["']([^"']+\.css)["'][^>]*>/gi)].map(m=>m[1]),['style.css'],'Home 02 CSS isolation');
+    const local=fs.readFileSync('home-2/script.js','utf8');
+    assert(local.includes('function loadHome2Layout()')&&local.includes('mgl-home2-dev-typography-v2'),'Missing local navigation or typography runtime');
+    assert(!/assets\/(?:js|css)\//.test(local.slice(local.indexOf('/* ===== Home 02 independent navigation'))),'Home 02 must not load global JS/CSS');
+    continue;
+  }
   const hasLoader=html.includes('assets/js/includes.js')||html.includes('../assets/js/includes.js');
   const hasBehavior=html.includes('assets/js/custom.js')||html.includes('../assets/js/custom.js');
   assert(hasLoader||hasBehavior,'Missing JavaScript behavior: '+file);
