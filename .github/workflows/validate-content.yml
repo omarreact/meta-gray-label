@@ -18,60 +18,9 @@ jobs:
       - name: JavaScript syntax
         run: |
           for file in assets/js/*.js; do node --check "$file"; done
+          node --check home-2/script.js
       - name: Verify all inner pages and local references
-        run: |
-          node <<'NODE'
-          const fs=require('node:fs'),path=require('node:path').posix,assert=require('node:assert/strict');
-          const pages=fs.readdirSync('.', {withFileTypes:true}).filter(e=>e.isDirectory()&&fs.existsSync(e.name+'/index.html')).map(e=>e.name+'/index.html');
-          assert.equal(pages.length,51,'Expected 51 post-name permalink pages');
-          for(const file of ['index.html','404.html','assets/js/includes.js','assets/js/custom.js',
-            'assets/js/site-settings.json','assets/css/style.css','assets/media/branding/favicon.svg',
-            'site-manifest.json','design-tokens.json','header.html','footer.html']){
-            assert(fs.existsSync(file),'Missing '+file);
-          }
-          const manifest=JSON.parse(fs.readFileSync('site-manifest.json','utf8'));
-          const tokens=JSON.parse(fs.readFileSync('design-tokens.json','utf8'));
-          assert.equal(manifest.version,1,'Unsupported PIN import manifest version');
-          assert.equal(manifest.pages.length,53,'Expected 53 importable website pages (404 is a theme template, not a Page)');
-          assert.equal(new Set(manifest.pages.map(p=>p.path)).size,manifest.pages.length,'Duplicate manifest routes');
-          assert.equal(new Set(manifest.pages.map(p=>p.file)).size,manifest.pages.length,'Duplicate manifest source files');
-          assert(!manifest.pages.some(p=>p.file==='404.html'),'404.html must not import as a WordPress Page');
-          for(const entry of manifest.pages){
-            assert(entry.path&&entry.file&&entry.title,'Incomplete manifest page entry: '+JSON.stringify(entry));
-            assert(fs.existsSync(entry.file)&&fs.statSync(entry.file).isFile(),'Manifest source missing: '+entry.file);
-          }
-          for(const fragment of [manifest.header?.file,manifest.footer?.file]){
-            assert(fragment&&fs.existsSync(fragment)&&fs.statSync(fragment).isFile(),'Missing manifest template fragment: '+fragment);
-          }
-          assert(tokens.colors&&tokens.typography&&tokens.layout,'Incomplete PIN design tokens');
-
-          let checked=0;
-          for(const file of ['index.html',...pages]){
-            const s=fs.readFileSync(file,'utf8');
-            assert(/<main\b/i.test(s),'Missing main: '+file);
-            assert(/<title>/i.test(s),'Missing title: '+file);
-            for(const match of s.matchAll(/\b(?:href|src|poster)=(["'])(.*?)\1/gi)){
-              const value=match[2].trim();
-              if(!value||value[0]==='#'||/^(?:https?:|data:|mailto:|tel:|javascript:|\/\/)/i.test(value))continue;
-              const local=value.split(/[?#]/)[0];
-              if(!local)continue;
-              const resolved=path.normalize(path.join(path.dirname(file),local));
-              const target=local.endsWith('/')?path.join(resolved,'index.html'):resolved;
-              assert(fs.existsSync(target)&&fs.statSync(target).isFile(),
-                'Broken '+file+': '+value+' -> '+target);
-              checked++;
-            }
-            assert(!s.includes('assets/images/'),'Old media ref: '+file);
-            assert(!s.includes('assets/inner-pages/'),'Legacy route remains: '+file);
-            if(file!=='index.html'){
-              const slug=file.split('/')[0];
-              const canonical='https://mg-label.webflow.io/'+slug+'/';
-              assert(s.includes('rel="canonical" href="'+canonical+'"'),
-                'Wrong post-name canonical: '+file);
-            }
-          }
-          console.log('PASS:',pages.length,'pages;',checked,'local links and assets.');
-          NODE
+        run: node tests/standalone-source.mjs
   browser-smoke:
     name: Browser smoke — mobile/desktop, light/dark
     needs: static-check
@@ -93,7 +42,7 @@ jobs:
           const {chromium}=require('playwright');
           (async()=>{
             const browser=await chromium.launch({headless:true});
-            const routes=['index.html','services/','solutions/','insights/','contact/','mt5-grey-label/'];
+            const routes=['index.html','inner-pages/services.html','inner-pages/solutions.html','inner-pages/insights.html','inner-pages/contact.html','inner-pages/mt5-grey-label.html'];
             try{
               for(const route of routes)for(const width of [360,390,768,1024,1440,1920])for(const theme of ['light','dark']){
                 const page=await browser.newPage({viewport:{width,height:900}});
@@ -201,7 +150,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: post-name-permalink-visual-qa
+          name: standalone-html-visual-qa
           path: tmp/static-visuals/
           if-no-files-found: ignore
           retention-days: 7

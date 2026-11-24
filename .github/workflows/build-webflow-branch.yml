@@ -4,11 +4,12 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "home-2/**"
       - "404.html"
       - "robots.txt"
       - "sitemap.xml"
       - "assets/**"
-      - "*/index.html"
+      - "inner-pages/**"
       - "webflow.json"
       - ".github/workflows/build-webflow-branch.yml"
   workflow_dispatch:
@@ -28,19 +29,16 @@ jobs:
       - name: Verify standalone assets
         run: |
           test -f index.html
-          test -f mt5-grey-label/index.html
+          test -f home-2/index.html
+          test -f home-2/style.css
+          test -f home-2/script.js
+          test -f inner-pages/mt5-grey-label.html
           test -f assets/js/includes.js
-      - name: Publish standalone post-name URLs
+      - name: Publish standalone HTML website
         run: |
           rm -rf /tmp/mgl-webflow
           mkdir -p /tmp/mgl-webflow
-          cp -a index.html 404.html robots.txt sitemap.xml webflow.json assets /tmp/mgl-webflow/
-          for page in */index.html; do
-            [ -f "$page" ] || continue
-            dir="${page%/index.html}"
-            mkdir -p "/tmp/mgl-webflow/$dir"
-            cp "$page" "/tmp/mgl-webflow/$dir/index.html"
-          done
+          cp -a index.html 404.html robots.txt sitemap.xml webflow.json assets home-2 inner-pages /tmp/mgl-webflow/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout --orphan webflow-build

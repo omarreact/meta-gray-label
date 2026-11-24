@@ -13039,7 +13039,7 @@ textarea:focus-visible,
 
 /* ==========================================================================
    MGL EXTRACTED INNER-PAGE SYSTEM
-   Moved from header.html so global layout has one stylesheet source of truth.
+   Shared inner-page layout with one global stylesheet source of truth.
    ========================================================================== */
 /* Meta Grey Label shared inner-page layout. */
 .mgl-inner-page{overflow-x:clip;color:var(--title-color);background:var(--bg-color)}
@@ -14469,9 +14469,7 @@ h6{font-size:14px}
 .trk-btn,
 .btn,
 button[type="submit"],
-input[type="submit"],
-.wp-element-button,
-.wp-block-button__link{
+input[type="submit"]{
   font-family:var(--mgl-global-font-family,"Inter",Arial,Helvetica,sans-serif)!important;
   font-size:14px!important;
   font-weight:800!important;
