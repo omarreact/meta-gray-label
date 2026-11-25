@@ -11,7 +11,8 @@ const base='http://127.0.0.1:4173/';
   const failures=[];
   try{
     for(const layout of ['theme-1','theme-2'])for(const slug of routes)for(const width of [390,1440]){
-      const page=await browser.newPage({viewport:{width,height:900}});
+      const context=await browser.newContext({viewport:{width,height:900}});
+      const page=await context.newPage();
       const url=new URL(layout+'/',base);
       url.searchParams.set('theme','light');
       if(slug!=='home')url.searchParams.set('page',slug);
@@ -23,7 +24,7 @@ const base='http://127.0.0.1:4173/';
         for(const v of violations){
           failures.push(`${layout}/${slug}@${width}: ${v.id} (${v.impact}): ${v.nodes.slice(0,3).map(n=>n.target.join(' ')).join(', ')}`);
         }
-      }finally{await page.close();}
+      }finally{await context.close();}
     }
   }finally{await browser.close();}
   if(failures.length)throw Error('Accessibility violations:\n'+failures.join('\n'));
