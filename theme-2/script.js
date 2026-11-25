@@ -9,7 +9,7 @@ const getMain=s=>s.match(/<main\b[\s\S]*?<\/main>/i)?.[0];
 // Theme 2 presentation adapter: decorate, never duplicate or rewrite shared business content.
 function applyTheme2Layout(markup) {
   const variant = markup.match(/\bmgl-design--(company|pricing|comparison|process|technical|article|directory|hub|service)\b/)?.[1] || (markup.includes('mgl-contact-page') ? 'contact' : 'service');
-  return markup.replace(/<main\b/i,'<main data-layout="design2" data-mgl2-layout="'+variant+'"')
+  let html=markup.replace(/<main\b/i,'<main data-layout="design2" data-mgl2-layout="'+variant+'"')
     .replace(/<section\b([^>]*\bclass="([^"]*)"[^>]*)>/gi,(tag,attrs,classes)=>{
       const list=classes.split(/\s+/);
       let block=list.includes('mgl-inner-hero-v2')||list.includes('mgl-contact-hero')?'banner':
@@ -18,10 +18,53 @@ function applyTheme2Layout(markup) {
         list.includes('mgl-inner-faq')?'faq':
         list.includes('mgl-inner-related')?'related':
         list.find(c=>c.startsWith('mgl-inner-pattern--'))?.slice('mgl-inner-pattern--'.length);
-      if(!block && list.some(c=>c.startsWith('mgl-directory-'))) block='directory';
-      if(!block && list.includes('mgl-inner-comparison-matrix'))block='matrix';
+      if(!block&&list.some(c=>c.startsWith('mgl-directory-')))block='directory';
+      if(!block&&list.includes('mgl-inner-comparison-matrix'))block='matrix';
       return block ? '<section data-mgl2-block="'+block+'"'+attrs+'>' : tag;
     });
+  // Each banner contains only divs and paragraphs. Find an entire div by
+  // balancing its tags so nested architecture panels remain intact.
+  function takeDiv(source,name){
+    const opening=new RegExp('<div\\b[^>]*\\bclass="[^"]*\\b'+name+'\\b[^"]*"[^>]*>','i');
+    const match=opening.exec(source);
+    if(!match)return {source,element:''};
+    const token=/<\/?div\b[^>]*>/gi;
+    token.lastIndex=match.index;
+    let depth=0,part;
+    while((part=token.exec(source))){
+      depth+=/^<\/div/i.test(part[0])?-1:1;
+      if(depth===0){
+        const element=source.slice(match.index,token.lastIndex);
+        return {source:source.slice(0,match.index)+source.slice(token.lastIndex),element};
+      }
+    }
+    return {source,element:''};
+  }
+  const heroMatch=/<section\b[^>]*\bmgl-inner-hero-v2\b[^>]*>[\s\S]*?<\/section>/i.exec(html);
+  const introMatch=/<section\b[^>]*\bmgl-inner-intro\b[^>]*>[\s\S]*?<\/section>/i.exec(html);
+  if(heroMatch&&introMatch){
+    let hero=heroMatch[0],intro=introMatch[0],m;
+    const summary=/<p class="mgl-inner-summary">[\s\S]*?<\/p>/i.exec(hero);
+    if(summary){hero=hero.replace(summary[0],'');intro=intro.replace(/(<div class="mgl-inner-container">)/i,'$1'+summary[0]);}
+    m=takeDiv(hero,'mgl-inner-actions');hero=m.source;
+    if(m.element)intro=intro.replace(/<\/div>\s*<\/section>$/i,m.element+'</div></section>');
+    const note=/<p class="mgl-inner-device-note">[\s\S]*?<\/p>/i.exec(hero);
+    if(note){hero=hero.replace(note[0],'');intro=intro.replace(/<\/div>\s*<\/section>$/i,note[0]+'</div></section>');}
+    for(const name of ['mgl-inner-architecture','mgl-inner-decision']){
+      m=takeDiv(hero,name);hero=m.source;
+      if(m.element)intro=intro.replace(/<\/div>\s*<\/section>$/i,m.element+'</div></section>');
+    }
+    if(variant==='service'||variant==='technical'){
+      const headings=[...html.matchAll(/<section id="(inner-section-[^"]+)"[^>]*>[\s\S]*?<h2>([\s\S]*?)<\/h2>/gi)].slice(0,6);
+      const nav=headings.map(([,id,label])=>'<a href="#'+id+'">'+label.replace(/<[^>]*>/g,' ').trim()+'</a>').join('');
+      const aside='<aside class="mgl2-detail-sidebar"><nav aria-label="On this page"><p class="mgl-inner-eyebrow">Explore this solution</p>'+nav+'</nav></aside>';
+      intro=intro.replace('class="mgl-inner-section mgl-inner-intro"','class="mgl-inner-section mgl-inner-intro mgl2-detail-intro"')
+        .replace(/(<div class="mgl-inner-container">)/i,'$1'+aside+'<div class="mgl2-detail-content">')
+        .replace(/<\/div>\s*<\/section>$/i,'</div></div></section>');
+    }
+    html=html.replace(heroMatch[0],hero).replace(introMatch[0],intro);
+  }
+  return html;
 }
 
 try{
@@ -44,7 +87,7 @@ html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>k
 // Allow browser zoom on all Theme 2 pages, including the legacy homepage template.
 html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');
 // Change this version when the independently styled Theme 2 CSS changes.
-html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125"');
+html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125b"');
 html=html.replace(/<html\b/i,'<html data-mgl-theme="'+theme+'"');
 // Canonicalize valid alternate pages only; a missing route is not the homepage.
 html=html.replace(/<link\b[^>]*\brel=["']canonical["'][^>]*>/gi,'');
