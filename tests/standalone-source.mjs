@@ -55,7 +55,7 @@ for(const theme of ['theme-1','theme-2']){
      const intro=output.match(/<section\b[^>]*data-mgl2-block="intro"[\s\S]*?<\/section>/i)?.[0]||'';
      assert(banner.includes('<h1>')&&!banner.includes('mgl-inner-summary')&&!banner.includes('mgl-inner-architecture'),'Title banner must be independent '+p.slug);
      assert(intro.includes('mgl-inner-summary')&&intro.includes('mgl-inner-actions'),'Page copy or actions lost '+p.slug);
-     if(p.slug==='mt5-grey-label')assert(intro.includes('mgl2-detail-sidebar')&&intro.includes('mgl-inner-architecture'),'Service detail composition incomplete');
+     if(p.slug==='mt5-grey-label')assert(intro.includes('mgl2-detail-sidebar')&&intro.includes('mgl-inner-architecture')&&/href="#inner-section-1"/.test(intro),'Service detail composition incomplete');
    }
  }
  await render(theme,'not-a-route',true);

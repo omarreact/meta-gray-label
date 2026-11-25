@@ -55,7 +55,7 @@ function applyTheme2Layout(markup) {
       if(m.element)intro=intro.replace(/<\/div>\s*<\/section>$/i,m.element+'</div></section>');
     }
     if(variant==='service'||variant==='technical'){
-      const headings=[...html.matchAll(/<section id="(inner-section-[^"]+)"[^>]*>[\s\S]*?<h2>([\s\S]*?)<\/h2>/gi)].slice(0,6);
+      const headings=[...html.matchAll(/<section\b[^>]*\bid="(inner-section-[^"]+)"[^>]*>[\s\S]*?<h2>([\s\S]*?)<\/h2>/gi)].slice(0,6);
       const nav=headings.map(([,id,label])=>'<a href="#'+id+'">'+label.replace(/<[^>]*>/g,' ').trim()+'</a>').join('');
       const aside='<aside class="mgl2-detail-sidebar"><nav aria-label="On this page"><p class="mgl-inner-eyebrow">Explore this solution</p>'+nav+'</nav></aside>';
       intro=intro.replace('class="mgl-inner-section mgl-inner-intro"','class="mgl-inner-section mgl-inner-intro mgl2-detail-intro"')
@@ -87,7 +87,7 @@ html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>k
 // Allow browser zoom on all Theme 2 pages, including the legacy homepage template.
 html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');
 // Change this version when the independently styled Theme 2 CSS changes.
-html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125b"');
+html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125c"');
 html=html.replace(/<html\b/i,'<html data-mgl-theme="'+theme+'"');
 // Canonicalize valid alternate pages only; a missing route is not the homepage.
 html=html.replace(/<link\b[^>]*\brel=["']canonical["'][^>]*>/gi,'');
