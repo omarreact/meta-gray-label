@@ -41,7 +41,12 @@ function composeTheme2(out,variant){
   const nav=(label,cls)=>'<nav class="'+cls+'" aria-label="'+label+'">'+
     sections.map((m,i)=>'<a href="#'+m[1]+'"><span aria-hidden="true">'+String(i+1).padStart(2,'0')+'</span> '+m[2].replace(/<[^>]*>/g,' ').trim()+'</a>').join('')+'</nav>';
   if((variant==='service'||variant==='technical')&&sections.length){
-    out=out.replace('<div class="mgl-inner-body">','<div class="mgl-inner-body mgl2-service-flow"><aside class="mgl2-service-sidebar"><p class="mgl-inner-eyebrow">On this page</p>'+nav('Section navigation','mgl2-section-nav')+'<a class="mgl2-sidebar-cta" href="contact.html">Discuss your project →</a></aside>');
+    // Use the original service-details pattern: one independent sidebar and one content column.
+    const boundary=/<\/div>\s*<section\b[^>]*data-mgl2-block="related"/i;
+    if(boundary.test(out)){
+      out=out.replace(boundary,m=>'</div>'+m);
+      out=out.replace('<div class="mgl-inner-body">','<div class="mgl-inner-body mgl2-service-flow"><aside class="mgl2-service-sidebar"><p class="mgl-inner-eyebrow">On this page</p>'+nav('Section navigation','mgl2-section-nav')+'<a class="mgl2-sidebar-cta" href="contact.html">Discuss your project →</a></aside><div class="mgl2-service-content">');
+    }
   }
   if(variant==='company'){
     out=out.replace(/(<section\b[^>]*data-mgl2-block="intro"[^>]*>\s*<div class="mgl-inner-container">)([\s\S]*?)(<\/div>\s*<\/section>)/i,(_,a,b,c)=>a+'<figure class="mgl2-company-media"><img src="../assets/media/design2-resource-about-1.jpg" alt="" loading="lazy" decoding="async"></figure><div class="mgl2-company-copy">'+b+'</div>'+c);

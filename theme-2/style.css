@@ -66534,3 +66534,56 @@ body.home2-shared-header footer[data-mgl2-chrome="footer"] .footer-bottom :is(a,
  html body.design2-inner [data-mgl2-layout] .mgl2-hero-context .mgl-inner-actions{flex-wrap:wrap}
 }
 @media(prefers-reduced-motion:reduce){html body.design2-inner [data-mgl2-layout] .mgl2-section-nav a{transition:none}}
+
+
+/* Home 02 source reference: separate utility bar, contrasting brand block, navigation and CTA.
+   Keep the approved MGL links and working accessible menu, not the demo's inactive portal/search. */
+html body.home2-shared-header header[data-mgl2-header-style="two"]{
+ --mgl-header-bg:#fff;--mgl-header-bg-strong:#fff;--mgl-header-text:#003f2f;
+ --mgl-header-muted:#62736f;--mgl-header-border:#dce5e4;--mgl-header-accent:#018599;
+ --mgl-header-accent-soft:#f1f3f3;background:#fff;
+}
+html[data-bs-theme="dark"] body.home2-shared-header header[data-mgl2-header-style="two"]{
+ --mgl-header-bg:#122d27;--mgl-header-bg-strong:#122d27;--mgl-header-text:#f0faf5;
+ --mgl-header-muted:#c5ddd2;--mgl-header-border:#34534c;--mgl-header-accent:#ddff93;
+ --mgl-header-accent-soft:#21423b;background:#122d27;
+}
+html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl2-topbar{background:#f1f3f3}
+html[data-bs-theme="dark"] body.home2-shared-header header[data-mgl2-header-style="two"] .mgl2-topbar{background:#0c2923}
+html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl-header-brand{background:#003f2f;padding:12px 20px;border-radius:0 0 10px 8px;justify-content:center}
+html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl-header-brand img{height:auto;max-width:100%;object-fit:contain}
+html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl-nav-link{font-weight:500}
+html[data-bs-theme="light"] body.home2-shared-header header[data-mgl2-header-style="two"] .mgl-theme-toggle img{filter:none}
+html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl-header-cta:hover{background:#003f2f;color:#fff}
+@media(min-width:1200px){
+ html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl2-main-row{width:min(1610px,calc(100% - 48px));padding:0;min-height:80px;gap:8px 16px}
+ html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl-header-brand{min-height:80px}
+}
+@media(max-width:1199.98px){
+ html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl-header-brand{justify-self:start;padding:7px 10px;max-width:100%;border-radius:6px}
+ html body.home2-shared-header header[data-mgl2-header-style="two"] .mgl-header-brand img{width:min(185px,47vw)}
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-flow{grid-template-columns:minmax(220px,1fr) minmax(0,2fr);gap:clamp(24px,4vw,64px)}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-flow>.mgl2-service-sidebar{grid-column:1;grid-row:auto}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-content{grid-column:2;min-width:0}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-content>.mgl-inner-section{padding-block:clamp(24px,4vw,48px)}
+html body.design2-inner [data-mgl2-layout] .mgl2-service-content>.mgl-inner-section>.mgl-inner-container{width:100%;max-width:none}
+html body.design2-inner [data-mgl2-layout] .mgl2-section-nav a{border-radius:8px;background:var(--fx-surface);border:1px solid var(--mgl2-stroke);padding:14px;line-height:1.5}
+html body.design2-inner [data-mgl2-layout] .mgl2-section-nav a:hover,html body.design2-inner [data-mgl2-layout] .mgl2-section-nav a:focus-visible{background:#ddff93;color:#003f2f}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="faq"]>.mgl-inner-container{display:block}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="faq"] .mgl-inner-faq-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="faq"] .mgl-inner-disclosure{min-width:0;border:1px solid var(--mgl2-stroke);background:var(--fx-surface);border-radius:8px}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="faq"] .mgl-inner-disclosure summary{overflow-wrap:anywhere}
+@media(max-width:991px){
+ html body.design2-inner [data-mgl2-layout] .mgl2-service-flow{display:block}
+ html body.design2-inner [data-mgl2-layout] [data-mgl2-block="faq"] .mgl-inner-faq-list{grid-template-columns:1fr}
+}
+/* The uploaded reference uses a 450px desktop title band and 34px mobile title.
+   Scale long business titles safely instead of clipping them. */
+@media(min-width:1200px){
+ html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]{min-height:450px}
+ html body.design2-inner [data-mgl2-layout] .mgl2-title-band h1{font-size:clamp(34px,4.4vw,64px)!important}
+}
+@media(max-width:767px){
+ html body.design2-inner [data-mgl2-layout] .mgl2-title-band h1{font-size:clamp(28px,7vw,34px)!important}
+}
