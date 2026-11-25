@@ -48,7 +48,16 @@ async function render(theme,slug,error=false){
  return output;
 }
 for(const theme of ['theme-1','theme-2']){
- for(const p of d.pages)await render(theme,p.slug);
+ for(const p of d.pages){
+   const output=await render(theme,p.slug);
+   if(theme==='theme-2'&&['about-us','mt5-grey-label','grey-label-pricing','white-label-vs-grey-label'].includes(p.slug)){
+     const banner=output.match(/<section\b[^>]*data-mgl2-block="banner"[\s\S]*?<\/section>/i)?.[0]||'';
+     const intro=output.match(/<section\b[^>]*data-mgl2-block="intro"[\s\S]*?<\/section>/i)?.[0]||'';
+     assert(banner.includes('<h1>')&&!banner.includes('mgl-inner-summary')&&!banner.includes('mgl-inner-architecture'),'Title banner must be independent '+p.slug);
+     assert(intro.includes('mgl-inner-summary')&&intro.includes('mgl-inner-actions'),'Page copy or actions lost '+p.slug);
+     if(p.slug==='mt5-grey-label')assert(intro.includes('mgl2-detail-sidebar')&&intro.includes('mgl-inner-architecture'),'Service detail composition incomplete');
+   }
+ }
  await render(theme,'not-a-route',true);
  const css=fs.readFileSync(theme+'/style.css','utf8');
  for(const m of css.matchAll(/url\(\s*(["']?)([^"')]+)\1\s*\)/gi))checkTarget(m[2].trim(),new URL(prefix+theme+'/style.css',host));

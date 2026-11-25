@@ -66652,3 +66652,109 @@ html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="directory"] .mg
   }
   html body.design2-inner [data-mgl2-layout] .mgl-inner-body>.mgl-inner-section{padding-block:clamp(40px,9vw,68px)}
 }
+
+/* Forexy inner-page structure: a focused title banner and a separate content area. */
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero){
+  display:flex;align-items:center;justify-content:center;min-height:clamp(390px,35vw,475px);
+  padding-block:clamp(70px,8vw,108px);
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero) .mgl-inner-container{
+  width:min(1240px,calc(100% - 48px));
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero) .mgl-inner-hero-layout{
+  display:block;text-align:center;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero) .mgl-inner-hero-copy{
+  max-width:100%;text-align:center;margin:auto;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero) h1{
+  max-width:920px;margin:0 auto 12px;font-size:clamp(42px,5vw,66px)!important;
+  line-height:1.1!important;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero) .mgl-inner-breadcrumb{
+  order:2;margin:12px auto 0;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero) .mgl-inner-eyebrow{
+  margin-bottom:14px;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="intro"] .mgl-inner-summary{
+  display:block;max-width:820px;margin:0 0 22px;color:var(--fx-ink);
+  font-size:clamp(22px,2.2vw,32px)!important;line-height:1.35!important;
+  letter-spacing:-.025em;font-weight:650;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="intro"] .mgl-inner-actions{
+  display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="intro"] .mgl-inner-action a{
+  display:inline-flex;align-items:center;min-height:48px;background:var(--mgl2-lime);
+  border:1px solid var(--mgl2-lime);color:var(--mgl2-ink);text-decoration:none;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="intro"] .mgl-inner-action--secondary a{
+  background:transparent;border-color:var(--fx-line);color:var(--fx-ink);
+}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-container::before{
+  background-image:url(../assets/media/design2-resource-about-1.jpg);
+}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-container>.mgl-inner-summary{
+  grid-column:2;
+}
+/* Service-detail template: subject navigation, local imagery and the original copy. */
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-intro{
+  background:var(--fx-surface);padding-block:clamp(65px,7vw,110px);
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-intro>.mgl-inner-container{
+  display:grid;grid-template-columns:minmax(240px,330px) minmax(0,1fr);
+  align-items:start;gap:clamp(26px,4vw,60px);width:min(1200px,calc(100% - 48px));
+  padding:0;border:0;border-radius:0;background:none;
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-sidebar nav{
+  display:grid;gap:9px;
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-sidebar nav>.mgl-inner-eyebrow{
+  color:var(--fx-accent);margin:0 0 10px;
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-sidebar nav>a{
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+  min-height:62px;padding:15px 20px;border-radius:6px;
+  background:var(--mgl2-soft);color:var(--fx-ink);font-weight:700;
+  text-decoration:none;line-height:1.35;
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-sidebar nav>a::after{
+  content:'›';display:grid;place-items:center;flex:none;width:32px;height:32px;
+  border-radius:50%;background:var(--fx-surface);color:var(--fx-accent);font-size:24px;
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-sidebar nav>a:hover,
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-sidebar nav>a:focus-visible{
+  background:var(--mgl2-ink);color:#fff;
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-content::before{
+  content:'';display:block;width:100%;aspect-ratio:1.9;background:
+  url(../assets/media/design2-banner-slide-1.jpg) center 40%/cover no-repeat;
+  margin-bottom:34px;
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-content>.mgl-inner-eyebrow{
+  color:var(--fx-accent);
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-content>p:not(.mgl-inner-eyebrow,.mgl-inner-summary,.mgl-inner-device-note){
+  font-size:17px;line-height:1.8;
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-content>.mgl-inner-architecture,
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-content>.mgl-inner-decision{
+  margin-top:36px;padding:clamp(18px,3vw,32px);border-radius:6px;
+  background:var(--mgl2-soft);border:1px solid var(--fx-line);color:var(--fx-ink);
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-content :is(.mgl-inner-architecture,.mgl-inner-decision) :is(p,h3,a),
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-content :is(.mgl-inner-core,.mgl-inner-module,.mgl-inner-model-choice) :is(p,h3,a){
+  color:var(--fx-ink);
+}
+html body.design2-inner [data-mgl2-layout] .mgl2-detail-content .mgl-inner-architecture .mgl-inner-caption{
+  color:var(--fx-ink);
+}
+@media(max-width:767px){
+  html body.design2-inner [data-mgl2-layout] .mgl2-detail-intro>.mgl-inner-container{grid-template-columns:1fr;width:calc(100% - 32px)}
+  html body.design2-inner [data-mgl2-layout] .mgl2-detail-sidebar{order:2}
+  html body.design2-inner [data-mgl2-layout] .mgl2-detail-content{order:1}
+  html body.design2-inner [data-mgl2-layout] .mgl2-detail-content::before{aspect-ratio:1.3}
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero){min-height:315px;padding-block:58px}
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero) h1{font-size:clamp(34px,8vw,48px)!important}
+}
