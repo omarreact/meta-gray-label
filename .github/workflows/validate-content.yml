@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: "24"
       - run: |
-          npm install --no-save --no-package-lock playwright@1.58.2
+          npm install --no-save --no-package-lock playwright@1.58.2 @axe-core/playwright@4.14.1
           npx playwright install chromium
       - name: Test both layouts on desktop and mobile
         run: |
@@ -74,6 +74,24 @@ jobs:
               await page.locator('#main-content').waitFor();
               if(new URL(page.url()).searchParams.get('page')!=='contact')throw Error('Theme switch lost route');
               await page.close();
+              for(const layout of ['theme-1','theme-2']){
+                const contact=await browser.newPage({viewport:{width:390,height:844}});
+                await contact.goto(base+layout+'/?page=contact&theme=dark');
+                await contact.locator('#mgl-enquiry-form').waitFor();
+                await contact.locator('[name="name"]').fill('QA Test');
+                await contact.locator('[name="contact"]').fill('qa@example.test');
+                await contact.locator('[name="model"]').selectOption({label:'Grey Label'});
+                await contact.locator('[name="platform"]').selectOption({label:'MT5'});
+                await contact.locator('#mgl-enquiry-form button[type="submit"]').click();
+                await contact.locator('#mgl-enquiry-output:not([hidden])').waitFor();
+                if(!(await contact.locator('#mgl-enquiry-summary').innerText()).includes('QA Test'))throw Error('Contact brief missing '+layout);
+                if(await contact.locator('#mgl-share-enquiry').getAttribute('aria-disabled')!=='true')throw Error('Unconfigured send action must remain disabled '+layout);
+                await contact.locator('.mgl-menu-toggle').click();
+                if(await contact.locator('.mgl-menu-toggle').getAttribute('aria-expanded')!=='true')throw Error('Mobile menu failed to open '+layout);
+                await contact.close();
+              }
             }finally{await browser.close();}
           })().catch(e=>{console.error(e);process.exit(1)});
           NODE
+      - name: Check representative WCAG accessibility
+        run: node tests/accessibility-smoke.cjs

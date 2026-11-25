@@ -2,6 +2,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const d=JSON.parse(fs.readFileSync('site-content.json','utf8'));
+const manifest=JSON.parse(fs.readFileSync('site-manifest.json','utf8'));
+assert(manifest.site.publicUrl.startsWith('https://')&&manifest.site.publicUrl.endsWith('/'),'Canonical site URL must be an HTTPS directory');
+assert(fs.readFileSync('robots.txt','utf8').includes('Sitemap: '+manifest.site.publicUrl+'sitemap.xml'));
+assert.equal((fs.readFileSync('sitemap.xml','utf8').match(/<url>/g)||[]).length,52);
+for(const theme of manifest.themes){
+ assert(fs.existsSync(theme.header)&&fs.existsSync(theme.footer),'Missing independent theme chrome '+theme.id);
+ assert(theme.header.startsWith(theme.id+'/')&&theme.footer.startsWith(theme.id+'/'),'Theme chrome points outside its directory '+theme.id);
+}
 const ids=new Set(d.pages.map(x=>x.slug));
 assert.equal(d.pages.length,52);assert.equal(ids.size,52);
 assert.equal(d.pages.filter(x=>x.slug!=='home').length,51);

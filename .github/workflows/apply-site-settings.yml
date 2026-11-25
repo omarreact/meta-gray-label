@@ -27,7 +27,7 @@ jobs:
 
       - name: Validate and apply requested setting
         env:
-          ISSUE_BODY: \${{ github.event.issue.body }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
           node <<'NODE'
           const fs = require('fs');
@@ -110,9 +110,9 @@ jobs:
 
       - name: Report result and close request
         env:
-          GH_TOKEN: \${{ github.token }}
-          ISSUE_NUMBER: \${{ github.event.issue.number }}
-          CHANGED: \${{ steps.commit.outputs.changed }}
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          CHANGED: ${{ steps.commit.outputs.changed }}
         run: |
           if [ "$CHANGED" = "true" ]; then
             gh issue comment "$ISSUE_NUMBER" --body "✅ Typography settings applied to main. Normal validation and deployment will run from the new commit."

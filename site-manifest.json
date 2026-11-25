@@ -1,18 +1,23 @@
 {
   "site": {
     "name": "Meta Grey Label",
-    "home": "/"
+    "home": "/",
+    "publicUrl": "https://omarreact.github.io/meta-gray-label/"
   },
   "content": "site-content.json",
   "defaultTheme": "theme-1",
   "themes": [
     {
       "id": "theme-1",
-      "name": "Meta Grey Label"
+      "name": "Meta Grey Label",
+      "header": "theme-1/header.html",
+      "footer": "theme-1/footer.html"
     },
     {
       "id": "theme-2",
-      "name": "Meta Grey Label"
+      "name": "Meta Grey Label",
+      "header": "theme-2/header.html",
+      "footer": "theme-2/footer.html"
     }
   ],
   "header": {
