@@ -41,7 +41,10 @@ jobs:
           const {chromium}=require('playwright');
           (async()=>{
             const browser=await chromium.launch({headless:true});
-            const routes=['home','services','solutions','insights','contact','mt5-grey-label'];
+            const routes=['home','services','solutions','insights','contact','mt5-grey-label',
+              'about-us','grey-label-pricing','white-label-vs-grey-label',
+              'brokerage-launch-process','liquidity-bridge',
+              'metatrader-grey-label-licensing-what-it-includes-and-why-it-matters'];
             const base='http://127.0.0.1:4173/';
             try {
               for(const layout of ['theme-1','theme-2'])for(const slug of routes)for(const width of [360,390,768,1024,1180,1440,1920])for(const mode of ['light','dark']){
