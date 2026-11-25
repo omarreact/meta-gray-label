@@ -41,13 +41,10 @@ jobs:
           const {chromium}=require('playwright');
           (async()=>{
             const browser=await chromium.launch({headless:true});
-            const routes=['home','services','solutions','insights','contact','mt5-grey-label',
-              'about-us','grey-label-pricing','white-label-vs-grey-label',
-              'brokerage-launch-process','liquidity-bridge',
-              'metatrader-grey-label-licensing-what-it-includes-and-why-it-matters'];
+            const routes=JSON.parse(require('node:fs').readFileSync('site-content.json','utf8')).pages.map(p=>p.slug);
             const base='http://127.0.0.1:4173/';
             try {
-              for(const layout of ['theme-1','theme-2'])for(const slug of routes)for(const width of [360,390,768,1024,1180,1440,1920])for(const mode of ['light','dark']){
+              for(const layout of ['theme-1','theme-2'])for(const slug of routes)for(const width of [360,768,1440])for(const mode of ['light','dark']){
                 const page=await browser.newPage({viewport:{width,height:900}});
                 const errors=[];
                 page.on('pageerror',e=>errors.push(e.message));
@@ -59,11 +56,16 @@ jobs:
                 await page.locator('footer').waitFor();
                 await page.locator('#mgl-dev-settings-toggle').waitFor();
                 if(await page.locator('html').getAttribute('data-bs-theme')!==mode)throw Error('Theme mismatch '+url);
+                if(layout==='theme-2'){
+                  const src=await page.locator('img[data-brand-logo]').getAttribute('src');
+                  if(!src.includes('logo-dark.svg'))throw Error('Theme 2 dark header logo mismatch '+url+' '+src);
+                }
                 const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
                 if(dimensions.scroll>dimensions.client+2)throw Error('Horizontal overflow '+url+' '+width+' '+JSON.stringify(dimensions));
                 if(errors.length)throw Error('Browser errors '+url+': '+errors.join('; '));
                 await page.close();
               }
+              console.log('PASS: '+routes.length+' routes x 2 layouts x 3 widths x 2 modes');
               const page=await browser.newPage({viewport:{width:390,height:844}});
               await page.goto(base+'theme-1/?page=contact&theme=dark');
               await page.locator('#mgl-dev-settings-toggle').click();

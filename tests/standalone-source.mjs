@@ -57,6 +57,12 @@ for(const theme of ['theme-1','theme-2']){
      assert(intro.includes('mgl-inner-summary')&&intro.includes('mgl-inner-actions'),'Page copy or actions lost '+p.slug);
      if(p.slug==='mt5-grey-label')assert(intro.includes('mgl2-detail-sidebar')&&intro.includes('mgl-inner-architecture')&&/href="#inner-section-1"/.test(intro),'Service detail composition incomplete');
    }
+   if(theme==='theme-2'&&p.slug==='brokerage-launch-process'){
+     assert(output.includes('class="mgl2-process-index"')&&output.includes('aria-label="Launch steps"'),'Launch sequence navigation missing');
+     assert(/href="#inner-section-1"/.test(output),'Launch step target missing');
+   }
+   if(theme==='theme-2'&&p.slug==='insights')assert(output.includes('class="mgl2-list-media"'),'Directory media missing');
+   if(theme==='theme-2'&&p.slug==='metatrader-grey-label-licensing-what-it-includes-and-why-it-matters')assert(output.includes('class="mgl2-editorial-media"'),'Article media missing');
  }
  await render(theme,'not-a-route',true);
  const css=fs.readFileSync(theme+'/style.css','utf8');
