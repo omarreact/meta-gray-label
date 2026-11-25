@@ -26,7 +26,7 @@ async function render(theme,slug,error=false){
  assert(output.includes('data-site-header')&&/<footer\b/i.test(output),'Missing chrome');
  assert(!/\{\{(?:COPY:|PAGE_)/.test(output),'Unresolved template token');
  assert(!/<template\s+data-shared-part=/.test(output),'Unresolved chrome');
- assert(output.includes('<script src="runtime.js"></script>'),'Missing runtime');
+ assert(output.includes('<script src="runtime.js'+(theme==='theme-2'?'?v=inner-layout-20261125e':'')+'"></script>'),'Missing runtime');
  if(error)assert(output.includes('Page not found'));
  if(theme==='theme-2'){
    assert(output.includes('data-theme-header="2"'),'Independent Theme 2 header missing');
@@ -60,6 +60,7 @@ for(const theme of ['theme-1','theme-2']){
    if(theme==='theme-2'&&p.slug==='brokerage-launch-process'){
      assert(output.includes('class="mgl2-process-index"')&&output.includes('aria-label="Launch steps"'),'Launch sequence navigation missing');
      assert(/href="#inner-section-1"/.test(output),'Launch step target missing');
+     assert.equal((output.match(/class="mgl2-process-steps"[\s\S]*?<\/div>/)?.[0].match(/href="#inner-section-/g)||[]).length,6,'Launch index should list six stages');
    }
    if(theme==='theme-2'&&p.slug==='insights')assert(output.includes('class="mgl2-list-media"'),'Directory media missing');
    if(theme==='theme-2'&&p.slug==='metatrader-grey-label-licensing-what-it-includes-and-why-it-matters')assert(output.includes('class="mgl2-editorial-media"'),'Article media missing');
