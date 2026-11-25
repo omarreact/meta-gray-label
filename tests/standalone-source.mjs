@@ -34,6 +34,7 @@ async function render(theme,slug,error=false){
    assert(output.includes('data-mgl2-chrome="header"')&&output.includes('data-mgl2-chrome="footer"'),'Theme 2 independent chrome missing');
    if(slug!=='home'||error)assert(output.includes('mgl2-title-band'),'Theme 2 title composition missing');
    assert(output.includes('data-mgl2-header-style="two"'),'Home 02 header source variant missing');
+   if(slug!=='home'||error)assert(/data-mgl2-source="[a-z-]+"/.test(output),'Source composition missing');
    if(/data-mgl2-layout="(?:service|technical)"/.test(output)&&!error)assert(output.includes('mgl2-service-sidebar')&&output.includes('mgl2-service-content'),'Service two-column composition missing');
    const viewport=output.match(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/i)?.[0]||'';
    assert(viewport.includes('width=device-width')&&!/user-scalable\s*=\s*(?:0|no)|maximum-scale\s*=/i.test(viewport),'Theme 2 must allow browser zoom');

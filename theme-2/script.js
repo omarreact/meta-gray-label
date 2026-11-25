@@ -54,6 +54,34 @@ function composeTheme2(out,variant){
   if(variant==='process'&&sections.length){
     out=out.replace(/(<div class="mgl-inner-body">)/, '$1<div class="mgl2-process-index"><p class="mgl-inner-eyebrow">Explore the launch sequence</p>'+nav('Launch steps','mgl2-step-nav')+'</div>');
   }
+  // Apply the captured Forexy page families as independent structural presentations.
+  // Keep all copy and route IDs from the approved shared content.
+  const sourceFamily={company:'about',service:'service-details',technical:'service-details',pricing:'pricing',article:'news-details',directory:'services',hub:'services',comparison:'pricing',process:'steps',contact:'contact'}[variant]||'service-details';
+  out=out.replace(/<main\b/i,'<main data-mgl2-source="'+sourceFamily+'"');
+  if(variant==='directory'&&out.includes('mgl-directory-article')){
+    out=out.replace('data-mgl2-source="services"','data-mgl2-source="news-grid"');
+  }
+  // Pricing plans get a true package header/body split, rather than a single text card.
+  if(variant==='pricing'){
+    out=out.replace(/(<section\b[^>]*data-mgl2-block="packages"[^>]*>)([\s\S]*?)<\/section>/gi,(_,open,body)=>{
+      body=body.replace(/(<div class="mgl-inner-card">\s*)(<p class="mgl-inner-eyebrow">[\s\S]*?<\/p>\s*<h3>[\s\S]*?<\/h3>\s*)(<p>[\s\S]*?<\/p>)/g,(_,card,heading,first)=>card+'<div class="mgl2-plan-top">'+heading+first+'</div>');
+      return open+body+'</section>';
+    });
+  }
+  // The original service/news grids use image-first cards. Reuse already-local MGL
+  // media as decorative images, with no demo branding, claims or third-party links.
+  if(variant==='directory'||variant==='hub'){
+    const images=['../assets/media/design2-resource-forex.jpg','../assets/media/design2-resource-about-1.jpg','../assets/media/design2-resource-about-2.jpg'];
+    let n=0;
+    out=out.replace(/(<(?:article|div|section)\b[^>]*class="(?:mgl-directory-article|mgl-inner-link-card|mgl-directory-group mgl-directory-service)[^"]*"[^>]*>)/g,(_,tag)=>tag+'<figure class="mgl2-list-media"><img src="'+images[n++%images.length]+'" alt="" loading="lazy" decoding="async"></figure>');
+  }
+  if(variant==='article'){
+    out=out.replace('<article class="mgl-inner-editorial-copy">','<article class="mgl-inner-editorial-copy"><figure class="mgl2-editorial-media"><img src="../assets/media/design2-resource-forex.jpg" alt="" loading="lazy" decoding="async"></figure>');
+  }
+  // Standalone not-found view: no fabricated content, no new URL.
+  if(!out.includes('mgl-design')&&out.includes('<h1>Page not found</h1>')){
+    out=out.replace('data-mgl2-source="service-details"','data-mgl2-source="404"');
+  }
   return out;
 }
 

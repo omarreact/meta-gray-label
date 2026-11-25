@@ -66587,3 +66587,49 @@ html body.design2-inner [data-mgl2-layout] [data-mgl2-block="faq"] .mgl-inner-di
 @media(max-width:767px){
  html body.design2-inner [data-mgl2-layout] .mgl2-title-band h1{font-size:clamp(28px,7vw,34px)!important}
 }
+
+
+/* Reference-derived composition pass: Forexy page-title / pricing-one /
+   market-block-two / blog-details / steps-section / contact-details.
+   Only Theme 2 inner pages receive these layout rules. */
+html body.design2-inner [data-mgl2-source]{--mgl2-page-gutter:clamp(16px,3.2vw,48px)}
+html body.design2-inner [data-mgl2-source] .mgl-inner-container,
+html body.design2-inner [data-mgl2-source] .mgl-shell{width:min(1440px,calc(100% - 2 * var(--mgl2-page-gutter)));min-width:0;max-width:none}
+html body.design2-inner [data-mgl2-source] [data-mgl2-block="banner"]>.mgl2-title-band{width:100%;max-width:1200px}
+html body.design2-inner [data-mgl2-source] .mgl2-service-content>.mgl-inner-section>.mgl-inner-container{width:100%;max-width:none}
+html body.design2-inner [data-mgl2-source] .mgl2-service-flow{grid-template-columns:minmax(230px,365px) minmax(0,1fr)}
+html body.design2-inner [data-mgl2-source] :is(.mgl2-list-media,.mgl2-editorial-media){margin:0;overflow:hidden;min-width:0;border-radius:10px}
+html body.design2-inner [data-mgl2-source] .mgl2-list-media img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+html body.design2-inner [data-mgl2-source] .mgl2-editorial-media img{display:block;width:100%;height:auto;aspect-ratio:16/7;object-fit:cover}
+html body.design2-inner [data-mgl2-source] .mgl2-editorial-media{margin-bottom:clamp(20px,3vw,40px)}
+html body.design2-inner [data-mgl2-source] :is(.mgl-inner-link-grid,.mgl-directory-service-grid,.mgl-directory-article-list){display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:clamp(16px,2vw,30px)}
+html body.design2-inner [data-mgl2-source] :is(.mgl-inner-link-card,.mgl-directory-article,.mgl-directory-service){min-width:0;border-radius:10px;overflow:hidden;border:1px solid var(--mgl2-stroke);background:var(--fx-surface);box-shadow:none}
+html body.design2-inner [data-mgl2-source] :is(.mgl-inner-link-card,.mgl-directory-article,.mgl-directory-service)>.mgl2-list-media{margin:0 0 20px}
+html body.design2-inner [data-mgl2-source="news-grid"] .mgl-directory-topic-grid{display:block}
+html body.design2-inner [data-mgl2-source="news-grid"] .mgl-directory-topic{margin-bottom:40px}
+html body.design2-inner [data-mgl2-source="news-details"] .mgl-inner-editorial-copy .mgl-inner-container{width:100%}
+html body.design2-inner [data-mgl2-source="news-details"] .mgl-inner-editorial-copy .mgl-inner-section{padding-block:clamp(18px,3vw,36px)}
+html body.design2-inner [data-mgl2-source="pricing"] [data-mgl2-block="packages"] .mgl-inner-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:24px}
+html body.design2-inner [data-mgl2-source="pricing"] [data-mgl2-block="packages"] .mgl-inner-card{padding:0;overflow:hidden;border-radius:10px}
+html body.design2-inner [data-mgl2-source="pricing"] .mgl2-plan-top{background:#003f2f;color:#fff;padding:clamp(18px,3vw,30px)}
+html body.design2-inner [data-mgl2-source="pricing"] .mgl2-plan-top :is(h3,p){color:#fff!important}
+html body.design2-inner [data-mgl2-source="pricing"] .mgl2-plan-top>.mgl-inner-eyebrow{color:#ddff93!important}
+html body.design2-inner [data-mgl2-source="pricing"] [data-mgl2-block="packages"] .mgl-inner-card>p{padding:24px;margin:0}
+html body.design2-inner [data-mgl2-source="steps"] .mgl2-process-index{width:100%;max-width:none;border-radius:0;padding:clamp(28px,5vw,72px) var(--mgl2-page-gutter)}
+html body.design2-inner [data-mgl2-source="steps"] .mgl2-step-nav{grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+html body.design2-inner [data-mgl2-source="steps"] [data-mgl2-block="timeline"]{padding-block:clamp(24px,3vw,50px)}
+html body.design2-inner [data-mgl2-source="contact"] .mgl-contact-layout{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);align-items:start}
+html body.design2-inner [data-mgl2-source="contact"] :is(.mgl-contact-form,.mgl-contact-hero__aside){border-radius:10px;min-width:0}
+html body.design2-inner [data-mgl2-source] :is(.mgl-inner-card,.mgl-inner-link-card,.mgl-directory-article,.mgl-directory-service):hover{border-color:var(--fx-accent)}
+html body.design2-inner [data-mgl2-source="404"] .mgl2-hero-context{text-align:center;padding-block:clamp(40px,6vw,96px)!important}
+html body.design2-inner [data-mgl2-source] :is(.mgl-inner-section,.mgl-contact-workspace,.mgl-contact-output){scroll-margin-top:clamp(84px,10vw,150px)}
+@media(max-width:991px){
+ html body.design2-inner [data-mgl2-source="contact"] .mgl-contact-layout{grid-template-columns:1fr}
+ html body.design2-inner [data-mgl2-source] .mgl2-service-flow{display:block}
+}
+@media(max-width:767px){
+ html body.design2-inner [data-mgl2-source] :is(.mgl-inner-link-grid,.mgl-directory-service-grid,.mgl-directory-article-list){grid-template-columns:1fr}
+ html body.design2-inner [data-mgl2-source] .mgl2-list-media img{aspect-ratio:16/10}
+ html body.design2-inner [data-mgl2-source] .mgl2-editorial-media img{aspect-ratio:16/9}
+ html body.design2-inner [data-mgl2-source] .mgl2-step-nav{grid-template-columns:1fr}
+}
