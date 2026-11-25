@@ -66473,3 +66473,182 @@ html body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"] .mgl-inn
 @media(max-width:767px) {
   html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] {min-height:280px}
 }
+
+/* Theme 2 inner-page compositions. The shared JSON supplies every word;
+   these rules give its service, company, pricing, article and directory pages
+   the photographic, full-width rhythm of the independent Forexy layout. */
+html body.design2-inner [data-mgl2-layout]{
+  --mgl2-photo:url(../assets/media/design2-resource-forex.jpg);
+  --mgl2-photo-position:center 46%;
+  --mgl2-ink:#003f2f;
+  --mgl2-lime:#ddff93;
+  --mgl2-paper:#f4f6f5;
+  font-family:Inter,Arial,sans-serif;
+}
+html body.design2-inner [data-mgl2-layout="company"]{
+  --mgl2-photo:url(../assets/media/design2-banner-slide-1.jpg);
+  --mgl2-photo-position:center 48%;
+}
+html body.design2-inner [data-mgl2-layout="article"],
+html body.design2-inner [data-mgl2-layout="directory"]{
+  --mgl2-photo:url(../assets/media/design2-resource-about-1.jpg);
+  --mgl2-photo-position:center 56%;
+}
+html body.design2-inner [data-mgl2-layout="process"],
+html body.design2-inner [data-mgl2-layout="technical"]{
+  --mgl2-photo:url(../assets/media/design2-background-cta-bg.jpg);
+  --mgl2-photo-position:center;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]{
+  min-height:clamp(360px,35vw,510px);
+  padding:clamp(58px,7vw,112px) 0;
+  background-image:linear-gradient(90deg,rgba(0,45,34,.96),rgba(0,47,36,.72) 52%,rgba(0,41,33,.48)),var(--mgl2-photo);
+  background-position:center,var(--mgl2-photo-position);
+  background-size:cover;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]::before{
+  background:linear-gradient(0deg,rgba(0,35,28,.34),transparent 45%);
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]::after{
+  content:"";position:absolute;inset:auto 0 0;height:5px;
+  background:linear-gradient(90deg,var(--mgl2-lime),transparent 58%);
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-container{
+  width:min(1280px,calc(100% - 64px));max-width:1280px;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] h1{
+  max-width:22ch;font-weight:750!important;letter-spacing:-.045em!important;
+  text-shadow:0 4px 28px rgba(0,32,25,.35);
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-breadcrumb{
+  order:2;margin:18px auto 0;font-size:14px;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-container{
+  display:flex;flex-direction:column;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] :is(.mgl-inner-hero-layout,.mgl-directory-hero-layout){order:1;width:100%}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-eyebrow{
+  color:var(--mgl2-lime);letter-spacing:.14em;text-transform:uppercase;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-summary{
+  max-width:680px;color:#f1faf4;font-size:clamp(16px,1.5vw,20px)!important;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-actions{
+  margin-top:22px;
+}
+/* Put the existing architecture/decision panel into the visual half of its own hero. */
+@media(min-width:1024px){
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-hero-layout:has(> :is(.mgl-inner-architecture,.mgl-inner-decision,.mgl-inner-model-pair)){
+    grid-template-columns:minmax(0,1.05fr) minmax(380px,.95fr);
+    gap:clamp(30px,5vw,80px);text-align:left;
+  }
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-hero-layout:has(> :is(.mgl-inner-architecture,.mgl-inner-decision,.mgl-inner-model-pair)) .mgl-inner-hero-copy{
+    text-align:left;margin-inline:0;
+  }
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-hero-layout:has(> :is(.mgl-inner-architecture,.mgl-inner-decision,.mgl-inner-model-pair)) :is(h1,.mgl-inner-summary){margin-left:0}
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-hero-layout:has(> :is(.mgl-inner-architecture,.mgl-inner-decision,.mgl-inner-model-pair)) .mgl-inner-actions{justify-content:flex-start}
+}
+/* About / Why Choose Us: editorial copy and a locally hosted trading image. */
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"]{
+  background:var(--mgl2-paper);
+}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-container{
+  display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  column-gap:clamp(28px,5vw,82px);row-gap:16px;align-items:start;
+  padding:0;background:transparent;border:0;border-radius:0;
+}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-container::before{
+  content:"";grid-column:1;grid-row:1/span 12;display:block;
+  min-height:clamp(330px,39vw,520px);border-radius:4px;
+  background:var(--mgl2-photo) center/cover no-repeat;
+  box-shadow:26px 26px 0 var(--mgl2-lime);
+}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-container>*{grid-column:2}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-eyebrow{
+  margin:6px 0 10px;color:var(--fx-accent);letter-spacing:.12em;
+}
+html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] p:not(.mgl-inner-eyebrow){
+  font-size:clamp(17px,1.5vw,20px);line-height:1.72;
+}
+/* Wide section rhythm and precise typography across all 51 inner routes. */
+html body.design2-inner [data-mgl2-layout] .mgl-inner-body,
+html body.design2-inner [data-mgl2-layout] .mgl-inner-editorial-copy{
+  background:var(--fx-surface);
+}
+html body.design2-inner [data-mgl2-layout] .mgl-inner-body>.mgl-inner-section:nth-of-type(even){background:var(--mgl2-soft)}
+html body.design2-inner [data-mgl2-layout] .mgl-inner-section-heading h2{
+  color:var(--fx-ink);font-weight:750!important;
+}
+html body.design2-inner [data-mgl2-layout] .mgl-inner-section-heading .mgl-inner-eyebrow{
+  color:var(--fx-accent);font-size:12px!important;letter-spacing:.15em!important;
+}
+html body.design2-inner [data-mgl2-layout] :is(.mgl-inner-card,.mgl-inner-link-card,.mgl-directory-service,.mgl-directory-model){
+  border-radius:4px;border-color:var(--fx-line);
+  box-shadow:0 12px 30px rgba(0,45,34,.06);
+}
+html body.design2-inner [data-mgl2-layout] :is(.mgl-inner-card,.mgl-inner-link-card,.mgl-directory-service,.mgl-directory-model):hover{
+  transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,45,34,.12);
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="story"] .mgl-inner-card{
+  border-top:5px solid var(--mgl2-lime);
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="rows"] .mgl-inner-card{
+  border:0;border-bottom:1px solid var(--fx-line);box-shadow:none;background:transparent;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="spotlight"]{
+  background:var(--mgl2-ink);color:#effaf4;
+}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="spotlight"] :is(h2,h3,p,li){color:#effaf4}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="spotlight"] .mgl-inner-eyebrow{color:var(--mgl2-lime)}
+html body.design2-inner [data-mgl2-layout="pricing"] [data-mgl2-block="packages"] .mgl-inner-card{
+  border-top:6px solid var(--mgl2-lime);box-shadow:0 20px 45px rgba(0,45,34,.08);
+}
+html body.design2-inner [data-mgl2-layout="comparison"] [data-mgl2-block="matrix"] .mgl-inner-comparison-row{
+  border-bottom:1px solid var(--fx-line);
+}
+html body.design2-inner [data-mgl2-layout="article"] .mgl-inner-editorial-layout{
+  width:min(1200px,calc(100% - 64px));grid-template-columns:minmax(0,800px) minmax(240px,280px);
+  gap:clamp(32px,5vw,88px);
+}
+html body.design2-inner [data-mgl2-layout="article"] .mgl-inner-toc{
+  border-radius:4px;border-top:5px solid var(--mgl2-lime);
+}
+html body.design2-inner [data-mgl2-layout="directory"] .mgl-directory-feature{
+  background:var(--mgl2-paper);
+}
+html body.design2-inner [data-mgl2-layout="directory"] .mgl-directory-featured{
+  border-left:5px solid var(--mgl2-lime);
+}
+html body.design2-inner [data-mgl2-layout="contact"] [data-mgl2-block="banner"] .mgl-contact-hero__grid{
+  grid-template-columns:minmax(0,1fr) minmax(300px,.65fr);text-align:left;
+}
+html body.design2-inner [data-mgl2-layout="contact"] [data-mgl2-block="banner"] .mgl-contact-hero__aside{
+  background:#fff;color:var(--mgl2-ink);border-radius:4px;
+}
+html body.design2-inner [data-mgl2-layout="contact"] [data-mgl2-block="banner"] .mgl-contact-hero__aside :is(p,li,span){color:var(--mgl2-ink)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"],
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="directory"] .mgl-directory-feature{background:var(--mgl2-soft)}
+@media(max-width:1023px){
+  html body.design2-inner [data-mgl2-layout="article"] .mgl-inner-editorial-layout{
+    width:calc(100% - 40px);grid-template-columns:minmax(0,1fr) 210px;gap:28px;
+  }
+  html body.design2-inner [data-mgl2-layout="contact"] [data-mgl2-block="banner"] .mgl-contact-hero__grid{grid-template-columns:1fr}
+}
+@media(max-width:767px){
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]{
+    min-height:300px;padding:48px 0;background-position:center,center;
+  }
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-container{width:calc(100% - 32px)}
+  html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] h1{font-size:clamp(32px,8vw,46px)!important}
+  html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-container{
+    grid-template-columns:1fr;width:calc(100% - 48px);
+  }
+  html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-container::before{
+    grid-column:1;grid-row:auto;min-height:260px;box-shadow:14px 14px 0 var(--mgl2-lime);margin-bottom:20px;
+  }
+  html body.design2-inner [data-mgl2-layout="company"] [data-mgl2-block="intro"] .mgl-inner-container>*{grid-column:1}
+  html body.design2-inner [data-mgl2-layout="article"] .mgl-inner-editorial-layout{
+    width:calc(100% - 32px);display:flex;flex-direction:column;
+  }
+  html body.design2-inner [data-mgl2-layout] .mgl-inner-body>.mgl-inner-section{padding-block:clamp(40px,9vw,68px)}
+}
