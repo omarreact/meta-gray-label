@@ -64,6 +64,21 @@ function applyTheme2Layout(markup) {
     }
     html=html.replace(heroMatch[0],hero).replace(introMatch[0],intro);
   }
+  if(variant==='process'){
+    const steps=[...html.matchAll(/<section\b[^>]*\bid="(inner-section-\d+)"[^>]*>[\s\S]*?<h2\b[^>]*>([\s\S]*?)<\/h2>/gi)];
+    if(steps.length){
+      const links=steps.map(([,id,title],index)=>'<a href="#'+id+'"><span aria-hidden="true">'+String(index+1).padStart(2,'0')+'</span>'+title.replace(/<[^>]*>/g,' ').trim()+'</a>').join('');
+      html=html.replace('<div class="mgl-inner-body">','<div class="mgl-inner-body"><nav class="mgl2-process-index" aria-label="Launch steps"><p class="mgl-inner-eyebrow">Explore the launch sequence</p><div class="mgl2-process-steps">'+links+'</div></nav>');
+    }
+  }
+  if(variant==='article'){
+    html=html.replace('<article class="mgl-inner-editorial-copy">','<article class="mgl-inner-editorial-copy"><figure class="mgl2-editorial-media"><img src="../assets/media/design2-resource-forex.jpg" alt="" loading="lazy" decoding="async"></figure>');
+  }
+  if(variant==='directory'||variant==='hub'){
+    const images=['design2-resource-forex.jpg','design2-resource-about-1.jpg','design2-resource-about-2.jpg'];
+    let index=0;
+    html=html.replace(/(<article\b[^>]*class="[^"]*\bmgl-directory-article\b[^"]*"[^>]*>)/gi,tag=>tag+'<figure class="mgl2-list-media"><img src="../assets/media/'+images[index++%images.length]+'" alt="" loading="lazy" decoding="async"></figure>');
+  }
   return html;
 }
 
@@ -87,7 +102,7 @@ html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>k
 // Allow browser zoom on all Theme 2 pages, including the legacy homepage template.
 html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');
 // Change this version when the independently styled Theme 2 CSS changes.
-html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125c"');
+html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125d"');
 html=html.replace(/<html\b/i,'<html data-mgl-theme="'+theme+'"');
 // Canonicalize valid alternate pages only; a missing route is not the homepage.
 html=html.replace(/<link\b[^>]*\brel=["']canonical["'][^>]*>/gi,'');
