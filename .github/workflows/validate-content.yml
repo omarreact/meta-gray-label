@@ -71,6 +71,18 @@ jobs:
                 if(errors.length)throw Error('Browser errors '+url+': '+errors.join('; '));
                 await page.close();
               }
+              // Verify live toggle behavior, not just query-driven initial mode.
+              for(const width of [390,1440]){
+                const togglePage=await browser.newPage({viewport:{width,height:900}});
+                await togglePage.goto(base+'theme-2/?theme=light');
+                await togglePage.locator('#btnSwitch').waitFor();
+                await togglePage.locator('#btnSwitch').click();
+                await togglePage.waitForFunction(()=>document.documentElement.getAttribute('data-bs-theme')==='dark' && document.querySelector('img[data-brand-logo]').src.includes('/theme-2/logo-dark.svg') && document.querySelector('#site-favicon').href.includes('/theme-2/favicon-dark.svg'));
+                await togglePage.locator('#btnSwitch').click();
+                await togglePage.waitForFunction(()=>document.documentElement.getAttribute('data-bs-theme')==='light' && document.querySelector('img[data-brand-logo]').src.includes('/theme-2/logo-light.svg') && document.querySelector('#site-favicon').href.includes('/theme-2/favicon-light.svg'));
+                await togglePage.close();
+              }
+              console.log('PASS: Theme 2 live light/dark logo and favicon switching at 390/1440px');
               console.log('PASS: '+routes.length+' routes x 2 layouts x 3 widths x 2 modes');
               const page=await browser.newPage({viewport:{width:390,height:844}});
               await page.goto(base+'theme-1/?page=contact&theme=dark');
