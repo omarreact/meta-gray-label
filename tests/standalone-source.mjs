@@ -42,6 +42,12 @@ async function render(theme,slug,error=false){
      assert.equal((output.match(/<main\b[\s\S]*?<\/main>/i)?.[0].match(/<h1\b/g)||[]).length,1,'Homepage must have one H1');
      assert(/<img\b[^>]*src="[^"]*design2-resource-about-1\.jpg"[^>]*width="604"[^>]*height="604"/i.test(output),'About image intrinsic dimensions missing');
    }
+   const main=output.match(/<main\b[\s\S]*?<\/main>/i)?.[0]||'';
+   const headings=[...main.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)];
+   let prior=0;for(const [,level,body] of headings){
+    const n=Number(level);assert(body.replace(/<[^>]*>/g,'').trim(),'Empty heading '+slug);
+    assert(!prior||n<=prior+1,'Skipped heading level '+slug+' '+prior+' -> '+n);prior=n;
+   }
    if(slug!=='home'){
      assert(/<main\b[^>]*data-mgl2-layout="[^"]+"/.test(output),'Theme 2 layout adapter missing');
      assert(output.includes('data-mgl2-block="banner"'),'Theme 2 banner missing');
