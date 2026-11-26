@@ -111,12 +111,26 @@ if(theme==='theme-2'&&slug==='home'&&!errorMode){
  });
 }
 
+// Shared audit normalization; used by both the browser and the offline FSE exporter.
+if(theme==='theme-2'){
+ html=html.replace(/<div\b[^>]*class=["'](?:about-shadow-[12]|shadow-[12]|cta-shadow)["'][^>]*>\s*<\/div>/gi,'');
+ const rasterSizes={'design2-resource-about-1.jpg':[604,604],'design2-resource-about-2.jpg':[303,356],'design2-resource-about-stats.png':[303,156],'design2-background-trading-bg.png':[370,434],'design2-resource-forex.jpg':[831,534],'design2-resource-app.png':[823,473],'design2-resource-app-1.png':[375,518],'images/blog/1.png':[326,195],'images/blog/2.png':[326,195],'images/blog/3.png':[326,194]};
+ html=html.replace(/<img\b[^>]*>/gi,tag=>{
+  const src=tag.match(/\bsrc=["'][^"']*\/assets\/media\/([^"'?#]+)/i)?.[1],size=rasterSizes[src];
+  if(size&&!/\bwidth=/.test(tag)&&!/\bheight=/.test(tag))tag=tag.replace(/\/?>$/,' width="'+size[0]+'" height="'+size[1]+'">');
+  if(size&&!/\bdecoding=/.test(tag))tag=tag.replace(/\/?>$/,' decoding="async">');
+  return tag;
+ });
+ html=html.replace(/<p class="mgl-inner-breadcrumb">([\s\S]*?)<\/p>/gi,(_,content)=>'<nav class="mgl-inner-breadcrumb" aria-label="Breadcrumb">'+content.replace(/<span>([^<]+)<\/span>\s*$/,'<span aria-current="page">$1</span>')+'</nav>');
+ html=html.replace(/<h([1-6])\b[^>]*>\s*<\/h\1>/gi,'');
+}
+
 html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>known.has(id)&&id!=='home'?'href='+q+'./?page='+encodeURIComponent(id)+tail.replace(/^\?/,'&amp;')+q:id==='index'?'href='+q+'./'+tail+q:m);
 // Allow browser zoom on all Theme 2 pages, including the legacy homepage template.
 html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');
 // Change this version when the independently styled Theme 2 CSS changes.
-html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125e"');
-html=html.replace(/src="runtime\.js"/g,'src="runtime.js?v=theme2-brand-v5-20261126"');
+html=html.replace(/href="style\.css"/g,'href="style.css?v=audit-layout-20261126"');
+html=html.replace(/src="runtime\.js"/g,'src="runtime.js?v=theme2-audit-v6-20261126"');
 // Theme 2 owns its branding assets; shared content is unchanged.
 html=html.replace(/assets\/media\/branding\/((?:logo-(?:dark|light|symbol)\.svg|favicon(?:-dark|-light)?\.svg|favicon-32\.png|icon-(?:192|512)\.png|apple-touch-icon\.png))/g,(match,name)=>'assets/media/branding/theme-2/'+name);
 // Ensure every layout declares the same mode-aware, Theme 2-specific icons.

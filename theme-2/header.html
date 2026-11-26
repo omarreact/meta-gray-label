@@ -331,4 +331,36 @@ html[data-bs-theme="dark"] body:not(.design2-inner) .trading-block_one-inner .lo
 html[data-bs-theme="dark"] body:not(.design2-inner) .platform-section{background-color:#003f2f}
 .mgl2-header :is(.mgl-nav-link,.mgl-dropdown-link,.mgl-header-cta,.mgl-menu-toggle,.mgl-nav-disclosure):focus-visible,.play-now-two:focus-visible{outline:2px solid #ddff93;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.play-now-two .ripple,.play-now-two .ripple::before,.play-now-two .ripple::after{animation:none!important}}
+
+/* UI audit contract: content owns layout; purely decorative paint does not. */
+body.home2-shared-header{
+ --mgl-space-xs:8px;--mgl-space-sm:12px;--mgl-space-md:16px;--mgl-space-lg:24px;--mgl-space-xl:32px;
+ --mgl-section-space:clamp(36px,5vw,80px);--mgl-control-size:48px;--mgl-control-border:#78988b;
+}
+body.home2-shared-header :is(.banner-section,.about-section,.cta-section){position:relative;isolation:isolate}
+body.home2-shared-header :is(.banner-section,.about-section,.cta-section)::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 0 85%,rgb(0 121 91 / 16%),transparent 52%),radial-gradient(ellipse at 100% 15%,rgb(221 255 147 / 7%),transparent 45%)}
+body.home2-shared-header :is(.about-shadow-1,.about-shadow-2,.shadow-1,.shadow-2,.cta-shadow):empty{display:none!important}
+body.home2-shared-header .about-section{padding-block:var(--mgl-section-space)}
+body.home2-shared-header .about-section .content-column .about-one_options{padding-block:var(--mgl-space-md);margin-block-start:var(--mgl-space-lg)}
+body.home2-shared-header .about-section .content-column .app-one{gap:var(--mgl-space-md);padding-block-start:var(--mgl-space-sm)}
+body.home2-shared-header .about-section .content-column .app-one .icon{width:64px;height:64px;line-height:64px;font-size:28px}
+body.home2-shared-header .about-section .content-column .inner-column{padding-block-start:clamp(0px,2vw,24px)}
+body.home2-shared-header .mgl2-header .mgl-menu-toggle{min-width:44px;min-height:44px}
+body.home2-shared-header .mgl2-header .mgl-nav-disclosure{min-inline-size:24px;min-block-size:24px}
+body.home2-shared-header :is(.swiper-button-prev,.swiper-button-next){min-inline-size:44px;min-block-size:44px}
+body.home2-shared-header .swiper-pagination-bullet{position:relative;min-inline-size:24px;min-block-size:24px;background-clip:content-box;padding:7px}
+body.home2-shared-header :is(.swiper-button-prev,.swiper-button-next,.swiper-pagination-bullet,.mgl-slide-pause):focus-visible{outline:2px solid #ddff93;outline-offset:3px;box-shadow:0 0 0 2px #003f2f}
+body.home2-shared-header .mgl-slide-pause{min-width:44px;min-height:44px;padding:8px 14px;border:1px solid #78988b;border-radius:8px;background:#003f2f;color:#f6ffe1}
+body.home2-shared-header .mgl-contact-fields label>span{display:block;font-size:15px;line-height:1.45;font-weight:600;margin-block-end:2px}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] .mgl-contact-fields label>span{color:#f6ffe1}
+body.home2-shared-header .mgl-contact-fields :is(input,select,textarea){min-block-size:48px;font-size:16px;border-color:var(--mgl-control-border)}
+body.home2-shared-header .mgl-contact-fields [aria-invalid="true"]{border-color:#ffb4ab!important}
+body.home2-shared-header .mgl-contact-fields .mgl-field-error{font-size:14px;color:#ffb4ab}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-breadcrumb{font-size:14px!important;line-height:1.6!important;max-width:100%;overflow-wrap:anywhere}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-breadcrumb a{color:#f6ffe1;text-decoration:underline;text-underline-offset:3px}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-breadcrumb [aria-current="page"]{color:#ddff93;font-weight:600}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-breadcrumb{width:fit-content;padding:6px 12px;border-radius:6px;background:#003f2f;color:#f6ffe1}
+body.home2-shared-header :is(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2px solid #ddff93;outline-offset:3px;box-shadow:0 0 0 2px #003f2f}
+@media(max-width:1199.98px){body.home2-shared-header .mgl2-topbar{display:none!important}body.home2-shared-header .mgl2-header .mgl-nav-disclosure{min-width:44px;min-height:44px}}
+@media(prefers-reduced-motion:reduce){body.home2-shared-header :is(.swiper-wrapper,.swiper-slide,.banner-slide .animate-2){transition-duration:0s!important;animation-duration:0s!important}}
 </style>
