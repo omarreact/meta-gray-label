@@ -286,4 +286,32 @@
  .mgl2-header .mgl-dropdown-group{margin-inline:9px}
 }
 @media(max-width:1199.98px){.mgl2-header .mgl-mega-column{display:block}}
+
+/* Inner-page design contract: natural header flow; retain the independent homepage. */
+body.design2-inner.home2-shared-header .mgl2-header{position:sticky;top:0;left:auto;right:auto;transform:none}
+body.design2-inner .page-wrapper{padding-top:0;overflow:visible}
+body.design2-inner .page-wrapper>main[data-mgl2-layout]{margin-block-start:0}
+html body.design2-inner [data-mgl2-layout]{font-family:Inter,Arial,sans-serif;font-size:16px;line-height:1.65}
+html body.design2-inner [data-mgl2-layout] :is(h1,h2,h3,h4,h5,h6){font-family:"Plus Jakarta Sans",Inter,Arial,sans-serif;letter-spacing:-.025em}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero) h1,html body.design2-inner [data-mgl2-layout="contact"] [data-mgl2-block="banner"] h1{font-size:clamp(32px,4.2vw,56px)!important;line-height:1.12!important}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"]:not(.mgl-contact-hero){min-height:clamp(280px,29vw,420px);padding-block:clamp(42px,5.5vw,76px)}
+html body.design2-inner [data-mgl2-layout] :is(.mgl-inner-section-heading h2,.mgl-directory-introduction h2,.mgl-contact-workspace h2,.mgl-contact-next h2){font-size:clamp(25px,2.6vw,36px)!important;line-height:1.22!important}
+html body.design2-inner [data-mgl2-layout] :is(.mgl-inner-card h3,.mgl-inner-link-card h3,.mgl-directory-model h3,.mgl-contact-form__section-head h3){font-size:clamp(18px,1.6vw,23px)!important;line-height:1.35!important}
+html body.design2-inner [data-mgl2-layout] :is(.mgl-inner-section,.mgl-contact-workspace,.mgl-contact-next){padding-block:clamp(36px,5vw,72px)}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"]>.mgl-inner-container{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;padding-left:0;border-left:0}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"]>.mgl-inner-container::before{display:none}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"] .mgl-inner-items{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+html body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"] .mgl-inner-card{min-width:0;padding:20px;overflow-wrap:break-word}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout]{--fx-bg:#0c201e;--fx-surface:#132c28;--fx-ink:#f6ffe1;--fx-accent:#ddff93;--fx-line:#34534b;--mgl2-soft:#102823;--mgl2-muted:#b3ccc0;color:var(--fx-ink);color-scheme:dark}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"]{background:var(--fx-surface)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"] :is(.mgl-inner-section-heading h2,.mgl-inner-section-heading .mgl-inner-eyebrow,.mgl-inner-lead,.mgl-inner-lead p){color:var(--fx-ink)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"] .mgl-inner-card{background:#003f2f;border-color:var(--fx-line)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] :is(.mgl-contact-workspace,.mgl-contact-next){background:var(--fx-surface);color:var(--fx-ink)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] [data-mgl2-block="banner"] .mgl-contact-hero__aside{background:var(--fx-surface);color:var(--fx-ink);border-color:var(--fx-line)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] [data-mgl2-block="banner"] .mgl-contact-hero__aside :is(p,li,span,strong,i){color:var(--fx-ink)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] :is(.mgl-contact-workspace,.mgl-contact-next) :is(h2,h3,h4,strong,label){color:var(--fx-ink)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] :is(.mgl-contact-workspace,.mgl-contact-next) :is(p,small){color:var(--mgl2-muted)}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] :is(input,textarea)::placeholder{color:#b3ccc0;opacity:1}
+html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] .mgl-home-btn--primary{background:var(--fx-accent);color:#003f2f}
+@media(max-width:767px){html body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"] .mgl-inner-items{grid-template-columns:1fr}html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-container{width:calc(100% - 32px)}}
 </style>
