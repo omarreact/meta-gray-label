@@ -98,6 +98,19 @@ else if(slug==='home')html=d.homeLayouts[theme].replace(/\{\{COPY:([a-z0-9]+)\}\
 else if(theme==='theme-1')html=p.html;
 else{let m=getMain(p.html);if(!m)throw Error('Missing page content');m=applyTheme2Layout(m);html=d.alternatePageTemplate.replace('{{PAGE_MAIN}}',()=>m).replace('{{PAGE_TITLE}}',()=>p.title).replace('{{PAGE_DESCRIPTION}}',()=>escape(p.description));}
 html=html.replace(/<template\s+data-shared-part="header"\s*><\/template>/gi,()=>header).replace(/<template\s+data-shared-part="footer"\s*><\/template>/gi,()=>footer);
+// Keep source semantics correct before either HTML publication or WordPress export.
+if(theme==='theme-2'&&slug==='home'&&!errorMode){
+ let headingCount=0;
+ html=html.replace(/<h1\b([^>]*\bclass=["'][^"']*\btitle\b[^"']*\banimate-2\b[^"']*["'][^>]*)>([\s\S]*?)<\/h1>/gi,(_,attrs,body)=>{
+  const tag=++headingCount===1?'h1':'h2';return '<'+tag+attrs+'>'+body+'</'+tag+'>';
+ });
+ html=html.replace(/<a\b[^>]*>[\s\S]*?<\/a>/gi,a=>{
+  if(a.includes('Discuss Your Setup'))return a.replace(/\bhref=(["'])[^"']*\1/i,'href="contact.html"');
+  if(/\bclass=["'][^"']*\bplay-now-two\b/.test(a)&&!/\baria-label=/.test(a))return a.replace(/^<a\b/,'<a aria-label="Explore trading platforms"');
+  return a;
+ });
+}
+
 html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>known.has(id)&&id!=='home'?'href='+q+'./?page='+encodeURIComponent(id)+tail.replace(/^\?/,'&amp;')+q:id==='index'?'href='+q+'./'+tail+q:m);
 // Allow browser zoom on all Theme 2 pages, including the legacy homepage template.
 html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');

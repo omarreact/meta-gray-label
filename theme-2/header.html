@@ -314,4 +314,21 @@ html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] :is(.
 html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] :is(input,textarea)::placeholder{color:#b3ccc0;opacity:1}
 html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout="contact"] .mgl-home-btn--primary{background:var(--fx-accent);color:#003f2f}
 @media(max-width:767px){html body.design2-inner [data-mgl2-layout] [data-mgl2-block="timeline"] .mgl-inner-items{grid-template-columns:1fr}html body.design2-inner [data-mgl2-layout] [data-mgl2-block="banner"] .mgl-inner-container{width:calc(100% - 32px)}}
+
+/* Shared Forexy design system. Card foreground/background are a single state,
+   not independent overrides. Scope to Theme 2 and keep the light mode intact. */
+html[data-bs-theme="dark"] body.design2-inner main[data-mgl2-layout] :is(.mgl-inner-eyebrow,.mgl-inner-caption,.mgl-inner-breadcrumb,.mgl-inner-device-note,.mgl-inner-value){font-size:clamp(13px,1vw,14px)!important;line-height:1.5!important;overflow-wrap:anywhere}
+html body.design2-inner [data-mgl2-layout] .mgl-inner-breadcrumb a{font-size:inherit!important}
+html body.design2-inner [data-mgl2-layout="article"] :is(.mgl-inner-editorial-content,.mgl-inner-prose){font-size:17px;line-height:1.8}
+html body .main-footer .btn-title{font-size:13px;line-height:1.5}
+html[data-bs-theme="dark"] body:not(.design2-inner) .content-box2>span{color:#07543c!important}
+html[data-bs-theme="dark"] body:not(.design2-inner) .trading-block_one-inner{--mgl-card-bg:#f1f3f3;--mgl-card-fg:#425b54;--mgl-card-icon:#006c7c}
+html[data-bs-theme="dark"] body:not(.design2-inner) .trading-block_one-inner:is(:hover,:focus-within){--mgl-card-bg:#003f2f;--mgl-card-fg:#f6ffe1;--mgl-card-icon:#ddff93}
+html[data-bs-theme="dark"] body:not(.design2-inner) .trading-block_one-inner .lower-box{background:var(--mgl-card-bg);transition:none}
+html[data-bs-theme="dark"] body:not(.design2-inner) .trading-block_one-inner .lower-box::before{content:none}
+html[data-bs-theme="dark"] body:not(.design2-inner) .trading-block_one-inner .lower-box .trading-one_list li{color:var(--mgl-card-fg);transition:none}
+html[data-bs-theme="dark"] body:not(.design2-inner) .trading-block_one-inner .lower-box .trading-one_list li span{color:var(--mgl-card-icon);transition:none}
+html[data-bs-theme="dark"] body:not(.design2-inner) .platform-section{background-color:#003f2f}
+.mgl2-header :is(.mgl-nav-link,.mgl-dropdown-link,.mgl-header-cta,.mgl-menu-toggle,.mgl-nav-disclosure):focus-visible,.play-now-two:focus-visible{outline:2px solid #ddff93;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.play-now-two .ripple,.play-now-two .ripple::before,.play-now-two .ripple::after{animation:none!important}}
 </style>
