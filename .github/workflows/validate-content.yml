@@ -58,7 +58,13 @@ jobs:
                 if(await page.locator('html').getAttribute('data-bs-theme')!==mode)throw Error('Theme mismatch '+url);
                 if(layout==='theme-2'){
                   const src=await page.locator('img[data-brand-logo]').getAttribute('src');
-                  if(!src.includes('logo-dark.svg'))throw Error('Theme 2 dark header logo mismatch '+url+' '+src);
+                  if(!src.includes('/branding/theme-2/logo-'+mode+'.svg'))throw Error('Theme 2 header logo mismatch '+url+' '+src);
+                    const footerSrc=await page.locator('img[data-brand-footer]').getAttribute('src');
+                    if(!footerSrc.includes('/branding/theme-2/logo-dark.svg'))throw Error('Theme 2 footer logo mismatch '+url+' '+footerSrc);
+                    const favicon=await page.locator('#site-favicon, link[rel="icon"][type="image/svg+xml"]').first().getAttribute('href');
+                    if(!favicon.includes('/branding/theme-2/favicon-'+mode+'.svg'))throw Error('Theme 2 favicon mismatch '+url+' '+favicon);
+                    const loaded=await page.locator('img[data-brand-logo]').evaluate(async img=>{try{await img.decode();return img.naturalWidth>0;}catch(e){return false;}});
+                    if(!loaded)throw Error('Theme 2 logo failed to decode '+url);
                 }
                 const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
                 if(dimensions.scroll>dimensions.client+2)throw Error('Horizontal overflow '+url+' '+width+' '+JSON.stringify(dimensions));
