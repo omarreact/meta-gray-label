@@ -1,0 +1,77 @@
+name: Meta Grey Label WordPress release
+on:
+  pull_request:
+    paths:
+      - 'scripts/wordpress-release/**'
+      - 'scripts/export-forexy-fse.mjs'
+      - '.github/workflows/wordpress-release.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/wordpress-release/**'
+      - 'scripts/export-forexy-fse.mjs'
+      - '.github/workflows/wordpress-release.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: omarreact/WpBlockThemeFSE
+          ref: 9ede9d43e59d02b3cc01e2832a83d843ebc456da
+          path: pin-builder
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - run: node scripts/export-forexy-fse.mjs pin-builder/build/mgl-source
+      - run: python pin-builder/scripts/build-structured-site.py --source-root pin-builder/build/mgl-source --out-dir pin-builder/build/mgl-release --theme-slug meta-grey-label-standalone
+      - name: Build release overlay and validate files
+        run: |
+          python scripts/wordpress-release/apply.py pin-builder/build/mgl-release/meta-grey-label-standalone pin-builder/build/mgl-source/site-manifest.json --source .
+          find pin-builder/build/mgl-release/meta-grey-label-standalone -name '*.php' -print0 | xargs -0 -n1 php -l
+          node --check pin-builder/build/mgl-release/meta-grey-label-standalone/release-enquiry.js
+          node --check pin-builder/build/mgl-release/meta-grey-label-standalone/legacy-editor.js
+          cd pin-builder/build/mgl-release
+          rm meta-grey-label-standalone.zip
+          zip -qr meta-grey-label-standalone.zip meta-grey-label-standalone
+      - name: Install fresh WordPress and test release
+        run: |
+          cp scripts/wordpress-release/wp-test.php pin-builder/build/wp-release-test.php
+          bash pin-builder/scripts/wordpress-test.sh start
+          bash pin-builder/scripts/wordpress-test.sh run cli wp theme install /var/www/html/wp-content/themes/pin-universal-fse/build/mgl-release/meta-grey-label-standalone.zip --force --activate
+          bash pin-builder/scripts/wordpress-test.sh run cli wp eval-file wp-content/themes/pin-universal-fse/build/wp-release-test.php
+      - name: Test real frontend and capture homepage screenshot
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install --with-deps chromium
+          node scripts/wordpress-release/browser.mjs pin-builder/build/mgl-source/site-manifest.json release-evidence
+      - name: Package verified screenshot and release
+        run: |
+          python -c 'from PIL import Image; Image.open("release-evidence/screenshot.png").convert("RGB").save("pin-builder/build/mgl-release/meta-grey-label-standalone/screenshot.png",optimize=True)'
+          mkdir -p dist
+          cd pin-builder/build/mgl-release
+          zip -qr ../../../dist/meta-grey-label-v0.0.1.zip meta-grey-label-standalone
+          unzip -t ../../../dist/meta-grey-label-v0.0.1.zip | tail -1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: meta-grey-label-v0.0.1
+          path: |
+            dist/meta-grey-label-v0.0.1.zip
+            pin-builder/build/mgl-release/meta-grey-label-standalone/build-report.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-evidence
+          path: release-evidence
+      - if: always()
+        run: bash pin-builder/scripts/wordpress-test.sh stop
