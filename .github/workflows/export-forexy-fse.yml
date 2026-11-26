@@ -1,0 +1,22 @@
+name: Export Forexy FSE source
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/export-forexy-fse.mjs build/forexy-source
+      - run: node --check build/forexy-source/theme-2/runtime.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: forexy-fse-source
+          path: build/forexy-source
+          retention-days: 14
