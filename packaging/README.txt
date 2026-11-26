@@ -1,0 +1,2 @@
+Meta Grey Label Standalone 2.1.0
+Install the inner ZIP in Appearance > Themes > Upload Theme. Activate and use Post name permalinks. Both designs, assets, fonts, 52 pages and content are local. No GitHub connection, importer, or remote activation required. Theme 1 /; Theme 2 /theme-2/. Settings panel requires a signed-in WordPress session. Existing content is not deleted; rollback by switching themes. This is not an FSE conversion. Host and live routing still need smoke testing.
