@@ -7349,10 +7349,10 @@ function updateThemeColor(themeMode = 'dark') {
     }
 
     changeImage(themeMode);
-    const assetRoot = new URL('assets/media/branding/', mglSiteRoot).href;
+    const assetRoot = new URL('assets/media/branding/theme-2/', mglSiteRoot).href;
     const headerLogo = document.querySelector('img[data-brand-logo]');
     const footerLogo = document.querySelector('img[data-brand-footer]');
-    const version = '?v=mgl-brand-v3';
+    const version = '?v=theme2-brand-20261126';
     if (headerLogo) headerLogo.src = assetRoot + (document.documentElement.dataset.mglTheme === 'theme-2' || themeMode === 'dark' ? 'logo-dark.svg' : 'logo-light.svg') + version;
     // The footer background remains dark in both themes; keep its wordmark high-contrast.
     if (footerLogo) footerLogo.src = assetRoot + 'logo-dark.svg' + version;
