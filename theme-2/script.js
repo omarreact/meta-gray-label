@@ -128,7 +128,7 @@ if(theme==='theme-2'){
   const main=html.match(/<main\b[\s\S]*?<\/main>/i)?.[0];
   if(main){
    const fixed=main.replace(/<h([45])(\s+class="(?:trading-block_one-title|title|name)")>([\s\S]*?)<\/h\1>/gi,'<h3$2>$3</h3>')
-    .replace(/<h5(\s+class="title tx-split-text split-in-left")>([\s\S]*?)<\/h5>/gi,'<h2$1>$2</h2>')
+    .replace(/<h5(\s+class="title tx-split-text split-in-left"\s*)>([\s\S]*?)<\/h5>/gi,'<h2$1>$2</h2>')
     .replace(/<h4>(\s*A connected[\s\S]*?)<\/h4>/i,'<h3>$1</h3>');
    html=html.replace(main,()=>fixed);
   }
