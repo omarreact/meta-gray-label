@@ -103,7 +103,7 @@ html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>k
 html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');
 // Change this version when the independently styled Theme 2 CSS changes.
 html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125e"');
-html=html.replace(/src="runtime\.js"/g,'src="runtime.js?v=theme2-brand-20261126"');
+html=html.replace(/src="runtime\.js"/g,'src="runtime.js?v=theme2-brand-v3-20261126"');
 // Theme 2 owns its branding assets; shared content is unchanged.
 html=html.replace(/assets\/media\/branding\/((?:logo-(?:dark|light|symbol)\.svg|favicon(?:-dark|-light)?\.svg|favicon-32\.png|icon-(?:192|512)\.png|apple-touch-icon\.png))/g,(match,name)=>'assets/media/branding/theme-2/'+name);
 html=html.replace(/<html\b/i,'<html data-mgl-theme="'+theme+'"');

@@ -26,7 +26,7 @@ async function render(theme,slug,error=false){
  assert(output.includes('data-site-header')&&/<footer\b/i.test(output),'Missing chrome');
  assert(!/\{\{(?:COPY:|PAGE_)/.test(output),'Unresolved template token');
  assert(!/<template\s+data-shared-part=/.test(output),'Unresolved chrome');
- assert(output.includes('<script src="runtime.js'+(theme==='theme-2'?'?v=theme2-brand-20261126':'')+'"></script>'),'Missing runtime');
+ assert(output.includes('<script src="runtime.js'+(theme==='theme-2'?'?v=theme2-brand-v3-20261126':'')+'"></script>'),'Missing runtime');
  if(error)assert(output.includes('Page not found'));
  if(theme==='theme-2'){
    assert(output.includes('data-theme-header="2"'),'Independent Theme 2 header missing');
@@ -66,6 +66,13 @@ for(const theme of ['theme-1','theme-2']){
    if(theme==='theme-2'&&p.slug==='metatrader-grey-label-licensing-what-it-includes-and-why-it-matters')assert(output.includes('class="mgl2-editorial-media"'),'Article media missing');
  }
  await render(theme,'not-a-route',true);
+ if(theme==='theme-2'){
+  const runtime=fs.readFileSync('theme-2/runtime.js','utf8');
+  assert(runtime.includes("darkMode ? 'logo-dark.svg' : 'logo-light.svg'"),'Theme 2 light/dark header variants missing');
+  assert(runtime.includes("headerLogo.classList.toggle('mgl2-logo-light-mode', !darkMode)"),'Light logo contrast rule missing');
+  assert(runtime.includes("footerLogo.src = assetRoot + 'logo-dark.svg'"),'Dark footer contrast missing');
+  for(const n of ['logo-light.svg','logo-dark.svg','favicon-dark.svg','favicon-light.svg','favicon-32.png','icon-192.png','icon-512.png','apple-touch-icon.png'])assert(fs.existsSync('assets/media/branding/theme-2/'+n),'Missing Theme 2 branding '+n);
+ }
  const css=fs.readFileSync(theme+'/style.css','utf8');
  for(const m of css.matchAll(/url\(\s*(["']?)([^"')]+)\1\s*\)/gi))checkTarget(m[2].trim(),new URL(prefix+theme+'/style.css',host));
 }
