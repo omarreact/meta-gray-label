@@ -123,6 +123,20 @@ if(theme==='theme-2'){
  });
  html=html.replace(/<p class="mgl-inner-breadcrumb">([\s\S]*?)<\/p>/gi,(_,content)=>'<nav class="mgl-inner-breadcrumb" aria-label="Breadcrumb">'+content.replace(/<span>([^<]+)<\/span>\s*$/,'<span aria-current="page">$1</span>')+'</nav>');
  html=html.replace(/<h([1-6])\b[^>]*>\s*<\/h\1>/gi,'');
+ // Correct audited source heading jumps without renumbering unrelated articles.
+ if(slug==='home'){
+  html=html.replace(/<h([45])(\s+class="(?:trading-block_one-title|title|name)")>([\s\S]*?)<\/h\1>/gi,'<h3$2>$3</h3>');
+  html=html.replace(/<h5(\s+class="title tx-split-text split-in-left")>([\s\S]*?)<\/h5>/gi,'<h2$1>$2</h2>');
+  html=html.replace(/<h4>(\s*A connected[\s\S]*?)<\/h4>/i,'<h3>$1</h3>');
+ }
+ else {
+  const main=html.match(/<main\b[\s\S]*?<\/main>/i)?.[0];
+  if(main){
+   const fixed=main.replace(/(<h1\b[^>]*>[\s\S]*?<\/h1>)([\s\S]*?)(<h3\b[^>]*>)([\s\S]*?)<\/h3>/i,(all,h1,between,open,body)=>/<h2\b/i.test(between)?all:h1+between+open.replace(/^<h3/i,'<h2')+body+'</h2>');
+   html=html.replace(main,()=>fixed);
+  }
+ }
+
 }
 
 html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>known.has(id)&&id!=='home'?'href='+q+'./?page='+encodeURIComponent(id)+tail.replace(/^\?/,'&amp;')+q:id==='index'?'href='+q+'./'+tail+q:m);

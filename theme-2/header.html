@@ -363,4 +363,13 @@ html[data-bs-theme="dark"] body.design2-inner [data-mgl2-layout] [data-mgl2-bloc
 body.home2-shared-header :is(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2px solid #ddff93;outline-offset:3px;box-shadow:0 0 0 2px #003f2f}
 @media(max-width:1199.98px){body.home2-shared-header .mgl2-topbar{display:none!important}body.home2-shared-header .mgl2-header .mgl-nav-disclosure{min-width:44px;min-height:44px}}
 @media(prefers-reduced-motion:reduce){body.home2-shared-header :is(.swiper-wrapper,.swiper-slide,.banner-slide .animate-2){transition-duration:0s!important;animation-duration:0s!important}}
+
+/* Preserve component layout while removing inherited template-sized section gaps. */
+body.home2-shared-header:not(.design2-inner) :is(.market-section,.platform-section,.steps-section,.testimonial-section,.faq-section,.trading-two,.news-section){padding-block:var(--mgl-section-space)}
+body.home2-shared-header:not(.design2-inner) .trading-section{padding-block:clamp(24px,3vw,48px) var(--mgl-section-space)}
+body.home2-shared-header:not(.design2-inner) .funfact-section .inner-container{padding-block:clamp(32px,4vw,56px) clamp(24px,3vw,40px)}
+body.home2-shared-header:not(.design2-inner) .platform-section .guide-outer :is(h3,h4){font-size:clamp(20px,2.5vw,32px);line-height:1.25}
+body.home2-shared-header:not(.design2-inner) :is(.trading-block_one,.platform-block_one,.step-block_one,.testimonial-block,.news-block_one) h3{font-size:clamp(18px,1.6vw,23px);line-height:1.35}
+html body.design2-inner [data-mgl2-layout] .mgl-inner-architecture h2,
+html body.design2-inner [data-mgl2-layout] .mgl-inner-decision h2{font-size:clamp(18px,1.6vw,23px);line-height:1.35}
 </style>
