@@ -7352,7 +7352,7 @@ function updateThemeColor(themeMode = 'dark') {
     const assetRoot = new URL('assets/media/branding/theme-2/', mglSiteRoot).href;
     const headerLogo = document.querySelector('img[data-brand-logo]');
     const footerLogo = document.querySelector('img[data-brand-footer]');
-    const version = '?v=theme2-brand-v3-20261126';
+    const version = '?v=theme2-brand-v5-20261126';
     if (headerLogo) {
         const darkMode = themeMode === 'dark';
         headerLogo.src = assetRoot + (darkMode ? 'logo-dark.svg' : 'logo-light.svg') + version;

@@ -26,7 +26,7 @@ async function render(theme,slug,error=false){
  assert(output.includes('data-site-header')&&/<footer\b/i.test(output),'Missing chrome');
  assert(!/\{\{(?:COPY:|PAGE_)/.test(output),'Unresolved template token');
  assert(!/<template\s+data-shared-part=/.test(output),'Unresolved chrome');
- assert(output.includes('<script src="runtime.js'+(theme==='theme-2'?'?v=theme2-brand-v3-20261126':'')+'"></script>'),'Missing runtime');
+ assert(output.includes('<script src="runtime.js'+(theme==='theme-2'?'?v=theme2-brand-v5-20261126':'')+'"></script>'),'Missing runtime');
  if(error)assert(output.includes('Page not found'));
  if(theme==='theme-2'){
    assert(output.includes('data-theme-header="2"'),'Independent Theme 2 header missing');
