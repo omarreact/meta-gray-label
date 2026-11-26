@@ -58,13 +58,31 @@ jobs:
                 if(await page.locator('html').getAttribute('data-bs-theme')!==mode)throw Error('Theme mismatch '+url);
                 if(layout==='theme-2'){
                   const src=await page.locator('img[data-brand-logo]').getAttribute('src');
-                  if(!src.includes('logo-dark.svg'))throw Error('Theme 2 dark header logo mismatch '+url+' '+src);
+                  if(!src.includes('/branding/theme-2/logo-'+mode+'.svg'))throw Error('Theme 2 header logo mismatch '+url+' '+src);
+                    const footerSrc=await page.locator('img[data-brand-footer]').getAttribute('src');
+                    if(!footerSrc.includes('/branding/theme-2/logo-dark.svg'))throw Error('Theme 2 footer logo mismatch '+url+' '+footerSrc);
+                    const favicon=await page.locator('#site-favicon, link[rel="icon"][type="image/svg+xml"]').first().getAttribute('href');
+                    if(!favicon.includes('/branding/theme-2/favicon-'+mode+'.svg'))throw Error('Theme 2 favicon mismatch '+url+' '+favicon);
+                    const loaded=await page.locator('img[data-brand-logo]').evaluate(async img=>{try{await img.decode();return img.naturalWidth>0;}catch(e){return false;}});
+                    if(!loaded)throw Error('Theme 2 logo failed to decode '+url);
                 }
                 const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
                 if(dimensions.scroll>dimensions.client+2)throw Error('Horizontal overflow '+url+' '+width+' '+JSON.stringify(dimensions));
                 if(errors.length)throw Error('Browser errors '+url+': '+errors.join('; '));
                 await page.close();
               }
+              // Verify live toggle behavior, not just query-driven initial mode.
+              for(const width of [390,1440]){
+                const togglePage=await browser.newPage({viewport:{width,height:900}});
+                await togglePage.goto(base+'theme-2/?theme=light');
+                await togglePage.locator('#btnSwitch').waitFor();
+                await togglePage.locator('#btnSwitch').click();
+                await togglePage.waitForFunction(()=>document.documentElement.getAttribute('data-bs-theme')==='dark' && document.querySelector('img[data-brand-logo]').src.includes('/theme-2/logo-dark.svg') && document.querySelector('#site-favicon').href.includes('/theme-2/favicon-dark.svg'));
+                await togglePage.locator('#btnSwitch').click();
+                await togglePage.waitForFunction(()=>document.documentElement.getAttribute('data-bs-theme')==='light' && document.querySelector('img[data-brand-logo]').src.includes('/theme-2/logo-light.svg') && document.querySelector('#site-favicon').href.includes('/theme-2/favicon-light.svg'));
+                await togglePage.close();
+              }
+              console.log('PASS: Theme 2 live light/dark logo and favicon switching at 390/1440px');
               console.log('PASS: '+routes.length+' routes x 2 layouts x 3 widths x 2 modes');
               const page=await browser.newPage({viewport:{width:390,height:844}});
               await page.goto(base+'theme-1/?page=contact&theme=dark');
