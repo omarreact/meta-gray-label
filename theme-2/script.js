@@ -98,12 +98,57 @@ else if(slug==='home')html=d.homeLayouts[theme].replace(/\{\{COPY:([a-z0-9]+)\}\
 else if(theme==='theme-1')html=p.html;
 else{let m=getMain(p.html);if(!m)throw Error('Missing page content');m=applyTheme2Layout(m);html=d.alternatePageTemplate.replace('{{PAGE_MAIN}}',()=>m).replace('{{PAGE_TITLE}}',()=>p.title).replace('{{PAGE_DESCRIPTION}}',()=>escape(p.description));}
 html=html.replace(/<template\s+data-shared-part="header"\s*><\/template>/gi,()=>header).replace(/<template\s+data-shared-part="footer"\s*><\/template>/gi,()=>footer);
+// Keep source semantics correct before either HTML publication or WordPress export.
+if(theme==='theme-2'&&slug==='home'&&!errorMode){
+ let headingCount=0;
+ html=html.replace(/<h1\b([^>]*\bclass=["'][^"']*\btitle\b[^"']*\banimate-2\b[^"']*["'][^>]*)>([\s\S]*?)<\/h1>/gi,(_,attrs,body)=>{
+  const tag=++headingCount===1?'h1':'h2';return '<'+tag+attrs+'>'+body+'</'+tag+'>';
+ });
+ html=html.replace(/<a\b[^>]*>[\s\S]*?<\/a>/gi,a=>{
+  if(a.includes('Discuss Your Setup'))return a.replace(/\bhref=(["'])[^"']*\1/i,'href="contact.html"');
+  if(/\bclass=["'][^"']*\bplay-now-two\b/.test(a)&&!/\baria-label=/.test(a))return a.replace(/^<a\b/,'<a aria-label="Explore trading platforms"');
+  return a;
+ });
+}
+
+// Shared audit normalization; used by both the browser and the offline FSE exporter.
+if(theme==='theme-2'){
+ html=html.replace(/<div\b[^>]*class=["'](?:about-shadow-[12]|shadow-[12]|cta-shadow)["'][^>]*>\s*<\/div>/gi,'');
+ const rasterSizes={'design2-resource-about-1.jpg':[604,604],'design2-resource-about-2.jpg':[303,356],'design2-resource-about-stats.png':[303,156],'design2-background-trading-bg.png':[370,434],'design2-resource-forex.jpg':[831,534],'design2-resource-app.png':[823,473],'design2-resource-app-1.png':[375,518],'images/blog/1.png':[326,195],'images/blog/2.png':[326,195],'images/blog/3.png':[326,194]};
+ html=html.replace(/<img\b[^>]*>/gi,tag=>{
+  const src=tag.match(/\bsrc=["'][^"']*\/assets\/media\/([^"'?#]+)/i)?.[1],size=rasterSizes[src];
+  if(size&&!/\bwidth=/.test(tag)&&!/\bheight=/.test(tag))tag=tag.replace(/\/?>$/,' width="'+size[0]+'" height="'+size[1]+'">');
+  if(size&&!/\bdecoding=/.test(tag))tag=tag.replace(/\/?>$/,' decoding="async">');
+  return tag;
+ });
+ html=html.replace(/<p class="mgl-inner-breadcrumb">([\s\S]*?)<\/p>/gi,(_,content)=>'<nav class="mgl-inner-breadcrumb" aria-label="Breadcrumb">'+content.replace(/<span>([^<]+)<\/span>\s*$/,'<span aria-current="page">$1</span>')+'</nav>');
+ html=html.replace(/<h([1-6])\b[^>]*>\s*<\/h\1>/gi,'');
+ // Correct audited source heading jumps without renumbering unrelated articles.
+ if(slug==='home'){
+  const main=html.match(/<main\b[\s\S]*?<\/main>/i)?.[0];
+  if(main){
+   const fixed=main.replace(/<h([45])(\s+class="(?:trading-block_one-title|title|name)")>([\s\S]*?)<\/h\1>/gi,'<h3$2>$3</h3>')
+    .replace(/<h5(\s+class="title tx-split-text split-in-left"\s*)>([\s\S]*?)<\/h5>/gi,'<h2$1>$2</h2>')
+    .replace(/<h4>(\s*A connected[\s\S]*?)<\/h4>/i,'<h3>$1</h3>');
+   html=html.replace(main,()=>fixed);
+  }
+ }
+ else {
+  const main=html.match(/<main\b[\s\S]*?<\/main>/i)?.[0];
+  if(main){
+   const fixed=main.replace(/(<h1\b[^>]*>[\s\S]*?<\/h1>)([\s\S]*?)(<h3\b[^>]*>)([\s\S]*?)<\/h3>/i,(all,h1,between,open,body)=>/<h2\b/i.test(between)?all:h1+between+open.replace(/^<h3/i,'<h2')+body+'</h2>');
+   html=html.replace(main,()=>fixed);
+  }
+ }
+
+}
+
 html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>known.has(id)&&id!=='home'?'href='+q+'./?page='+encodeURIComponent(id)+tail.replace(/^\?/,'&amp;')+q:id==='index'?'href='+q+'./'+tail+q:m);
 // Allow browser zoom on all Theme 2 pages, including the legacy homepage template.
 html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');
 // Change this version when the independently styled Theme 2 CSS changes.
-html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125e"');
-html=html.replace(/src="runtime\.js"/g,'src="runtime.js?v=theme2-brand-v5-20261126"');
+html=html.replace(/href="style\.css"/g,'href="style.css?v=audit-layout-20261126"');
+html=html.replace(/src="runtime\.js"/g,'src="runtime.js?v=theme2-audit-v6-20261126"');
 // Theme 2 owns its branding assets; shared content is unchanged.
 html=html.replace(/assets\/media\/branding\/((?:logo-(?:dark|light|symbol)\.svg|favicon(?:-dark|-light)?\.svg|favicon-32\.png|icon-(?:192|512)\.png|apple-touch-icon\.png))/g,(match,name)=>'assets/media/branding/theme-2/'+name);
 // Ensure every layout declares the same mode-aware, Theme 2-specific icons.

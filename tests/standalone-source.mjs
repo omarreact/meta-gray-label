@@ -26,7 +26,7 @@ async function render(theme,slug,error=false){
  assert(output.includes('data-site-header')&&/<footer\b/i.test(output),'Missing chrome');
  assert(!/\{\{(?:COPY:|PAGE_)/.test(output),'Unresolved template token');
  assert(!/<template\s+data-shared-part=/.test(output),'Unresolved chrome');
- assert(output.includes('<script src="runtime.js'+(theme==='theme-2'?'?v=theme2-brand-v5-20261126':'')+'"></script>'),'Missing runtime');
+ assert(output.includes('<script src="runtime.js'+(theme==='theme-2'?'?v=theme2-audit-v6-20261126':'')+'"></script>'),'Missing runtime');
  if(error)assert(output.includes('Page not found'));
  if(theme==='theme-2'){
    assert(output.includes('data-theme-header="2"'),'Independent Theme 2 header missing');
@@ -37,6 +37,17 @@ async function render(theme,slug,error=false){
    assert(/class="footer-logo"[^>]*>[\s\S]*?<img[^>]*alt="Meta Grey Label"/i.test(output),'Theme 2 footer logo must have an accessible name');
    if(error)assert(!/<link\b[^>]*rel=["']canonical["']/i.test(output),'Error page must not canonicalize to homepage');
    else assert.equal((output.match(/<link\b[^>]*rel=["']canonical["']/gi)||[]).length,1,'Expected one canonical');
+   assert(!/<div\b[^>]*class="(?:about-shadow-[12]|shadow-[12]|cta-shadow)"[^>]*>\s*<\/div>/i.test(output),'Empty shadow node remains');
+   if(slug==='home'){
+     assert.equal((output.match(/<main\b[\s\S]*?<\/main>/i)?.[0].match(/<h1\b/g)||[]).length,1,'Homepage must have one H1');
+     assert(/<img\b[^>]*src="[^"]*design2-resource-about-1\.jpg"[^>]*width="604"[^>]*height="604"/i.test(output),'About image intrinsic dimensions missing');
+   }
+   const main=output.match(/<main\b[\s\S]*?<\/main>/i)?.[0]||'';
+   const headings=[...main.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)];
+   let prior=0;for(const [,level,body] of headings){
+    const n=Number(level);assert(body.replace(/<[^>]*>/g,'').trim(),'Empty heading '+slug);
+    assert(!prior||n<=prior+1,'Skipped heading level '+slug+' '+prior+' -> '+n);prior=n;
+   }
    if(slug!=='home'){
      assert(/<main\b[^>]*data-mgl2-layout="[^"]+"/.test(output),'Theme 2 layout adapter missing');
      assert(output.includes('data-mgl2-block="banner"'),'Theme 2 banner missing');

@@ -7442,6 +7442,7 @@ function setMobileNavigation(open, restoreFocus = false) {
 
     const shouldOpen = Boolean(open && mobileNavQuery.matches);
     primaryNav.classList.toggle('is-open', shouldOpen);
+    primaryNav.inert = mobileNavQuery.matches && !shouldOpen;
     navToggle.classList.toggle('is-active', shouldOpen);
     navToggle.setAttribute('aria-expanded', String(shouldOpen));
     navToggle.setAttribute('aria-label', shouldOpen ? 'Close navigation' : 'Open navigation');
@@ -7453,6 +7454,7 @@ function setMobileNavigation(open, restoreFocus = false) {
     }
 }
 
+if(primaryNav) primaryNav.inert = mobileNavQuery.matches;
 navToggle?.addEventListener('click', function () {
     setMobileNavigation(!primaryNav?.classList.contains('is-open'));
 });
@@ -7525,7 +7527,7 @@ document.addEventListener('keydown', function (event) {
 });
 
 mobileNavQuery.addEventListener('change', function (event) {
-    if (!event.matches) setMobileNavigation(false);
+    setMobileNavigation(false);
 });
 
 function updateHeaderScrollState() {
@@ -8033,6 +8035,43 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
 })();
 
 
+
+
+// Audit enhancements run after existing component initialization, without
+// installing a competing carousel or navigation controller.
+(function(){
+ function enhance(){
+  document.querySelectorAll('.mgl-nav-link[href],.mgl-header-action[href],.play-now-two[href]').forEach(a=>{
+   if(a.textContent.trim()||a.getAttribute('aria-label')||a.querySelector('img[alt]:not([alt=""])'))return;
+   const url=new URL(a.href,location.href),slug=url.searchParams.get('page')||url.pathname.split('/').filter(Boolean).pop()||'home';
+   const names={'home':'Meta Grey Label home','index.html':'Meta Grey Label home','solutions':'Brokerage solutions','services':'Brokerage technology','about-us':'About Meta Grey Label','insights':'Insights and resources','contact':'Contact Meta Grey Label','trading-platforms':'Explore trading platforms'};
+   const key=slug.replace(/\.html$/,'');if(names[key]||names[slug])a.setAttribute('aria-label',names[key]||names[slug]);
+  });
+  document.querySelectorAll('.banner-swiper,.banner-swiper-two').forEach(el=>{
+   const sw=el.swiper;if(!sw||el.dataset.mglAuditReady)return;el.dataset.mglAuditReady='1';
+   el.setAttribute('aria-label','Brokerage technology slides');
+   const sync=()=>{el.querySelectorAll('.swiper-slide').forEach(slide=>{slide.inert=!slide.classList.contains('swiper-slide-active');});};
+   sw.on('slideChangeTransitionEnd',sync);sync();
+   if(matchMedia('(prefers-reduced-motion: reduce)').matches){sw.params.speed=0;sw.autoplay?.stop();}
+   if(sw.params.autoplay?.enabled){
+    const b=document.createElement('button');b.type='button';b.className='mgl-slide-pause';b.textContent='Pause slideshow';el.after(b);
+    const pause=()=>{sw.autoplay.stop();b.textContent='Play slideshow';};
+    el.addEventListener('focusin',pause);el.addEventListener('mouseenter',pause);
+    b.addEventListener('click',()=>{if(sw.autoplay.running)pause();else{sw.autoplay.start();b.textContent='Pause slideshow';}});
+   }
+  });
+  const form=document.querySelector('#mgl-enquiry-form');
+  if(form){
+   let n=0;
+   const fields=[...form.querySelectorAll('label input:not([type="hidden"]),label select,label textarea')].filter(f=>f.name!=='website');
+   fields.forEach(f=>{const id=f.id||'mgl-field-'+(++n);f.id=id;f.closest('label').htmlFor=id;const error=document.createElement('small');error.id=id+'-error';error.className='mgl-field-error';error.hidden=true;f.after(error);
+    const refresh=()=>{const invalid=f.getAttribute('aria-invalid')==='true';error.hidden=!invalid;error.textContent=invalid?'Please complete this field.':'';const ids=(f.getAttribute('aria-describedby')||'').split(/\s+/).filter(x=>x&&x!==error.id);if(invalid)ids.push(error.id);if(ids.length)f.setAttribute('aria-describedby',ids.join(' '));else f.removeAttribute('aria-describedby');};
+    new MutationObserver(refresh).observe(f,{attributes:true,attributeFilter:['aria-invalid']});refresh();
+   });
+  }
+ }
+ if(document.readyState==='complete')enhance();else window.addEventListener('load',enhance,{once:true});
+})();
 
 (function layoutSwitcher(){
 'use strict';
