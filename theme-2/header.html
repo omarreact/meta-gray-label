@@ -274,13 +274,16 @@
 /* Keep the light-mode wordmark legible on Theme 2's forest-green header. */
 .mgl2-logo-light-mode{background:#F6FFE1;border-radius:6px;box-sizing:border-box;padding:3px 5px}
 
-/* Theme 2: accessible, edge-to-edge mega panels. Preserve mobile disclosure behavior. */
+/* Theme 2: content-width mega panels; no hover gap or nested desktop scrolling. */
 .mgl2-header .mgl-dropdown-link::before{width:12px;height:12px;flex-basis:12px;border:0;border-radius:0;background:currentColor;opacity:.85;clip-path:polygon(0 42%,68% 42%,46% 20%,56% 10%,100% 50%,56% 90%,46% 80%,68% 58%,0 58%)}
 @media(min-width:1200px){
- .mgl2-header .mgl-nav-list,.mgl2-header .mgl-primary-nav,.mgl2-header .mgl-nav-item{position:static}
- .mgl2-header .mgl-nav-item>.mgl-simple-panel{left:0!important;right:0!important;top:100%;width:auto!important;max-height:none!important;overflow:visible!important;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 24px;padding:20px 24px;box-sizing:border-box}
- .mgl2-header .mgl-mega-column{min-width:0}
- .mgl2-header .mgl-dropdown-link{white-space:normal}
+ .mgl2-header .mgl-nav-item--has-panel{position:relative}
+ .mgl2-header .mgl-nav-item>.mgl-simple-panel{position:absolute;left:auto!important;right:0!important;top:100%!important;width:max-content!important;max-width:calc(100vw - 48px);min-width:0;max-height:none!important;overflow:visible!important;margin:0!important;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,max-content);grid-template-columns:none;gap:8px 18px;padding:12px 14px;box-sizing:border-box}
+ .mgl2-header .mgl-nav-item:nth-child(2)>.mgl-simple-panel{left:0!important;right:auto!important}
+ .mgl2-header .mgl-mega-column{min-width:0;max-width:250px}
+ .mgl2-header #mgl-nav-technology .mgl-mega-column{max-width:205px}
+ .mgl2-header .mgl-dropdown-link{white-space:normal;padding:7px 9px}
+ .mgl2-header .mgl-dropdown-group{margin-inline:9px}
 }
 @media(max-width:1199.98px){.mgl2-header .mgl-mega-column{display:block}}
 </style>
