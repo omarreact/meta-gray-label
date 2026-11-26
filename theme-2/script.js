@@ -103,9 +103,12 @@ html=html.replace(/\bhref=(["'])([a-z0-9-]+)\.html([^"']*)\1/gi,(m,q,id,tail)=>k
 html=html.replace(/<meta\b[^>]*\bname=["']viewport["'][^>]*>/gi,'<meta name="viewport" content="width=device-width, initial-scale=1">');
 // Change this version when the independently styled Theme 2 CSS changes.
 html=html.replace(/href="style\.css"/g,'href="style.css?v=inner-layout-20261125e"');
-html=html.replace(/src="runtime\.js"/g,'src="runtime.js?v=theme2-brand-20261126"');
+html=html.replace(/src="runtime\.js"/g,'src="runtime.js?v=theme2-brand-v5-20261126"');
 // Theme 2 owns its branding assets; shared content is unchanged.
 html=html.replace(/assets\/media\/branding\/((?:logo-(?:dark|light|symbol)\.svg|favicon(?:-dark|-light)?\.svg|favicon-32\.png|icon-(?:192|512)\.png|apple-touch-icon\.png))/g,(match,name)=>'assets/media/branding/theme-2/'+name);
+// Ensure every layout declares the same mode-aware, Theme 2-specific icons.
+html=html.replace(/<link\b[^>]*\brel=["'](?:icon|shortcut icon|apple-touch-icon)["'][^>]*>/gi,'');
+html=html.replace(/<\/head>/i,()=>'<link id="site-favicon" rel="icon" type="image/svg+xml" href="../assets/media/branding/theme-2/favicon-dark.svg"><link rel="icon" type="image/png" sizes="32x32" href="../assets/media/branding/theme-2/favicon-32.png"><link id="site-icon-large" rel="icon" type="image/png" sizes="192x192" href="../assets/media/branding/theme-2/icon-192.png"><link id="site-apple-icon" rel="apple-touch-icon" sizes="180x180" href="../assets/media/branding/theme-2/apple-touch-icon.png"></head>');
 html=html.replace(/<html\b/i,'<html data-mgl-theme="'+theme+'"');
 // Canonicalize valid alternate pages only; a missing route is not the homepage.
 html=html.replace(/<link\b[^>]*\brel=["']canonical["'][^>]*>/gi,'');
